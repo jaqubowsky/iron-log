@@ -1,0 +1,104 @@
+### Create exercise - happy path
+POST http://localhost:3000/exercises
+Content-Type: application/json
+
+{
+  "name": "Bench Press",
+  "description": "Flat barbell bench press",
+  "category": "chest"
+}
+
+### Create exercise - legs
+POST http://localhost:3000/exercises
+Content-Type: application/json
+
+{
+  "name": "Squat",
+  "description": "Back squat with barbell",
+  "category": "legs"
+}
+
+### Create exercise - missing fields (should it fail?)
+POST http://localhost:3000/exercises
+Content-Type: application/json
+
+{
+  "name": "Deadlift"
+}
+
+### Create exercise - extra fields (should be stripped?)
+POST http://localhost:3000/exercises
+Content-Type: application/json
+
+{
+  "name": "Overhead Press",
+  "description": "Standing barbell OHP",
+  "category": "shoulders",
+  "someRandomField": "should this be saved?"
+}
+
+### Create exercise - empty body
+POST http://localhost:3000/exercises
+Content-Type: application/json
+
+{}
+
+### Create exercise - invalid category
+POST http://localhost:3000/exercises
+Content-Type: application/json
+
+{
+  "name": "Curl",
+  "description": "Bicep curl",
+  "category": "nonexistent"
+}
+
+### Get all exercises
+GET http://localhost:3000/exercises
+
+### Get exercise by id - replace with real id after create
+GET http://localhost:3000/exercises/REPLACE_WITH_ID
+
+### Get exercise by id - nonexistent
+GET http://localhost:3000/exercises/nonexistent-id-123
+
+### Update exercise - replace id
+PATCH http://localhost:3000/exercises/REPLACE_WITH_ID
+Content-Type: application/json
+
+{
+  "name": "Incline Bench Press"
+}
+
+### Update exercise - multiple fields
+PATCH http://localhost:3000/exercises/REPLACE_WITH_ID
+Content-Type: application/json
+
+{
+  "name": "Low Bar Squat",
+  "description": "Low bar back squat",
+  "category": "legs"
+}
+
+### Update exercise - nonexistent id
+PATCH http://localhost:3000/exercises/nonexistent-id-123
+Content-Type: application/json
+
+{
+  "name": "Ghost Exercise"
+}
+
+### Update exercise - empty body
+PATCH http://localhost:3000/exercises/REPLACE_WITH_ID
+Content-Type: application/json
+
+{}
+
+### Delete exercise - replace id
+DELETE http://localhost:3000/exercises/REPLACE_WITH_ID
+
+### Delete exercise - nonexistent id
+DELETE http://localhost:3000/exercises/nonexistent-id-123
+
+### Delete exercise - then try to get it (should 404)
+GET http://localhost:3000/exercises/REPLACE_WITH_DELETED_ID
