@@ -4,12 +4,12 @@ import {
   Delete,
   Get,
   Param,
+  ParseUUIDPipe,
   Patch,
   Post,
 } from '@nestjs/common';
 import { ExercisesService } from './exercises.service';
-import { type ExerciseId } from './types/exercise';
-import { type UpdateExerciseByIdDTO } from './dtos/update-exercise-by-id-dto';
+import { UpdateExerciseByIdDTO } from './dtos/update-exercise-by-id-dto';
 import { CreateExerciseDTO } from './dtos/create-exercise-dto';
 
 @Controller('exercises')
@@ -22,17 +22,20 @@ export class ExercisesController {
   }
 
   @Get(':id')
-  findOne(@Param('id') id: ExerciseId) {
+  findOne(@Param('id', new ParseUUIDPipe()) id: string) {
     return this.exercisesService.getById(id);
   }
 
   @Delete(':id')
-  removeOne(@Param('id') id: ExerciseId) {
+  removeOne(@Param('id', new ParseUUIDPipe()) id: string) {
     return this.exercisesService.removeExercise(id);
   }
 
   @Patch(':id')
-  updateOne(@Param('id') id: ExerciseId, @Body() data: UpdateExerciseByIdDTO) {
+  updateOne(
+    @Param('id', new ParseUUIDPipe()) id: string,
+    @Body() data: UpdateExerciseByIdDTO,
+  ) {
     return this.exercisesService.updateExercise(id, data);
   }
 

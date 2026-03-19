@@ -1,76 +1,68 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { CreateExerciseDTO } from './dtos/create-exercise-dto';
-import { Exercise, ExerciseId } from './types/exercise';
-import { randomUUID } from 'crypto';
 import { UpdateExerciseByIdDTO } from './dtos/update-exercise-by-id-dto';
-
-type Result<T> = { ok: true; data: T } | { ok: false };
-
-type ExerciseAtIndex = {
-  exercise: Exercise;
-  index: number;
-};
+import { PrismaService } from 'src/db/prisma.service';
+import { Exercise } from 'generated/prisma/client';
 
 @Injectable()
 export class ExercisesService {
-  private exercises: Exercise[] = [];
+  constructor(private prisma: PrismaService) {}
 
-  private getExerciseAtIndex(id: ExerciseId): Result<ExerciseAtIndex> {
-    const foundExercise = this.getById(id);
-    if (!foundExercise) return { ok: false };
+  private async exerciseById(id: string) {
+    const exercise = await this.prisma.exercise.findUnique({
+      where: {
+        id,
+      },
+    });
+    if (!exercise) return null;
 
-    const exerciseIndex = this.exercises.indexOf(foundExercise);
-    if (exerciseIndex === -1) return { ok: false };
-
-    return {
-      ok: true,
-      data: { exercise: foundExercise, index: exerciseIndex },
-    };
-  }
-
-  getAll(): Exercise[] {
-    return this.exercises;
-  }
-
-  createExercise(createExerciseDTO: CreateExerciseDTO) {
-    const exercise = { ...createExerciseDTO, id: randomUUID() as ExerciseId };
-
-    this.exercises.push(exercise);
     return exercise;
   }
 
-  getById(id: ExerciseId) {
-    return this.exercises.find(
-      (exercise) => String(exercise.id) === String(id),
-    );
+  async getAll(): Promise<Exercise[]> {
+    return await this.prisma.exercise.findMany();
   }
 
-  updateExercise(id: ExerciseId, updateExerciseByIdDTO: UpdateExerciseByIdDTO) {
-    const result = this.getExerciseAtIndex(id);
-    if (!result.ok) throw new NotFoundException('Exercise not found');
+  async createExercise(createExerciseDTO: CreateExerciseDTO) {
+    const exercise = await this.prisma.exercise.create({
+      data: createExerciseDTO,
+    });
 
-    const {
-      data: { exercise, index },
-    } = result;
+    return exercise;
+  }
 
-    const updatedExercise = (this.exercises[index] = {
-      ...exercise,
-      ...updateExerciseByIdDTO,
+  async getById(id: string) {
+    const exercise = await this.exerciseById(id);
+    if (!exercise) throw new NotFoundException('Exercise not found');
+
+    return exercise;
+  }
+
+  async updateExercise(
+    id: string,
+    updateExerciseByIdDTO: UpdateExerciseByIdDTO,
+  ) {
+    const exercise = await this.exerciseById(id);
+    if (!exercise) throw new NotFoundException('Exercise not found');
+
+    const updatedExercise = await this.prisma.exercise.update({
+      where: {
+        id,
+      },
+      data: { ...updateExerciseByIdDTO },
     });
 
     return updatedExercise;
   }
 
-  removeExercise(id: ExerciseId) {
-    const result = this.getExerciseAtIndex(id);
-    if (!result.ok) throw new NotFoundException('Exercise not found');
+  async removeExercise(id: string) {
+    const exercise = await this.exerciseById(id);
+    if (!exercise) throw new NotFoundException('Exercise not found');
 
-    const {
-      data: { exercise, index },
-    } = result;
+    const removedExercise = await this.prisma.exercise.delete({
+      where: { id },
+    });
 
-    this.exercises.splice(index, 1);
-
-    return exercise;
+    return removedExercise;
   }
 }

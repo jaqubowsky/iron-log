@@ -1,7 +1,4 @@
-import { ExerciseCategory } from '../types/exercise';
+import { PartialType } from '@nestjs/mapped-types';
+import { CreateExerciseDTO } from './create-exercise-dto';
 
-export class UpdateExerciseByIdDTO {
-  name?: string;
-  description?: string;
-  category?: ExerciseCategory;
-}
+export class UpdateExerciseByIdDTO extends PartialType(CreateExerciseDTO) {}
