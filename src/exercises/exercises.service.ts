@@ -1,23 +1,12 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { CreateExerciseDTO } from './dtos/create-exercise-dto';
 import { UpdateExerciseByIdDTO } from './dtos/update-exercise-by-id-dto';
 import { PrismaService } from 'src/db/prisma.service';
-import { Exercise } from 'generated/prisma/client';
+import { Exercise } from 'prisma/generated/prisma/client';
 
 @Injectable()
 export class ExercisesService {
   constructor(private prisma: PrismaService) {}
-
-  private async exerciseById(id: string) {
-    const exercise = await this.prisma.exercise.findUnique({
-      where: {
-        id,
-      },
-    });
-    if (!exercise) return null;
-
-    return exercise;
-  }
 
   async getAll(): Promise<Exercise[]> {
     return await this.prisma.exercise.findMany();
@@ -32,9 +21,11 @@ export class ExercisesService {
   }
 
   async getById(id: string) {
-    const exercise = await this.exerciseById(id);
-    if (!exercise) throw new NotFoundException('Exercise not found');
-
+    const exercise = await this.prisma.exercise.findUniqueOrThrow({
+      where: {
+        id,
+      },
+    });
     return exercise;
   }
 
@@ -42,9 +33,6 @@ export class ExercisesService {
     id: string,
     updateExerciseByIdDTO: UpdateExerciseByIdDTO,
   ) {
-    const exercise = await this.exerciseById(id);
-    if (!exercise) throw new NotFoundException('Exercise not found');
-
     const updatedExercise = await this.prisma.exercise.update({
       where: {
         id,
@@ -56,9 +44,6 @@ export class ExercisesService {
   }
 
   async removeExercise(id: string) {
-    const exercise = await this.exerciseById(id);
-    if (!exercise) throw new NotFoundException('Exercise not found');
-
     const removedExercise = await this.prisma.exercise.delete({
       where: { id },
     });

@@ -5,7 +5,7 @@ Content-Type: application/json
 {
   "name": "Bench Press",
   "description": "Flat barbell bench press",
-  "category": "CHESTT"
+  "category": "CHEST"
 }
 
 ### Create exercise - legs
@@ -23,7 +23,8 @@ POST http://localhost:3000/exercises
 Content-Type: application/json
 
 {
-  "name": "Deadlift"
+  "name": "Deadlift",
+  "category": "LEGS"
 }
 
 ### Create exercise - extra fields (should be stripped?)
@@ -60,7 +61,7 @@ GET http://localhost:3000/exercises
 GET http://localhost:3000/exercises/fd5ec71c-ffa4-486f-a29b-89d8e2b5a7bc
 
 ### Get exercise by id - nonexistent
-GET http://localhost:3000/exercises/fd5ec71c-ffa4-486f-a29b
+GET http://localhost:3000/exercises/237b5629-3a76-4d27-b2a0-b7658571ecc4
 
 ### Update exercise - replace id
 PATCH http://localhost:3000/exercises/fd5ec71c-ffa4-486f-a29b-89d8e2b5a7bc
