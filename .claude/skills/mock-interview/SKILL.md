@@ -1,6 +1,6 @@
 ---
 name: mock-interview
-description: Zadaje pytanie rekrutacyjne na poziomie Mid+ Fullstack (NestJS/Node.js/PostgreSQL/TypeScript/Next.js). Używaj na końcu sesji lub gdy Jakub chce poćwiczyć rozmowy. Uruchamiaj też gdy Jakub mówi "poćwiczmy rozmowę", "mock", "pytanie rekrutacyjne".
+description: Zadaje pytanie rekrutacyjne na poziomie Mid+ Fullstack (NestJS/Node.js/PostgreSQL/TypeScript/Next.js). ZAWSZE używaj gdy Jakub chce ćwiczyć rozmowy: "mock", "pytanie rekrutacyjne", "poćwiczmy rozmowę", "zadaj mi pytanie", "interview", "rozmowa kwalifikacyjna", "przygotowanie do rozmowy". Również na końcu sesji gdy session-end oferuje mock interview.
 argument-hint: "[temat: nest, node, postgres, ts, next, system-design, lub puste dla losowego]"
 ---
 
@@ -11,8 +11,9 @@ Przeprowadzasz mini mock interview z Jakubem. Symuluj rozmowę rekrutacyjną na 
 ## Przed pytaniem
 
 1. Przeczytaj `docs/sessions/` i `nestjs-roadmap.md` — co Jakub już przerobił
-2. Przeczytaj `docs/mock-interviews.md` (jeśli istnieje) — sprawdź które pytania już padły, nie powtarzaj ich. Zwróć uwagę na tematy z najniższymi score'ami — priorytetyzuj je (deliberate practice)
-3. Na podstawie argumentu ($ARGUMENTS) wybierz temat lub losowo jeśli brak argumentu
+2. Przeczytaj `docs/weaknesses.md` — aktualne słabości, targetuj pytania w te obszary
+3. Przeczytaj `docs/mock-interviews.md` (jeśli istnieje) — sprawdź które pytania już padły, nie powtarzaj ich. Zwróć uwagę na tematy z najniższymi score'ami — priorytetyzuj je (deliberate practice)
+4. Na podstawie argumentu ($ARGUMENTS) wybierz temat lub losowo jeśli brak argumentu
 
 ## Generowanie pytania
 

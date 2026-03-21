@@ -1,6 +1,6 @@
 ---
 name: session-end
-description: Zamyka sesję coachingową. Prowadzi explain phase, opcjonalnie mock interview, daje feedback, zapisuje session log i aktualizuje roadmapę. Używaj gdy Jakub mówi "kończymy", "koniec sesji", "zamykamy", lub gdy czas sesji się kończy.
+description: Zamyka sesję coachingową — explain phase, feedback, session log, aktualizacja roadmapy i słabości. ZAWSZE używaj gdy Jakub kończy pracę: "kończymy", "koniec", "zamykamy", "tyle na dziś", "muszę lecieć", "ostatnie 5 min", albo gdy czas sesji się kończy. Nawet jeśli nie powie wprost "koniec sesji" — jeśli sygnalizuje że kończy, odpal ten skill.
 disable-model-invocation: true
 ---
 
@@ -33,32 +33,71 @@ Daj szczery feedback z sesji:
 
 ## 4. Session log
 
-Przeczytaj `docs/sessions/` żeby porównać z poprzednimi sesjami, potem stwórz wpis w formacie z CLAUDE.md (sekcja "Session logi").
+Przeczytaj `docs/sessions/` żeby porównać z poprzednimi sesjami, potem stwórz wpis.
 
 Plik: `docs/sessions/YYYY-MM-DD.md`
 - Jeśli plik z dzisiejszą datą już istnieje → dopisz nową sesję na końcu pliku (z nagłówkiem np. "# Sesja 2 — YYYY-MM-DD")
 - Jeśli nie istnieje → stwórz nowy
 
-Wypełnij WSZYSTKIE sekcje:
-- Recall challenge (z `/session-start` — jeśli było)
-- Co robił
-- Samodzielność (1-5)
-- Explain phase (z kroku 1 powyżej)
-- Mock interview (jeśli było)
-- Co poszło dobrze / źle
-- Słabości — update (porównaj z poprzednimi sesjami)
-- Faza coachingu + aktualny milestone
-- Następna sesja
+### Format session logu
 
-## 5. Aktualizacja roadmapy
+```markdown
+# Sesja YYYY-MM-DD
+
+## Recall challenge
+[Pytanie + jak odpowiedział (1-5). Co pamiętał, co pominął]
+
+## Co robił
+[1-2 zdania: jaki task, co zaimplementował]
+
+## Samodzielność (1-5)
+[Ocena: 1=pisałem za niego, 2=mocno naprowadzałem, 3=naprowadzałem pytaniami, 4=sam z minimalną pomocą, 5=sam od A do Z]
+
+## Explain phase
+[Jak wytłumaczył co zrobił? Czy umiał uzasadnić decyzje? Co pominął?]
+
+## Mock interview (opcjonalnie)
+[Pytanie, score (1-5), krótki feedback]
+
+## Co poszło dobrze
+[Konkretne momenty samodzielnego myślenia, dobre decyzje]
+
+## Co poszło źle
+[Gdzie się zaciął, błędy w myśleniu, ghostwriting attempts]
+
+## Słabości — update
+[Czy któraś słabość się poprawiła? Czy nowa się pojawiła?]
+
+## Faza coachingu
+[Aktualna faza (1/2/3) i czy jest gotowy na przejście do następnej. Milestone: aktualny]
+
+## Następna sesja
+[Co powinien zrobić następnym razem]
+```
+
+### Zasady logowania
+- Bądź szczery — log ma pokazywać realny progres, nie pocieszać
+- Samodzielność 3+ to dobry wynik na początku
+- Porównuj z poprzednimi sesjami — "tydzień temu potrzebował pomocy z X, dziś zrobił sam"
+- Jeśli samodzielność spada — zanotuj dlaczego i co zmienić
+- Po 4+ sesjach z oceną 4-5 → zasugeruj przejście do następnej fazy
+
+## 5. Aktualizacja słabości
+
+Przeczytaj `docs/weaknesses.md` i zaktualizuj:
+- Czy któraś słabość się poprawiła na tej sesji? → zanotuj progres
+- Czy nowa się pojawiła? → dodaj
+- Czy któraś jest już nieaktualna? → usuń
+
+## 6. Aktualizacja roadmapy
 
 Sprawdź czy jakieś checkpointy z `nestjs-roadmap.md` zostały spełnione na tej sesji → odhacz je.
 
-## 6. Aktualizacja mock-interviews.md
+## 7. Aktualizacja mock-interviews.md
 
 Jeśli było mock interview → dopisz wiersz do `docs/mock-interviews.md` (stwórz plik z headerem tabeli jeśli nie istnieje).
 
-## 7. Praca domowa
+## 8. Praca domowa
 
 Na koniec powiedz Jakubowi:
 - Co przeczytać z docs przed następną sesją (konkretny link/sekcja)

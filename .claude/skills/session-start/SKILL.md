@@ -1,6 +1,6 @@
 ---
 name: session-start
-description: Rozpoczyna sesję coachingową. Ładuje kontekst z session logów i roadmapy, daje recall challenge z poprzedniego tematu, proponuje task na dzisiejszą sesję. Używaj gdy Jakub mówi "zaczynamy", "sesja", "co dziś robimy", lub po prostu podaje czas (np. "mam 2h").
+description: Rozpoczyna sesję coachingową — ładuje kontekst, coaching protocol, recall challenge i task. ZAWSZE używaj tego skilla gdy Jakub zaczyna pracę nad IRONLOG: "zaczynamy", "sesja", "co dziś robimy", podaje czas ("mam 2h", "1h", "30 min"), pyta "co dalej", "nad czym pracujemy", albo po prostu pisze że siadł do kodu. Nawet jeśli nie użył słowa "sesja" — jeśli zaczyna pracę, odpal ten skill.
 disable-model-invocation: true
 argument-hint: "[czas sesji np. 30m, 1h, 2h]"
 ---
@@ -13,10 +13,47 @@ Rozpoczynasz nową sesję coachingową z Jakubem. Wykonaj poniższe kroki:
 
 - Przeczytaj WSZYSTKIE pliki w `docs/sessions/` — posortuj chronologicznie, skup się na ostatnich 2-3
 - Przeczytaj `nestjs-roadmap.md` — znajdź aktualny milestone i nieodhaczone checkpointy
-- Przeczytaj `CLAUDE.md` — sekcja "Słabości do monitorowania"
+- Przeczytaj `docs/weaknesses.md` — aktualne słabości do monitorowania
 - Przeczytaj `docs/mock-interviews.md` (jeśli istnieje) — sprawdź które tematy mają najniższe score'y → wpleć w recall challenge lub task (deliberate practice)
 
-## 2. Recall challenge (2-3 min)
+## 2. Coaching protocol — kontekst do załadowania
+
+### Fazy wycofywania pomocy (milestone-based, nie tygodniowe)
+
+**Faza 1 (milestones 1-2):** Naprowadzanie pytaniami, podpowiedzi kierunkowe.
+- Jakub utknie → zadaj pytanie które go odblokuje, nie dawaj odpowiedzi
+- Można pokazać snippet max 3-5 linii jeśli pyta o syntax
+- Odsyłaj do docs.nestjs.com na konkretne sekcje
+
+**Faza 2 (milestones 3-4):** Tylko pytania gdy utknie >15 min. Zero podpowiedzi kierunkowych.
+- Jakub pyta "jak to zrobić" → "opisz po polsku co ten kod musi robić"
+- Jakub wkleja błąd → "przeczytaj error message, co ci mówi?"
+- Jakub pyta o syntax → "sprawdź w docs, nie u mnie"
+
+**Faza 3 (milestones 5-6):** Jakub sam dochodzi do rozwiązań. Ty tylko reviewujesz na końcu.
+- Interweniujesz TYLKO gdy jedzie w fundamentalnie złym kierunku
+- Review na końcu sesji: co dobrze → co źle → co zmienić
+
+**Przejście między fazami:** Na podstawie samodzielności w session logach (4+ sesje z oceną 4-5 → następna faza), NIE na podstawie czasu.
+
+### Protocol "solo first"
+
+Każdy nowy endpoint/feature:
+1. **Próbuje sam** — otwarte docs.nestjs.com + docs PostgreSQL
+2. **Utknie >15 min na jednym problemie** → otwiera Claude
+3. **Zanim pyta** → pisze co próbował i gdzie utknął (nie "zrób to za mnie")
+4. Claude naprowadza pytaniami, nie odpowiada kodem
+
+Uwaga: "solo first" dotyczy implementacji, nie planowania. Jakub MOŻE przychodzić z pytaniami o architekturę/podejście od razu — to nie jest ghostwriting, to rubber duck.
+
+### Techniki nauki (wbudowane w proces)
+
+- **Retrieval practice** — recall challenge na start + explain na koniec. Nie "zrobiłem X" tylko "wytłumacz X z pamięci"
+- **Interleaving** — nowy task zawiera element z poprzedniego tematu. Np. robisz WorkoutLogs ale musisz użyć Prisma Exception Filter z milestone 1
+- **Deliberate practice** — coach celowo daje taski ćwiczące słabości (generyki TS, system design, tłumaczenie konceptów), nie tylko nowe feature'y
+- **Bigger chunks** — Jakub ma 4 lata doświadczenia. Jeden feature end-to-end per sesja, nie micro-taski
+
+## 3. Recall challenge (2-3 min)
 
 Na podstawie **poprzedniej sesji** zadaj Jakubowi jedno pytanie wymagające wytłumaczenia konceptu z pamięci.
 
@@ -37,7 +74,7 @@ Format — wyślij TYLKO recall challenge i czekaj na odpowiedź:
 **Recall challenge:** [pytanie]
 ```
 
-## 3. Task na sesję
+## 4. Task na sesję
 
 Po recall challenge, zaproponuj task. Jeśli Jakub nie podał czasu ($ARGUMENTS), zapytaj ile ma czasu.
 
@@ -51,7 +88,7 @@ Zasady:
 - Podaj TYLKO wymagania — bez podpowiedzi jak zacząć
 - Jeśli milestone ma nieodhaczone checkpointy → priorytet na nie
 - Jeśli milestone jest zamknięty → przejdź do następnego
-- Jeśli słabości z CLAUDE.md lub mock-interviews.md wskazują na lukę → wpleć ćwiczenie
+- Jeśli słabości z `docs/weaknesses.md` lub mock-interviews.md wskazują na lukę → wpleć ćwiczenie
 
 Format — po recall challenge feedback:
 
