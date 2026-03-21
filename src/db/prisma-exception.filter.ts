@@ -7,13 +7,14 @@ import {
 import { Request, Response } from 'express';
 import { PrismaClientKnownRequestError } from 'prisma/generated/prisma/internal/prismaNamespace';
 
-type PrismaError = 'P2000' | 'P2002' | 'P2025';
+type PrismaError = 'P2000' | 'P2003' | 'P2002' | 'P2025';
 
 @Catch(PrismaClientKnownRequestError)
 export class PrismaExceptionFilter implements ExceptionFilter {
   private readonly defaultMapping: Record<PrismaError, HttpStatus> = {
     P2000: HttpStatus.BAD_REQUEST,
     P2002: HttpStatus.CONFLICT,
+    P2003: HttpStatus.BAD_REQUEST,
     P2025: HttpStatus.NOT_FOUND,
   };
 
@@ -33,6 +34,19 @@ export class PrismaExceptionFilter implements ExceptionFilter {
     return this.defaultMapping[exception.code];
   }
 
+  private getPrismaTarget(exception: PrismaClientKnownRequestError) {
+    if (Array.isArray(exception.meta?.target)) {
+      return exception.meta.target as string[];
+    }
+
+    const match = exception.message.match(/fields: \(`?([^`)]+)`?\)/);
+    if (match && match[1]) {
+      return match[1].split(',').map((s) => s.trim().replace(/`/g, ''));
+    }
+
+    return [];
+  }
+
   private buildMessage(exception: PrismaClientKnownRequestError) {
     if (!this.isPrismaExceptionCode(exception.code)) {
       return 'Internal server error';
@@ -43,7 +57,20 @@ export class PrismaExceptionFilter implements ExceptionFilter {
         return 'Bad request. Please check your request data.';
       }
       case 'P2002': {
-        return 'There are some violating fields. Please check your request data.';
+        const target = this.getPrismaTarget(exception);
+        if (!target?.length) {
+          return "Record is existing with some fields you've provided. Please check your request data.";
+        }
+
+        return `Record with the fields: [${target.join(', ')}] already exists. Please check your request data.`;
+      }
+      case 'P2003': {
+        const target = this.getPrismaTarget(exception);
+        if (!target.length) {
+          return "Records within some fields you've provided do not exist. Please check your request data";
+        }
+
+        return `Records within these fields: [${target.join(', ')}] do not exist. Please check your request data.`;
       }
       case 'P2025': {
         return 'Resource not found. Please check your request data.';

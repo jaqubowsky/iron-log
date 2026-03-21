@@ -1,8 +1,9 @@
-# NestJS + Backend — Roadmap (8 tygodni)
+# NestJS + Backend — Roadmap (milestone-based)
 
-**Cel:** Za 8 tygodni aplikuję na Fullstack Mid (Next.js + NestJS/Node.js).
+**Cel:** Aplikuję na Fullstack Mid+ (Next.js + NestJS/Node.js).
 **Tempo:** 2-3h dziennie. Codziennie. Bez wymówek.
 **Projekt:** IRONLOG API — backend do aplikacji treningowej.
+**Progresja:** Milestones, nie tygodnie. Kończysz milestone → idziesz dalej. Nie czekasz na kalendarz.
 
 ## Filozofia
 
@@ -21,12 +22,12 @@ AI używasz jako:
 
 ---
 
-## Tydzień 1-2 — Fundament NestJS + Exercises CRUD ✅ (w trakcie)
+## Milestone 1 — Fundament NestJS + Exercises CRUD ✅
 
 ### Co robisz
 
 - Architektura modułowa — diagram modułów z uzasadnieniem ✅
-- ExercisesModule — CRUD, separation of concerns ✅ (w trakcie)
+- ExercisesModule — CRUD, separation of concerns ✅
 - Prisma + PostgreSQL — schemat bazy, relacje, migracje
 - Error handling strategy — spójne kody HTTP, format errorów
 
@@ -39,12 +40,12 @@ AI używasz jako:
 ### Checkpointy
 
 - [x] ExercisesModule CRUD działa, pisany sam
-- [] Error handling jest spójny w całym module
-- [ ] Potrafię wytłumaczyć podział controller/service komuś na rozmowie
+- [x] Error handling jest spójny w całym module
+- [x] Potrafię wytłumaczyć podział controller/service komuś na rozmowie
 
 ---
 
-## Tydzień 3 — PostgreSQL deep dive + relacje
+## Milestone 2 — PostgreSQL deep dive + relacje
 
 ### Co robisz
 
@@ -76,7 +77,7 @@ AI używasz jako:
 
 ---
 
-## Tydzień 4 — Auth + security + request lifecycle
+## Milestone 3 — Auth + security + request lifecycle
 
 ### Co robisz
 
@@ -100,7 +101,7 @@ AI używasz jako:
 
 ---
 
-## Tydzień 5 — Docker + deploy + Next.js front
+## Milestone 4 — Docker + deploy + Next.js front
 
 ### Co robisz
 
@@ -124,7 +125,7 @@ AI używasz jako:
 
 ---
 
-## Tydzień 6 — Testy + API review
+## Milestone 5 — Testy + API review
 
 ### Co robisz
 
@@ -146,7 +147,7 @@ AI używasz jako:
 
 ---
 
-## Tydzień 7-8 — Rozmowy + uzupełnianie braków
+## Milestone 6 — Rozmowy + uzupełnianie braków
 
 ### Co robisz
 
@@ -155,23 +156,15 @@ AI używasz jako:
 - System design challenges (20 min z kartką)
 - Uzupełniasz braki które wyjdą na rozmowach
 
-### Typowe pytania rekrutacyjne do przećwiczenia
+### Rytuały sesyjne (od milestone 3)
 
-- Co to event loop? Jak Node.js obsługuje concurrency?
-- Opisz request lifecycle w NestJS
-- Kiedy guard a kiedy middleware?
-- Jak zaprojektujesz API dla systemu X? (system design)
-- Napisz endpoint który robi Y (live coding)
-
-### Weekly rituals (zacznij od tyg. 4, kontynuuj do końca)
-
-- **Mock interview** — Claude zadaje pytanie rekrutacyjne, Ty odpowiadasz na głos, potem feedback
-- **Design challenge** — 20 min z kartką: "zaprojektuj API dla X" (moduły, tabele, endpointy, edge case'y)
-- **Review session logu** — sprawdź progres samodzielności, porównaj z poprzednimi tygodniami
+- **`/mock-interview`** — co sesję pytanie rekrutacyjne, odpowiadasz swoimi słowami, feedback
+- **Design challenge** — co 3-4 sesje: 20 min z kartką: "zaprojektuj API dla X"
+- **Review session logu** — co 5 sesji: sprawdź progres samodzielności, porównaj z poprzednimi
 
 ### Checkpointy
 
-- [ ] Wysłane min. 5 aplikacji na pozycje Fullstack Mid
+- [ ] Wysłane min. 5 aplikacji na pozycje Fullstack Mid+
 - [ ] Potrafię wytłumaczyć event loop, DI, JWT, request lifecycle bez zacinania
 - [ ] Potrafię zaprojektować prosty system od zera na kartce w 20 min
 - [ ] IRONLOG jest na GitHubie z README, Dockerem, testami — portfolio ready
@@ -182,7 +175,7 @@ AI używasz jako:
 
 1. **Zanim napiszesz kod — podejmij decyzję i zapisz uzasadnienie**
 2. **Pisz kod sam — AI to reference i reviewer, nie ghostwriter**
-3. **30 min solo → 15 min stuck → dopiero Claude**
+3. **Próbuj sam → utknie >15 min → dopiero Claude** (ale rubber duck / architektura od razu OK)
 4. **Nie pamiętasz syntax? Docs. Nie rozumiesz dlaczego? Zatrzymaj się i przemyśl.**
 5. **Jeśli nie potrafisz wytłumaczyć DLACZEGO tak — nie rozumiesz tego**
 6. **Rysuj diagramy — data flow, nie UI mockupy**
