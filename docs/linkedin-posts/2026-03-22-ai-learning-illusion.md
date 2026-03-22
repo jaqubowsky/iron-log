@@ -12,7 +12,7 @@ I watched a video by @Marcin Czarkowski about the illusion of learning and it cl
 
 I'm going through NestJS now and I set up Claude Code as a coach that refuses to write code for me. It explains stuff, reviews what I wrote, quizzes me. Nothing else.
 
-It's annoying. You're stuck on something, the AI has the answer right there, and it won't give it to you. Each session starts with a quiz on last time's material. I code, it nudges me when I'm off. At the end I have to explain what I built and why. Then I make Anki flashcards, just 5-10 min a day.
+It's annoying. You're stuck on something, the AI has the answer right there, and it won't give it to you. Each session starts with a quiz on last time's material. I code, it nudges me when I'm off. At the end I have to explain what I built and why. Then it generates Anki flashcards from the session and I review them daily, just 5-10 min a day.
 
 It tracks where I get stuck between sessions too so I actually go back to stuff instead of just moving on.
 
