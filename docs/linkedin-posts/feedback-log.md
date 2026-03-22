@@ -15,3 +15,8 @@ Patterns learned from Jakub's edits and feedback during post writing.
 - 2026-03-22: When referencing a video/article, tag the author naturally in the sentence ("I watched a video by @Name about...") instead of a separate "shoutout to @Name" line. Author gets a notification, feels natural, not performative.
 - 2026-03-22: In saved posts, mark LinkedIn tags as @First Last — so when copying to LinkedIn you remember who to tag.
 - 2026-03-22: Prefer commas and periods over hyphens/dashes. "Database, relations, error handling." reads more natural than "database - relations - error handling". Commas give calmer rhythm.
+- 2026-03-22: Hook should be sharp, not flat. "Turns out I was just reading, not learning" > "Turns out I wasn't learning much". The contrast (reading vs learning) gives it punch.
+- 2026-03-22: "it clicked" > "it got to me" — more concrete, implies a specific moment of understanding rather than vague emotional impact.
+- 2026-03-22: Add "still early, but" when claiming results after short time (2 weeks). Prevents premature victory lap and sounds more honest.
+- 2026-03-22: Universal frustration moments ("the AI has the answer right there and it won't give it to you") are stronger than specific examples — reader inserts their own experience. Don't over-specify when the general version is already relatable.
+- 2026-03-22: Don't add context about tagged people ("a Polish dev") — on LinkedIn people can click the profile. Adding descriptions feels forced.

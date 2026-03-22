@@ -2,13 +2,13 @@
 
 Date: 2026-03-22
 Language: en
-Publish: 2026-03-25 (wtorek)
+Publish: 2026-03-23 (poniedziałek)
 
 ## Final version
 
-I've been using AI to learn code for months. Turns out I wasn't learning much.
+I've been using AI to learn code for months. Turns out I was just reading, not learning.
 
-I watched a video by @Marcin Czarkowski about the illusion of learning and it got to me, you read AI-generated code, feel like you understand it, but your brain just skips over it. That was me and I didn't even notice until I tried to build something without AI and struggled way more than I expected.
+I watched a video by @Marcin Czarkowski about the illusion of learning and it clicked, you read AI-generated code, feel like you understand it, but your brain just skips over it. That was me and I didn't even notice until I tried to build something without AI and struggled way more than I expected.
 
 I'm going through NestJS now and I set up Claude Code as a coach that refuses to write code for me. It explains stuff, reviews what I wrote, quizzes me. Nothing else.
 
@@ -16,7 +16,7 @@ It's annoying. You're stuck on something, the AI has the answer right there, and
 
 It tracks where I get stuck between sessions too so I actually go back to stuff instead of just moving on.
 
-Two weeks in. I built two full NestJS modules from scratch. Database, relations, error handling. And I can explain every line, not just make it compile.
+Two weeks in, still early, but I built two full NestJS modules from scratch. Database, relations, error handling. And I can explain every line, not just make it compile.
 
 Not quitting AI. The opposite, once I actually understand what I'm looking at, I'll get way more out of it than I ever did.
 
