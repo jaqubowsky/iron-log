@@ -20,3 +20,5 @@ Patterns learned from Jakub's edits and feedback during post writing.
 - 2026-03-22: Add "still early, but" when claiming results after short time (2 weeks). Prevents premature victory lap and sounds more honest.
 - 2026-03-22: Universal frustration moments ("the AI has the answer right there and it won't give it to you") are stronger than specific examples — reader inserts their own experience. Don't over-specify when the general version is already relatable.
 - 2026-03-22: Don't add context about tagged people ("a Polish dev") — on LinkedIn people can click the profile. Adding descriptions feels forced.
+- 2026-03-22: Don't say "I make flashcards" when the AI generates them — be accurate about what the system does vs what Jakub does. He reviews, AI generates.
+- 2026-03-22: Avoid redundancy like "daily" + "a day" in the same sentence. Pick one.
