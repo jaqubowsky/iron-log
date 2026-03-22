@@ -73,9 +73,11 @@ Standardowy NestJS scaffold — modułowa architektura z DI containerem. Roadmap
 - `docs/nest-vs-next.md` — ściąga porównawcza Nest vs Next.js
 - `docs/sessions/` — session logi
 - `docs/mock-interviews.md` — log pytań rekrutacyjnych
+- `docs/linkedin-posts/` — opublikowane posty, style reference, feedback log
 
 ## Skille
 
 - **`/session-start [czas]`** — rozpoczyna sesję: kontekst, coaching protocol, recall challenge, task
 - **`/session-end`** — zamyka sesję: explain phase, feedback, session log, aktualizacja roadmapy i słabości
 - **`/mock-interview [temat]`** — pytanie rekrutacyjne z feedbackiem
+- **`/write-a-post [temat]`** — pisze post na LinkedIn w stylu Jakuba (building/learning in public)
