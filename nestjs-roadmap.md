@@ -31,7 +31,7 @@ AI używasz jako:
 - Prisma + PostgreSQL — schemat bazy, relacje, migracje
 - Error handling strategy — spójne kody HTTP, format errorów
 
-### Pytania do przemyślenia
+### Przykładowe pytania (coach dobiera na bieżąco do kontekstu sesji)
 
 - Dlaczego logika w Service a nie w Controller? 3 konkretne powody.
 - DTO vs surowy obiekt — po co ta warstwa?
@@ -51,29 +51,42 @@ AI używasz jako:
 
 - WorkoutTemplates i WorkoutLogs moduły — cross-module communication
 - **Raw SQL obok Prisma** — nie tylko ORM, rozumiesz co się dzieje pod spodem
+- Po każdej migracji Prisma — otwierasz wygenerowany SQL i rozumiesz co tam jest
 - Filtrowanie, sortowanie, paginacja
 
-### PostgreSQL — kluczowe tematy
+### SQL/PostgreSQL — fundamenty
+
+- **CRUD w SQL** — SELECT, INSERT, UPDATE, DELETE z WHERE. Umiesz napisać ręcznie bez ORM
+- **Relacje w SQL** — 1:1, 1:N, N:N, foreign keys, join tables. Rozumiesz co Prisma generuje pod spodem
+- **Constraints** — PRIMARY KEY, FOREIGN KEY, UNIQUE, NOT NULL, CASCADE DELETE, ON DELETE SET NULL
+- **Normalizacja** — 1NF, 2NF, 3NF. Kiedy denormalizować i dlaczego (trade-off: spójność vs performance)
+- **Transakcje i ACID** — co to, po co, co się dzieje gdy dwa requesty modyfikują ten sam rekord. Isolation levels (read committed vs serializable)
+
+### SQL/PostgreSQL — zaawansowane
 
 - JOINy (INNER, LEFT, prawe zagnieżdżone), subqueries, CTEs
 - Window functions (ROW_NUMBER, RANK — przydatne do paginacji i statystyk)
-- Indeksy: B-tree, GIN (na JSONB/array), partial indexes
+- Indeksy: B-tree, GIN (na JSONB/array), partial indexes — kiedy dodać, kiedy nie
 - `EXPLAIN ANALYZE` — umiesz przeczytać plan query i powiedzieć co jest wolne
-- Constraints, cascade delete, nullable references
 
-### Pytania do przemyślenia
+### Przykładowe pytania (coach dobiera na bieżąco do kontekstu sesji)
 
 - Offset pagination vs cursor pagination — trade-offy? Który lepszy dla IRONLOG?
 - `GET /workout-logs?exerciseId=5` vs `GET /exercises/5/workout-logs` — kiedy który?
 - WorkoutLogsService potrzebuje sprawdzić czy exercise istnieje. Import modułu czy osobny query? Trade-offy?
 - Circular dependency — dlaczego problem? Jak rozwiązać architekturalnie (nie forwardRef)?
+- Dlaczego Prisma generuje indeks na foreign key? Co by się stało bez niego?
+- Tworzysz WorkoutTemplate z 5 ćwiczeniami — jedno ID nie istnieje. Jak to obsłużyć? Atomowo (transakcja) czy częściowo?
 
 ### Checkpointy
 
+- [ ] Umiem napisać CREATE TABLE z FK i constraints bez pomocy ORM
+- [ ] Umiem napisać raw SQL: SELECT z JOIN, INSERT, UPDATE, DELETE
+- [x] Rozumiem co Prisma generuje — potrafię przeczytać migrację SQL i wytłumaczyć każdą linię
 - [ ] Moduły komunikują się, zero circular deps
-- [ ] Umiem napisać raw SQL: JOIN + CTE + WHERE z filtrami
 - [ ] Umiem przeczytać EXPLAIN ANALYZE i powiedzieć co zoptymalizować
 - [ ] Paginacja działa, potrafię uzasadnić wybór (offset vs cursor)
+- [ ] Potrafię wytłumaczyć ACID i isolation levels na rozmowie
 
 ---
 
@@ -85,7 +98,7 @@ AI używasz jako:
 - Guards — ownership check (user widzi tylko swoje treningi)
 - Request lifecycle: Middleware → Guard → Interceptor (before) → Pipe → Controller → Service → Interceptor (after) → Filter
 
-### Pytania do przemyślenia
+### Przykładowe pytania (coach dobiera na bieżąco do kontekstu sesji)
 
 - JWT vs session-based — trade-offy? Kiedy który?
 - Access token + refresh token vs sam access token — co gdy wycieknie?
@@ -110,7 +123,7 @@ AI używasz jako:
 - **Podłącz prosty Next.js frontend** — Twoja siła, pokaż fullstack na rozmowie
 - Swagger/OpenAPI docs
 
-### Pytania do przemyślenia
+### Przykładowe pytania (coach dobiera na bieżąco do kontekstu sesji)
 
 - Multi-stage build — dlaczego? Co zyskujesz?
 - Gdzie baza? Osobny kontener? Managed?
@@ -125,7 +138,38 @@ AI używasz jako:
 
 ---
 
-## Milestone 5 — Testy + API review
+## Milestone 5 — Caching (Redis) + Message Queues
+
+### Co robisz
+
+- **Redis** — caching layer dla API. Kiedy cache'ować, cache invalidation, TTL
+- **Message queues** (BullMQ/RabbitMQ) — asynchroniczne operacje poza request/response cycle
+- Praktyka: dodaj caching do najczęściej odpytywanego endpointu + queue do operacji która nie musi być synchroniczna
+
+### Kluczowe tematy
+
+- **Redis** — typy danych (string, hash, list, set, sorted set), TTL, cache-aside pattern, cache invalidation strategies (write-through, write-behind, invalidate-on-write)
+- **Kiedy cache'ować** — co jest warte cache'owania, co nie? Trade-off: stale data vs performance
+- **Message queues** — producer/consumer pattern, dead letter queue, retry strategy, idempotency
+- **Kiedy queue** — "user czeka na response" vs "operacja w tle". Przykłady: email, PDF, heavy computation
+
+### Przykładowe pytania (coach dobiera na bieżąco do kontekstu sesji)
+
+- Cache hit vs miss — narysuj flow danych dla obu scenariuszy
+- Co się dzieje gdy Redis padnie? Czy API dalej działa?
+- Synchroniczny request vs queue — kiedy który? Co gdy queue consumer padnie?
+- Jak zapewnić że ta sama wiadomość nie zostanie przetworzona dwa razy (idempotency)?
+
+### Checkpointy
+
+- [ ] Redis cache działa na wybranym endpoincie, potrafię zmierzyć różnicę
+- [ ] Potrafię wytłumaczyć cache invalidation strategies na rozmowie
+- [ ] Queue przetwarza zadanie asynchronicznie, retry działa
+- [ ] Potrafię narysować flow: request → API → queue → consumer → result
+
+---
+
+## Milestone 6 — Testy + API review
 
 ### Co robisz
 
@@ -133,7 +177,7 @@ AI używasz jako:
 - Min. unit testy dla service + e2e test dla auth flow
 - Pełny review API: spójność URL patterns, error responses, edge case'y
 
-### Pytania do przemyślenia
+### Przykładowe pytania (coach dobiera na bieżąco do kontekstu sesji)
 
 - Unit vs integration vs e2e — co na którym poziomie? Co daje najlepszy ROI?
 - Ile testów to dość dla side projectu vs pracy komercyjnej?
@@ -147,7 +191,7 @@ AI używasz jako:
 
 ---
 
-## Milestone 6 — Rozmowy + uzupełnianie braków
+## Milestone 7 — Rozmowy + uzupełnianie braków
 
 ### Co robisz
 

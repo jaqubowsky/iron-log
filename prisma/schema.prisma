@@ -24,10 +24,30 @@ enum ExerciseCategory {
 }
 
 model Exercise {
-  id          String           @id @default(uuid())
-  name        String           @unique
+  id          String                       @id @default(uuid())
+  name        String
   description String?
   category    ExerciseCategory
-  createdAt   DateTime         @default(now())
-  updatedAt   DateTime         @updatedAt
+  workoutLogs ExercisesOnWorkoutTemplate[]
+  createdAt   DateTime                     @default(now())
+  updatedAt   DateTime                     @updatedAt
+}
+
+model ExercisesOnWorkoutTemplate {
+  workoutTemplate   WorkoutTemplate @relation(fields: [workoutTemplateId], references: [id], onDelete: Cascade)
+  workoutTemplateId String
+  exercise          Exercise        @relation(fields: [exerciseId], references: [id])
+  exerciseId        String
+  order             Int
+
+  @@id([workoutTemplateId, exerciseId])
+}
+
+model WorkoutTemplate {
+  id          String                       @id @default(uuid())
+  name        String
+  description String?
+  exercises   ExercisesOnWorkoutTemplate[]
+  createdAt   DateTime                     @default(now())
+  updatedAt   DateTime                     @updatedAt
 }

@@ -1,0 +1,126 @@
+### Create workout template - happy path
+POST http://localhost:3000/workout-templates
+Content-Type: application/json
+
+{
+  "name": "Push Day",
+  "description": "Chest, Legs",
+  "exercises": [
+    { "exerciseId": "0710407b-ab4a-4a94-a887-47367198fe6f", "order": 1 },
+    { "exerciseId": "b45a2f0e-ebb4-4a95-8a6b-217201d26c7f", "order": 2 }
+  ]
+}
+
+### Create workout template - without description
+POST http://localhost:3000/workout-templates
+Content-Type: application/json
+
+{
+  "name": "Pull Day",
+  "exercises": [
+    { "exerciseId": "0710407b-ab4a-4a94-a887-47367198fe6f", "order": 1 }
+  ]
+}
+
+### Create workout template - nonexistent exercise ID
+POST http://localhost:3000/workout-templates
+Content-Type: application/json
+
+{
+  "name": "Ghost Template",
+  "exercises": [
+    { "exerciseId": "00000000-0000-0000-0000-000000000000", "order": 1 }
+  ]
+}
+
+### Create workout template - empty exercises array
+POST http://localhost:3000/workout-templates
+Content-Type: application/json
+
+{
+  "name": "Empty Template",
+  "exercises": []
+}
+
+### Create workout template - missing exercises
+POST http://localhost:3000/workout-templates
+Content-Type: application/json
+
+{
+  "name": "No Exercises Template"
+}
+
+### Create workout template - empty body
+POST http://localhost:3000/workout-templates
+Content-Type: application/json
+
+{}
+
+### Create workout template - mix of real and fake exercise IDs
+POST http://localhost:3000/workout-templates
+Content-Type: application/json
+
+{
+  "name": "Mixed Template",
+  "exercises": [
+    { "exerciseId": "0710407b-ab4a-4a94-a887-47367198fe6f", "order": 1 },
+    { "exerciseId": "00000000-0000-0000-0000-000000000000", "order": 2 }
+  ]
+}
+
+### Get all workout templates
+GET http://localhost:3000/workout-templates
+
+### Get workout template by id - replace with real id after create
+GET http://localhost:3000/workout-templates/0fd896f7-a7ae-4614-816d-c1b93b03335d
+
+### Get workout template by id - nonexistent
+GET http://localhost:3000/workout-templates/00000000-0000-0000-0000-000000000000
+
+### Get workout template by id - invalid UUID
+GET http://localhost:3000/workout-templates/not-a-uuid
+
+### Update workout template - change name only (replace id)
+PATCH http://localhost:3000/workout-templates/0fd896f7-a7ae-4614-816d-c1b93b03335d
+Content-Type: application/json
+
+{
+  "name": "Push Day V2"
+}
+
+### Update workout template - change exercises (replace id)
+PATCH http://localhost:3000/workout-templates/0fd896f7-a7ae-4614-816d-c1b93b03335d
+Content-Type: application/json
+
+{
+  "exercises": [
+    { "exerciseId": "b45a2f0e-ebb4-4a95-8a6b-217201d26c7f", "order": 1 }
+  ]
+}
+
+### Update workout template - nonexistent exercise ID (replace id)
+PATCH http://localhost:3000/workout-templates/0fd896f7-a7ae-4614-816d-c1b93b03335d
+Content-Type: application/json
+
+{
+  "exercises": [
+    { "exerciseId": "00000000-0000-0000-0000-000000000000", "order": 1 }
+  ]
+}
+
+### Update workout template - empty exercises (should fail)
+PATCH http://localhost:3000/workout-templates/0fd896f7-a7ae-4614-816d-c1b93b03335d
+Content-Type: application/json
+
+{
+  "exercises": []
+}
+
+### Delete workout template (replace id)
+DELETE http://localhost:3000/workout-templates/0fd896f7-a7ae-4614-816d-c1b93b03335d
+
+### Delete workout template - nonexistent
+DELETE http://localhost:3000/workout-templates/00000000-0000-0000-0000-000000000000
+
+### Get deleted template (should 404) (replace id)
+GET http://localhost:3000/workout-templates/0fd896f7-a7ae-4614-816d-c1b93b03335d

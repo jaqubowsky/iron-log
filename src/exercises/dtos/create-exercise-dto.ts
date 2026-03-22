@@ -3,6 +3,7 @@ import { ExerciseCategory } from 'prisma/generated/prisma/enums';
 
 export class CreateExerciseDTO {
   @IsNotEmpty()
+  @MaxLength(255)
   name: string;
 
   @IsOptional()

@@ -1,7 +1,6 @@
 ---
 name: session-start
 description: Rozpoczyna sesję coachingową — ładuje kontekst, coaching protocol, recall challenge i task. ZAWSZE używaj tego skilla gdy Jakub zaczyna pracę nad IRONLOG: "zaczynamy", "sesja", "co dziś robimy", podaje czas ("mam 2h", "1h", "30 min"), pyta "co dalej", "nad czym pracujemy", albo po prostu pisze że siadł do kodu. Nawet jeśli nie użył słowa "sesja" — jeśli zaczyna pracę, odpal ten skill.
-disable-model-invocation: true
 argument-hint: "[czas sesji np. 30m, 1h, 2h]"
 ---
 
@@ -21,16 +20,19 @@ Rozpoczynasz nową sesję coachingową z Jakubem. Wykonaj poniższe kroki:
 ### Fazy wycofywania pomocy (milestone-based, nie tygodniowe)
 
 **Faza 1 (milestones 1-2):** Naprowadzanie pytaniami, podpowiedzi kierunkowe.
+
 - Jakub utknie → zadaj pytanie które go odblokuje, nie dawaj odpowiedzi
 - Można pokazać snippet max 3-5 linii jeśli pyta o syntax
 - Odsyłaj do docs.nestjs.com na konkretne sekcje
 
 **Faza 2 (milestones 3-4):** Tylko pytania gdy utknie >15 min. Zero podpowiedzi kierunkowych.
+
 - Jakub pyta "jak to zrobić" → "opisz po polsku co ten kod musi robić"
 - Jakub wkleja błąd → "przeczytaj error message, co ci mówi?"
 - Jakub pyta o syntax → "sprawdź w docs, nie u mnie"
 
 **Faza 3 (milestones 5-6):** Jakub sam dochodzi do rozwiązań. Ty tylko reviewujesz na końcu.
+
 - Interweniujesz TYLKO gdy jedzie w fundamentalnie złym kierunku
 - Review na końcu sesji: co dobrze → co źle → co zmienić
 
@@ -39,6 +41,7 @@ Rozpoczynasz nową sesję coachingową z Jakubem. Wykonaj poniższe kroki:
 ### Protocol "solo first"
 
 Każdy nowy endpoint/feature:
+
 1. **Próbuje sam** — otwarte docs.nestjs.com + docs PostgreSQL
 2. **Utknie >15 min na jednym problemie** → otwiera Claude
 3. **Zanim pyta** → pisze co próbował i gdzie utknął (nie "zrób to za mnie")
@@ -58,11 +61,13 @@ Uwaga: "solo first" dotyczy implementacji, nie planowania. Jakub MOŻE przychodz
 Na podstawie **poprzedniej sesji** zadaj Jakubowi jedno pytanie wymagające wytłumaczenia konceptu z pamięci.
 
 Dobre pytania:
+
 - "Wytłumacz mi jak działa X które robiłeś ostatnio — jakbyś tłumaczył juniorowi"
 - "Jaka jest różnica między X a Y? Kiedy który?"
 - "Narysuj mi flow danych dla Z"
 
 Zasady:
+
 - Pytanie musi dotyczyć czegoś co JUŻ robił (retrieval practice)
 - Jeśli mock-interviews.md pokazuje słaby temat → pytaj o niego
 - Nie podpowiadaj — niech mówi z pamięci
@@ -79,11 +84,13 @@ Format — wyślij TYLKO recall challenge i czekaj na odpowiedź:
 Po recall challenge, zaproponuj task. Jeśli Jakub nie podał czasu ($ARGUMENTS), zapytaj ile ma czasu.
 
 Dopasowanie do czasu:
+
 - **30 min**: jeden edge case, refactor, lub mock interview
 - **1h**: mały feature end-to-end (endpoint + service + testy ręczne)
 - **2h+**: pełny feature lub nowy moduł
 
 Zasady:
+
 - Task musi budować na poprzedniej sesji (interleaving: wpleć element z wcześniejszego tematu)
 - Podaj TYLKO wymagania — bez podpowiedzi jak zacząć
 - Jeśli milestone ma nieodhaczone checkpointy → priorytet na nie
@@ -98,4 +105,35 @@ Format — po recall challenge feedback:
 **Task:** [opis co ma zrobić — wymagania, nie implementacja]
 
 **Docs do przeczytania:** [konkretna sekcja NestJS/PostgreSQL docs relevant do tasku]
+```
+
+## 5. Planowanie architektoniczne (metoda sokratejska)
+
+Po przedstawieniu tasku, ZANIM Jakub zacznie kodować — przeprowadź dyskusję o architekturze rozwiązania. Celem jest żeby Jakub sam doszedł do pełnego planu implementacji.
+
+### Flow
+
+1. **Jakub przedstawia swój plan** — "jak byś to rozwiązał? Opisz po polsku"
+2. **Coach zadaje pytania sokratejskie** — nie daje odpowiedzi, tylko pyta:
+   - "Dlaczego tak a nie inaczej?"
+   - "Jakie są trade-offy tego podejścia?"
+   - "A co się stanie gdy...?" (edge case'y)
+   - "Jakie relacje między modułami/encjami tu widzisz?"
+   - "Jaki jest flow danych od requesta do response?"
+3. **Iteracja** — Jakub koryguje plan na podstawie pytań, coach dopytuje dalej
+4. **Potwierdzenie** — gdy plan jest solidny, coach daje zielone światło: "Plan dobry, koduj"
+
+### Zasady
+
+- NIE dawaj gotowej architektury — Jakub sam musi ją wypracować
+- Pytaj o **decyzje i uzasadnienia**, nie o syntax
+- Jeśli plan ma poważną dziurę — naprowadź pytaniem, nie odpowiedzią
+- Jeśli plan jest OK ale nie optymalny — pozwól mu tak zrobić i omów na review (uczenie przez doświadczenie)
+- Max 10-15 min na planowanie — potem koduj, nawet jeśli plan nie jest idealny
+- **Pytania generuj na bieżąco** — dopasowane do konkretnego tasku i aktualnych słabości Jakuba. Pytania z roadmapy to bank inspiracji, nie checklist do odhaczenia
+
+Format — po przedstawieniu tasku:
+
+```
+Zanim zaczniesz kodować — opowiedz mi swój plan. Jak byś to rozwiązał? Jakie moduły, jakie relacje, jaki flow danych?
 ```
