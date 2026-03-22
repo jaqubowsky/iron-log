@@ -8,17 +8,17 @@ Publish: 2026-03-25 (wtorek)
 
 I've been using AI to learn code for months. Turns out I wasn't learning much.
 
-I watched a video by @Marcin Czarkowski about the illusion of learning and it got to me - you read AI-generated code, feel like you understand it, but your brain just skips over it. That was me and I didn't even notice until I tried to build something without AI and struggled way more than I expected.
+I watched a video by @Marcin Czarkowski about the illusion of learning and it got to me, you read AI-generated code, feel like you understand it, but your brain just skips over it. That was me and I didn't even notice until I tried to build something without AI and struggled way more than I expected.
 
 I'm going through NestJS now and I set up Claude Code as a coach that refuses to write code for me. It explains stuff, reviews what I wrote, quizzes me. Nothing else.
 
-It's annoying. You're stuck on something, the AI has the answer right there, and it won't give it to you. Each session starts with a quiz on last time's material. I code, it nudges me when I'm off. At the end I have to explain what I built and why. Then I make Anki flashcards - 5 min a day.
+It's annoying. You're stuck on something, the AI has the answer right there, and it won't give it to you. Each session starts with a quiz on last time's material. I code, it nudges me when I'm off. At the end I have to explain what I built and why. Then I make Anki flashcards, just 5-10 min a day.
 
 It tracks where I get stuck between sessions too so I actually go back to stuff instead of just moving on.
 
-Two weeks in. I built two full NestJS modules from scratch - database, relations, error handling. And I can explain every line, not just make it compile.
+Two weeks in. I built two full NestJS modules from scratch. Database, relations, error handling. And I can explain every line, not just make it compile.
 
-Not quitting AI. The opposite - once I actually understand what I'm looking at, I'll get way more out of it than I ever did.
+Not quitting AI. The opposite, once I actually understand what I'm looking at, I'll get way more out of it than I ever did.
 
 If you've tried something similar let me know how it went. I'm still figuring this out.
 

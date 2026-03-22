@@ -14,3 +14,4 @@ Patterns learned from Jakub's edits and feedback during post writing.
 - 2026-03-22: Post length for complex topics: ~10-12 sentences works. His simple posts are 4-8, but building-in-public posts need more room.
 - 2026-03-22: When referencing a video/article, tag the author naturally in the sentence ("I watched a video by @Name about...") instead of a separate "shoutout to @Name" line. Author gets a notification, feels natural, not performative.
 - 2026-03-22: In saved posts, mark LinkedIn tags as @First Last — so when copying to LinkedIn you remember who to tag.
+- 2026-03-22: Prefer commas and periods over hyphens/dashes. "Database, relations, error handling." reads more natural than "database - relations - error handling". Commas give calmer rhythm.
