@@ -1,5 +1,4 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
-import { WorkoutTemplate } from 'prisma/generated/prisma/client';
 import { PrismaService } from 'src/db/prisma.service';
 import { CreateWorkoutTemplateDTO } from './dtos/create-workout-template-dto';
 import { UpdateWorkoutTemplateDTO } from './dtos/update-workout-template-dto';
@@ -29,7 +28,7 @@ export class WorkoutsService {
     return nonExistingIds;
   }
 
-  async getAll(): Promise<WorkoutTemplate[]> {
+  async getAll() {
     return await this.prisma.workoutTemplate.findMany({
       include: {
         exercises: {
@@ -39,7 +38,7 @@ export class WorkoutsService {
     });
   }
 
-  async getById(id: string): Promise<WorkoutTemplate> {
+  async getById(id: string) {
     const workoutTemplate = await this.prisma.workoutTemplate.findUniqueOrThrow(
       {
         where: {
@@ -79,6 +78,13 @@ export class WorkoutsService {
           create: exercises,
         },
       },
+      include: {
+        exercises: {
+          include: {
+            exercise: true,
+          },
+        },
+      },
     });
 
     return workoutTemplate;
@@ -94,6 +100,13 @@ export class WorkoutsService {
       const result = await this.prisma.workoutTemplate.update({
         where: { id },
         data: { ...rest },
+        include: {
+          exercises: {
+            include: {
+              exercise: true,
+            },
+          },
+        },
       });
 
       return result;

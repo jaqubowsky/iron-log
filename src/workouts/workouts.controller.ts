@@ -11,36 +11,42 @@ import {
 import { WorkoutsService } from './workouts.service';
 import { UpdateWorkoutTemplateDTO } from './dtos/update-workout-template-dto';
 import { CreateWorkoutTemplateDTO } from './dtos/create-workout-template-dto';
+import { WorkoutTemplateResponseDTO } from './dtos/workout-template-response-dto';
 
 @Controller('workout-templates')
 export class WorkoutsController {
   constructor(private workoutsService: WorkoutsService) {}
 
   @Get()
-  findAll() {
-    return this.workoutsService.getAll();
+  async findAll() {
+    const response = await this.workoutsService.getAll();
+    return response.map((result) => new WorkoutTemplateResponseDTO(result));
   }
 
   @Get(':id')
-  findOne(@Param('id', new ParseUUIDPipe()) id: string) {
-    return this.workoutsService.getById(id);
+  async findOne(@Param('id', new ParseUUIDPipe()) id: string) {
+    const response = await this.workoutsService.getById(id);
+    return new WorkoutTemplateResponseDTO(response);
   }
 
   @Delete(':id')
-  removeOne(@Param('id', new ParseUUIDPipe()) id: string) {
-    return this.workoutsService.deleteWorkoutTemplate(id);
+  async removeOne(@Param('id', new ParseUUIDPipe()) id: string) {
+    await this.workoutsService.deleteWorkoutTemplate(id);
+    return { message: 'Workout template successfully deleted.' };
   }
 
   @Patch(':id')
-  updateOne(
+  async updateOne(
     @Param('id', new ParseUUIDPipe()) id: string,
     @Body() data: UpdateWorkoutTemplateDTO,
   ) {
-    return this.workoutsService.updateWorkoutTemplate(id, data);
+    const response = await this.workoutsService.updateWorkoutTemplate(id, data);
+    return new WorkoutTemplateResponseDTO(response);
   }
 
   @Post()
-  create(@Body() data: CreateWorkoutTemplateDTO) {
-    return this.workoutsService.createWorkoutTemplate(data);
+  async create(@Body() data: CreateWorkoutTemplateDTO) {
+    const response = await this.workoutsService.createWorkoutTemplate(data);
+    return new WorkoutTemplateResponseDTO(response);
   }
 }

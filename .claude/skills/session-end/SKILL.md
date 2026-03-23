@@ -85,7 +85,7 @@ Plik: `docs/sessions/YYYY-MM-DD.md`
 
 ## Następna sesja
 
-[Co powinien zrobić następnym razem]
+[Co powinien zrobić następnym razem — MUSI być zgodne z priorytetami roadmapy, patrz zasady poniżej]
 ```
 
 ### Zasady logowania
@@ -127,9 +127,20 @@ Jeśli było mock interview → dopisz wiersz do `docs/mock-interviews.md` (stw�
 
 Wygeneruj fiszki z tej sesji zgodnie z zasadami skilla `/create-anki` (przeczytaj `~/.claude/skills/create-anki/SKILL.md`). Zapisz je do `~/Anki/programming.tsv` (dopisz na końcu) i pokaż Jakubowi podgląd w markdown.
 
-## 9. Praca domowa
+## 9. Planowanie następnej sesji — ZASADY PRIORYTETYZACJI
 
-Na koniec powiedz Jakubowi:
+**KRYTYCZNE:** Następna sesja MUSI być zgodna z priorytetami roadmapy. NIE wrzucaj tematu jako następną sesję tylko dlatego, że Jakub powiedział że jest "ciekawy". Sprawdź:
 
-- Co przeczytać z docs przed następną sesją (konkretny link/sekcja)
-- Nad czym pomyśleć (pytanie do przemyślenia z roadmapy aktualnego milestone'a)
+1. **Roadmapa ma priorytet** — przeczytaj `nestjs-roadmap.md`, znajdź nieodhaczone checkpointy w aktualnym milestone. Jeśli Jakub zaproponował temat który logicznie wpasuje się w kolejność roadmapy (np. jest prereq-em do następnego checkpointu lub naturalnie łączy się z aktualnym milestone) — można go wrzucić. Ale jeśli temat jest z innego milestone'a i przeskakuje fundamenty — nie wrzucaj go.
+2. **Ciekawe tematy ≠ pilne tematy** — jeśli Jakub wspomniał o czymś interesującym (np. envelope pattern, caching, nowy feature) ale aktualny milestone ma niezrobione fundamenty — zanotuj temat w roadmapie we właściwym milestone, NIE wrzucaj na następną sesję.
+3. **Fundamenty przed features** — jeśli Jakub nie umie czegoś podstawowego (np. raw SQL, ACID), to ma priorytet nad nowymi feature'ami.
+
+## 10. Praca domowa — ZASADY PREREQ-ÓW
+
+**KRYTYCZNE:** Jeśli następna sesja wymaga wiedzy której Jakub jeszcze nie ma (np. SQL, nowy koncept NestJS), praca domowa MUSI zawierać materiały do nauki ZANIM sesja się zacznie. Nie wrzucaj taska "napisz raw SQL" jeśli Jakub nigdy nie uczył się SQL.
+
+Praca domowa zawiera:
+
+- **Materiały do nauki** (jeśli prereq-y) — konkretny tutorial, docs, lub kurs do przerobienia PRZED sesją. Np. "Przejdź SQLBolt (sqlbolt.com) — lekcje 1-6 (SELECT, WHERE, JOIN)" zamiast "napisz SELECT z JOIN"
+- **Co przeczytać z docs** — konkretny link/sekcja NestJS/PostgreSQL docs relevant do następnego taska
+- **Nad czym pomyśleć** — pytanie do przemyślenia z roadmapy aktualnego milestone'a

@@ -45,7 +45,7 @@ AI używasz jako:
 
 ---
 
-## Milestone 2 — PostgreSQL deep dive + relacje
+## Milestone 2 — PostgreSQL deep dive + relacje + HTTP fundamenty
 
 ### Co robisz
 
@@ -53,21 +53,29 @@ AI używasz jako:
 - **Raw SQL obok Prisma** — nie tylko ORM, rozumiesz co się dzieje pod spodem
 - Po każdej migracji Prisma — otwierasz wygenerowany SQL i rozumiesz co tam jest
 - Filtrowanie, sortowanie, paginacja
+- Response transformacja — DTO pattern, trade-offy
+- **HTTP/REST fundamenty** — budujesz API, musisz rozumieć protokół pod spodem
 
-### SQL/PostgreSQL — fundamenty
+### Kolejność nauki (prereq-y → praktyka)
+
+**Faza A: SQL fundamenty (nauka + ćwiczenie)**
+Prereq: SQLBolt + PostgreSQL Tutorial ZANIM sesja coachingowa z raw SQL.
 
 - **CRUD w SQL** — SELECT, INSERT, UPDATE, DELETE z WHERE. Umiesz napisać ręcznie bez ORM
-- **Relacje w SQL** — 1:1, 1:N, N:N, foreign keys, join tables. Rozumiesz co Prisma generuje pod spodem
+- **JOINy** — INNER, LEFT. Umiesz napisać SELECT z JOIN na danych IRONLOG
 - **Constraints** — PRIMARY KEY, FOREIGN KEY, UNIQUE, NOT NULL, CASCADE DELETE, ON DELETE SET NULL
+- **Transakcje i ACID** — co to, po co, kiedy użyć `$transaction`. Isolation levels (basics)
 - **Normalizacja** — 1NF, 2NF, 3NF. Kiedy denormalizować i dlaczego (trade-off: spójność vs performance)
-- **Transakcje i ACID** — co to, po co, co się dzieje gdy dwa requesty modyfikują ten sam rekord. Isolation levels (read committed vs serializable)
+- **Indeksy** — kiedy dodać, jak wpływają na performance, co robi `EXPLAIN ANALYZE`
 
-### SQL/PostgreSQL — zaawansowane
+**Faza B: NestJS features z zastosowaniem SQL + HTTP**
+Po opanowaniu SQL basics — budujesz features i widzisz jak ORM mapuje się na SQL.
 
-- JOINy (INNER, LEFT, prawe zagnieżdżone), subqueries, CTEs
-- Window functions (ROW_NUMBER, RANK — przydatne do paginacji i statystyk)
-- Indeksy: B-tree, GIN (na JSONB/array), partial indexes — kiedy dodać, kiedy nie
-- `EXPLAIN ANALYZE` — umiesz przeczytać plan query i powiedzieć co jest wolne
+- WorkoutLogs moduł — cross-module communication, nowe relacje
+- Filtrowanie, sortowanie, paginacja
+- Raw SQL obok Prisma — porównaj query ORM z ręcznym SQL
+- **HTTP/REST** — kody statusów (201 vs 200, 401 vs 403), idempotentność metod, REST vs GraphQL trade-offy, API versioning
+- **ORM trade-offy** — TypeORM vs Prisma vs MikroORM, eager vs lazy loading, N+1 problem
 
 ### Przykładowe pytania (coach dobiera na bieżąco do kontekstu sesji)
 
@@ -77,26 +85,36 @@ AI używasz jako:
 - Circular dependency — dlaczego problem? Jak rozwiązać architekturalnie (nie forwardRef)?
 - Dlaczego Prisma generuje indeks na foreign key? Co by się stało bez niego?
 - Tworzysz WorkoutTemplate z 5 ćwiczeniami — jedno ID nie istnieje. Jak to obsłużyć? Atomowo (transakcja) czy częściowo?
+- Napisz SQL query który zwraca ten sam kształt co Response DTO — jak JOINujesz tabelę łączącą?
 
 ### Checkpointy
 
+**SQL fundamenty (faza A):**
 - [ ] Umiem napisać CREATE TABLE z FK i constraints bez pomocy ORM
 - [ ] Umiem napisać raw SQL: SELECT z JOIN, INSERT, UPDATE, DELETE
+- [ ] Potrafię wytłumaczyć ACID i transakcje na rozmowie
+- [ ] Umiem przeczytać EXPLAIN ANALYZE i powiedzieć kiedy dodać indeks
 - [x] Rozumiem co Prisma generuje — potrafię przeczytać migrację SQL i wytłumaczyć każdą linię
+
+**NestJS features + HTTP (faza B):**
 - [ ] Moduły komunikują się, zero circular deps
-- [ ] Umiem przeczytać EXPLAIN ANALYZE i powiedzieć co zoptymalizować
 - [ ] Paginacja działa, potrafię uzasadnić wybór (offset vs cursor)
-- [ ] Potrafię wytłumaczyć ACID i isolation levels na rozmowie
+- [ ] Potrafię wytłumaczyć idempotentność HTTP metod i kiedy 201 vs 200 vs 204 na rozmowie
+- [x] Response transformacja — umiem uzasadnić wybór podejścia (DTO vs class-transformer vs map w service) i trade-offy SQL-level vs app-level
 
 ---
 
-## Milestone 3 — Auth + security + request lifecycle
+## Milestone 3 — Auth + security + request lifecycle + Node.js fundamenty
 
 ### Co robisz
 
 - JWT auth od zera — rejestracja, login, token refresh, logout
 - Guards — ownership check (user widzi tylko swoje treningi)
 - Request lifecycle: Middleware → Guard → Interceptor (before) → Pipe → Controller → Service → Interceptor (after) → Filter
+- Response envelope pattern z interceptorem — ustandaryzowane response'y w całym API
+- **Security** — CORS, helmet, rate limiting, sanityzacja inputu, OWASP top 10 (XSS, SQL injection, CSRF)
+- **NestJS deeper** — DI scope (DEFAULT vs REQUEST vs TRANSIENT)
+- **Node.js fundamenty** — event loop (fazy, microtasks vs macrotasks), single-threaded non-blocking model, kiedy worker threads, streams (basics)
 
 ### Przykładowe pytania (coach dobiera na bieżąco do kontekstu sesji)
 
@@ -104,6 +122,10 @@ AI używasz jako:
 - Access token + refresh token vs sam access token — co gdy wycieknie?
 - Guard vs Middleware — oba blokują request. Kiedy który?
 - "User widzi tylko swoje treningi" — guard? Service? Query filter? Konsekwencje każdego podejścia?
+- Interceptor transformuje response — jak to wpływa na testowanie? Jak testujesz kształt response'u?
+- Co to CORS i dlaczego istnieje? Kiedy browser blokuje request?
+- Narysuj event loop — co się dzieje gdy Node dostaje 1000 requestów jednocześnie?
+- DI scope REQUEST vs DEFAULT — kiedy potrzebujesz request-scoped provider?
 
 ### Checkpointy
 
@@ -111,10 +133,13 @@ AI używasz jako:
 - [ ] Potrafię narysować request lifecycle z pamięci
 - [ ] Ownership check — user nie widzi cudzych danych
 - [ ] Potrafię porównać JWT z Better Auth / session-based na rozmowie
+- [ ] Response envelope pattern działa na całym API (interceptor)
+- [ ] Security basics: CORS skonfigurowany, helmet, rate limiting
+- [ ] Potrafię wytłumaczyć event loop i dlaczego Node jest single-threaded ale non-blocking
 
 ---
 
-## Milestone 4 — Docker + deploy + Next.js front
+## Milestone 4 — Docker + deploy + Next.js front + CI/CD
 
 ### Co robisz
 
@@ -122,12 +147,27 @@ AI używasz jako:
 - Deploy na VPS (Dokploy + Traefik)
 - **Podłącz prosty Next.js frontend** — Twoja siła, pokaż fullstack na rozmowie
 - Swagger/OpenAPI docs
+- **CI/CD** — basic pipeline (lint, test, build, deploy)
+- **Git workflow** — rebase vs merge trade-offy, branching strategy
+
+### Next.js — tematy rekrutacyjne (twoja siła, poleruj)
+
+Znasz Next.js — tu nie uczysz się od zera, tylko upewniasz się że potrafisz wytłumaczyć na rozmowie:
+
+- Server Component vs Client Component — trade-offy, kiedy który
+- App Router cache layers (request memoization, data cache, full route cache), cache invalidation
+- Streaming z Suspense, generateStaticParams vs dynamiczne renderowanie
+- Middleware — Edge Runtime ograniczenia, auth w middleware vs layout vs API route
+- Performance — LCP/CLS, lazy loading, dynamic() z ssr: false, bundle analysis, partial prerendering
 
 ### Przykładowe pytania (coach dobiera na bieżąco do kontekstu sesji)
 
 - Multi-stage build — dlaczego? Co zyskujesz?
 - Gdzie baza? Osobny kontener? Managed?
 - Jak Nest API wpasuje się w Twój istniejący VPS setup?
+- Rebase vs merge — kiedy który? Jak rozwiązujesz konflikty?
+- Server Component vs Client Component — kiedy który i dlaczego?
+- Jak działa cache w Next.js App Router? Kiedy go invalidujesz?
 
 ### Checkpointy
 
@@ -135,6 +175,8 @@ AI używasz jako:
 - [ ] App jest na produkcji, dostępna przez przeglądarkę
 - [ ] Next.js front konsumuje API — fullstack demo gotowe
 - [ ] Swagger docs dla całego API
+- [ ] CI pipeline działa (lint + test + build)
+- [ ] Potrafię wytłumaczyć Server vs Client Components i App Router cache na rozmowie
 
 ---
 
@@ -199,6 +241,15 @@ AI używasz jako:
 - Mock interviews: pytania techniczne NestJS/Node.js/PostgreSQL
 - System design challenges (20 min z kartką)
 - Uzupełniasz braki które wyjdą na rozmowach
+- **TypeScript advanced** — generyki (napisz utility type), discriminated unions, type narrowing, infer, satisfies, Result/Either pattern
+- **Behavioral prep** — najtrudniejszy bug, decyzje architektoniczne, code review, onboarding
+
+### System design challenges
+
+- System notyfikacji real-time (WebSockets vs SSE vs polling, kolejkowanie, persystencja)
+- Auth flow z social login, JWT, refresh tokens — front do bazy
+- Formularz wielokrokowy z walidacją server-side (server actions vs API route, zod, optimistic updates)
+- File upload z progress barem (presigned URLs, chunked upload, S3)
 
 ### Rytuały sesyjne (od milestone 3)
 
@@ -212,6 +263,8 @@ AI używasz jako:
 - [ ] Potrafię wytłumaczyć event loop, DI, JWT, request lifecycle bez zacinania
 - [ ] Potrafię zaprojektować prosty system od zera na kartce w 20 min
 - [ ] IRONLOG jest na GitHubie z README, Dockerem, testami — portfolio ready
+- [ ] Potrafię napisać utility type z generykami (np. DeepPartial, Pick z warunkiem)
+- [ ] Mam przygotowane 2-3 historie behawioralne (bug, decyzja architektoniczna, code review)
 
 ---
 
