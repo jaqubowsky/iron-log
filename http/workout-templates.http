@@ -6,8 +6,7 @@ Content-Type: application/json
   "name": "Push Day",
   "description": "Chest, Legs",
   "exercises": [
-    { "exerciseId": "0710407b-ab4a-4a94-a887-47367198fe6f", "order": 1 },
-    { "exerciseId": "b45a2f0e-ebb4-4a95-8a6b-217201d26c7f", "order": 2 }
+    { "exerciseId": "4d79ec19-3fa4-4ab7-ae7a-30de02e70ac1", "order": 1 }
   ]
 }
 
@@ -18,7 +17,7 @@ Content-Type: application/json
 {
   "name": "Pull Day",
   "exercises": [
-    { "exerciseId": "0710407b-ab4a-4a94-a887-47367198fe6f", "order": 1 }
+    { "exerciseId": "4d79ec19-3fa4-4ab7-ae7a-30de02e70ac1", "order": 1 }
   ]
 }
 

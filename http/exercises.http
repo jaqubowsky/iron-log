@@ -55,10 +55,10 @@ Content-Type: application/json
 }
 
 ### Get all exercises
-GET http://localhost:3000/exercises
+GET http://localhost:3000/exercises?page=1.5&limit=15
 
 ### Get exercise by id - replace with real id after create
-GET http://localhost:3000/exercises/fd5ec71c-ffa4-486f-a29b-89d8e2b5a7bc
+GET http://localhost:3000/exercises/4d79ec19-3fa4-4ab7-ae7a-30de02e70ac1
 
 ### Get exercise by id - nonexistent
 GET http://localhost:3000/exercises/237b5629-3a76-4d27-b2a0-b7658571ecc4

@@ -7,18 +7,20 @@ import {
   ParseUUIDPipe,
   Patch,
   Post,
+  Query,
 } from '@nestjs/common';
 import { ExercisesService } from './exercises.service';
 import { UpdateExerciseByIdDTO } from './dtos/update-exercise-by-id-dto';
 import { CreateExerciseDTO } from './dtos/create-exercise-dto';
+import { PaginationDTO } from 'src/common/pagination-dto';
 
 @Controller('exercises')
 export class ExercisesController {
   constructor(private exercisesService: ExercisesService) {}
 
   @Get()
-  findAll() {
-    return this.exercisesService.getAll();
+  findAll(@Query() paginationDto: PaginationDTO) {
+    return this.exercisesService.getAll(paginationDto);
   }
 
   @Get(':id')

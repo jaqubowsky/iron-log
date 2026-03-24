@@ -91,7 +91,7 @@ Po opanowaniu SQL basics — budujesz features i widzisz jak ORM mapuje się na 
 
 **SQL fundamenty (faza A):**
 - [ ] Umiem napisać CREATE TABLE z FK i constraints bez pomocy ORM
-- [ ] Umiem napisać raw SQL: SELECT z JOIN, INSERT, UPDATE, DELETE
+- [x] Umiem napisać raw SQL: SELECT z JOIN, INSERT, UPDATE, DELETE
 - [ ] Potrafię wytłumaczyć ACID i transakcje na rozmowie
 - [ ] Umiem przeczytać EXPLAIN ANALYZE i powiedzieć kiedy dodać indeks
 - [x] Rozumiem co Prisma generuje — potrafię przeczytać migrację SQL i wytłumaczyć każdą linię

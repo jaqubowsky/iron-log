@@ -8,7 +8,12 @@ import { PrismaExceptionFilter } from './db/prisma-exception.filter';
 import { WorkoutsModule } from './workouts/workouts.module';
 
 @Module({
-  imports: [ExercisesModule, PrismaModule, ConfigModule.forRoot(), WorkoutsModule],
+  imports: [
+    ExercisesModule,
+    PrismaModule,
+    ConfigModule.forRoot(),
+    WorkoutsModule,
+  ],
   controllers: [AppController],
   providers: [
     AppService,

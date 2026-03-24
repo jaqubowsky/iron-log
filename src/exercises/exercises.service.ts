@@ -2,14 +2,42 @@ import { Injectable } from '@nestjs/common';
 import { CreateExerciseDTO } from './dtos/create-exercise-dto';
 import { UpdateExerciseByIdDTO } from './dtos/update-exercise-by-id-dto';
 import { PrismaService } from 'src/db/prisma.service';
-import { Exercise } from 'prisma/generated/prisma/client';
+import { PaginationDTO } from 'src/common/pagination-dto';
+
+const DEFAULT_PAGE = 1;
+const DEFAULT_LIMIT = 15;
 
 @Injectable()
 export class ExercisesService {
   constructor(private prisma: PrismaService) {}
 
-  async getAll(): Promise<Exercise[]> {
-    return await this.prisma.exercise.findMany();
+  async getAll(paginationDto: PaginationDTO) {
+    const { page = DEFAULT_PAGE, limit = DEFAULT_LIMIT } = paginationDto;
+
+    const skip = (page - 1) * limit;
+
+    const getTotalCountPromise = this.prisma.exercise.count();
+    const getDataPromise = this.prisma.exercise.findMany({
+      skip,
+      take: limit,
+    });
+
+    const [totalCount, data] = await Promise.all([
+      getTotalCountPromise,
+      getDataPromise,
+    ]);
+
+    const hasMoreItems = totalCount > page * limit;
+
+    return {
+      data,
+      meta: {
+        totalCount,
+        hasMoreItems,
+        page,
+        limit,
+      },
+    };
   }
 
   async createExercise(createExerciseDTO: CreateExerciseDTO) {
@@ -37,7 +65,7 @@ export class ExercisesService {
       where: {
         id,
       },
-      data: { ...updateExerciseByIdDTO },
+      data: updateExerciseByIdDTO,
     });
 
     return updatedExercise;
