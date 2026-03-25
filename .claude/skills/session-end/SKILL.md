@@ -18,12 +18,13 @@ Zasady:
 - Pytaj follow-upy: "a dlaczego nie X?", "co by się stało gdyby...?"
 - Oceń (1-5): 1=nie umie wytłumaczyć, 3=zna koncept ale brakuje detali, 5=wytłumaczyłby na rozmowie
 
-## 2. Mock interview (opcjonalnie)
+## 2. Mock interview (5 min)
 
-Zapytaj Jakuba: "Chcesz mock interview pytanie na koniec?"
+Mock interview jest **obowiązkowy co sesję**. Nie pytaj "chcesz pytanie?" — po prostu zadaj je.
 
-- Jeśli tak → przeprowadź mock interview zgodnie z protokołem z `.claude/skills/mock-interview/SKILL.md` (przeczytaj go). Zanotuj wyniki.
-- Jeśli nie lub brak czasu → pomiń
+- Przeprowadź mock interview zgodnie z protokołem z `.claude/skills/mock-interview/SKILL.md` (przeczytaj go)
+- Pytanie powiązane z tym co właśnie kodował LUB losowe z wcześniejszych tematów (element zaskoczenia)
+- Zanotuj wyniki
 
 ## 3. Feedback + session log
 
@@ -43,11 +44,19 @@ Plik: `docs/sessions/YYYY-MM-DD.md`
 
 ## Recall challenge
 
-[Pytanie + jak odpowiedział (1-5). Co pamiętał, co pominął]
+[Pytanie + skąd (spacing: z sesji X / mock interview Y) + jak odpowiedział (1-5). Co pamiętał, co pominął]
+
+## Mini-recall (jeśli były)
+
+[Jakie pytania padły w trakcie kodowania, czy odpowiedział poprawnie]
 
 ## Co robił
 
 [1-2 zdania: jaki task, co zaimplementował]
+
+## Planowanie architektoniczne
+
+[Jak wypadło planowanie? Czy sam doszedł do planu? Jakie pytania sokratejskie były potrzebne? Co pominął?]
 
 ## Samodzielność (1-5)
 
@@ -55,11 +64,11 @@ Plik: `docs/sessions/YYYY-MM-DD.md`
 
 ## Explain phase
 
-[Jak wytłumaczył co zrobił? Czy umiał uzasadnić decyzje? Co pominął?]
+[Jak wytłumaczył co zrobił? Czy umiał uzasadnić decyzje? Co pominął? Score (1-5)]
 
-## Mock interview (opcjonalnie)
+## Mock interview
 
-[Pytanie, score (1-5), krótki feedback]
+[Pytanie, score (1-5), krótki feedback — co trafił, co pominął]
 
 ## Co poszło dobrze
 
@@ -75,7 +84,7 @@ Plik: `docs/sessions/YYYY-MM-DD.md`
 
 ## Faza coachingu
 
-[Aktualna faza (1/2/3) i czy jest gotowy na przejście do następnej. Milestone: aktualny]
+[Aktualna faza (1/2/3) i czy jest gotowy na przejście do następnej. Milestone: aktualny (M1-M11)]
 
 ## Następna sesja
 
@@ -104,6 +113,7 @@ Zasady:
 - Nie usuwaj istniejących checkpointów — tylko odhaczaj lub dodawaj nowe
 - Nowe tematy dodawaj z krótkim uzasadnieniem w komentarzu (np. "— wyszło na sesji 2026-03-22 że brakuje fundamentów")
 - Jeśli milestone się za bardzo rozrósł → zaproponuj podział na 2 mniejsze
+- **Milestones M1-M11:** M1=CRUD ✅, M2=SQL, M3=HTTP+NestJS features, M4=Auth+Security, M5=JS/TS artykulacja, M6=Node.js runtime, M7=NestJS deeper+SOLID, M8=Docker+Deploy+Testy+Logging, M9=Next.js/React artykulacja+Frontend, M10=Caching+Queues+Advanced SQL, M11=System Design+Advanced
 
 ### Kryterium odhaczania checkpointów
 
@@ -119,17 +129,24 @@ Jedyny wyjątek: checkpointy czysto praktyczne ("X działa", "kod jest napisany"
 
 ## 5. Aktualizacja mock-interviews.md
 
-Jeśli było mock interview → dopisz wiersz do `docs/mock-interviews.md` (stwórz plik z headerem tabeli jeśli nie istnieje).
+Dopisz wiersz do `docs/mock-interviews.md` (stwórz plik z headerem tabeli jeśli nie istnieje). Mock interview jest obowiązkowy co sesję — zawsze będzie co zalogować.
 
 ## 6. Fiszki Anki
 
 Wygeneruj fiszki z tej sesji zgodnie z zasadami skilla `/create-anki` (przeczytaj `~/.claude/skills/create-anki/SKILL.md`). Zapisz je do `~/Anki/programming.tsv` (dopisz na końcu) i pokaż Jakubowi podgląd w markdown.
 
+Oprócz standardowych fiszek, dodaj min. 1-2 **connection cards** — fiszki łączące koncepty z różnych tematów:
+- "Jak NestJS DI łączy się z Dependency Inversion Principle z SOLID?"
+- "Czym Guard w NestJS jest przykładem Strategy Pattern?"
+- "Jak HTTP Cache-Control headers współgrają z Redis cache-aside?"
+
+Connection cards budują sieć wiedzy zamiast izolowanych faktów — to sprawia że wiedza jest trwalsza i łatwiejsza do przywołania na rozmowie.
+
 ## 7. Planowanie następnej sesji
 
 **KRYTYCZNE:** Następna sesja MUSI być zgodna z priorytetami roadmapy. NIE wrzucaj tematu jako następną sesję tylko dlatego, że Jakub powiedział że jest "ciekawy". Sprawdź:
 
-1. **Roadmapa ma priorytet** — przeczytaj `nestjs-roadmap.md`, znajdź nieodhaczone checkpointy w aktualnym milestone. Jeśli Jakub zaproponował temat który logicznie wpasuje się w kolejność roadmapy (np. jest prereq-em do następnego checkpointu lub naturalnie łączy się z aktualnym milestone) — można go wrzucić. Ale jeśli temat jest z innego milestone'a i przeskakuje fundamenty — nie wrzucaj go.
+1. **Roadmapa ma priorytet** — przeczytaj `nestjs-roadmap.md`, znajdź nieodhaczone checkpointy w aktualnym milestone. Dopóki aktualny milestone nie jest odhaczony — nie ruszaj następnego. Jeśli Jakub zaproponował temat który logicznie wpasuje się w kolejność roadmapy (np. jest prereq-em do następnego checkpointu lub naturalnie łączy się z aktualnym milestone) — można go wrzucić. Ale jeśli temat jest z innego milestone'a i przeskakuje fundamenty — nie wrzucaj go.
 2. **Ciekawe tematy ≠ pilne tematy** — jeśli Jakub wspomniał o czymś interesującym (np. envelope pattern, caching, nowy feature) ale aktualny milestone ma niezrobione fundamenty — zanotuj temat w roadmapie we właściwym milestone, NIE wrzucaj na następną sesję.
 3. **Fundamenty przed features** — jeśli Jakub nie umie czegoś podstawowego (np. raw SQL, ACID), to ma priorytet nad nowymi feature'ami.
 
