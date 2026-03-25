@@ -12,7 +12,7 @@ Rozpoczynasz nową sesję coachingową z Jakubem. Wykonaj poniższe kroki:
 
 - Przeczytaj WSZYSTKIE pliki w `docs/sessions/` — posortuj chronologicznie, skup się na ostatnich 2-3 (słabości wyciągaj z sekcji "Słabości — update" w session logach)
 - **Przeczytaj sekcję "Następna sesja" z OSTATNIEGO session logu** — tam jest zaplanowany task (Kodowanie), tematy do retencji i nieprzerobione tematy do wplenienia. To jest Twój plan na tę sesję.
-- Przeczytaj `nestjs-roadmap.md` — znajdź aktualny milestone i nieodhaczone checkpointy
+- Przeczytaj `fullstack-roadmap.md` — znajdź aktualny milestone i nieodhaczone checkpointy
 - Przeczytaj `docs/mock-interviews.md` (jeśli istnieje) — sprawdź które tematy mają najniższe score'y → wpleć w recall challenge lub task (deliberate practice)
 
 ## 2. Coaching protocol — kontekst do załadowania

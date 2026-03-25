@@ -105,7 +105,7 @@ Plik: `docs/sessions/YYYY-MM-DD.md`
 
 ## 4. Aktualizacja roadmapy
 
-Przeczytaj `nestjs-roadmap.md` i:
+Przeczytaj `fullstack-roadmap.md` i:
 
 1. **Odhacz checkpointy** — ale TYLKO jeśli spełniają kryterium retencji (patrz zasady poniżej)
 2. **Wykrywaj luki** — jeśli podczas sesji wyszło że Jakub nie zna czegoś fundamentalnego co powinno być w roadmapie (np. brakujący temat SQL, brakujący koncept backendowy), dodaj to do odpowiedniego milestone'a
@@ -150,7 +150,7 @@ Connection cards budują sieć wiedzy zamiast izolowanych faktów — to sprawia
 
 **KRYTYCZNE:** Następna sesja MUSI być zgodna z priorytetami roadmapy. NIE wrzucaj tematu jako następną sesję tylko dlatego, że Jakub powiedział że jest "ciekawy". Sprawdź:
 
-1. **Roadmapa ma priorytet** — przeczytaj `nestjs-roadmap.md`, znajdź nieodhaczone checkpointy w aktualnym milestone (i wcześniejszych jeśli mają status ⏳ retencja).
+1. **Roadmapa ma priorytet** — przeczytaj `fullstack-roadmap.md`, znajdź nieodhaczone checkpointy w aktualnym milestone (i wcześniejszych jeśli mają status ⏳ retencja).
 2. **Ciekawe tematy ≠ pilne tematy** — jeśli Jakub wspomniał o czymś interesującym ale aktualny milestone ma niezrobione fundamenty — zanotuj temat w roadmapie, NIE wrzucaj na następną sesję.
 3. **Fundamenty przed features** — jeśli Jakub nie umie czegoś podstawowego, to ma priorytet.
 

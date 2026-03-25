@@ -70,7 +70,7 @@ pnpm run test:e2e        # e2e testy
 
 ## Architektura
 
-Standardowy NestJS scaffold — modułowa architektura z DI containerem. Roadmapa: `nestjs-roadmap.md`.
+Standardowy NestJS scaffold — modułowa architektura z DI containerem. Roadmapa: `fullstack-roadmap.md`.
 
 ## Dokumentacja — context7 MCP
 
