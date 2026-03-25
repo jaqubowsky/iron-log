@@ -1,7 +1,7 @@
 # NestJS + Backend — Roadmap (milestone-based)
 
 **Cel:** Aplikuję na Fullstack Mid+ (Next.js + NestJS/Node.js).
-**Tempo:** 2-3h dziennie. Codziennie. Bez wymówek.
+**Tempo:** 1-2h dziennie. Codziennie. Bez wymówek. + 15 min Anki poza sesją.
 **Projekt:** IRONLOG API — backend do aplikacji treningowej.
 **Progresja:** Milestones, nie tygodnie. Kończysz milestone → idziesz dalej. Nie czekasz na kalendarz.
 **Timeline:** 3-4 miesiące. Aktywnie aplikuję od teraz. Priorytet: solidne przyswojenie > pęd przez materiał.
@@ -429,4 +429,4 @@ Capstone. Dotrzesz tu TYLKO jak M1-M10 odhaczone. System design, advanced topics
 4. **Nie pamiętasz syntax? Docs. Nie rozumiesz dlaczego? Zatrzymaj się i przemyśl.**
 5. **Jeśli nie potrafisz wytłumaczyć DLACZEGO tak — nie rozumiesz tego**
 6. **Rysuj diagramy — data flow, nie UI mockupy**
-7. **2-3h dziennie — consistency > intensity**
+7. **1-2h dziennie + 15 min Anki — consistency > intensity**
