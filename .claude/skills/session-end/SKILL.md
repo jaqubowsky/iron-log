@@ -146,14 +146,31 @@ Connection cards budują sieć wiedzy zamiast izolowanych faktów — to sprawia
 
 **KRYTYCZNE:** Następna sesja MUSI być zgodna z priorytetami roadmapy. NIE wrzucaj tematu jako następną sesję tylko dlatego, że Jakub powiedział że jest "ciekawy". Sprawdź:
 
-1. **Roadmapa ma priorytet** — przeczytaj `nestjs-roadmap.md`, znajdź nieodhaczone checkpointy w aktualnym milestone. Dopóki aktualny milestone nie jest odhaczony — nie ruszaj następnego. Jeśli Jakub zaproponował temat który logicznie wpasuje się w kolejność roadmapy (np. jest prereq-em do następnego checkpointu lub naturalnie łączy się z aktualnym milestone) — można go wrzucić. Ale jeśli temat jest z innego milestone'a i przeskakuje fundamenty — nie wrzucaj go.
-2. **Ciekawe tematy ≠ pilne tematy** — jeśli Jakub wspomniał o czymś interesującym (np. envelope pattern, caching, nowy feature) ale aktualny milestone ma niezrobione fundamenty — zanotuj temat w roadmapie we właściwym milestone, NIE wrzucaj na następną sesję.
-3. **Fundamenty przed features** — jeśli Jakub nie umie czegoś podstawowego (np. raw SQL, ACID), to ma priorytet nad nowymi feature'ami.
+1. **Roadmapa ma priorytet** — przeczytaj `nestjs-roadmap.md`, znajdź nieodhaczone checkpointy w aktualnym milestone (i wcześniejszych jeśli mają status ⏳ retencja).
+2. **Ciekawe tematy ≠ pilne tematy** — jeśli Jakub wspomniał o czymś interesującym ale aktualny milestone ma niezrobione fundamenty — zanotuj temat w roadmapie, NIE wrzucaj na następną sesję.
+3. **Fundamenty przed features** — jeśli Jakub nie umie czegoś podstawowego, to ma priorytet.
 
-### Prereq-y i praca domowa
+### Format sekcji "Następna sesja" w session logu
 
-Jeśli następna sesja wymaga wiedzy której Jakub jeszcze nie ma, sekcja "Następna sesja" w session logu MUSI zawierać materiały do nauki ZANIM sesja się zacznie:
+Sekcja musi być **kompletna i jednoznaczna** — session-start na kolejnej sesji czyta TYLKO tę sekcję + roadmapę. Nie ma kontekstu z tej konwersacji.
 
-- **Materiały do nauki** (jeśli prereq-y) — konkretny tutorial, docs, lub kurs do przerobienia PRZED sesją. Np. "Przejdź SQLBolt (sqlbolt.com) — lekcje 1-6 (SELECT, WHERE, JOIN)" zamiast "napisz SELECT z JOIN"
-- **Co przeczytać z docs** — konkretny link/sekcja NestJS/PostgreSQL docs relevant do następnego taska
-- **Nad czym pomyśleć** — pytanie do przemyślenia z roadmapy aktualnego milestone'a
+```markdown
+## Następna sesja
+
+**Kodowanie (główny task):** [konkretny task z aktualnego milestone — co zbudować, jakie wymagania]
+
+**Retencja do wplenienia:** [nieodhaczone checkpointy z wcześniejszych milestones do weryfikacji przez recall challenge / mock interview — wylistuj konkretne tematy]
+
+**Nieprzerobione tematy do wplenienia:** [tematy z wcześniejszych milestones które NIE były na żadnej sesji — jeśli pasują do kontekstu taska, wpleć jako explain-concept lub sidebar]
+
+**Docs do przeczytania:** [konkretna sekcja NestJS/PostgreSQL docs relevant do taska]
+
+**Nad czym pomyśleć:** [pytanie do przemyślenia przed sesją]
+```
+
+### Zasady
+
+- **"Kodowanie"** = jeden konkretny task z milestone checkpointów. Nie "rób co chcesz z M3"
+- **"Retencja"** = tematy przerobione ale nieodhaczone. Coach testuje przez recall/mock. Jeśli 4-5/5 → odhaczamy
+- **"Nieprzerobione"** = tematy z [ ] checkpointów które nigdy nie były omawiane. Coach szuka okazji do wplecenia (np. temat normalizacji wchodzi naturalnie przy projektowaniu nowej tabeli)
+- Jeśli jest prereq do następnego taska → dodaj materiały do nauki PRZED sesją
