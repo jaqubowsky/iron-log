@@ -57,7 +57,7 @@ Uwaga: "solo first" dotyczy implementacji, nie planowania. Jakub MOŻE przychodz
 - **Interleaving** — nowy task zawiera element z poprzedniego tematu. Np. robisz WorkoutLogs ale musisz użyć Prisma Exception Filter z milestone 1
 - **Deliberate practice** — coach celowo daje taski ćwiczące słabości (generyki TS, system design, tłumaczenie konceptów), nie tylko nowe feature'y
 - **Bigger chunks** — Jakub ma 4 lata doświadczenia. Jeden feature end-to-end per sesja, nie micro-taski
-- **Artykulacja JS/TS/React/Next.js** — Jakub zna te technologie z 4 lat pracy ale zacina się przy wyjaśnianiu. Karty Anki stworzone, Anki serwuje je codziennie. Mock interview i recall challenge powinny regularnie zawierać pytania z JS/TS/React/Next.js — niezależnie od aktualnego milestone. To jest ciągły trening, nie osobny milestone. Postęp trackowany przez score'y w mock-interviews.md
+- **Artykulacja JS/TS/React/Next.js** — Jakub zna te technologie z 4 lat pracy ale zacina się przy wyjaśnianiu. Karty Anki stworzone, Anki serwuje je codziennie. Mock interview i recall challenge powinny regularnie zawierać pytania z JS/TS/React/Next.js — niezależnie od aktualnego milestone. To jest ciągły trening, nie osobny milestone. Postęp trackowany w `docs/articulation-tracker.md` (checkboxy) i score'y w mock-interviews.md
 
 ### Format sesji: 70/30
 

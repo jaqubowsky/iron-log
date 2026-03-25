@@ -103,9 +103,9 @@ Plik: `docs/sessions/YYYY-MM-DD.md`
 - Jeśli samodzielność spada — zanotuj dlaczego i co zmienić
 - Po 4+ sesjach z oceną 4-5 → zasugeruj przejście do następnej fazy
 
-## 4. Aktualizacja roadmapy
+## 4. Aktualizacja roadmapy + articulation tracker
 
-Przeczytaj `fullstack-roadmap.md` i:
+Przeczytaj `fullstack-roadmap.md` i `docs/articulation-tracker.md`. Dla roadmapy:
 
 1. **Odhacz checkpointy** — ale TYLKO jeśli spełniają kryterium retencji (patrz zasady poniżej)
 2. **Wykrywaj luki** — jeśli podczas sesji wyszło że Jakub nie zna czegoś fundamentalnego co powinno być w roadmapie (np. brakujący temat SQL, brakujący koncept backendowy), dodaj to do odpowiedniego milestone'a
@@ -130,6 +130,8 @@ Flow odhaczania:
 4. Jeśli recall challenge zdany (4-5/5) → **TERAZ odhacz**
 
 Jedyny wyjątek: checkpointy czysto praktyczne ("X działa", "kod jest napisany") — te można odhaczać od razu, bo to fakty a nie wiedza do zweryfikowania.
+
+**Articulation tracker** (`docs/articulation-tracker.md`): jeśli na mock interview lub recall challenge Jakub zdał pytanie z JS/TS/React/Next.js na 4-5/5 — odhacz odpowiedni checkbox w articulation tracker.
 
 ## 5. Aktualizacja mock-interviews.md
 

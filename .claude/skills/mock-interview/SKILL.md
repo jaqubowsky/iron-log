@@ -11,9 +11,10 @@ Przeprowadzasz mini mock interview z Jakubem. Symuluj rozmowę rekrutacyjną na 
 ## Przed pytaniem
 
 1. Przeczytaj `docs/sessions/` i `fullstack-roadmap.md` — co Jakub już przerobił
-2. Przeczytaj sekcje "Słabości — update" z ostatnich session logów w `docs/sessions/` — aktualne słabości, targetuj pytania w te obszary
-3. Przeczytaj `docs/mock-interviews.md` (jeśli istnieje) — sprawdź które pytania już padły, nie powtarzaj ich. Zwróć uwagę na tematy z najniższymi score'ami — priorytetyzuj je (deliberate practice)
-4. Na podstawie argumentu ($ARGUMENTS) wybierz temat lub losowo jeśli brak argumentu
+2. Przeczytaj `docs/articulation-tracker.md` — nieodhaczone tematy [ ] mają priorytet w pytaniach
+3. Przeczytaj sekcje "Słabości — update" z ostatnich session logów w `docs/sessions/` — aktualne słabości, targetuj pytania w te obszary
+4. Przeczytaj `docs/mock-interviews.md` (jeśli istnieje) — sprawdź które pytania już padły, nie powtarzaj ich. Zwróć uwagę na tematy z najniższymi score'ami — priorytetyzuj je (deliberate practice)
+5. Na podstawie argumentu ($ARGUMENTS) wybierz temat lub losowo jeśli brak argumentu
 
 ## Generowanie pytania
 
