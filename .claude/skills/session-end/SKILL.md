@@ -88,7 +88,7 @@ Plik: `docs/sessions/YYYY-MM-DD.md`
 
 ## Faza coachingu
 
-[Aktualna faza (1/2/3) i czy jest gotowy na przejście do następnej. Milestone: aktualny (M1-M11)]
+[Aktualna faza (1/2/3) i czy jest gotowy na przejście do następnej. Milestone: aktualny (M1-M9)]
 
 ## Następna sesja
 
@@ -117,7 +117,7 @@ Zasady:
 - Nie usuwaj istniejących checkpointów — tylko odhaczaj lub dodawaj nowe
 - Nowe tematy dodawaj z krótkim uzasadnieniem w komentarzu (np. "— wyszło na sesji 2026-03-22 że brakuje fundamentów")
 - Jeśli milestone się za bardzo rozrósł → zaproponuj podział na 2 mniejsze
-- **Milestones M1-M11:** M1=CRUD ✅, M2=SQL, M3=HTTP+NestJS features, M4=JS/TS artykulacja, M5=Auth+Security, M6=Node.js runtime, M7=NestJS deeper+SOLID, M8=Docker+Deploy+Testy+Logging+Swagger+CI/CD, M9=Next.js/React artykulacja+Frontend, M10=Caching+Queues+Advanced SQL, M11=System Design+Advanced
+- **Milestones M1-M9:** M1=CRUD ✅, M2=SQL, M3=HTTP+NestJS features, M4=Auth+Security, M5=Node.js runtime, M6=NestJS deeper+SOLID, M7=Docker+Deploy+Testy+Logging+Next.js front, M8=Caching+Queues+Advanced SQL, M9=System Design+Advanced
 
 ### Kryterium odhaczania checkpointów
 

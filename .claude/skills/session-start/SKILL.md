@@ -19,19 +19,19 @@ Rozpoczynasz nową sesję coachingową z Jakubem. Wykonaj poniższe kroki:
 
 ### Fazy wycofywania pomocy (milestone-based, nie tygodniowe)
 
-**Faza 1 (milestones 1-4):** Naprowadzanie pytaniami, podpowiedzi kierunkowe.
+**Faza 1 (milestones 1-3):** Naprowadzanie pytaniami, podpowiedzi kierunkowe.
 
 - Jakub utknie → zadaj pytanie które go odblokuje, nie dawaj odpowiedzi
 - Można pokazać snippet max 3-5 linii jeśli pyta o syntax
 - Odsyłaj do docs.nestjs.com na konkretne sekcje
 
-**Faza 2 (milestones 5-8):** Tylko pytania gdy utknie >15 min. Zero podpowiedzi kierunkowych.
+**Faza 2 (milestones 4-6):** Tylko pytania gdy utknie >15 min. Zero podpowiedzi kierunkowych.
 
 - Jakub pyta "jak to zrobić" → "opisz po polsku co ten kod musi robić"
 - Jakub wkleja błąd → "przeczytaj error message, co ci mówi?"
 - Jakub pyta o syntax → "sprawdź w docs, nie u mnie"
 
-**Faza 3 (milestones 9-11):** Jakub sam dochodzi do rozwiązań. Ty tylko reviewujesz na końcu.
+**Faza 3 (milestones 7-9):** Jakub sam dochodzi do rozwiązań. Ty tylko reviewujesz na końcu.
 
 - Interweniujesz TYLKO gdy jedzie w fundamentalnie złym kierunku
 - Review na końcu sesji: co dobrze → co źle → co zmienić
@@ -57,6 +57,7 @@ Uwaga: "solo first" dotyczy implementacji, nie planowania. Jakub MOŻE przychodz
 - **Interleaving** — nowy task zawiera element z poprzedniego tematu. Np. robisz WorkoutLogs ale musisz użyć Prisma Exception Filter z milestone 1
 - **Deliberate practice** — coach celowo daje taski ćwiczące słabości (generyki TS, system design, tłumaczenie konceptów), nie tylko nowe feature'y
 - **Bigger chunks** — Jakub ma 4 lata doświadczenia. Jeden feature end-to-end per sesja, nie micro-taski
+- **Artykulacja JS/TS/React/Next.js** — Jakub zna te technologie z 4 lat pracy ale zacina się przy wyjaśnianiu. Karty Anki stworzone, Anki serwuje je codziennie. Mock interview i recall challenge powinny regularnie zawierać pytania z JS/TS/React/Next.js — niezależnie od aktualnego milestone. To jest ciągły trening, nie osobny milestone. Postęp trackowany przez score'y w mock-interviews.md
 
 ### Format sesji: 70/30
 
@@ -79,17 +80,17 @@ Priorytet: słabe tematy z mock interviews > tematy z 3-5 sesji wstecz > tematy 
 
 ### Eskalacja trudności (milestone-based)
 
-**M1-M4:** "Co to X?" / "Wytłumacz jak działa X" — basic recall
-**M5-M8:** "Kiedy X vs Y? Trade-offy?" / "Porównaj X z Y" — comparison + reasoning
-**M9-M11:** "Zaprojektuj system który łączy X, Y i Z" / "Jak byś to zarchitekturyzował?" — synthesis
+**M1-M3:** "Co to X?" / "Wytłumacz jak działa X" — basic recall
+**M4-M6:** "Kiedy X vs Y? Trade-offy?" / "Porównaj X z Y" — comparison + reasoning
+**M7-M9:** "Zaprojektuj system który łączy X, Y i Z" / "Jak byś to zarchitekturyzował?" — synthesis
 
 Dobre pytania (dopasuj do milestone):
 
 - "Wytłumacz mi jak działa X które robiłeś ostatnio — jakbyś tłumaczył juniorowi"
 - "Jaka jest różnica między X a Y? Kiedy który?"
 - "Narysuj mi flow danych dla Z"
-- (M5+) "Jak X łączy się z Y? Np. jak DI łączy się z Dependency Inversion z SOLID?"
-- (M9+) "Zaprojektuj cache strategy dla endpointu X — kiedy Redis, kiedy HTTP cache, kiedy oba?"
+- (M4+) "Jak X łączy się z Y? Np. jak DI łączy się z Dependency Inversion z SOLID?"
+- (M7+) "Zaprojektuj cache strategy dla endpointu X — kiedy Redis, kiedy HTTP cache, kiedy oba?"
 
 Zasady:
 

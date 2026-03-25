@@ -138,35 +138,7 @@ Budujesz WorkoutTemplates, WorkoutLogs — cross-module communication. Widzisz j
 
 ---
 
-## Milestone 4 — JS/TS artykulacja
-
-### Co robisz
-
-Trening artykulacji JS/TS — potrafisz używać ale zacinasz się przy wyjaśnianiu.
-
-- **JavaScript fundamenty**
-  - [ ] Potrafię wytłumaczyć closures z praktycznym przykładem
-  - [ ] Potrafię wytłumaczyć `this` binding (arrow vs regular, call/apply/bind)
-  - [ ] Potrafię wytłumaczyć Promise.all vs Promise.allSettled vs Promise.race — kiedy który
-  - [ ] Potrafię wytłumaczyć async/await error handling i kiedy sequential vs parallel execution
-- **TypeScript advanced**
-  - [ ] Potrafię napisać utility type z generykami (np. DeepPartial, Pick z warunkiem)
-  - [ ] Potrafię wytłumaczyć `any` vs `unknown` vs `never` na rozmowie
-  - [ ] Potrafię wytłumaczyć `type` vs `interface` — deep differences (declaration merging, extends vs &)
-  - [ ] Potrafię wytłumaczyć discriminated unions i type narrowing z przykładem
-  - [ ] Potrafię wytłumaczyć dlaczego unikać `enum` i kiedy `as const` vs `enum` vs `const enum`
-
-### Przykładowe pytania
-
-- Closures — napisz przykład gdzie closure powoduje memory leak. Jak to naprawić?
-- Promise.all vs Promise.allSettled — masz 5 fetch requestów, 1 failuje. Co użyjesz?
-- `this` w arrow function vs regular function — co się stanie w tym kodzie? (pokaż snippet)
-- Napisz utility type `DeepPartial<T>` — jak działa z nested objects?
-- `any` vs `unknown` — kiedy który? Dlaczego `unknown` jest bezpieczniejszy?
-
----
-
-## Milestone 5 — Auth + security
+## Milestone 4 — Auth + security
 
 ### Co robisz
 
@@ -187,7 +159,7 @@ JWT auth od zera. Największy build milestone — po tym masz działające API z
 - **Config management** — `@nestjs/config`, env vars. Nie hardkoduj JWT secret
   - [ ] ConfigModule skonfigurowany — env vars zamiast hardkodowanych wartości
   - [ ] Potrafię wytłumaczyć jak zarządzasz configiem między środowiskami (dev/staging/prod)
-- **Basic testing** — min. 1 unit test dla auth service. Pełna strategia testów w M8
+- **Basic testing** — min. 1 unit test dla auth service. Pełna strategia testów w M7
   - [ ] Min. 1 unit test dla auth service napisany sam
 
 ### Przykładowe pytania
@@ -201,7 +173,7 @@ JWT auth od zera. Największy build milestone — po tym masz działające API z
 
 ---
 
-## Milestone 6 — Node.js runtime
+## Milestone 5 — Node.js runtime
 
 ### Co robisz
 
@@ -226,11 +198,11 @@ Teoria Node.js — event loop, streams, skalowanie. Nie budujesz nowych features
 
 ---
 
-## Milestone 7 — NestJS deeper + SOLID + patterns
+## Milestone 6 — NestJS deeper + SOLID + patterns
 
 ### Co robisz
 
-Refleksja na tym co zbudowałeś w M5 (auth). Teraz rozumiesz request lifecycle, custom providers, SOLID, design patterns — bo masz kod w którym to widzisz.
+Refleksja na tym co zbudowałeś w M4 (auth). Teraz rozumiesz request lifecycle, custom providers, SOLID, design patterns — bo masz kod w którym to widzisz.
 
 - **Request lifecycle**
   - [ ] Potrafię narysować request lifecycle z pamięci (Middleware → Guard → Interceptor → Pipe → Controller → Service → Interceptor → Filter)
@@ -255,11 +227,11 @@ Refleksja na tym co zbudowałeś w M5 (auth). Teraz rozumiesz request lifecycle,
 
 ---
 
-## Milestone 8 — Docker + deploy + testy + logging
+## Milestone 7 — Docker + deploy + testy + logging + Next.js front
 
 ### Co robisz
 
-Praktyczny milestone — IRONLOG idzie na produkcję. Docker, deploy, testy, logging.
+IRONLOG idzie na produkcję. Docker, deploy, testy, logging. Podłącz Next.js frontend — fullstack demo.
 
 - **Docker + deploy**
   - [ ] `docker-compose up` i działa (Nest + Postgres)
@@ -276,6 +248,9 @@ Praktyczny milestone — IRONLOG idzie na produkcję. Docker, deploy, testy, log
   - [ ] E2e test: rejestracja → login → CRUD → logout
   - [ ] Potrafię wytłumaczyć unit vs integration vs e2e — co daje najlepszy ROI
   - [ ] Potrafię wytłumaczyć jak działa `Test.createTestingModule()` i kiedy mockować vs testować z DB
+- **Next.js front**
+  - [ ] Next.js front konsumuje API — fullstack demo gotowe
+  - [ ] Potrafię narysować data flow: user action → component → fetch → API → DB → response → UI update
 - **Swagger + CI/CD + Git**
   - [ ] Swagger docs dla całego API
   - [ ] CI pipeline działa (lint + test + build)
@@ -292,51 +267,7 @@ Praktyczny milestone — IRONLOG idzie na produkcję. Docker, deploy, testy, log
 
 ---
 
-## Milestone 9 — Next.js/React artykulacja + frontend
-
-### Co robisz
-
-Podłącz Next.js frontend do IRONLOG API. Trening artykulacji React/Next.js — potrafisz używać ale zacinasz się przy wyjaśnianiu.
-
-- **Next.js front**
-  - [ ] Next.js front konsumuje API — fullstack demo gotowe
-  - [ ] Potrafię wytłumaczyć Server vs Client Components i kiedy który
-  - [ ] Potrafię wytłumaczyć App Router cache layers i kiedy dostajesz stale data
-  - [ ] Potrafię wytłumaczyć Streaming z Suspense — dlaczego lepsze UX, co pod spodem (chunked HTML)
-  - [ ] Potrafię narysować data flow: user action → component → fetch → API → DB → response → UI update
-  - [ ] Potrafię wytłumaczyć ISR — kiedy ISR vs SSR vs SSG
-  - [ ] Potrafię wytłumaczyć Parallel Routes + Intercepting Routes — "modal z własnym URL"
-  - [ ] Potrafię wytłumaczyć Route Handlers vs Server Actions — kiedy który
-  - [ ] Potrafię wytłumaczyć Next.js Middleware — Edge Runtime ograniczenia, kiedy middleware vs layout vs API route
-- **React fundamenty**
-  - [ ] Potrafię wytłumaczyć reconciliation i po co virtual DOM
-  - [ ] Potrafię wytłumaczyć kiedy React.memo/useMemo/useCallback faktycznie pomagają (a kiedy to premature optimization)
-  - [ ] Potrafię wytłumaczyć Error Boundaries — co łapią, czego nie łapią, kiedy używać
-  - [ ] Potrafię wytłumaczyć controlled vs uncontrolled components — kiedy który
-  - [ ] Potrafię wytłumaczyć rules of hooks i dlaczego nie można wołać hooks warunkowo
-- **Data fetching patterns**
-  - [ ] Potrafię wytłumaczyć kiedy React Query vs Server Components vs route handler
-  - [ ] Potrafię wytłumaczyć waterfall problem i jak go unikać
-- **State management**
-  - [ ] Potrafię wytłumaczyć kiedy context, kiedy external store, kiedy server state
-- **Security w Next.js**
-  - [ ] Potrafię wytłumaczyć różnicę server actions vs API routes w kontekście security (CSRF)
-
-### Przykładowe pytania
-
-- Server Component vs Client Component — user klika button i filtruje listę. Gdzie stan? Gdzie fetch?
-- `"use client"` na górze pliku — co to naprawdę robi? Czy cały plik jest renderowany tylko na kliencie?
-- App Router cache — request przechodzi przez 4 warstwy cache. Narysuj flow. Kiedy stale data?
-- Streaming z Suspense — dlaczego lepsze UX niż loading spinner?
-- React.memo — kiedy naprawdę pomaga? Kiedy premature optimization?
-- ISR vs SSR vs SSG — masz blog z 10k postów, jak renderujesz?
-- Parallel Routes — jak zbudujesz modal z własnym URL?
-- Route Handler vs Server Action — kiedy który?
-- Masz Next.js frontend + NestJS API. Gdzie autentykujesz? Middleware? Layout? Server action?
-
----
-
-## Milestone 10 — Caching + Queues + Advanced SQL
+## Milestone 8 — Caching + Queues + Advanced SQL
 
 ### Co robisz
 
@@ -366,11 +297,11 @@ Produkcyjne features: Redis caching, BullMQ queues, zaawansowany SQL.
 
 ---
 
-## Milestone 11 — System design + advanced topics
+## Milestone 9 — System design + advanced topics
 
 ### Co robisz
 
-Capstone. Dotrzesz tu TYLKO jak M1-M10 odhaczone. System design, advanced topics, interview polish.
+Capstone. Dotrzesz tu TYLKO jak M1-M8 odhaczone. System design, advanced topics, interview polish.
 
 - **Behavioral prep**
   - [ ] Mam przygotowane 2-3 historie behawioralne (najtrudniejszy bug, decyzja architektoniczna, code review)
