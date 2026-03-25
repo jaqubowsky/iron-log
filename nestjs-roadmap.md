@@ -61,7 +61,7 @@ Dopóki nie odhaczysz wszystkich checkpointów w milestone — nie ruszasz nast�
 
 ## Milestone 2 — SQL fundamenty ⏳ retencja
 
-> **Status:** Tematy przerobione na sesjach. Checkpointy "potrafię wytłumaczyć" odhaczane przez recall challenge (4-5/5). Kodowanie idzie dalej w M3.
+> **Status:** Część tematów przerobiona (JOINy, constraints, ACID basics, indeksy, EXPLAIN ANALYZE). Nieprzerobione: normalizacja, locking, isolation levels, CREATE TABLE od zera. Retencja przerobionego → Anki + recall. Nieprzerobione → wplecione w sesje gdy pasują do kontekstu. Kodowanie idzie dalej w M3.
 
 ### Co robisz
 
