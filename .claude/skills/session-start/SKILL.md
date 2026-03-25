@@ -107,17 +107,24 @@ _(temat z sesji [data] / mock interview [data])_
 
 ## 4. Task na sesję
 
-Po recall challenge, zaproponuj task. Jeśli Jakub nie podał czasu ($ARGUMENTS), zapytaj ile ma czasu.
+Po recall challenge, zaproponuj task. **Najpierw sprawdź sekcję "Następna sesja" z ostatniego session logu** — tam jest zaplanowany task. Jeśli Jakub nie podał czasu ($ARGUMENTS), zapytaj ile ma czasu.
 
-Dopasowanie do czasu:
+### Priorytet: session log > nowy task
+
+1. **Jest zaplanowany task w "Następna sesja"?** → użyj go jako bazę. Dopasuj do dostępnego czasu:
+   - **Za mało czasu na cały task** → wybierz fragment (np. "zrób tylko repository, paginacja następnym razem")
+   - **Więcej czasu niż task wymaga** → po zakończeniu taska wpleć temat z "Retencja" lub "Nieprzerobione" z session logu
+   - **Brak zaplanowanego taska** (np. pierwsza sesja, brak logu) → dobierz task z roadmapy na podstawie czasu
+2. **Brak session logu** → dobierz task z nieodhaczonych checkpointów w aktualnym milestone
+
+### Dopasowanie do czasu (gdy brak zaplanowanego taska):
 
 - **30 min**: jeden edge case, refactor, lub mock interview session
 - **1h**: mały feature end-to-end (endpoint + service + testy ręczne)
 - **2h+**: pełny feature lub nowy moduł
 
-Zasady:
+### Zasady:
 
-- Task musi budować na poprzedniej sesji (interleaving: wpleć element z wcześniejszego tematu)
 - Podaj TYLKO wymagania — bez podpowiedzi jak zacząć
 - Jeśli milestone ma nieodhaczone checkpointy → priorytet na nie
 - Jeśli milestone jest zamknięty → przejdź do następnego
