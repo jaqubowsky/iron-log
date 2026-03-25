@@ -122,9 +122,11 @@ Po opanowaniu SQL basics — budujesz features i widzisz jak ORM mapuje się na 
 - Request lifecycle: Middleware → Guard → Interceptor (before) → Pipe → Controller → Service → Interceptor (after) → Filter
 - Response envelope pattern z interceptorem — ustandaryzowane response'y w całym API
 - **Security** — CORS, helmet, rate limiting, sanityzacja inputu, OWASP top 10 (XSS, SQL injection, CSRF)
-- **NestJS deeper** — DI scope (DEFAULT vs REQUEST vs TRANSIENT)
+- **NestJS deeper** — DI scope (DEFAULT vs REQUEST vs TRANSIENT), custom providers (useClass, useValue, useFactory, useExisting), custom decorators (createParamDecorator, SetMetadata + reflector), dynamic modules (forRoot/forFeature pattern)
 - **SOLID principles** — każda litera, abstrakcyjnie. Nie tylko "S = single responsibility". Umiesz podać przykład łamania i naprawy każdej zasady
-- **Node.js fundamenty** — event loop (fazy, microtasks vs macrotasks), single-threaded non-blocking model, kiedy worker threads, streams (basics)
+- **Design patterns** — GoF basics relevantne do backendu: Strategy, Observer (RxJS w NestJS), Factory, Singleton (DI scope DEFAULT). Nie wszystkie 23 — te które widzisz w NestJS codziennie
+- **Node.js fundamenty** — event loop (fazy, microtasks vs macrotasks, `process.nextTick()` vs `setImmediate()`), single-threaded non-blocking model, cluster module vs worker_threads (kiedy który), streams (basics), memory leaks (jak wykryć, jak debugować)
+- **Password hashing** — bcrypt vs argon2, salt, cost factor. Nie plaintext, nie MD5/SHA — wytłumacz dlaczego
 
 ### Przykładowe pytania (coach dobiera na bieżąco do kontekstu sesji)
 
@@ -136,8 +138,16 @@ Po opanowaniu SQL basics — budujesz features i widzisz jak ORM mapuje się na 
 - Co to CORS i dlaczego istnieje? Kiedy browser blokuje request?
 - Narysuj event loop — co się dzieje gdy Node dostaje 1000 requestów jednocześnie?
 - DI scope REQUEST vs DEFAULT — kiedy potrzebujesz request-scoped provider?
+- Custom providers — useClass vs useValue vs useFactory. Kiedy który? Podaj realny przykład useFactory
+- Custom decorator — jak działa createParamDecorator? Co to SetMetadata + Reflector? Jak guard czyta metadata z decoratora?
+- Dynamic modules — co robi forRoot vs forFeature? Dlaczego ConfigModule to używa?
 - SOLID — podaj przykład łamania Open/Closed Principle w NestJS. Jak byś to naprawił?
 - Liskov Substitution — co to znaczy w kontekście TypeScript i interfejsów?
+- Strategy pattern — gdzie widzisz go w NestJS? (hint: guards, pipes, interceptors to strategie)
+- `process.nextTick()` vs `setImmediate()` — czym się różnią? W której fazie event loop?
+- Cluster vs worker_threads — kiedy który? Ile procesów na 4-core CPU?
+- Jak znajdziesz memory leak w Node.js? Jakie narzędzia?
+- Dlaczego bcrypt a nie SHA256 do hashowania haseł? Co to salt i cost factor?
 
 ### Checkpointy
 
@@ -148,7 +158,10 @@ Po opanowaniu SQL basics — budujesz features i widzisz jak ORM mapuje się na 
 - [ ] Response envelope pattern działa na całym API (interceptor)
 - [ ] Security basics: CORS skonfigurowany, helmet, rate limiting
 - [ ] Potrafię wytłumaczyć event loop i dlaczego Node jest single-threaded ale non-blocking
+- [ ] Potrafię wytłumaczyć `process.nextTick()` vs `setImmediate()` i cluster vs worker_threads
 - [ ] Potrafię wytłumaczyć każdą literę SOLID z przykładem — abstrakcyjnie, nie tylko w kontekście NestJS
+- [ ] Potrafię wytłumaczyć custom providers, custom decorators i dynamic modules w NestJS
+- [ ] Potrafię wytłumaczyć dlaczego bcrypt a nie SHA do haseł
 
 ---
 
@@ -205,6 +218,7 @@ Znasz Next.js — tu nie uczysz się od zera, tylko upewniasz się że potrafisz
 ### Co robisz
 
 - Testing strategy: co testujesz, jak, dlaczego
+- **NestJS testing module** — `Test.createTestingModule()`, overriding providers w testach, testowanie z mockami vs z prawdziwą bazą
 - Min. unit testy dla service + e2e test dla auth flow
 - Pełny review API: spójność URL patterns, error responses, edge case'y
 
@@ -213,12 +227,15 @@ Znasz Next.js — tu nie uczysz się od zera, tylko upewniasz się że potrafisz
 - Unit vs integration vs e2e — co na którym poziomie? Co daje najlepszy ROI?
 - Ile testów to dość dla side projectu vs pracy komercyjnej?
 - Mock dependencies vs test cały flow — kiedy który?
+- Jak mockujesz Prisma w unit teście NestJS service? Jak overridujesz provider w `Test.createTestingModule()`?
+- Testowanie guarda — jak testujesz ownership check bez prawdziwej bazy?
 
 ### Checkpointy
 
 - [ ] Unit testy dla kluczowej logiki w services
 - [ ] E2e test: rejestracja → login → CRUD → logout
 - [ ] API jest spójne — potrafię je pokazać na rozmowie
+- [ ] Potrafię wytłumaczyć jak działa `Test.createTestingModule()` i kiedy mockować vs testować z DB
 
 ---
 
@@ -265,11 +282,12 @@ Znasz Next.js — tu nie uczysz się od zera, tylko upewniasz się że potrafisz
 - Mock interviews: pytania techniczne NestJS/Node.js/PostgreSQL
 - System design challenges (20 min z kartką)
 - Uzupełniasz braki które wyjdą na rozmowach
-- **TypeScript advanced** — generyki (napisz utility type), discriminated unions, type narrowing, infer, satisfies, Result/Either pattern
+- **TypeScript advanced** — generyki (napisz utility type), discriminated unions, type narrowing, infer, satisfies, Result/Either pattern, `any` vs `unknown` vs `never`, `type` vs `interface` (deep differences), conditional types, mapped types
 - **Behavioral prep** — najtrudniejszy bug, decyzje architektoniczne, code review, onboarding
 - **Monolith vs microservices** — kiedy migrować, communication patterns (sync vs async), saga pattern, distributed transactions. Nie "microservices = lepsze"
 - **DDD basics** — bounded context, aggregate, ubiquitous language. Kiedy DDD ma sens, kiedy to overkill dla CRUD API
 - **WebSocket vs SSE vs polling** — deep trade-offy, nie tylko "WebSocket = bidirectional". Kiedy SSE wystarczy? Kiedy polling jest OK? Connection management, scaling
+- **Scaling fundamentals** — horizontal vs vertical scaling, database replication (read replicas), circuit breaker pattern, graceful degradation, load balancing basics
 
 ### System design challenges
 
@@ -280,6 +298,8 @@ Znasz Next.js — tu nie uczysz się od zera, tylko upewniasz się że potrafisz
 - Monolith → microservices — zaprojektuj plan migracji IRONLOG. Co wydzielasz najpierw? Jak komunikują się serwisy?
 - DDD — zidentyfikuj bounded contexts w IRONLOG. Gdzie aggregate root? Kiedy DDD to overkill?
 - WebSocket vs SSE vs polling — zaprojektuj real-time feature dla IRONLOG (np. live workout tracking). Który transport i dlaczego?
+- Scaling — IRONLOG ma 100k userów. Co skalujesz najpierw? Horizontal vs vertical? Gdzie bottleneck?
+- Circuit breaker — external API (np. exercise database) pada. Jak Twoje API reaguje? Co to circuit breaker?
 
 ### Rytuały sesyjne (od milestone 3)
 
@@ -294,6 +314,8 @@ Znasz Next.js — tu nie uczysz się od zera, tylko upewniasz się że potrafisz
 - [ ] Potrafię zaprojektować prosty system od zera na kartce w 20 min
 - [ ] IRONLOG jest na GitHubie z README, Dockerem, testami — portfolio ready
 - [ ] Potrafię napisać utility type z generykami (np. DeepPartial, Pick z warunkiem)
+- [ ] Potrafię wytłumaczyć `any` vs `unknown` vs `never` i `type` vs `interface` na rozmowie
+- [ ] Potrafię wytłumaczyć horizontal vs vertical scaling, circuit breaker, graceful degradation
 - [ ] Mam przygotowane 2-3 historie behawioralne (bug, decyzja architektoniczna, code review)
 - [ ] Potrafię wytłumaczyć kiedy monolith a kiedy microservices — z konkretnymi argumentami, nie buzzwordami
 - [ ] Potrafię wytłumaczyć DDD basics (bounded context, aggregate) i kiedy to overkill
