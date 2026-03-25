@@ -1,4 +1,4 @@
-# NestJS + Backend — Roadmap (milestone-based)
+# Fullstack Mid+ — Roadmap (milestone-based)
 
 **Cel:** Aplikuję na Fullstack Mid+ (Next.js + NestJS/Node.js).
 **Tempo:** 1-2h dziennie. Codziennie. Bez wymówek. + 15 min Anki poza sesją.
