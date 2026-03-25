@@ -1,23 +1,23 @@
 import { Injectable } from '@nestjs/common';
 import { CreateExerciseDTO } from './dtos/create-exercise-dto';
 import { UpdateExerciseByIdDTO } from './dtos/update-exercise-by-id-dto';
-import { PrismaService } from 'src/db/prisma.service';
 import { PaginationDTO } from 'src/common/pagination-dto';
+import { ExerciseRepository } from './respositories/exercise.repository';
 
 const DEFAULT_PAGE = 1;
 const DEFAULT_LIMIT = 15;
 
 @Injectable()
 export class ExercisesService {
-  constructor(private prisma: PrismaService) {}
+  constructor(private exerciseRepository: ExerciseRepository) {}
 
   async getAll(paginationDto: PaginationDTO) {
     const { page = DEFAULT_PAGE, limit = DEFAULT_LIMIT } = paginationDto;
 
     const skip = (page - 1) * limit;
 
-    const getTotalCountPromise = this.prisma.exercise.count();
-    const getDataPromise = this.prisma.exercise.findMany({
+    const getTotalCountPromise = this.exerciseRepository.count();
+    const getDataPromise = this.exerciseRepository.findMany({
       skip,
       take: limit,
     });
@@ -41,19 +41,13 @@ export class ExercisesService {
   }
 
   async createExercise(createExerciseDTO: CreateExerciseDTO) {
-    const exercise = await this.prisma.exercise.create({
-      data: createExerciseDTO,
-    });
+    const exercise = await this.exerciseRepository.create(createExerciseDTO);
 
     return exercise;
   }
 
   async getById(id: string) {
-    const exercise = await this.prisma.exercise.findUniqueOrThrow({
-      where: {
-        id,
-      },
-    });
+    const exercise = await this.exerciseRepository.findUnique(id);
     return exercise;
   }
 
@@ -61,10 +55,8 @@ export class ExercisesService {
     id: string,
     updateExerciseByIdDTO: UpdateExerciseByIdDTO,
   ) {
-    const updatedExercise = await this.prisma.exercise.update({
-      where: {
-        id,
-      },
+    const updatedExercise = await this.exerciseRepository.update({
+      id,
       data: updateExerciseByIdDTO,
     });
 
@@ -72,10 +64,6 @@ export class ExercisesService {
   }
 
   async removeExercise(id: string) {
-    const removedExercise = await this.prisma.exercise.delete({
-      where: { id },
-    });
-
-    return removedExercise;
+    return await this.exerciseRepository.delete(id);
   }
 }

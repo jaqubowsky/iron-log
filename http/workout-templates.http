@@ -68,7 +68,7 @@ Content-Type: application/json
 }
 
 ### Get all workout templates
-GET http://localhost:3000/workout-templates?limit=1&cursor=8b0513aa-43af-49a3-bc8d-281d6b26bafd
+GET http://localhost:3000/workout-templates
 
 ### Get workout template by id - replace with real id after create
 GET http://localhost:3000/workout-templates/0fd896f7-a7ae-4614-816d-c1b93b03335d
