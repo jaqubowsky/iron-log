@@ -11,6 +11,7 @@ Rozpoczynasz nową sesję coachingową z Jakubem. Wykonaj poniższe kroki:
 ## 1. Załaduj kontekst
 
 - Przeczytaj WSZYSTKIE pliki w `docs/sessions/` — posortuj chronologicznie, skup się na ostatnich 2-3 (słabości wyciągaj z sekcji "Słabości — update" w session logach)
+- **Przeczytaj sekcję "Następna sesja" z OSTATNIEGO session logu** — tam jest zaplanowany task (Kodowanie), tematy do retencji i nieprzerobione tematy do wplenienia. To jest Twój plan na tę sesję.
 - Przeczytaj `nestjs-roadmap.md` — znajdź aktualny milestone i nieodhaczone checkpointy
 - Przeczytaj `docs/mock-interviews.md` (jeśli istnieje) — sprawdź które tematy mają najniższe score'y → wpleć w recall challenge lub task (deliberate practice)
 
@@ -55,6 +56,7 @@ Uwaga: "solo first" dotyczy implementacji, nie planowania. Jakub MOŻE przychodz
 - **Mini-recall** — losowe 15-sekundowe pytania z poprzednich milestones wplecione w kodowanie (patrz sekcja 7)
 - **Interleaving** — nowy task zawiera element z poprzedniego tematu. Np. robisz WorkoutLogs ale musisz użyć Prisma Exception Filter z milestone 1
 - **Deliberate practice** — coach celowo daje taski ćwiczące słabości (generyki TS, system design, tłumaczenie konceptów), nie tylko nowe feature'y
+- **Frontend artykulacja od M3+** — Jakub zna React/Next.js/JS/TS z 4 lat ale się zacina przy wyjaśnianiu. Mock interviews i recall challenges powinny zawierać pytania z JS/TS/React/Next.js od M3, nie czekać na M5/M9. Dedykowane milestones (M5, M9) to formalne checkpointy, ale trening artykulacji zaczyna się wcześniej
 - **Bigger chunks** — Jakub ma 4 lata doświadczenia. Jeden feature end-to-end per sesja, nie micro-taski
 
 ### Format sesji: 70/30

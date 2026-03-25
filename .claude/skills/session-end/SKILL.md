@@ -58,6 +58,10 @@ Plik: `docs/sessions/YYYY-MM-DD.md`
 
 [Jak wypadło planowanie? Czy sam doszedł do planu? Jakie pytania sokratejskie były potrzebne? Co pominął?]
 
+## Code review (jeśli był /code-review)
+
+[Kluczowe findings: co Jakub sam zauważył, co pominął, wyniki automatycznego scanu]
+
 ## Samodzielność (1-5)
 
 [Ocena: 1=pisałem za niego, 2=mocno naprowadzałem, 3=naprowadzałem pytaniami, 4=sam z minimalną pomocą, 5=sam od A do Z]
@@ -113,7 +117,7 @@ Zasady:
 - Nie usuwaj istniejących checkpointów — tylko odhaczaj lub dodawaj nowe
 - Nowe tematy dodawaj z krótkim uzasadnieniem w komentarzu (np. "— wyszło na sesji 2026-03-22 że brakuje fundamentów")
 - Jeśli milestone się za bardzo rozrósł → zaproponuj podział na 2 mniejsze
-- **Milestones M1-M11:** M1=CRUD ✅, M2=SQL, M3=HTTP+NestJS features, M4=Auth+Security, M5=JS/TS artykulacja, M6=Node.js runtime, M7=NestJS deeper+SOLID, M8=Docker+Deploy+Testy+Logging, M9=Next.js/React artykulacja+Frontend, M10=Caching+Queues+Advanced SQL, M11=System Design+Advanced
+- **Milestones M1-M11:** M1=CRUD ✅, M2=SQL, M3=HTTP+NestJS features, M4=Auth+Security, M5=JS/TS artykulacja, M6=Node.js runtime, M7=NestJS deeper+SOLID, M8=Docker+Deploy+Testy+Logging+Swagger+CI/CD, M9=Next.js/React artykulacja+Frontend, M10=Caching+Queues+Advanced SQL, M11=System Design+Advanced
 
 ### Kryterium odhaczania checkpointów
 
