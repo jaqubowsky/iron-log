@@ -10,9 +10,8 @@ Rozpoczynasz nową sesję coachingową z Jakubem. Wykonaj poniższe kroki:
 
 ## 1. Załaduj kontekst
 
-- Przeczytaj WSZYSTKIE pliki w `docs/sessions/` — posortuj chronologicznie, skup się na ostatnich 2-3
+- Przeczytaj WSZYSTKIE pliki w `docs/sessions/` — posortuj chronologicznie, skup się na ostatnich 2-3 (słabości wyciągaj z sekcji "Słabości — update" w session logach)
 - Przeczytaj `nestjs-roadmap.md` — znajdź aktualny milestone i nieodhaczone checkpointy
-- Przeczytaj `docs/weaknesses.md` — aktualne słabości do monitorowania
 - Przeczytaj `docs/mock-interviews.md` (jeśli istnieje) — sprawdź które tematy mają najniższe score'y → wpleć w recall challenge lub task (deliberate practice)
 
 ## 2. Coaching protocol — kontekst do załadowania
@@ -121,7 +120,8 @@ Po przedstawieniu tasku, ZANIM Jakub zacznie kodować — przeprowadź dyskusję
    - "Jakie relacje między modułami/encjami tu widzisz?"
    - "Jaki jest flow danych od requesta do response?"
 3. **Iteracja** — Jakub koryguje plan na podstawie pytań, coach dopytuje dalej
-4. **Potwierdzenie** — gdy plan jest solidny, coach daje zielone światło: "Plan dobry, koduj"
+4. **Potwierdzenie** — gdy plan jest solidny, coach daje zielone światło
+5. **Kolejność implementacji** — zanim Jakub otworzy edytor, niech wypisze kolejność plików/kroków które ruszy. Np. "1. DTO, 2. Service method, 3. Controller endpoint, 4. Test HTTP callem". To rozwiązuje problem paraliżu "od czego zacząć" — Jakub potrafi planować architekturę, ale blokuje się gdy trzeba plan przełożyć na konkretne pliki do ruszenia
 
 ### Zasady
 
@@ -137,3 +137,39 @@ Format — po przedstawieniu tasku:
 ```
 Zanim zaczniesz kodować — opowiedz mi swój plan. Jak byś to rozwiązał? Jakie moduły, jakie relacje, jaki flow danych?
 ```
+
+## 6. Code review (po zakończeniu głównego taska)
+
+Gdy Jakub skończy główny task sesji (zanim session-end), przeprowadź code review napisanego kodu. Review ma dwa wymiary:
+
+### A. Automatyczny scan (bugi + security)
+
+Użyj agenta `feature-dev:code-reviewer` do przeskanowania kodu napisanego/zmienionego na sesji. Agent szuka:
+- Bugów i błędów logicznych
+- Problemów bezpieczeństwa (SQL injection, brak walidacji, DoS vectors)
+- Niespójności z resztą codebase
+
+### B. Architektoniczny review (sokratejski)
+
+Coach przeprowadza dyskusję o jakości architektury. NIE dawaj gotowych odpowiedzi — najpierw pytaj Jakuba:
+
+1. **"Popatrz na kod który napisałeś — co byś wydzielił, co ci przeszkadza?"** — niech sam zidentyfikuje problemy
+2. **Dopytuj o konkretne decyzje:**
+   - "Dlaczego to jest w service a nie wydzielone?"
+   - "Gdybyś miał dodać trzeci moduł z tym samym patternem — co byś musiał skopiować?"
+   - "Czy ten kod jest reużywalny? Czy powinien być?"
+3. **Po odpowiedzi Jakuba** — uzupełnij co pominął, pokaż wyniki z automatycznego scanu
+
+### Zakres review
+
+- Architektura: separation of concerns, co gdzie wydzielić, DRY vs premature abstraction
+- Produkcyjna jakość: naming, consistency across modules, patterns
+- Bugi i security z automatycznego scanu
+- Porównanie z tym jak to robią w dużych projektach — nie "jak jest poprawnie" ale "jakie są trade-offy"
+
+### Zasady
+
+- Review to naturalny element sesji, nie osobny krok — gdy task jest zrobiony, przechodzimy do review
+- NIE dawaj listy 20 poprawek — skup się na 2-3 najważniejszych rzeczach
+- Poprawki NIE muszą być robione na tej sesji — mogą wejść do roadmapy jako task na następną
+- Jeśli Jakub sam zauważy problem → to lepsze niż gdybyś mu powiedział

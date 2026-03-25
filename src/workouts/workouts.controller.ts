@@ -7,20 +7,30 @@ import {
   ParseUUIDPipe,
   Patch,
   Post,
+  Query,
 } from '@nestjs/common';
 import { WorkoutsService } from './workouts.service';
 import { UpdateWorkoutTemplateDTO } from './dtos/update-workout-template-dto';
 import { CreateWorkoutTemplateDTO } from './dtos/create-workout-template-dto';
 import { WorkoutTemplateResponseDTO } from './dtos/workout-template-response-dto';
+import { CursorPaginationDTO } from 'src/common/cursor-pagination-dto';
 
 @Controller('workout-templates')
 export class WorkoutsController {
   constructor(private workoutsService: WorkoutsService) {}
 
   @Get()
-  async findAll() {
-    const response = await this.workoutsService.getAll();
-    return response.map((result) => new WorkoutTemplateResponseDTO(result));
+  async findAll(@Query() cursorPaginationDto: CursorPaginationDTO) {
+    const response = await this.workoutsService.getAll(cursorPaginationDto);
+
+    const workoutResponse = response.data.map(
+      (result) => new WorkoutTemplateResponseDTO(result),
+    );
+
+    return {
+      data: workoutResponse,
+      meta: response.meta,
+    };
   }
 
   @Get(':id')

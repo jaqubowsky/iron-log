@@ -3,6 +3,9 @@ import { PrismaService } from 'src/db/prisma.service';
 import { CreateWorkoutTemplateDTO } from './dtos/create-workout-template-dto';
 import { UpdateWorkoutTemplateDTO } from './dtos/update-workout-template-dto';
 import { WorkoutExerciseDTO } from './dtos/workout-exercise-dto';
+import { CursorPaginationDTO } from 'src/common/cursor-pagination-dto';
+
+const DEFAULT_LIMIT = 15;
 
 @Injectable()
 export class WorkoutsService {
@@ -28,14 +31,35 @@ export class WorkoutsService {
     return nonExistingIds;
   }
 
-  async getAll() {
-    return await this.prisma.workoutTemplate.findMany({
+  async getAll(cursorPaginationDto: CursorPaginationDTO) {
+    const { cursor, limit = DEFAULT_LIMIT } = cursorPaginationDto;
+
+    const data = await this.prisma.workoutTemplate.findMany({
+      cursor: cursor
+        ? {
+            id: cursor,
+          }
+        : undefined,
+      take: limit + 1,
       include: {
         exercises: {
           include: { exercise: true },
         },
       },
     });
+
+    const hasNextPage = data.length > limit;
+    const nextCursor = hasNextPage ? data[data.length - 1].id : null;
+
+    const slicedData = data.slice(0, limit);
+
+    return {
+      data: slicedData,
+      meta: {
+        nextCursor,
+        limit,
+      },
+    };
   }
 
   async getById(id: string) {

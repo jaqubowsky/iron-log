@@ -71,6 +71,9 @@ Prereq: SQLBolt + PostgreSQL Tutorial ZANIM sesja coachingowa z raw SQL.
 **Faza B: NestJS features z zastosowaniem SQL + HTTP**
 Po opanowaniu SQL basics — budujesz features i widzisz jak ORM mapuje się na SQL.
 
+- **Repository pattern** — wydziel dostęp do bazy z service do repository. Service = logika biznesowa, repository = queries
+- **Ustrukturyzowana paginacja** — wydziel logikę paginacji (offset + cursor) do common, reużywalny pattern zamiast hardkodowania w każdym service
+- **Code review + bug fixy** — @Max na limit, obsługa P2025 (404 zamiast 500), @IsInt na order, TOCTOU race condition
 - WorkoutLogs moduł — cross-module communication, nowe relacje
 - Filtrowanie, sortowanie, paginacja
 - Raw SQL obok Prisma — porównaj query ORM z ręcznym SQL
@@ -97,8 +100,11 @@ Po opanowaniu SQL basics — budujesz features i widzisz jak ORM mapuje się na 
 - [x] Rozumiem co Prisma generuje — potrafię przeczytać migrację SQL i wytłumaczyć każdą linię
 
 **NestJS features + HTTP (faza B):**
+- [ ] Repository pattern wdrożony — service nie woła Prisma bezpośrednio
+- [ ] Paginacja wydzielona do common — reużywalna dla dowolnego modułu
+- [x] Bug fixy z code review wdrożone (@Max, @IsInt — P2025 i TOCTOU już obsłużone przez exception filter)
 - [ ] Moduły komunikują się, zero circular deps
-- [ ] Paginacja działa, potrafię uzasadnić wybór (offset vs cursor)
+- [x] Paginacja działa, potrafię uzasadnić wybór (offset vs cursor)
 - [ ] Potrafię wytłumaczyć idempotentność HTTP metod i kiedy 201 vs 200 vs 204 na rozmowie
 - [x] Response transformacja — umiem uzasadnić wybór podejścia (DTO vs class-transformer vs map w service) i trade-offy SQL-level vs app-level
 

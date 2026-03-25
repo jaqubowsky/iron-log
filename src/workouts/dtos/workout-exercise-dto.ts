@@ -1,9 +1,10 @@
-import { IsNumber, IsUUID } from 'class-validator';
+import { IsInt, IsUUID, Min } from 'class-validator';
 
 export class WorkoutExerciseDTO {
   @IsUUID('all')
   exerciseId: string;
 
-  @IsNumber()
+  @IsInt()
+  @Min(1)
   order: number;
 }

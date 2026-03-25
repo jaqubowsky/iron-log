@@ -25,15 +25,9 @@ Zapytaj Jakuba: "Chcesz mock interview pytanie na koniec?"
 - Jeśli tak → przeprowadź mock interview zgodnie z protokołem z `.claude/skills/mock-interview/SKILL.md` (przeczytaj go). Zanotuj wyniki.
 - Jeśli nie lub brak czasu → pomiń
 
-## 3. Feedback
+## 3. Feedback + session log
 
-Daj szczery feedback z sesji:
-
-- **Co dobrze** — konkretne momenty samodzielnego myślenia
-- **Co źle** — gdzie się zaciął, błędy w myśleniu
-- **Jedna rzecz do poprawy** — najważniejsza na następną sesję
-
-## 4. Session log
+Daj Jakubowi szczery ustny feedback (co dobrze, co źle, jedna rzecz do poprawy). Potem zapisz session log — feedback trafia bezpośrednio do sekcji "Co poszło dobrze" i "Co poszło źle" w logu.
 
 Przeczytaj `docs/sessions/` żeby porównać z poprzednimi sesjami, potem stwórz wpis.
 
@@ -85,7 +79,7 @@ Plik: `docs/sessions/YYYY-MM-DD.md`
 
 ## Następna sesja
 
-[Co powinien zrobić następnym razem — MUSI być zgodne z priorytetami roadmapy, patrz zasady poniżej]
+[Co powinien zrobić następnym razem + prereq-y/materiały do nauki. MUSI być zgodne z priorytetami roadmapy, patrz zasady poniżej]
 ```
 
 ### Zasady logowania
@@ -96,19 +90,11 @@ Plik: `docs/sessions/YYYY-MM-DD.md`
 - Jeśli samodzielność spada — zanotuj dlaczego i co zmienić
 - Po 4+ sesjach z oceną 4-5 → zasugeruj przejście do następnej fazy
 
-## 5. Aktualizacja słabości
-
-Przeczytaj `docs/weaknesses.md` i zaktualizuj:
-
-- Czy któraś słabość się poprawiła na tej sesji? → zanotuj progres
-- Czy nowa się pojawiła? → dodaj
-- Czy któraś jest już nieaktualna? → usuń
-
-## 6. Aktualizacja roadmapy
+## 4. Aktualizacja roadmapy
 
 Przeczytaj `nestjs-roadmap.md` i:
 
-1. **Odhacz checkpointy** — jeśli jakieś zostały spełnione na tej sesji
+1. **Odhacz checkpointy** — ale TYLKO jeśli spełniają kryterium retencji (patrz zasady poniżej)
 2. **Wykrywaj luki** — jeśli podczas sesji wyszło że Jakub nie zna czegoś fundamentalnego co powinno być w roadmapie (np. brakujący temat SQL, brakujący koncept backendowy), dodaj to do odpowiedniego milestone'a
 3. **Dodawaj nowe pytania do przemyślenia** — jeśli sesja ujawniła ciekawy trade-off lub problem architektoniczny wart zapisania
 4. **Przenoś tematy** — jeśli temat okazał się trudniejszy niż zakładano, przenieś do wcześniejszego milestone'a żeby dać więcej czasu
@@ -119,15 +105,27 @@ Zasady:
 - Nowe tematy dodawaj z krótkim uzasadnieniem w komentarzu (np. "— wyszło na sesji 2026-03-22 że brakuje fundamentów")
 - Jeśli milestone się za bardzo rozrósł → zaproponuj podział na 2 mniejsze
 
-## 7. Aktualizacja mock-interviews.md
+### Kryterium odhaczania checkpointów
+
+**NIE odhaczaj checkpointu po pierwszym kontakcie z tematem.** Checkpoint typu "potrafię wytłumaczyć X na rozmowie" oznacza: potrafię z pamięci, bez zacinania, po kilku dniach — nie "zrozumiałem 2 godziny temu".
+
+Flow odhaczania:
+1. Jakub poznaje temat na sesji → **NIE odhaczaj**
+2. Generujesz fiszki Anki z tego tematu (krok 6)
+3. Na KOLEJNEJ sesji recall challenge weryfikuje retencję
+4. Jeśli recall challenge zdany (4-5/5) → **TERAZ odhacz**
+
+Jedyny wyjątek: checkpointy czysto praktyczne ("X działa", "kod jest napisany") — te można odhaczać od razu, bo to fakty a nie wiedza do zweryfikowania.
+
+## 5. Aktualizacja mock-interviews.md
 
 Jeśli było mock interview → dopisz wiersz do `docs/mock-interviews.md` (stwórz plik z headerem tabeli jeśli nie istnieje).
 
-## 8. Fiszki Anki
+## 6. Fiszki Anki
 
 Wygeneruj fiszki z tej sesji zgodnie z zasadami skilla `/create-anki` (przeczytaj `~/.claude/skills/create-anki/SKILL.md`). Zapisz je do `~/Anki/programming.tsv` (dopisz na końcu) i pokaż Jakubowi podgląd w markdown.
 
-## 9. Planowanie następnej sesji — ZASADY PRIORYTETYZACJI
+## 7. Planowanie następnej sesji
 
 **KRYTYCZNE:** Następna sesja MUSI być zgodna z priorytetami roadmapy. NIE wrzucaj tematu jako następną sesję tylko dlatego, że Jakub powiedział że jest "ciekawy". Sprawdź:
 
@@ -135,11 +133,9 @@ Wygeneruj fiszki z tej sesji zgodnie z zasadami skilla `/create-anki` (przeczyta
 2. **Ciekawe tematy ≠ pilne tematy** — jeśli Jakub wspomniał o czymś interesującym (np. envelope pattern, caching, nowy feature) ale aktualny milestone ma niezrobione fundamenty — zanotuj temat w roadmapie we właściwym milestone, NIE wrzucaj na następną sesję.
 3. **Fundamenty przed features** — jeśli Jakub nie umie czegoś podstawowego (np. raw SQL, ACID), to ma priorytet nad nowymi feature'ami.
 
-## 10. Praca domowa — ZASADY PREREQ-ÓW
+### Prereq-y i praca domowa
 
-**KRYTYCZNE:** Jeśli następna sesja wymaga wiedzy której Jakub jeszcze nie ma (np. SQL, nowy koncept NestJS), praca domowa MUSI zawierać materiały do nauki ZANIM sesja się zacznie. Nie wrzucaj taska "napisz raw SQL" jeśli Jakub nigdy nie uczył się SQL.
-
-Praca domowa zawiera:
+Jeśli następna sesja wymaga wiedzy której Jakub jeszcze nie ma, sekcja "Następna sesja" w session logu MUSI zawierać materiały do nauki ZANIM sesja się zacznie:
 
 - **Materiały do nauki** (jeśli prereq-y) — konkretny tutorial, docs, lub kurs do przerobienia PRZED sesją. Np. "Przejdź SQLBolt (sqlbolt.com) — lekcje 1-6 (SELECT, WHERE, JOIN)" zamiast "napisz SELECT z JOIN"
 - **Co przeczytać z docs** — konkretny link/sekcja NestJS/PostgreSQL docs relevant do następnego taska

@@ -39,6 +39,7 @@ Jesteś coachem backendowym dla Jakuba. Uczysz go NestJS i backendowego myśleni
 - Podpowiadać syntax w max 3-5 liniach
 - Robić code review
 - Tłumaczyć koncepty i trade-offy
+- **Sprawdzać kod sam** — gdy Jakub mówi "zrobiłem" / "gotowe" → czytaj plik sam (Read tool), nie pisz "pokaż co masz". To marnuje czas sesji
 
 ## Czego NIE MOŻESZ robić
 
@@ -69,7 +70,6 @@ Standardowy NestJS scaffold — modułowa architektura z DI containerem. Roadmap
 
 ## Docs reference
 
-- `docs/weaknesses.md` — słabości do monitorowania (aktualizowane przez `/session-end`)
 - `docs/nest-vs-next.md` — ściąga porównawcza Nest vs Next.js
 - `docs/sessions/` — session logi
 - `docs/mock-interviews.md` — log pytań rekrutacyjnych
