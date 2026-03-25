@@ -79,6 +79,7 @@ Po opanowaniu SQL basics — budujesz features i widzisz jak ORM mapuje się na 
 - Raw SQL obok Prisma — porównaj query ORM z ręcznym SQL
 - **HTTP/REST** — kody statusów (201 vs 200, 401 vs 403), idempotentność metod, REST vs GraphQL trade-offy, API versioning
 - **ORM trade-offy** — TypeORM vs Prisma vs MikroORM, eager vs lazy loading, N+1 problem
+- **CAP theorem** — w kontekście SQL vs NoSQL. Co tracisz wybierając consistency? Co gdy partition? Dlaczego PostgreSQL to CP?
 
 ### Przykładowe pytania (coach dobiera na bieżąco do kontekstu sesji)
 
@@ -89,6 +90,7 @@ Po opanowaniu SQL basics — budujesz features i widzisz jak ORM mapuje się na 
 - Dlaczego Prisma generuje indeks na foreign key? Co by się stało bez niego?
 - Tworzysz WorkoutTemplate z 5 ćwiczeniami — jedno ID nie istnieje. Jak to obsłużyć? Atomowo (transakcja) czy częściowo?
 - Napisz SQL query który zwraca ten sam kształt co Response DTO — jak JOINujesz tabelę łączącą?
+- CAP theorem — PostgreSQL to CP czy AP? Co to oznacza w praktyce? Kiedy wybrałbyś NoSQL (AP) zamiast SQL?
 
 ### Checkpointy
 
@@ -107,6 +109,7 @@ Po opanowaniu SQL basics — budujesz features i widzisz jak ORM mapuje się na 
 - [x] Paginacja działa, potrafię uzasadnić wybór (offset vs cursor)
 - [ ] Potrafię wytłumaczyć idempotentność HTTP metod i kiedy 201 vs 200 vs 204 na rozmowie
 - [x] Response transformacja — umiem uzasadnić wybór podejścia (DTO vs class-transformer vs map w service) i trade-offy SQL-level vs app-level
+- [ ] Potrafię wytłumaczyć CAP theorem i podać przykład kiedy SQL a kiedy NoSQL
 
 ---
 
@@ -120,6 +123,7 @@ Po opanowaniu SQL basics — budujesz features i widzisz jak ORM mapuje się na 
 - Response envelope pattern z interceptorem — ustandaryzowane response'y w całym API
 - **Security** — CORS, helmet, rate limiting, sanityzacja inputu, OWASP top 10 (XSS, SQL injection, CSRF)
 - **NestJS deeper** — DI scope (DEFAULT vs REQUEST vs TRANSIENT)
+- **SOLID principles** — każda litera, abstrakcyjnie. Nie tylko "S = single responsibility". Umiesz podać przykład łamania i naprawy każdej zasady
 - **Node.js fundamenty** — event loop (fazy, microtasks vs macrotasks), single-threaded non-blocking model, kiedy worker threads, streams (basics)
 
 ### Przykładowe pytania (coach dobiera na bieżąco do kontekstu sesji)
@@ -132,6 +136,8 @@ Po opanowaniu SQL basics — budujesz features i widzisz jak ORM mapuje się na 
 - Co to CORS i dlaczego istnieje? Kiedy browser blokuje request?
 - Narysuj event loop — co się dzieje gdy Node dostaje 1000 requestów jednocześnie?
 - DI scope REQUEST vs DEFAULT — kiedy potrzebujesz request-scoped provider?
+- SOLID — podaj przykład łamania Open/Closed Principle w NestJS. Jak byś to naprawił?
+- Liskov Substitution — co to znaczy w kontekście TypeScript i interfejsów?
 
 ### Checkpointy
 
@@ -142,6 +148,7 @@ Po opanowaniu SQL basics — budujesz features i widzisz jak ORM mapuje się na 
 - [ ] Response envelope pattern działa na całym API (interceptor)
 - [ ] Security basics: CORS skonfigurowany, helmet, rate limiting
 - [ ] Potrafię wytłumaczyć event loop i dlaczego Node jest single-threaded ale non-blocking
+- [ ] Potrafię wytłumaczyć każdą literę SOLID z przykładem — abstrakcyjnie, nie tylko w kontekście NestJS
 
 ---
 
@@ -155,6 +162,8 @@ Po opanowaniu SQL basics — budujesz features i widzisz jak ORM mapuje się na 
 - Swagger/OpenAPI docs
 - **CI/CD** — basic pipeline (lint, test, build, deploy)
 - **Git workflow** — rebase vs merge trade-offy, branching strategy
+- **Graceful shutdown** — `enableShutdownHooks()`, `onModuleDestroy()`, SIGTERM handling. Docker wysyła SIGTERM → app musi domknąć połączenia do DB, dokończyć in-flight requesty
+- **Observability** — structured logging (Pino zamiast console.log), correlation ID (`AsyncLocalStorage`) do śledzenia requestu przez cały stack
 
 ### Next.js — tematy rekrutacyjne (twoja siła, poleruj)
 
@@ -174,6 +183,9 @@ Znasz Next.js — tu nie uczysz się od zera, tylko upewniasz się że potrafisz
 - Rebase vs merge — kiedy który? Jak rozwiązujesz konflikty?
 - Server Component vs Client Component — kiedy który i dlaczego?
 - Jak działa cache w Next.js App Router? Kiedy go invalidujesz?
+- Docker wysyła SIGTERM — co robi Twoja Nest app? Co się stanie jeśli nie obsłużysz shutdown?
+- Dlaczego `console.log` to za mało na produkcji? Co daje structured logging?
+- Correlation ID — jak śledzisz jeden request przez cały stack? Co to `AsyncLocalStorage`?
 
 ### Checkpointy
 
@@ -183,41 +195,12 @@ Znasz Next.js — tu nie uczysz się od zera, tylko upewniasz się że potrafisz
 - [ ] Swagger docs dla całego API
 - [ ] CI pipeline działa (lint + test + build)
 - [ ] Potrafię wytłumaczyć Server vs Client Components i App Router cache na rozmowie
+- [ ] Graceful shutdown działa — `docker stop` domyka połączenia czysto
+- [ ] Structured logging (Pino) + correlation ID działa w IRONLOG
 
 ---
 
-## Milestone 5 — Caching (Redis) + Message Queues
-
-### Co robisz
-
-- **Redis** — caching layer dla API. Kiedy cache'ować, cache invalidation, TTL
-- **Message queues** (BullMQ/RabbitMQ) — asynchroniczne operacje poza request/response cycle
-- Praktyka: dodaj caching do najczęściej odpytywanego endpointu + queue do operacji która nie musi być synchroniczna
-
-### Kluczowe tematy
-
-- **Redis** — typy danych (string, hash, list, set, sorted set), TTL, cache-aside pattern, cache invalidation strategies (write-through, write-behind, invalidate-on-write)
-- **Kiedy cache'ować** — co jest warte cache'owania, co nie? Trade-off: stale data vs performance
-- **Message queues** — producer/consumer pattern, dead letter queue, retry strategy, idempotency
-- **Kiedy queue** — "user czeka na response" vs "operacja w tle". Przykłady: email, PDF, heavy computation
-
-### Przykładowe pytania (coach dobiera na bieżąco do kontekstu sesji)
-
-- Cache hit vs miss — narysuj flow danych dla obu scenariuszy
-- Co się dzieje gdy Redis padnie? Czy API dalej działa?
-- Synchroniczny request vs queue — kiedy który? Co gdy queue consumer padnie?
-- Jak zapewnić że ta sama wiadomość nie zostanie przetworzona dwa razy (idempotency)?
-
-### Checkpointy
-
-- [ ] Redis cache działa na wybranym endpoincie, potrafię zmierzyć różnicę
-- [ ] Potrafię wytłumaczyć cache invalidation strategies na rozmowie
-- [ ] Queue przetwarza zadanie asynchronicznie, retry działa
-- [ ] Potrafię narysować flow: request → API → queue → consumer → result
-
----
-
-## Milestone 6 — Testy + API review
+## Milestone 5 — Testy + API review
 
 ### Co robisz
 
@@ -239,6 +222,41 @@ Znasz Next.js — tu nie uczysz się od zera, tylko upewniasz się że potrafisz
 
 ---
 
+## Milestone 6 — Caching (Redis) + Message Queues
+
+### Co robisz
+
+- **Redis** — caching layer dla API. Kiedy cache'ować, cache invalidation, TTL
+- **Message queues** (BullMQ/RabbitMQ) — asynchroniczne operacje poza request/response cycle
+- Praktyka: dodaj caching do najczęściej odpytywanego endpointu + queue do operacji która nie musi być synchroniczna
+
+### Kluczowe tematy
+
+- **Redis** — typy danych (string, hash, list, set, sorted set), TTL, cache-aside pattern, cache invalidation strategies (write-through, write-behind, invalidate-on-write)
+- **Kiedy cache'ować** — co jest warte cache'owania, co nie? Trade-off: stale data vs performance
+- **Message queues** — producer/consumer pattern, dead letter queue, retry strategy, idempotency
+- **Kiedy queue** — "user czeka na response" vs "operacja w tle". Przykłady: email, PDF, heavy computation
+- **CQRS / Event Sourcing** — co to, kiedy warto. CQRS: oddziel read model od write model. Event Sourcing: zamiast stanu końcowego — log eventów. Kiedy to overkill, kiedy ratuje życie
+
+### Przykładowe pytania (coach dobiera na bieżąco do kontekstu sesji)
+
+- Cache hit vs miss — narysuj flow danych dla obu scenariuszy
+- Co się dzieje gdy Redis padnie? Czy API dalej działa?
+- Synchroniczny request vs queue — kiedy który? Co gdy queue consumer padnie?
+- Jak zapewnić że ta sama wiadomość nie zostanie przetworzona dwa razy (idempotency)?
+- CQRS — kiedy warto rozdzielić read i write model? Jakie problemy to rozwiązuje a jakie tworzy?
+- Event Sourcing — czym różni się od "zwykłej bazy z logiem zmian"? Kiedy to overkill?
+
+### Checkpointy
+
+- [ ] Redis cache działa na wybranym endpoincie, potrafię zmierzyć różnicę
+- [ ] Potrafię wytłumaczyć cache invalidation strategies na rozmowie
+- [ ] Queue przetwarza zadanie asynchronicznie, retry działa
+- [ ] Potrafię narysować flow: request → API → queue → consumer → result
+- [ ] Potrafię wytłumaczyć CQRS i Event Sourcing — co to, kiedy warto, kiedy overkill
+
+---
+
 ## Milestone 7 — Rozmowy + uzupełnianie braków
 
 ### Co robisz
@@ -249,6 +267,9 @@ Znasz Next.js — tu nie uczysz się od zera, tylko upewniasz się że potrafisz
 - Uzupełniasz braki które wyjdą na rozmowach
 - **TypeScript advanced** — generyki (napisz utility type), discriminated unions, type narrowing, infer, satisfies, Result/Either pattern
 - **Behavioral prep** — najtrudniejszy bug, decyzje architektoniczne, code review, onboarding
+- **Monolith vs microservices** — kiedy migrować, communication patterns (sync vs async), saga pattern, distributed transactions. Nie "microservices = lepsze"
+- **DDD basics** — bounded context, aggregate, ubiquitous language. Kiedy DDD ma sens, kiedy to overkill dla CRUD API
+- **WebSocket vs SSE vs polling** — deep trade-offy, nie tylko "WebSocket = bidirectional". Kiedy SSE wystarczy? Kiedy polling jest OK? Connection management, scaling
 
 ### System design challenges
 
@@ -256,6 +277,9 @@ Znasz Next.js — tu nie uczysz się od zera, tylko upewniasz się że potrafisz
 - Auth flow z social login, JWT, refresh tokens — front do bazy
 - Formularz wielokrokowy z walidacją server-side (server actions vs API route, zod, optimistic updates)
 - File upload z progress barem (presigned URLs, chunked upload, S3)
+- Monolith → microservices — zaprojektuj plan migracji IRONLOG. Co wydzielasz najpierw? Jak komunikują się serwisy?
+- DDD — zidentyfikuj bounded contexts w IRONLOG. Gdzie aggregate root? Kiedy DDD to overkill?
+- WebSocket vs SSE vs polling — zaprojektuj real-time feature dla IRONLOG (np. live workout tracking). Który transport i dlaczego?
 
 ### Rytuały sesyjne (od milestone 3)
 
@@ -271,6 +295,9 @@ Znasz Next.js — tu nie uczysz się od zera, tylko upewniasz się że potrafisz
 - [ ] IRONLOG jest na GitHubie z README, Dockerem, testami — portfolio ready
 - [ ] Potrafię napisać utility type z generykami (np. DeepPartial, Pick z warunkiem)
 - [ ] Mam przygotowane 2-3 historie behawioralne (bug, decyzja architektoniczna, code review)
+- [ ] Potrafię wytłumaczyć kiedy monolith a kiedy microservices — z konkretnymi argumentami, nie buzzwordami
+- [ ] Potrafię wytłumaczyć DDD basics (bounded context, aggregate) i kiedy to overkill
+- [ ] Potrafię porównać WebSocket vs SSE vs polling z trade-offami dla konkretnego use case'u
 
 ---
 
