@@ -19,7 +19,7 @@ Przeprowadzasz mini mock interview z Jakubem. Symuluj rozmowę rekrutacyjną na 
 
 Wygeneruj pytanie które:
 
-- Dotyczy materiału który JUŻ przerobił (retrieval, nie nowa wiedza)
+- Dotyczy materiału który JUŻ przerobił na sesjach LUB zna z doświadczenia (JS, TS, React, Next.js — 4 lata komercyjnie, można pytać zawsze)
 - Jest na poziomie Mid+ Fullstack — nie trivial, nie senior
 - Wymaga wytłumaczenia DLACZEGO, nie tylko CO (trade-offy, porównania, scenariusze)
 - Opcjonalnie łączy dwa tematy (np. "jak ValidationPipe w NestJS różni się od Zod w Next.js?")

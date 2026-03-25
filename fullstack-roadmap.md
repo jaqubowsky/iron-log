@@ -142,7 +142,7 @@ Budujesz WorkoutTemplates, WorkoutLogs — cross-module communication. Widzisz j
 
 ### Co robisz
 
-Znasz te rzeczy z 4 lat Reacta — ale się zacinasz gdy trzeba wytłumaczyć. Karty Anki stworzone — utrwalasz przez recall/mock co sesję od teraz. Ten milestone to **weryfikacja**: mock interview z pytaniami JS/TS, zdajesz 4-5/5 → odhaczasz. Nie musisz czekać na M4 żeby ćwiczyć — recall/mock włączają te tematy od M3.
+Trening artykulacji JS/TS — potrafisz używać ale zacinasz się przy wyjaśnianiu.
 
 - **JavaScript fundamenty**
   - [ ] Potrafię wytłumaczyć closures z praktycznym przykładem
@@ -296,7 +296,7 @@ Praktyczny milestone — IRONLOG idzie na produkcję. Docker, deploy, testy, log
 
 ### Co robisz
 
-Podłącz Next.js frontend do IRONLOG API. Karty Anki dla React/Next.js stworzone — utrwalasz przez recall/mock od teraz. Budowanie frontu + **weryfikacja artykulacji**: mock interview z pytaniami React/Next.js, zdajesz 4-5/5 → odhaczasz checkpointy artykulacyjne.
+Podłącz Next.js frontend do IRONLOG API. Trening artykulacji React/Next.js — potrafisz używać ale zacinasz się przy wyjaśnianiu.
 
 - **Next.js front**
   - [ ] Next.js front konsumuje API — fullstack demo gotowe
