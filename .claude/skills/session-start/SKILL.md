@@ -56,7 +56,6 @@ Uwaga: "solo first" dotyczy implementacji, nie planowania. Jakub MOŻE przychodz
 - **Mini-recall** — losowe 15-sekundowe pytania z poprzednich milestones wplecione w kodowanie (patrz sekcja 7)
 - **Interleaving** — nowy task zawiera element z poprzedniego tematu. Np. robisz WorkoutLogs ale musisz użyć Prisma Exception Filter z milestone 1
 - **Deliberate practice** — coach celowo daje taski ćwiczące słabości (generyki TS, system design, tłumaczenie konceptów), nie tylko nowe feature'y
-- **Frontend artykulacja od M3+** — Jakub zna React/Next.js/JS/TS z 4 lat ale się zacina przy wyjaśnianiu. Mock interviews i recall challenges powinny zawierać pytania z JS/TS/React/Next.js od M3, nie czekać na M5/M9. Dedykowane milestones (M5, M9) to formalne checkpointy, ale trening artykulacji zaczyna się wcześniej
 - **Bigger chunks** — Jakub ma 4 lata doświadczenia. Jeden feature end-to-end per sesja, nie micro-taski
 
 ### Format sesji: 70/30

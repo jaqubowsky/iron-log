@@ -138,7 +138,35 @@ Budujesz WorkoutTemplates, WorkoutLogs — cross-module communication. Widzisz j
 
 ---
 
-## Milestone 4 — Auth + security
+## Milestone 4 — JS/TS artykulacja
+
+### Co robisz
+
+Znasz te rzeczy z 4 lat Reacta — ale się zacinasz gdy trzeba wytłumaczyć. Ten milestone to **trening mówienia**, nie nauka od zera. Ćwiczysz na mock interviews i explain phase.
+
+- **JavaScript fundamenty**
+  - [ ] Potrafię wytłumaczyć closures z praktycznym przykładem
+  - [ ] Potrafię wytłumaczyć `this` binding (arrow vs regular, call/apply/bind)
+  - [ ] Potrafię wytłumaczyć Promise.all vs Promise.allSettled vs Promise.race — kiedy który
+  - [ ] Potrafię wytłumaczyć async/await error handling i kiedy sequential vs parallel execution
+- **TypeScript advanced**
+  - [ ] Potrafię napisać utility type z generykami (np. DeepPartial, Pick z warunkiem)
+  - [ ] Potrafię wytłumaczyć `any` vs `unknown` vs `never` na rozmowie
+  - [ ] Potrafię wytłumaczyć `type` vs `interface` — deep differences (declaration merging, extends vs &)
+  - [ ] Potrafię wytłumaczyć discriminated unions i type narrowing z przykładem
+  - [ ] Potrafię wytłumaczyć dlaczego unikać `enum` i kiedy `as const` vs `enum` vs `const enum`
+
+### Przykładowe pytania
+
+- Closures — napisz przykład gdzie closure powoduje memory leak. Jak to naprawić?
+- Promise.all vs Promise.allSettled — masz 5 fetch requestów, 1 failuje. Co użyjesz?
+- `this` w arrow function vs regular function — co się stanie w tym kodzie? (pokaż snippet)
+- Napisz utility type `DeepPartial<T>` — jak działa z nested objects?
+- `any` vs `unknown` — kiedy który? Dlaczego `unknown` jest bezpieczniejszy?
+
+---
+
+## Milestone 5 — Auth + security
 
 ### Co robisz
 
@@ -173,34 +201,6 @@ JWT auth od zera. Największy build milestone — po tym masz działające API z
 
 ---
 
-## Milestone 5 — JS/TS artykulacja
-
-### Co robisz
-
-Znasz te rzeczy z 4 lat Reacta — ale się zacinasz gdy trzeba wytłumaczyć. Ten milestone to **trening mówienia**, nie nauka od zera. Ćwiczysz na mock interviews i explain phase.
-
-- **JavaScript fundamenty**
-  - [ ] Potrafię wytłumaczyć closures z praktycznym przykładem
-  - [ ] Potrafię wytłumaczyć `this` binding (arrow vs regular, call/apply/bind)
-  - [ ] Potrafię wytłumaczyć Promise.all vs Promise.allSettled vs Promise.race — kiedy który
-  - [ ] Potrafię wytłumaczyć async/await error handling i kiedy sequential vs parallel execution
-- **TypeScript advanced**
-  - [ ] Potrafię napisać utility type z generykami (np. DeepPartial, Pick z warunkiem)
-  - [ ] Potrafię wytłumaczyć `any` vs `unknown` vs `never` na rozmowie
-  - [ ] Potrafię wytłumaczyć `type` vs `interface` — deep differences (declaration merging, extends vs &)
-  - [ ] Potrafię wytłumaczyć discriminated unions i type narrowing z przykładem
-  - [ ] Potrafię wytłumaczyć dlaczego unikać `enum` i kiedy `as const` vs `enum` vs `const enum`
-
-### Przykładowe pytania
-
-- Closures — napisz przykład gdzie closure powoduje memory leak. Jak to naprawić?
-- Promise.all vs Promise.allSettled — masz 5 fetch requestów, 1 failuje. Co użyjesz?
-- `this` w arrow function vs regular function — co się stanie w tym kodzie? (pokaż snippet)
-- Napisz utility type `DeepPartial<T>` — jak działa z nested objects?
-- `any` vs `unknown` — kiedy który? Dlaczego `unknown` jest bezpieczniejszy?
-
----
-
 ## Milestone 6 — Node.js runtime
 
 ### Co robisz
@@ -230,7 +230,7 @@ Teoria Node.js — event loop, streams, skalowanie. Nie budujesz nowych features
 
 ### Co robisz
 
-Refleksja na tym co zbudowałeś w M4 (auth). Teraz rozumiesz request lifecycle, custom providers, SOLID, design patterns — bo masz kod w którym to widzisz.
+Refleksja na tym co zbudowałeś w M5 (auth). Teraz rozumiesz request lifecycle, custom providers, SOLID, design patterns — bo masz kod w którym to widzisz.
 
 - **Request lifecycle**
   - [ ] Potrafię narysować request lifecycle z pamięci (Middleware → Guard → Interceptor → Pipe → Controller → Service → Interceptor → Filter)
