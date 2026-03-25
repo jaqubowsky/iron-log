@@ -20,7 +20,7 @@ Write a LinkedIn post that sounds like Jakub actually wrote it. His posts are ca
 
 **If argument is "suggest" or empty:**
 - Read the last 2-3 session logs from `docs/sessions/`
-- Read `docs/weaknesses.md`
+- Read sekcje "Słabości — update" z ostatnich session logów w `docs/sessions/`
 - Propose 3 post ideas based on what Jakub learned recently
 - Wait for him to pick one or give his own
 - Do NOT write yet

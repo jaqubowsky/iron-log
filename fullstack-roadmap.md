@@ -328,13 +328,13 @@ Capstone. Dotrzesz tu TYLKO jak M1-M8 odhaczone. System design, advanced topics,
 - File upload z progress barem (presigned URLs, chunked upload, S3)
 - Scaling — IRONLOG ma 100k userów. Co skalujesz najpierw?
 
-### Checkpointy (meta)
+### Checkpointy (recall verification — weryfikacja płynności z wcześniejszych milestones)
 
 - [ ] Wysłane min. 5 aplikacji na pozycje Fullstack Mid+
-- [ ] Potrafię wytłumaczyć event loop bez zacinania
-- [ ] Potrafię wytłumaczyć DI i NestJS module system bez zacinania
-- [ ] Potrafię wytłumaczyć JWT auth flow bez zacinania
-- [ ] Potrafię narysować request lifecycle bez zacinania
+- [ ] Potrafię wytłumaczyć event loop bez zacinania (M5)
+- [ ] Potrafię wytłumaczyć DI i NestJS module system bez zacinania (M1/M6)
+- [ ] Potrafię wytłumaczyć JWT auth flow bez zacinania (M4)
+- [ ] Potrafię narysować request lifecycle bez zacinania (M6)
 - [ ] Potrafię zaprojektować prosty system od zera na kartce w 20 min
 - [ ] IRONLOG jest na GitHubie z README, Dockerem, testami — portfolio ready
 

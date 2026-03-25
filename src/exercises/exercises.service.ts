@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { CreateExerciseDTO } from './dtos/create-exercise-dto';
 import { UpdateExerciseByIdDTO } from './dtos/update-exercise-by-id-dto';
 import { PaginationDTO } from 'src/common/pagination-dto';
-import { ExerciseRepository } from './respositories/exercise.repository';
+import { ExerciseRepository } from './repositories/exercise.repository';
 
 const DEFAULT_PAGE = 1;
 const DEFAULT_LIMIT = 15;
