@@ -187,15 +187,31 @@ Znasz Next.js — tu nie uczysz się od zera, tylko upewniasz się że potrafisz
 - Streaming z Suspense, generateStaticParams vs dynamiczne renderowanie
 - Middleware — Edge Runtime ograniczenia, auth w middleware vs layout vs API route
 - Performance — LCP/CLS, lazy loading, dynamic() z ssr: false, bundle analysis, partial prerendering
+- **React fundamenty** — reconciliation, virtual DOM (dlaczego istnieje), useEffect cleanup, referential equality, React.memo / useMemo / useCallback (kiedy faktycznie pomagają)
+- **Data fetching patterns** — React Server Components fetch vs client-side fetch vs route handler. Kiedy który? Waterfall problem i jak go unikać (parallel fetching, Suspense boundaries)
+- **State management** — kiedy context, kiedy Zustand/Jotai, kiedy server state (React Query). Over-engineering state to klasyczny błąd
+- **Security w Next.js** — server actions vs API routes (CSRF), environment variables (NEXT_PUBLIC_ vs server-only), middleware auth vs layout auth (dlaczego middleware nie wystarczy)
 
-### Przykładowe pytania (coach dobiera na bieżąco do kontekstu sesji)
+### Przykładowe pytania — Next.js (rekrutacja fullstack)
+
+- Server Component vs Client Component — user klika button i filtruje listę. Gdzie stan? Gdzie fetch? Narysuj data flow
+- `"use client"` na górze pliku — co to naprawdę robi? Czy cały plik jest renderowany tylko na kliencie?
+- App Router cache — request trafia do Next.js, przechodzi przez 4 warstwy cache. Narysuj flow. Kiedy dostajesz stale data?
+- `revalidatePath` vs `revalidateTag` — kiedy który? Co jeśli masz 10 stron które zależą od tych samych danych?
+- Streaming z Suspense — dlaczego lepsze UX niż loading spinner na całą stronę? Co się dzieje pod spodem (chunked HTML)?
+- Middleware w Next.js działa na Edge Runtime. Co to oznacza? Dlaczego nie możesz użyć Prisma w middleware?
+- `dynamic()` z `ssr: false` vs `React.lazy()` — kiedy który? Co to znaczy dla bundle size?
+- Partial Prerendering — co to? Jak łączy static i dynamic w jednym renderze?
+- React.memo — kiedy naprawdę pomaga? Kiedy to premature optimization?
+- Masz Next.js frontend + NestJS API. Gdzie autentykujesz? Middleware? Layout? Server action? Jakie są trade-offy każdego podejścia?
+- React Query / SWR vs Server Components — kiedy potrzebujesz client-side cache a kiedy wystarczy server fetch?
+
+### Przykładowe pytania — Docker/Deploy/CI (coach dobiera na bieżąco do kontekstu sesji)
 
 - Multi-stage build — dlaczego? Co zyskujesz?
 - Gdzie baza? Osobny kontener? Managed?
 - Jak Nest API wpasuje się w Twój istniejący VPS setup?
 - Rebase vs merge — kiedy który? Jak rozwiązujesz konflikty?
-- Server Component vs Client Component — kiedy który i dlaczego?
-- Jak działa cache w Next.js App Router? Kiedy go invalidujesz?
 - Docker wysyła SIGTERM — co robi Twoja Nest app? Co się stanie jeśli nie obsłużysz shutdown?
 - Dlaczego `console.log` to za mało na produkcji? Co daje structured logging?
 - Correlation ID — jak śledzisz jeden request przez cały stack? Co to `AsyncLocalStorage`?
@@ -208,6 +224,9 @@ Znasz Next.js — tu nie uczysz się od zera, tylko upewniasz się że potrafisz
 - [ ] Swagger docs dla całego API
 - [ ] CI pipeline działa (lint + test + build)
 - [ ] Potrafię wytłumaczyć Server vs Client Components i App Router cache na rozmowie
+- [ ] Potrafię narysować data flow: user action → component → fetch → API → DB → response → UI update
+- [ ] Potrafię wytłumaczyć kiedy React Query vs Server Components vs route handler
+- [ ] Potrafię wytłumaczyć Streaming z Suspense i Partial Prerendering na rozmowie
 - [ ] Graceful shutdown działa — `docker stop` domyka połączenia czysto
 - [ ] Structured logging (Pino) + correlation ID działa w IRONLOG
 
