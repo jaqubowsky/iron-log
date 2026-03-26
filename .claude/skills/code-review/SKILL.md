@@ -105,7 +105,7 @@ Na co NIE patrzysz (nie trać czasu):
 
 ## 5. Output
 
-Po zakończeniu review, krótkie podsumowanie:
+Po zakończeniu review, krótkie podsumowanie. Użyj DOKŁADNIE tego formatu z emoji — nie zamieniaj na myślniki ani bullet pointy:
 
 ```
 **Review summary:**
@@ -114,3 +114,5 @@ Po zakończeniu review, krótkie podsumowanie:
 - 🔧 [co poprawić teraz — bugi, security]
 - 📋 [co wchodzi jako task na następną sesję, jeśli cokolwiek]
 ```
+
+Każda linia zaczyna się od odpowiedniego emoji. Puste kategorie (np. brak bugów) — pomiń, nie pisz "brak".

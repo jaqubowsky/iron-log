@@ -53,7 +53,7 @@ Uwaga: "solo first" dotyczy implementacji, nie planowania. Jakub MOŻE przychodz
 
 - **Retrieval practice** — recall challenge na start (ze spacingiem!) + explain i mock interview w session-end
 - **Spacing effect** — recall challenge ciągnie tematy z 3-5 sesji wstecz, nie tylko z ostatniej. Starsze tematy ze słabymi score'ami w mock-interviews.md mają priorytet
-- **Mini-recall** — losowe 15-sekundowe pytania z poprzednich milestones wplecione w kodowanie (patrz sekcja 7)
+
 - **Interleaving** — nowy task zawiera element z poprzedniego tematu. Np. robisz WorkoutLogs ale musisz użyć Prisma Exception Filter z milestone 1
 - **Deliberate practice** — coach celowo daje taski ćwiczące słabości (generyki TS, system design, tłumaczenie konceptów), nie tylko nowe feature'y
 - **Bigger chunks** — Jakub ma 4 lata doświadczenia. Jeden feature end-to-end per sesja, nie micro-taski
@@ -63,7 +63,7 @@ Uwaga: "solo first" dotyczy implementacji, nie planowania. Jakub MOŻE przychodz
 
 **70% kodowanie / 30% mówienie.** Kodowanie to główna oś sesji. Explain i mock interview odbywają się w `/session-end`.
 
-Flow sesji: recall → task → planowanie → kodowanie (+ mini-recall) → `/code-review` (ile razy chcesz) → `/session-end` (explain + mock + log)
+Flow sesji: recall → task → planowanie → kodowanie → `/code-review` (ile razy chcesz) → `/session-end` (explain + mock + log)
 
 ## 3. Recall challenge (2-3 min)
 
@@ -189,36 +189,7 @@ Zanim zaczniesz kodować — opowiedz mi swój plan. Jak byś to rozwiązał? Ja
 
 Gdy Jakub skończy feature/task → odpala `/code-review` (lub coach sugeruje). Ten skill robi review kodu (scan + sokratejska dyskusja). Explain i mock interview odbywają się w `/session-end`.
 
-## 7. Mini-recall w trakcie kodowania
-
-W trakcie sesji, gdy Jakub koduje, co jakiś czas (1-2 razy na sesję, nie częściej) wrzuć losowe 15-sekundowe pytanie z **poprzednich milestones**. Celem jest testowanie retencji starszych tematów bez przerywania flow.
-
-### Kiedy wrzucać
-
-- Naturalny moment przerwy (Jakub czeka na build, skończył jeden plik, przechodzi do następnego kroku)
-- NIE w środku debugowania lub gdy jest w flow — to ma wzmacniać, nie frustrować
-
-### Format
-
-```
-**Mini-recall:** [krótkie pytanie — 15 sekund na odpowiedź]
-```
-
-### Przykłady
-
-- "Quick: czym się różni LEFT JOIN od INNER JOIN?"
-- "15 sekund: co to idempotentność?"
-- "Quick: 401 vs 403 — kiedy który?"
-- "15 sekund: co robi ON DELETE CASCADE?"
-
-### Zasady
-
-- Pytanie z INNEGO milestone'a niż aktualny task (interleaving)
-- Krótka odpowiedź wystarczy — to nie explain phase
-- Jeśli nie wie → zanotuj jako słabość, nie tłumacz teraz. "OK, wrócimy do tego"
-- Max 2 mini-recalle na sesję — nie zamieniaj sesji kodowania w quiz
-
-## 8. Notatki na bieżąco w session logu
+## 7. Notatki na bieżąco w session logu
 
 W trakcie sesji notuj obserwacje bezpośrednio w session logu (`docs/sessions/YYYY-MM-DD.md`) zamiast w memory. Stwórz plik na początku sesji z sekcjami do uzupełniania na bieżąco.
 
@@ -226,7 +197,7 @@ W trakcie sesji notuj obserwacje bezpośrednio w session logu (`docs/sessions/YY
 
 - **Słabości** — gdy Jakub się zacina, myli koncepty, potrzebuje naprowadzenia na coś nowego
 - **Dobre momenty** — samodzielne decyzje, trafne trade-offy, momenty "aha"
-- **Recall wyniki** — odpowiedzi na mini-recall, co wiedział a co nie
+- **Recall wyniki** — odpowiedzi na recall challenge, co wiedział a co nie
 - **Problemy architektoniczne** — błędy w myśleniu, złe intuicje, powtarzające się wzorce
 
 ### Zasady

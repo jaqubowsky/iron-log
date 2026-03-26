@@ -1,12 +1,19 @@
 ---
 name: mock-interview
-description: Zadaje pytanie rekrutacyjne na poziomie Mid+ Fullstack (NestJS/Node.js/PostgreSQL/TypeScript/Next.js). ZAWSZE używaj gdy Jakub chce ćwiczyć rozmowy: "mock", "pytanie rekrutacyjne", "poćwiczmy rozmowę", "zadaj mi pytanie", "interview", "rozmowa kwalifikacyjna", "przygotowanie do rozmowy". Również na końcu sesji gdy session-end oferuje mock interview.
-argument-hint: "[temat: nest, node, postgres, ts, next, system-design, lub puste dla losowego]"
+description: Zadaje pytanie rekrutacyjne na poziomie Mid+ Fullstack (NestJS/Node.js/PostgreSQL/TypeScript/Next.js). ZAWSZE używaj gdy Jakub chce ćwiczyć rozmowy: "mock", "pytanie rekrutacyjne", "poćwiczmy rozmowę", "zadaj mi pytanie", "interview", "rozmowa kwalifikacyjna", "przygotowanie do rozmowy". Również na końcu sesji gdy session-end oferuje mock interview. Tryb "session" odpala dedykowaną 30-min sesję mock interview (5-6 pytań z backlogu retencji, odhaczanie checkpointów).
+argument-hint: "[temat: nest, node, postgres, ts, next, system-design, session, lub puste dla losowego]"
 ---
 
 # Mock Interview Protocol
 
-Przeprowadzasz mini mock interview z Jakubem. Symuluj rozmowę rekrutacyjną na pozycję Fullstack Mid+ (Next.js + NestJS/Node.js).
+Przeprowadzasz mock interview z Jakubem. Symuluj rozmowę rekrutacyjną na pozycję Fullstack Mid+ (Next.js + NestJS/Node.js).
+
+**Dwa tryby:**
+
+- **Domyślny (1 pytanie)** — mini mock na koniec sesji kodowania. Jedno pytanie, feedback, zapis.
+- **Session (`/mock-interview session`)** — dedykowana 30-min sesja na czyszczenie backlogu retencji. 5-6 pytań z nieodhaczonych checkpointów. Po każdym pytaniu feedback + odhaczanie checkpointu w roadmapie jeśli score 3+/5.
+
+Jeśli argument = `session`, przejdź do sekcji "Tryb session" poniżej. W przeciwnym razie kontynuuj normalny flow.
 
 ## Przed pytaniem
 
@@ -30,12 +37,7 @@ Jeśli temat = system-design: daj mini challenge (5 min, bez kodu) — "zaprojek
 
 ### Kategorie tematów
 
-- **nest** — moduły, DI, pipes, guards, filters, interceptors, request lifecycle
-- **node** — event loop, concurrency, streams, clustering
-- **postgres** — indeksy, JOINy, pagination, EXPLAIN ANALYZE, ACID
-- **ts** — generyki, type guards, mapped types, utility types
-- **next** — SSR/SSG/ISR, Server Components, Server Actions, hydration, App Router, middleware, performance
-- **system-design** — projektowanie API, moduły, tabele, endpointy, edge cases
+Nie hardkoduj listy — czytaj `fullstack-roadmap.md` i `docs/articulation-tracker.md` żeby dobrać temat na podstawie tego co Jakub faktycznie przerobił i co ma w checkpointach. Argument (`$ARGUMENTS`) to wskazówka kierunkowa (np. "postgres", "nest", "ts"), nie ścisła kategoria. Jeśli brak argumentu — wybierz losowo z przerobionego materiału, priorytetyzując słabe tematy z mock-interviews.md.
 
 ## Przebieg
 
@@ -83,3 +85,64 @@ Ten log pozwala śledzić:
 - Które tematy mają najniższe score'y → deliberate practice
 - Czy score'y rosną z czasem → progres w tłumaczeniu konceptów
 - Które tematy nie były jeszcze pytane → luki
+
+---
+
+## Tryb session (`/mock-interview session`)
+
+Dedykowana sesja na czyszczenie backlogu retencji. Zamiast kodowania — 30 min samych pytań rekrutacyjnych. Cel: odhaczenie nieodhaczonych checkpointów "potrafię wytłumaczyć X" z roadmapy.
+
+### Przygotowanie
+
+1. Przeczytaj `fullstack-roadmap.md` — wylistuj WSZYSTKIE nieodhaczone checkpointy typu "potrafię wytłumaczyć X" (nie "X działa")
+2. Przeczytaj `docs/mock-interviews.md` — sprawdź score'y, priorytetyzuj tematy z najniższymi score'ami
+3. Przeczytaj `docs/articulation-tracker.md` — nieodhaczone JS/TS/React/Next.js tematy
+4. Wybierz 5-6 pytań pokrywających najsłabsze tematy. Mieszaj milestones — nie rób 5 pytań z jednego
+
+### Flow
+
+1. **Powiedz Jakubowi plan:** "Dziś sesja mock interview — 5-6 pytań z backlogu retencji. Cel: odhaczenie checkpointów. Gotowy?"
+2. **Pytanie 1** → Jakub odpowiada → feedback + score → jeśli 3+/5 → odhacz checkpoint w roadmapie
+3. **Pytanie 2** → to samo
+4. Powtórz do 5-6 pytań
+5. **Podsumowanie:** ile checkpointów odhaczonych, jakie tematy nadal słabe, co do Anki
+
+### Zasady
+
+- Jedno pytanie na raz — czekaj na odpowiedź
+- Każde pytanie = 3-5 min (odpowiedź + follow-up + feedback)
+- Pytania z różnych milestones i kategorii — interleaving
+- Score 3+/5 = odhacz checkpoint, ALE tylko jeśli temat był przerobiony na **wcześniejszej sesji** (nie dzisiejszej). Mock interview session weryfikuje retencję tematów z przeszłości — to odpowiednik recall challenge z session-end. Jeśli temat był poznany dziś → NIE odhaczaj, nawet przy 5/5. Score <3 = nie odhaczaj, zanotuj jako słabość
+- Nie naprowadzaj za dużo — to weryfikacja retencji, nie nauka. Jeden hint OK, ale jeśli nie wie → score 1-2 i idziemy dalej
+- Po sesji: zaktualizuj roadmapę, mock-interviews.md, i session log
+
+### Zapis
+
+Session log w formacie:
+
+```markdown
+# Sesja YYYY-MM-DD — Mock Interview Session
+
+## Wyniki
+
+| #   | Temat    | Pytanie                                     | Score | Checkpoint odhaczony? |
+| --- | -------- | ------------------------------------------- | ----- | --------------------- |
+| 1   | postgres | ACID — każda litera z przykładem            | 4/5   | Tak                   |
+| 2   | nest     | exports/imports — jak moduły się komunikują | 2/5   | Nie                   |
+
+...
+
+## Odhaczone checkpointy
+
+- [x] Potrafię wytłumaczyć ACID na rozmowie (M2)
+
+## Nadal słabe
+
+- exports/imports (2/5) — nie zna mechanizmu, tylko efekt
+
+## Następna sesja
+
+[normalny format z session-end]
+```
+
+Dopisz wszystkie pytania do `docs/mock-interviews.md` (jeden wiersz per pytanie).

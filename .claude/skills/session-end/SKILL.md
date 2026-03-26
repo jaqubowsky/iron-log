@@ -133,6 +133,7 @@ Zasady:
 **NIE odhaczaj checkpointu po pierwszym kontakcie z tematem.** Checkpoint typu "potrafię wytłumaczyć X na rozmowie" oznacza: potrafię z pamięci, bez zacinania, po kilku dniach — nie "zrozumiałem 2 godziny temu".
 
 Flow odhaczania:
+
 1. Jakub poznaje temat na sesji → **NIE odhaczaj**
 2. Generujesz fiszki Anki z tego tematu (krok 6)
 3. Na KOLEJNEJ sesji recall challenge weryfikuje retencję
@@ -151,6 +152,7 @@ Dopisz wiersz do `docs/mock-interviews.md` (stwórz plik z headerem tabeli jeśl
 Wygeneruj fiszki z tej sesji zgodnie z zasadami skilla `/create-anki` (przeczytaj `~/.claude/skills/create-anki/SKILL.md`). Zapisz je do `~/Anki/programming.tsv` (dopisz na końcu) i pokaż Jakubowi podgląd w markdown.
 
 Oprócz standardowych fiszek, dodaj min. 1-2 **connection cards** — fiszki łączące koncepty z różnych tematów:
+
 - "Jak NestJS DI łączy się z Dependency Inversion Principle z SOLID?"
 - "Czym Guard w NestJS jest przykładem Strategy Pattern?"
 - "Jak HTTP Cache-Control headers współgrają z Redis cache-aside?"
@@ -189,4 +191,5 @@ Sekcja musi być **kompletna i jednoznaczna** — session-start na kolejnej sesj
 - **"Retencja" = max 2-3 tematy** — testowane TYLKO przez recall challenge i mock interview (30 sek pytania). NIE "wpletane w kodowanie" — to rozprasza. Reszta retencji idzie do Anki
 - **"Wpleść w kodowanie" = max 1 temat** — jeden nieprzerobiony temat który naturalnie wynika z kontekstu taska. Nie wciskaj na siłę tematów które nie pasują. Jeśli żaden nie pasuje — zostaw puste
 - **Tematy wiszące 3+ sesji bez postępu** — sprawdź session logi. Jeśli temat jest w "Retencja" lub "Nieprzerobione" od 3+ sesji i nie był zaadresowany → albo zaplanuj dedykowaną sesję na ten temat, albo zdejmij z listy (Anki go pokryje). Nie przepisuj w nieskończoność
+- **Backlog retencji > 5 nieodhaczonych tematów?** → zaproponuj następną sesję jako dedykowaną sesję mock interview (30 min, 5-6 pytań z backlogu, feedback + odhaczanie checkpointów). Policz nieodhaczone checkpointy typu "potrafię wytłumaczyć X" z roadmapy — jeśli jest ich >5, czas na czyszczenie backlogu zamiast kolejnego feature'a. Format: "Kodowanie: brak — sesja mock interview (backlog retencji: X tematów)"
 - Jeśli jest prereq do następnego taska → dodaj materiały do nauki PRZED sesją
