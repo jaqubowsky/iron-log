@@ -27,6 +27,30 @@ export class PrismaExerciseRepository implements ExerciseRepository {
     return { items, total };
   }
 
+  async findManyByIds(ids: string[]): Promise<ExerciseDTO[]> {
+    return await this.prismaService.exercise.findMany({
+      where: { id: { in: ids } },
+    });
+  }
+
+  async resolveExerciseIds(
+    ids: string[],
+  ): Promise<{ exercises: ExerciseDTO[]; nonExistingIds: string[] }> {
+    const exercises = await this.prismaService.exercise.findMany({
+      where: {
+        id: {
+          in: ids,
+        },
+      },
+    });
+
+    const nonExistingIds = ids.filter(
+      (id) => !exercises.find((exercise) => exercise.id === id),
+    );
+
+    return { exercises, nonExistingIds };
+  }
+
   findUnique(id: string): Promise<ExerciseDTO> {
     return this.prismaService.exercise.findUniqueOrThrow({ where: { id } });
   }

@@ -71,14 +71,20 @@ Zadaj Jakubowi jedno pytanie wymagające wytłumaczenia konceptu z pamięci. Pyt
 
 ### Strategia doboru pytania (spacing effect)
 
-1. **Sprawdź mock-interviews.md** — tematy ze score'em ≤3 mają priorytet, szczególnie starsze (>3 sesje temu)
-2. **Sprawdź session logi z 3-5 sesji wstecz** — co robił? Czy pamiętał na kolejnych recall challenges?
-3. **Jeśli temat był na recall 2 sesje temu i zdał (3+/5)** — wybierz inny, starszy temat
-4. **Jeśli temat był na recall i nie zdał (<3/5)** — wróć do niego po 2-3 sesjach
+Spacing jest kluczowy dla retencji — testowanie tematu z wczoraj to prawie zero spacingu i nie weryfikuje długoterminowej pamięci. Im dłuższa przerwa między ekspozycją a testem, tym lepiej test weryfikuje czy wiedza naprawdę została.
 
-Priorytet: słabe tematy z mock interviews > tematy z 3-5 sesji wstecz > tematy z ostatniej sesji
+**Algorytm doboru (wykonaj krok po kroku, nie pomijaj):**
 
-**Wiele sesji tego samego dnia:** Jeśli dziś była już sesja — recall challenge ciągnij z 3+ sesji wstecz (nie z dzisiejszej). Zdanie recalla tego samego dnia NIE liczy się do odhaczenia checkpointu — minimum 1 dzień przerwy.
+1. **Sprawdź mock-interviews.md** — znajdź tematy ze score'em ≤3. Posortuj od najstarszych. Wybierz najstarszy temat ze score ≤3 który NIE był testowany w ostatnich 2 sesjach.
+2. **Jeśli brak takiego** — sprawdź session logi z **4-6 sesji wstecz** (nie 1-2!). Wybierz temat który nie był na recall challenge od co najmniej 3 sesji.
+3. **Jeśli temat był testowany <3 sesje temu** — POMIŃ go, wybierz starszy. Nawet jeśli miał słaby score — spacing ważniejszy niż natychmiastowa powtórka.
+4. **Jeśli temat był na recall i nie zdał (<3/5)** — wróć do niego po minimum 3 sesjach (nie 1-2).
+
+**Priorytet:** najstarsze słabe tematy z mock interviews (4+ sesji temu) > tematy z 4-6 sesji wstecz > tematy z 3 sesji wstecz. NIGDY tematy z ostatniej lub przedostatniej sesji.
+
+**Wiele sesji tego samego dnia:** Jeśli dziś była już sesja — recall challenge ciągnij z 4+ sesji wstecz (nie z dzisiejszej ani wczorajszej). Zdanie recalla tego samego dnia NIE liczy się do odhaczenia checkpointu — minimum 2 dni przerwy.
+
+**Weryfikacja przed zadaniem pytania:** Zanim zadasz pytanie, sprawdź: "kiedy ostatnio ten temat był testowany?". Jeśli <3 sesje temu — wybierz inny.
 
 ### Eskalacja trudności (milestone-based)
 
@@ -116,7 +122,7 @@ Po recall challenge, zaproponuj task. **Najpierw sprawdź sekcję "Następna ses
 
 1. **Jest zaplanowany task w "Następna sesja"?** → użyj go jako bazę. Dopasuj do dostępnego czasu:
    - **Za mało czasu na cały task** → wybierz fragment (np. "zrób tylko repository, paginacja następnym razem")
-   - **Więcej czasu niż task wymaga** → po zakończeniu taska wpleć temat z "Retencja" lub "Nieprzerobione" z session logu
+   - **Więcej czasu niż task wymaga** → po zakończeniu taska wpleć max 1 temat z "Wpleść w kodowanie" z session logu (jeśli jest). Nie wciskaj więcej — czas na kodowanie jest cenniejszy
    - **Brak zaplanowanego taska** (np. pierwsza sesja, brak logu) → dobierz task z roadmapy na podstawie czasu
 2. **Brak session logu** → dobierz task z nieodhaczonych checkpointów w aktualnym milestone
 
@@ -131,8 +137,10 @@ Po recall challenge, zaproponuj task. **Najpierw sprawdź sekcję "Następna ses
 - Podaj TYLKO wymagania — bez podpowiedzi jak zacząć
 - Jeśli milestone ma nieodhaczone checkpointy → priorytet na nie
 - Jeśli milestone jest zamknięty → przejdź do następnego
-- Jeśli słabości z session logów lub mock-interviews.md wskazują na lukę → wpleć ćwiczenie
 - **Dopóki aktualny milestone nie jest odhaczony — nie ruszaj następnego**
+- **Retencja (max 2-3 tematy) = recall challenge + mock interview TYLKO** — nie "wpletaj" retencji w kodowanie. Retencja testuje się pytaniami (30 sek), nie dygresjami w trakcie pracy. Reszta retencji idzie do Anki
+- **Wpleść w kodowanie = max 1 temat** — jeden nieprzerobiony temat naturalnie wynikający z taska. Nie wciskaj na siłę. Jeśli żaden nie pasuje — nie wplataj niczego, kodowanie jest ważniejsze
+- **Nie rozpędzaj się z listami** — sesja ma 1h. Jeśli session log ma 9 tematów do "wplenienia" — to fikcja. Skup się na tasku, reszta czeka
 
 Format — po recall challenge feedback:
 
@@ -169,6 +177,7 @@ Po przedstawieniu tasku, ZANIM Jakub zacznie kodować — przeprowadź dyskusję
 - Jeśli plan jest OK ale nie optymalny — pozwól mu tak zrobić i omów na review (uczenie przez doświadczenie)
 - Max 10-15 min na planowanie — potem koduj, nawet jeśli plan nie jest idealny
 - **Pytania generuj na bieżąco** — dopasowane do konkretnego tasku i aktualnych słabości Jakuba. Pytania z roadmapy to bank inspiracji, nie checklist do odhaczenia
+- **Nie over-questionuj na prostych/znanych taskach** — jeśli Jakub już robił ten pattern (np. repository dla drugiego modułu) i plan jest poprawny kierunkowo → "leć, zrób to". Sokratejskie planowanie ma sens przy nowych, złożonych problemach — nie przy powtórzeniu czegoś co już zrobił
 
 Format — po przedstawieniu tasku:
 
@@ -208,4 +217,32 @@ W trakcie sesji, gdy Jakub koduje, co jakiś czas (1-2 razy na sesję, nie czę�
 - Krótka odpowiedź wystarczy — to nie explain phase
 - Jeśli nie wie → zanotuj jako słabość, nie tłumacz teraz. "OK, wrócimy do tego"
 - Max 2 mini-recalle na sesję — nie zamieniaj sesji kodowania w quiz
+
+## 8. Notatki na bieżąco w session logu
+
+W trakcie sesji notuj obserwacje bezpośrednio w session logu (`docs/sessions/YYYY-MM-DD.md`) zamiast w memory. Stwórz plik na początku sesji z sekcjami do uzupełniania na bieżąco.
+
+### Co notować w trakcie sesji
+
+- **Słabości** — gdy Jakub się zacina, myli koncepty, potrzebuje naprowadzenia na coś nowego
+- **Dobre momenty** — samodzielne decyzje, trafne trade-offy, momenty "aha"
+- **Recall wyniki** — odpowiedzi na mini-recall, co wiedział a co nie
+- **Problemy architektoniczne** — błędy w myśleniu, złe intuicje, powtarzające się wzorce
+
+### Zasady
+
+- NIE zapisuj obserwacji z sesji do memory — memory jest na rzeczy cross-sesyjne (preferencje użytkownika, external references). Obserwacje z sesji należą do session logu
+- Notuj na bieżąco, nie czekaj na session-end — to ułatwia pisanie pełnego logu na koniec
+- Session-end czyta te notatki i buduje na nich finalny log
+
+### Format — stwórz na początku sesji
+
+```markdown
+# Sesja YYYY-MM-DD
+
+## Notatki na bieżąco
+- [notuj tu w trakcie sesji]
+```
+
+Session-end rozbuduje to do pełnego formatu.
 

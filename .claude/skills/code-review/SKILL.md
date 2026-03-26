@@ -12,11 +12,11 @@ Jakub skończył task — czas na review. Review ma trzy wymiary: automatyczny s
 Celem review jest nauczyć Jakuba produkcyjnej jakości kodu — nie sprawić żeby poczuł się dobrze z kodem który działa ale jest słaby. Jeśli widzisz suboptymalne rozwiązanie architektoniczne, powiedz to wprost. Nie mów "wygląda OK" jeśli widzisz lepsze podejście.
 
 Konkretnie:
-- Kod kompiluje się i działa ale ma słabą separację odpowiedzialności? → Powiedz: "to działa, ale architektura jest słaba, bo X. Lepsze podejście to Y."
-- Widzisz duplikację logiki, abstraction leak, brak reużywalności? → Wskaż to i zaproponuj kierunek lepszego rozwiązania.
-- Jakub zrobił coś poprawnie ale nie optymalnie? → Nie chwal — powiedz co mógłby zrobić lepiej i dlaczego.
+- Kod kompiluje się i działa ale ma słabą separację odpowiedzialności? → Naprowadź pytaniem, np. "co się stanie gdy dodasz trzeci moduł z tym samym patternem?" albo "który moduł jest właścicielem tej logiki?"
+- Widzisz duplikację logiki, abstraction leak, brak reużywalności? → Naprowadź pytaniem, np. "wyobraź sobie że zmieniasz ORM — ile plików ruszasz?" albo "gdzie jeszcze widzisz ten sam pattern?"
+- Jakub zrobił coś poprawnie ale nie optymalnie? → Naprowadź pytaniem, np. "jakie widzisz wady tego podejścia?" albo "jak byś to wytłumaczył seniorowi na review?"
 
-Nie pisz za niego kodu — ale powiedz mu **co** jest słabe i **jaki kierunek** byłby lepszy. Reszta jest na nim.
+Nie pisz za niego kodu i nie mów wprost co jest źle. **Naprowadzaj pytaniami** — o konsekwencje, scenariusze, porównania, uzasadnienia, cokolwiek co wymusi myślenie. Forma dowolna, cel jeden: Jakub sam dochodzi do wniosku. Wyjątek: trywialne problemy (literówka, brak dekoratora) gdzie pytanie byłoby sztuczne — tam powiedz wprost.
 
 ## 1. Zidentyfikuj co się zmieniło
 
@@ -69,12 +69,12 @@ Pytania dopasuj do konkretnego kodu — nie zadawaj generycznych pytań. Celuj w
 Po odpowiedzi Jakuba:
 
 1. Doceń co sam zauważył — ale tylko jeśli to naprawdę trafne obserwacje
-2. **Daj szczerą ocenę architektoniczną** — to jest kluczowy krok. Nie waliduj tylko to co Jakub powiedział. Dodaj swoją ocenę jako coach:
-   - Czy kod jest dobrze zaprojektowany? Jeśli nie — powiedz co jest słabe i jaki kierunek byłby lepszy
-   - Czy separacja odpowiedzialności jest poprawna? Czy coś leakuje między warstwami?
-   - Czy ten sam pattern trzeba będzie powtórzyć — i czy jest wystarczająco reużywalny?
-   - Czy API modułu/funkcji jest spójne i intuicyjne dla konsumenta?
-   - Czy senior w code review przepuściłby ten kod bez komentarzy?
+2. **Naprowadź na problemy architektoniczne pytaniami** — to jest kluczowy krok. Nie waliduj tylko to co Jakub powiedział. Jeśli widzisz problemy których nie zauważył — zadaj pytania naprowadzające:
+   - Słaby design? → "Gdybyś miał wytłumaczyć tę strukturę seniorowi — co powiesz na pytanie dlaczego X jest w Y?"
+   - Abstraction leak? → "Co z tego modułu wie o Prisma? Czy powinien?"
+   - Brak reużywalności? → "Jak dodasz ten sam pattern w kolejnym module — co kopiujesz?"
+   - Niespójne API? → "Porównaj to API z exercises — widzisz różnicę w konwencji?"
+   - Pytania dobieraj do konkretnego kodu. Jeśli Jakub nie dojdzie do odpowiedzi po 2 pytaniach — wtedy powiedz wprost
 3. Pokaż wyniki z automatycznego scanu (jeśli znalazły coś istotnego)
 
 ### Zasady
@@ -83,6 +83,7 @@ Po odpowiedzi Jakuba:
 - **Poprawki nie muszą być robione teraz** — mogą wejść jako task na następną sesję
 - **Jeśli Jakub sam zauważy problem → doceń to** — ale nie powstrzymuj się od dodania swoich obserwacji
 - **"Działa" to za mało** — porównuj z produkcyjnymi praktykami i standardami senior-level code review
+- **Bądź krytyczny wobec słabej architektury** — nie chwal suboptimalnych rozwiązań. Jeśli widzisz lepszy pattern — zaproponuj go proaktywnie zamiast czekać aż Jakub sam wpadnie
 - **Proponuj kierunek, nie kod** — powiedz co jest słabe i jak powinno wyglądać, ale nie pisz implementacji
 - **Nie przeciągaj** — całe review max 10-15 minut. Kodowanie jest priorytetem sesji
 

@@ -9,18 +9,25 @@ Zamykasz sesję coachingową z Jakubem. Wykonaj poniższe kroki w kolejności:
 
 ## 1. Explain phase (5 min)
 
-Poproś Jakuba żeby wytłumaczył co zrobił na dzisiejszej sesji — jakby tłumaczył rekruterowi lub innemu devowi.
+Symuluj code review — Jakub daje krótki overview, Ty wyciągasz pytania o decyzje i alternatywy.
 
-Zasady:
+### Flow
 
-- "Wytłumacz mi co zrobiłeś dziś i dlaczego tak a nie inaczej"
-- Nie podpowiadaj — niech mówi z pamięci
-- Pytaj follow-upy: "a dlaczego nie X?", "co by się stało gdyby...?"
+1. **Poproś o overview:** "Opowiedz w 2-3 zdaniach co zrobiłeś i jakie kluczowe decyzje podjąłeś"
+2. **Czekaj na odpowiedź** — nie przerywaj, nie podpowiadaj
+3. **Zadaj 3-4 celowane pytania** o decyzje, trade-offy i alternatywy na podstawie tego co powiedział i tego co widziałeś na sesji. Np. "dlaczego SET NULL a nie CASCADE?", "jakie inne opcje rozważałeś?"
+4. **Czekaj na odpowiedź na KAŻDE pytanie** — nie zasypuj pytaniami, nie przechodź do mock interview dopóki Jakub nie odpowie
+5. **Daj feedback** po odpowiedziach: co dobrze, co pominął
+
+### Zasady
+
+- NIE wymuszaj monologu o 40 plikach — przy dużych taskach to nierealne i nie symuluje prawdziwej rozmowy
+- Pytania dopasuj do tego co Jakub faktycznie robił — nie generyczne
 - Oceń (1-5): 1=nie umie wytłumaczyć, 3=zna koncept ale brakuje detali, 5=wytłumaczyłby na rozmowie
 
 ## 2. Mock interview (5 min)
 
-Mock interview jest **obowiązkowy co sesję**. Nie pytaj "chcesz pytanie?" — po prostu zadaj je.
+Mock interview jest **obowiązkowy co sesję**. Nie pytaj "chcesz pytanie?" — po prostu zadaj je. **Dopiero PO zakończeniu explain phase** — nie łącz obu w jedną wiadomość.
 
 - Przeprowadź mock interview zgodnie z protokołem z `.claude/skills/mock-interview/SKILL.md` (przeczytaj go)
 - Pytanie powiązane z tym co właśnie kodował LUB losowe z wcześniejszych tematów (element zaskoczenia)
@@ -30,7 +37,9 @@ Mock interview jest **obowiązkowy co sesję**. Nie pytaj "chcesz pytanie?" — 
 
 Daj Jakubowi szczery ustny feedback (co dobrze, co źle, jedna rzecz do poprawy). Potem zapisz session log — feedback trafia bezpośrednio do sekcji "Co poszło dobrze" i "Co poszło źle" w logu.
 
-Przeczytaj `docs/sessions/` żeby porównać z poprzednimi sesjami, potem stwórz wpis.
+**Sprawdź czy istnieje plik z notatkami na bieżąco** (`docs/sessions/YYYY-MM-DD.md` z sekcją "Notatki na bieżąco" — tworzony przez session-start). Jeśli tak — przeczytaj je jako dodatkowy kontekst. Bazą do session logu jest cała konwersacja + poprzednie session logi — notatki na bieżąco to pomoc, nie zamiennik.
+
+Przeczytaj `docs/sessions/` żeby porównać z poprzednimi sesjami, potem rozbuduj istniejący wpis (lub stwórz nowy jeśli nie istnieje).
 
 Plik: `docs/sessions/YYYY-MM-DD.md`
 
@@ -165,9 +174,9 @@ Sekcja musi być **kompletna i jednoznaczna** — session-start na kolejnej sesj
 
 **Kodowanie (główny task):** [konkretny task z aktualnego milestone — co zbudować, jakie wymagania]
 
-**Retencja do wplenienia:** [nieodhaczone checkpointy z wcześniejszych milestones do weryfikacji przez recall challenge / mock interview — wylistuj konkretne tematy]
+**Retencja (max 2-3 tematy):** [nieodhaczone checkpointy do weryfikacji przez recall challenge / mock interview]
 
-**Nieprzerobione tematy do wplenienia:** [tematy z wcześniejszych milestones które NIE były na żadnej sesji — jeśli pasują do kontekstu taska, wpleć jako explain-concept lub sidebar]
+**Wpleść w kodowanie (max 1 temat):** [jeden temat z nieprzerobionej listy który naturalnie pasuje do taska — np. N+1 przy findAll refactorze]
 
 **Docs do przeczytania:** [konkretna sekcja NestJS/PostgreSQL docs relevant do taska]
 
@@ -177,6 +186,7 @@ Sekcja musi być **kompletna i jednoznaczna** — session-start na kolejnej sesj
 ### Zasady
 
 - **"Kodowanie"** = jeden konkretny task z milestone checkpointów. Nie "rób co chcesz z M3"
-- **"Retencja"** = tematy przerobione ale nieodhaczone. Coach testuje przez recall/mock. Jeśli 3+/5 → odhaczamy
-- **"Nieprzerobione"** = tematy z [ ] checkpointów które nigdy nie były omawiane. Coach szuka okazji do wplecenia (np. temat normalizacji wchodzi naturalnie przy projektowaniu nowej tabeli)
+- **"Retencja" = max 2-3 tematy** — testowane TYLKO przez recall challenge i mock interview (30 sek pytania). NIE "wpletane w kodowanie" — to rozprasza. Reszta retencji idzie do Anki
+- **"Wpleść w kodowanie" = max 1 temat** — jeden nieprzerobiony temat który naturalnie wynika z kontekstu taska. Nie wciskaj na siłę tematów które nie pasują. Jeśli żaden nie pasuje — zostaw puste
+- **Tematy wiszące 3+ sesji bez postępu** — sprawdź session logi. Jeśli temat jest w "Retencja" lub "Nieprzerobione" od 3+ sesji i nie był zaadresowany → albo zaplanuj dedykowaną sesję na ten temat, albo zdejmij z listy (Anki go pokryje). Nie przepisuj w nieskończoność
 - Jeśli jest prereq do następnego taska → dodaj materiały do nauki PRZED sesją

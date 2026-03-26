@@ -4,10 +4,14 @@ import { UpdateWorkoutTemplateDTO } from './dtos/update-workout-template-dto';
 import { CursorPaginationDTO } from 'src/common/cursor-pagination/cursor-pagination-dto';
 import { WorkoutRepository } from './repositories/workout.repository';
 import { getCursorPagination } from 'src/common/cursor-pagination/lib';
+import { ExercisesService } from 'src/exercises/exercises.service';
 
 @Injectable()
 export class WorkoutsService {
-  constructor(private workoutRepository: WorkoutRepository) {}
+  constructor(
+    private workoutRepository: WorkoutRepository,
+    private exerciseService: ExercisesService,
+  ) {}
 
   async getAll(pagination: CursorPaginationDTO) {
     const { cursor, limit } = pagination;
@@ -27,13 +31,15 @@ export class WorkoutsService {
   async createWorkoutTemplate(
     createWorkoutTemplateDTO: CreateWorkoutTemplateDTO,
   ) {
-    const ids = await this.workoutRepository.findNonExistingExerciseIds(
-      createWorkoutTemplateDTO.exercises,
+    const exerciseIds = createWorkoutTemplateDTO.exercises.map(
+      (exercise) => exercise.exerciseId,
     );
+    const { nonExistingIds } =
+      await this.exerciseService.resolveExerciseIds(exerciseIds);
 
-    if (ids.length > 0) {
+    if (nonExistingIds.length > 0) {
       throw new BadRequestException(
-        `Exercises with ids: [${ids.join(', ')}] not found.`,
+        `Exercises with ids: [${nonExistingIds.join(', ')}] not found.`,
       );
     }
 
@@ -49,13 +55,15 @@ export class WorkoutsService {
     updateWorkoutTemplateDTO: UpdateWorkoutTemplateDTO,
   ) {
     if (updateWorkoutTemplateDTO.exercises) {
-      const ids = await this.workoutRepository.findNonExistingExerciseIds(
-        updateWorkoutTemplateDTO.exercises,
+      const exerciseIds = updateWorkoutTemplateDTO.exercises.map(
+        (exercise) => exercise.exerciseId,
       );
+      const { nonExistingIds } =
+        await this.exerciseService.resolveExerciseIds(exerciseIds);
 
-      if (ids.length > 0) {
+      if (nonExistingIds.length > 0) {
         throw new BadRequestException(
-          `Exercises with ids: [${ids.join(', ')}] not found.`,
+          `Exercises with ids: [${nonExistingIds.join(', ')}] not found.`,
         );
       }
     }

@@ -11,9 +11,15 @@ export abstract class ExerciseRepository {
     limit?: number;
   }): Promise<{ items: ExerciseDTO[]; total: number }>;
 
+  abstract findManyByIds(ids: string[]): Promise<ExerciseDTO[]>;
+
   abstract findUnique(id: string): Promise<ExerciseDTO>;
 
   abstract create(data: CreateExerciseDTO): Promise<ExerciseDTO>;
+
+  abstract resolveExerciseIds(
+    ids: string[],
+  ): Promise<{ exercises: ExerciseDTO[]; nonExistingIds: string[] }>;
 
   abstract update({
     id,

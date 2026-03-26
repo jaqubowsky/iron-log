@@ -115,7 +115,7 @@ Budujesz WorkoutTemplates, WorkoutLogs — cross-module communication. Widzisz j
 - **Code review + bug fixy**
   - [x] Bug fixy z code review wdrożone (@Max, @IsInt — P2025 i TOCTOU już obsłużone przez exception filter)
 - **Cross-module communication** — WorkoutLogs moduł, import/export między modułami
-  - [ ] Moduły komunikują się, zero circular deps
+  - [x] Moduły komunikują się, zero circular deps
   - [ ] Potrafię wytłumaczyć jak NestJS modules importują/eksportują providery
 - **HTTP/REST** — kody statusów, idempotentność, REST vs GraphQL, API versioning
   - [ ] Potrafię wytłumaczyć idempotentność HTTP metod i kiedy 201 vs 200 vs 204

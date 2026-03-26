@@ -1,7 +1,6 @@
 import { CreateWorkoutTemplateDTO } from '../dtos/create-workout-template-dto';
 import { UpdateWorkoutTemplateDTO } from '../dtos/update-workout-template-dto';
 import { WorkoutTemplateDTO } from '../dtos/workout-template-dto';
-import { WorkoutExerciseDTO } from '../dtos/workout-exercise-dto';
 
 export abstract class WorkoutRepository {
   abstract findMany({
@@ -13,10 +12,6 @@ export abstract class WorkoutRepository {
   }): Promise<WorkoutTemplateDTO[]>;
 
   abstract findUnique(id: string): Promise<WorkoutTemplateDTO>;
-
-  abstract findNonExistingExerciseIds(
-    data: WorkoutExerciseDTO[],
-  ): Promise<string[]>;
 
   abstract create(data: CreateWorkoutTemplateDTO): Promise<WorkoutTemplateDTO>;
 

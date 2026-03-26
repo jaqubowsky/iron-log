@@ -21,7 +21,8 @@ export class WorkoutsController {
 
   @Get()
   async findAll(@Query() cursorPaginationDto: CursorPaginationDTO) {
-    const response = await this.workoutsService.getAll(cursorPaginationDto);
+    const { cursor, limit } = cursorPaginationDto;
+    const response = await this.workoutsService.getAll({ cursor, limit });
 
     const workoutResponse = response.data.map((result) =>
       WorkoutTemplateResponseDTO.from(result),

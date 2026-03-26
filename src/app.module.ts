@@ -6,6 +6,7 @@ import { PrismaModule } from './db/prisma.module';
 import { ConfigModule } from '@nestjs/config';
 import { PrismaExceptionFilter } from './db/prisma-exception.filter';
 import { WorkoutsModule } from './workouts/workouts.module';
+import { WorkoutsLogsModule } from './workouts-logs/workouts-logs.module';
 
 @Module({
   imports: [
@@ -13,6 +14,7 @@ import { WorkoutsModule } from './workouts/workouts.module';
     PrismaModule,
     ConfigModule.forRoot(),
     WorkoutsModule,
+    WorkoutsLogsModule,
   ],
   controllers: [AppController],
   providers: [

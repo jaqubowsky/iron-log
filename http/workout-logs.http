@@ -1,0 +1,177 @@
+### Create workout log - from template (Push Day + Squat)
+POST http://localhost:3000/workout-logs
+Content-Type: application/json
+
+{
+  "workoutTemplateId": "5cfe5bb2-4546-47c2-9cf9-f1bc1993b5e5",
+  "exercises": [
+    {
+      "exerciseId": "b45a2f0e-ebb4-4a95-8a6b-217201d26c7f",
+      "order": 1,
+      "sets": [
+        { "weight": 100, "reps": 8, "rpe": 7 },
+        { "weight": 110, "reps": 6, "rpe": 8 }
+      ]
+    }
+  ]
+}
+
+### Create workout log - without template (free workout)
+POST http://localhost:3000/workout-logs
+Content-Type: application/json
+
+{
+  "name": "Poranny trening",
+  "description": "Szybki trening przed praca",
+  "exercises": [
+    {
+      "exerciseId": "0710407b-ab4a-4a94-a887-47367198fe6f",
+      "order": 1,
+      "sets": [
+        { "weight": 80, "reps": 10, "rpe": 6 }
+      ]
+    },
+    {
+      "exerciseId": "b45a2f0e-ebb4-4a95-8a6b-217201d26c7f",
+      "order": 2,
+      "sets": [
+        { "weight": 120, "reps": 5, "rpe": 9 },
+        { "weight": 120, "reps": 4, "rpe": 10 }
+      ]
+    }
+  ]
+}
+
+### Create workout log - with multiple sets and notes
+POST http://localhost:3000/workout-logs
+Content-Type: application/json
+
+{
+  "workoutTemplateId": "3165567a-2526-4a7d-8606-eed88faf7d78",
+  "exercises": [
+    {
+      "exerciseId": "0710407b-ab4a-4a94-a887-47367198fe6f",
+      "order": 1,
+      "sets": [
+        { "weight": 80, "reps": 10, "rpe": 7, "notes": "Rozgrzewka" },
+        { "weight": 90, "reps": 8, "rpe": 8 },
+        { "weight": 95, "reps": 6, "rpe": 9, "notes": "PR!" }
+      ]
+    },
+    {
+      "exerciseId": "b45a2f0e-ebb4-4a95-8a6b-217201d26c7f",
+      "order": 2,
+      "sets": [
+        { "weight": 140, "reps": 5, "rpe": 8 },
+        { "weight": 140, "reps": 5, "rpe": 9 }
+      ]
+    }
+  ]
+}
+
+### Get all workout logs (pagination)
+GET http://localhost:3000/workout-logs?limit=10
+
+### Get workout log by id (replace with real id after create)
+GET http://localhost:3000/workout-logs/29ccbc35-a95c-4567-92dc-fc9f6696a9e2
+
+### Get workout log - nonexistent
+GET http://localhost:3000/workout-logs/00000000-0000-0000-0000-000000000000
+
+### Get workout log - invalid UUID
+GET http://localhost:3000/workout-logs/not-a-uuid
+
+### Update workout log - change exercises and sets (replace id)
+PATCH http://localhost:3000/workout-logs/29ccbc35-a95c-4567-92dc-fc9f6696a9e2
+Content-Type: application/json
+
+{
+  "exercises": [
+    {
+      "exerciseId": "0710407b-ab4a-4a94-a887-47367198fe6f",
+      "order": 1,
+      "sets": [
+        { "weight": 90, "reps": 8, "rpe": 8, "notes": "Poprawiony ciezar" }
+      ]
+    }
+  ]
+}
+
+### Validation - nonexistent exercise ID
+POST http://localhost:3000/workout-logs
+Content-Type: application/json
+
+{
+  "name": "Test",
+  "exercises": [
+    {
+      "exerciseId": "00000000-0000-0000-0000-000000000000",
+      "order": 1,
+      "sets": [{ "weight": 50, "reps": 10, "rpe": 5 }]
+    }
+  ]
+}
+
+### Validation - no name and no templateId (should fail)
+POST http://localhost:3000/workout-logs
+Content-Type: application/json
+
+{
+  "exercises": [
+    {
+      "exerciseId": "b45a2f0e-ebb4-4a95-8a6b-217201d26c7f",
+      "order": 1,
+      "sets": [{ "weight": 100, "reps": 8, "rpe": 7 }]
+    }
+  ]
+}
+
+### Validation - empty exercises array (should fail on create)
+POST http://localhost:3000/workout-logs
+Content-Type: application/json
+
+{
+  "name": "Empty workout",
+  "exercises": []
+}
+
+### Validation - empty body
+POST http://localhost:3000/workout-logs
+Content-Type: application/json
+
+{}
+
+### Validation - nonexistent template ID
+POST http://localhost:3000/workout-logs
+Content-Type: application/json
+
+{
+  "workoutTemplateId": "00000000-0000-0000-0000-000000000000",
+  "exercises": [
+    {
+      "exerciseId": "b45a2f0e-ebb4-4a95-8a6b-217201d26c7f",
+      "order": 1,
+      "sets": [{ "weight": 100, "reps": 8, "rpe": 7 }]
+    }
+  ]
+}
+
+### Validation - mix of real and fake exercise IDs
+POST http://localhost:3000/workout-logs
+Content-Type: application/json
+
+{
+  "name": "Mixed",
+  "exercises": [
+    {
+      "exerciseId": "0710407b-ab4a-4a94-a887-47367198fe6f",
+      "order": 1,
+      "sets": [{ "weight": 80, "reps": 10, "rpe": 6 }]
+    },
+    {
+      "exerciseId": "00000000-0000-0000-0000-000000000000",
+      "order": 2,
+      "sets": [{ "weight": 50, "reps": 10, "rpe": 5 }]
+    }
+  ]
+}

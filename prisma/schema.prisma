@@ -24,13 +24,14 @@ enum ExerciseCategory {
 }
 
 model Exercise {
-  id          String                       @id @default(uuid())
-  name        String
-  description String?
-  category    ExerciseCategory
-  workoutLogs ExercisesOnWorkoutTemplate[]
-  createdAt   DateTime                     @default(now())
-  updatedAt   DateTime                     @updatedAt
+  id                  String                       @id @default(uuid())
+  name                String
+  description         String?
+  category            ExerciseCategory
+  workoutTemplates    ExercisesOnWorkoutTemplate[]
+  workoutLogExercises WorkoutLogExercise[]
+  createdAt           DateTime                     @default(now())
+  updatedAt           DateTime                     @updatedAt
 }
 
 model ExercisesOnWorkoutTemplate {
@@ -48,6 +49,45 @@ model WorkoutTemplate {
   name        String
   description String?
   exercises   ExercisesOnWorkoutTemplate[]
+  workoutLogs WorkoutLog[]
   createdAt   DateTime                     @default(now())
   updatedAt   DateTime                     @updatedAt
+}
+
+model WorkoutLogExercise {
+  id                 String                  @id @default(uuid())
+  name               String
+  description        String?
+  category           ExerciseCategory
+  order              Int
+  sets               WorkoutLogExerciseSet[]
+  originalExercise   Exercise?               @relation(fields: [originalExerciseId], references: [id], onDelete: SetNull)
+  originalExerciseId String?
+  workoutLog         WorkoutLog              @relation(fields: [workoutLogId], references: [id], onDelete: Cascade)
+  workoutLogId       String
+  createdAt          DateTime                @default(now())
+  updatedAt          DateTime                @updatedAt
+}
+
+model WorkoutLogExerciseSet {
+  id                   String             @id @default(uuid())
+  weight               Float
+  reps                 Int
+  rpe                  Int
+  notes                String?
+  workoutLogExercise   WorkoutLogExercise @relation(fields: [workoutLogExerciseId], references: [id], onDelete: Cascade)
+  workoutLogExerciseId String
+  createdAt            DateTime           @default(now())
+  updatedAt            DateTime           @updatedAt
+}
+
+model WorkoutLog {
+  id                  String               @id @default(uuid())
+  name                String
+  description         String?
+  workoutLogExercises WorkoutLogExercise[]
+  workoutTemplate     WorkoutTemplate?     @relation(fields: [workoutTemplateId], references: [id], onDelete: SetNull)
+  workoutTemplateId   String?
+  createdAt           DateTime             @default(now())
+  updatedAt           DateTime             @updatedAt
 }

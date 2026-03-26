@@ -4,7 +4,6 @@ import { WorkoutRepository } from './workout.repository';
 import { WorkoutTemplateDTO } from '../dtos/workout-template-dto';
 import { CreateWorkoutTemplateDTO } from '../dtos/create-workout-template-dto';
 import { UpdateWorkoutTemplateDTO } from '../dtos/update-workout-template-dto';
-import { WorkoutExerciseDTO } from '../dtos/workout-exercise-dto';
 
 @Injectable()
 export class PrismaWorkoutRepository implements WorkoutRepository {
@@ -18,11 +17,7 @@ export class PrismaWorkoutRepository implements WorkoutRepository {
     take: number;
   }): Promise<WorkoutTemplateDTO[]> {
     return this.prismaService.workoutTemplate.findMany({
-      cursor: cursor
-        ? {
-            id: cursor,
-          }
-        : undefined,
+      cursor: cursor ? { id: cursor } : undefined,
       take,
       include: {
         exercises: {
@@ -45,26 +40,6 @@ export class PrismaWorkoutRepository implements WorkoutRepository {
         },
       },
     });
-  }
-
-  async findNonExistingExerciseIds(
-    workoutExercises: WorkoutExerciseDTO[],
-  ): Promise<string[]> {
-    const ids = workoutExercises.map((exercise) => exercise.exerciseId);
-
-    const exercises = await this.prismaService.exercise.findMany({
-      where: {
-        id: {
-          in: ids,
-        },
-      },
-    });
-
-    const nonExistingIds = ids.filter(
-      (id) => !exercises.find((exercise) => exercise.id === id),
-    );
-
-    return nonExistingIds;
   }
 
   create(data: CreateWorkoutTemplateDTO): Promise<WorkoutTemplateDTO> {

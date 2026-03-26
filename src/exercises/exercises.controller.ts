@@ -20,7 +20,8 @@ export class ExercisesController {
 
   @Get()
   findAll(@Query() paginationDto: OffsetPaginationDTO) {
-    return this.exercisesService.getAll(paginationDto);
+    const { limit, page, skip } = paginationDto;
+    return this.exercisesService.getAll({ skip, limit, page });
   }
 
   @Get(':id')

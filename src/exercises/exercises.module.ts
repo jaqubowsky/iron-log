@@ -13,5 +13,6 @@ import { ExercisesService } from './exercises.service';
       useClass: PrismaExerciseRepository,
     },
   ],
+  exports: [ExercisesService],
 })
 export class ExercisesModule {}

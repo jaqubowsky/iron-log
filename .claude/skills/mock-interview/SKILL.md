@@ -57,7 +57,7 @@ Po odpowiedzi Jakuba:
 
 1. **Score (1-5)**: 1=nie wie, 2=mętne, 3=zna koncept ale brakuje detali, 4=solidna odpowiedź, 5=poziom seniora
 2. **Co dobrze**: konkretne fragmenty odpowiedzi
-3. **Co pominął**: czego rekruter by oczekiwał
+3. **Co pominął**: czego rekruter by oczekiwał — ale TYLKO rzeczy które faktycznie odpowiadają na pytanie. Nie naciągaj opcji/odpowiedzi które nie pasują do pytania żeby zwiększyć liczbę "brakujących" punktów. Jeśli Jakub słusznie zakwestionuje że coś nie jest poprawna odpowiedź na zadane pytanie — przyznaj się do błędu i skoryguj score
 4. **Tip**: jedna rzecz do zapamiętania na prawdziwą rozmowę
 
 ## Zapis
