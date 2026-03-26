@@ -39,7 +39,7 @@ AI używasz jako:
 
 Dopóki nie odhaczysz wszystkich checkpointów w milestone — nie ruszasz następnego.
 
-**Wyjątek:** jeśli nieodhaczone checkpointy to "potrafię wytłumaczyć X" (retencja) a nie "X działa" (kod) — można równolegle kodować następny milestone. Retencja odhacza się przez Anki + recall challenge (4-5/5), nie przez kolejne sesje na ten sam temat. Jeśli po 3 sesjach recall nadal <4/5 — wróć na dedykowaną sesję.
+**Wyjątek:** jeśli nieodhaczone checkpointy to "potrafię wytłumaczyć X" (retencja) a nie "X działa" (kod) — można równolegle kodować następny milestone. Retencja odhacza się przez Anki + recall challenge (3+/5 = mid level), nie przez kolejne sesje na ten sam temat. Jeśli po 3 sesjach recall nadal <3/5 — wróć na dedykowaną sesję.
 
 ---
 
@@ -107,10 +107,10 @@ Prereq: SQLBolt + PostgreSQL Tutorial ZANIM sesja coachingowa z raw SQL.
 Budujesz WorkoutTemplates, WorkoutLogs — cross-module communication. Widzisz jak ORM mapuje się na SQL.
 
 - **Repository pattern** — wydziel dostęp do bazy z service do repository
-  - [ ] Repository pattern wdrożony — service nie woła Prisma bezpośrednio
+  - [x] Repository pattern wdrożony — service nie woła Prisma bezpośrednio
   - [ ] Potrafię wytłumaczyć po co repository layer i kiedy to overengineering
 - **Ustrukturyzowana paginacja** — wydziel do common, reużywalny pattern
-  - [ ] Paginacja wydzielona do common — reużywalna dla dowolnego modułu
+  - [x] Paginacja wydzielona do common — reużywalna dla dowolnego modułu
   - [x] Paginacja działa, potrafię uzasadnić wybór (offset vs cursor)
 - **Code review + bug fixy**
   - [x] Bug fixy z code review wdrożone (@Max, @IsInt — P2025 i TOCTOU już obsłużone przez exception filter)

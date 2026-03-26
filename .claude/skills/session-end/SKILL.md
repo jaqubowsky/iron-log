@@ -127,11 +127,11 @@ Flow odhaczania:
 1. Jakub poznaje temat na sesji → **NIE odhaczaj**
 2. Generujesz fiszki Anki z tego tematu (krok 6)
 3. Na KOLEJNEJ sesji recall challenge weryfikuje retencję
-4. Jeśli recall challenge zdany (4-5/5) → **TERAZ odhacz**
+4. Jeśli recall challenge zdany (3+/5) → **TERAZ odhacz**
 
 Jedyny wyjątek: checkpointy czysto praktyczne ("X działa", "kod jest napisany") — te można odhaczać od razu, bo to fakty a nie wiedza do zweryfikowania.
 
-**Articulation tracker** (`docs/articulation-tracker.md`): jeśli na mock interview lub recall challenge Jakub zdał pytanie z JS/TS/React/Next.js na 4-5/5 — odhacz odpowiedni checkbox w articulation tracker.
+**Articulation tracker** (`docs/articulation-tracker.md`): jeśli na mock interview lub recall challenge Jakub zdał pytanie z JS/TS/React/Next.js na 3+/5 — odhacz odpowiedni checkbox w articulation tracker.
 
 ## 5. Aktualizacja mock-interviews.md
 
@@ -177,6 +177,6 @@ Sekcja musi być **kompletna i jednoznaczna** — session-start na kolejnej sesj
 ### Zasady
 
 - **"Kodowanie"** = jeden konkretny task z milestone checkpointów. Nie "rób co chcesz z M3"
-- **"Retencja"** = tematy przerobione ale nieodhaczone. Coach testuje przez recall/mock. Jeśli 4-5/5 → odhaczamy
+- **"Retencja"** = tematy przerobione ale nieodhaczone. Coach testuje przez recall/mock. Jeśli 3+/5 → odhaczamy
 - **"Nieprzerobione"** = tematy z [ ] checkpointów które nigdy nie były omawiane. Coach szuka okazji do wplecenia (np. temat normalizacji wchodzi naturalnie przy projektowaniu nowej tabeli)
 - Jeśli jest prereq do następnego taska → dodaj materiały do nauki PRZED sesją

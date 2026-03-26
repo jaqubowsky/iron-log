@@ -1,43 +1,28 @@
 import { Injectable } from '@nestjs/common';
 import { CreateExerciseDTO } from './dtos/create-exercise-dto';
 import { UpdateExerciseByIdDTO } from './dtos/update-exercise-by-id-dto';
-import { PaginationDTO } from 'src/common/pagination-dto';
+import { OffsetPaginationDTO } from 'src/common/offset-pagination/offset-pagination-dto';
 import { ExerciseRepository } from './repositories/exercise.repository';
-
-const DEFAULT_PAGE = 1;
-const DEFAULT_LIMIT = 15;
+import { getOffsetPagination } from 'src/common/offset-pagination/lib';
 
 @Injectable()
 export class ExercisesService {
   constructor(private exerciseRepository: ExerciseRepository) {}
 
-  async getAll(paginationDto: PaginationDTO) {
-    const { page = DEFAULT_PAGE, limit = DEFAULT_LIMIT } = paginationDto;
+  async getAll(pagination: OffsetPaginationDTO) {
+    const { skip, limit } = pagination;
 
-    const skip = (page - 1) * limit;
-
-    const getTotalCountPromise = this.exerciseRepository.count();
-    const getDataPromise = this.exerciseRepository.findMany({
+    const { items, total } = await this.exerciseRepository.findMany({
       skip,
-      take: limit,
+      limit,
     });
 
-    const [totalCount, data] = await Promise.all([
-      getTotalCountPromise,
-      getDataPromise,
-    ]);
-
-    const hasMoreItems = totalCount > page * limit;
-
-    return {
-      data,
-      meta: {
-        totalCount,
-        hasMoreItems,
-        page,
-        limit,
-      },
-    };
+    return getOffsetPagination({
+      items,
+      total,
+      page: pagination.page,
+      limit: pagination.limit,
+    });
   }
 
   async createExercise(createExerciseDTO: CreateExerciseDTO) {

@@ -6,7 +6,7 @@ Content-Type: application/json
   "name": "Push Day",
   "description": "Chest, Legs",
   "exercises": [
-    { "exerciseId": "4d79ec19-3fa4-4ab7-ae7a-30de02e70ac1", "order": 1 }
+    { "exerciseId": "0710407b-ab4a-4a94-a887-47367198fe6f", "order": 1 }
   ]
 }
 
@@ -88,7 +88,7 @@ Content-Type: application/json
 }
 
 ### Update workout template - change exercises (replace id)
-PATCH http://localhost:3000/workout-templates/0fd896f7-a7ae-4614-816d-c1b93b03335d
+PATCH http://localhost:3000/workout-templates/5cfe5bb2-4546-47c2-9cf9-f1bc1993b5e5
 Content-Type: application/json
 
 {
@@ -98,7 +98,7 @@ Content-Type: application/json
 }
 
 ### Update workout template - nonexistent exercise ID (replace id)
-PATCH http://localhost:3000/workout-templates/0fd896f7-a7ae-4614-816d-c1b93b03335d
+PATCH http://localhost:3000/workout-templates/5cfe5bb2-4546-47c2-9cf9-f1bc1993b5e5
 Content-Type: application/json
 
 {

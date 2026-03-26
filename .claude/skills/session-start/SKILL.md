@@ -73,10 +73,12 @@ Zadaj Jakubowi jedno pytanie wymagające wytłumaczenia konceptu z pamięci. Pyt
 
 1. **Sprawdź mock-interviews.md** — tematy ze score'em ≤3 mają priorytet, szczególnie starsze (>3 sesje temu)
 2. **Sprawdź session logi z 3-5 sesji wstecz** — co robił? Czy pamiętał na kolejnych recall challenges?
-3. **Jeśli temat był na recall 2 sesje temu i zdał (4-5/5)** — wybierz inny, starszy temat
-4. **Jeśli temat był na recall i nie zdał (<4/5)** — wróć do niego po 2-3 sesjach
+3. **Jeśli temat był na recall 2 sesje temu i zdał (3+/5)** — wybierz inny, starszy temat
+4. **Jeśli temat był na recall i nie zdał (<3/5)** — wróć do niego po 2-3 sesjach
 
 Priorytet: słabe tematy z mock interviews > tematy z 3-5 sesji wstecz > tematy z ostatniej sesji
+
+**Wiele sesji tego samego dnia:** Jeśli dziś była już sesja — recall challenge ciągnij z 3+ sesji wstecz (nie z dzisiejszej). Zdanie recalla tego samego dnia NIE liczy się do odhaczenia checkpointu — minimum 1 dzień przerwy.
 
 ### Eskalacja trudności (milestone-based)
 

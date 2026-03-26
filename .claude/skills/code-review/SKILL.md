@@ -1,11 +1,22 @@
 ---
 name: code-review
-description: Przeprowadza code review kodu napisanego na sesji — automatyczny scan (bugi, security) + sokratejski review architektoniczny. Używaj gdy Jakub mówi "review", "sprawdź kod", "gotowe sprawdź", "code review", "przejrzyj", "zrobiłem sprawdź", "gotowe", "skończyłem", "zrobione", albo gdy skończył task i chce feedback. Nawet jeśli nie powie wprost "review" — jeśli sygnalizuje że skończył kodowanie, odpal ten skill.
+description: Przeprowadza code review kodu napisanego na sesji — automatyczny scan (bugi, security, architektura) + sokratejski review + szczera ocena architektoniczna. Używaj gdy Jakub mówi "review", "sprawdź kod", "gotowe sprawdź", "code review", "przejrzyj", "zrobiłem sprawdź", "gotowe", "skończyłem", "zrobione", albo gdy skończył task i chce feedback. Nawet jeśli nie powie wprost "review" — jeśli sygnalizuje że skończył kodowanie, odpal ten skill.
 ---
 
 # Code Review Protocol
 
-Jakub skończył task — czas na review. Review ma dwa wymiary: automatyczny scan i sokratejska dyskusja. Oba są ważne, ale kolejność ma znaczenie — Jakub najpierw sam myśli o swoim kodzie, dopiero potem dostaje wyniki scanu.
+Jakub skończył task — czas na review. Review ma trzy wymiary: automatyczny scan, sokratejska dyskusja i **szczera ocena architektoniczna**. Kolejność ma znaczenie — Jakub najpierw sam myśli o swoim kodzie, dopiero potem dostaje wyniki scanu i ocenę coacha.
+
+## Fundamentalna zasada: bądź szczery, nie miły
+
+Celem review jest nauczyć Jakuba produkcyjnej jakości kodu — nie sprawić żeby poczuł się dobrze z kodem który działa ale jest słaby. Jeśli widzisz suboptymalne rozwiązanie architektoniczne, powiedz to wprost. Nie mów "wygląda OK" jeśli widzisz lepsze podejście.
+
+Konkretnie:
+- Kod kompiluje się i działa ale ma słabą separację odpowiedzialności? → Powiedz: "to działa, ale architektura jest słaba, bo X. Lepsze podejście to Y."
+- Widzisz duplikację logiki, abstraction leak, brak reużywalności? → Wskaż to i zaproponuj kierunek lepszego rozwiązania.
+- Jakub zrobił coś poprawnie ale nie optymalnie? → Nie chwal — powiedz co mógłby zrobić lepiej i dlaczego.
+
+Nie pisz za niego kodu — ale powiedz mu **co** jest słabe i **jaki kierunek** byłby lepszy. Reszta jest na nim.
 
 ## 1. Zidentyfikuj co się zmieniło
 
@@ -20,11 +31,10 @@ Jeśli nie ma uncommitted changes, sprawdź ostatnie commity z dzisiejszej daty.
 
 ## 2. Automatyczny scan (w tle)
 
-Uruchom agenta `feature-dev:code-reviewer` do przeskanowania zmienionego kodu. Agent szuka:
+Uruchom **równolegle** dwóch agentów:
 
-- Bugów i błędów logicznych
-- Problemów bezpieczeństwa (SQL injection, brak walidacji, DoS vectors)
-- Niespójności z resztą codebase
+1. `feature-dev:code-reviewer` — szuka bugów, błędów logicznych, problemów bezpieczeństwa (SQL injection, brak walidacji, DoS vectors), niespójności z resztą codebase. **Dodatkowo:** flaguj kod który kompiluje się i działa ale jest źle zaprojektowany — abstraction leaks, złe separation of concerns, duplikacja logiki, niska reużywalność, niespójna abstrakcja między modułami.
+2. `superpowers:code-reviewer` — sprawdza zgodność z planem sesji, coding standards projektu, architektoniczne decyzje vs roadmapa. **Dodatkowo:** porównaj architekturę z produkcyjnymi standardami — czy senior w code review przepuściłby ten kod? Jeśli nie, co by zaproponował?
 
 Wyniki trzymaj na razie — nie pokazuj ich Jakubowi od razu. Najpierw sokratejska dyskusja.
 
@@ -54,31 +64,37 @@ Na podstawie tego co zobaczysz w kodzie, zadaj 2-3 celowane pytania:
 
 Pytania dopasuj do konkretnego kodu — nie zadawaj generycznych pytań. Celuj w rzeczy które Jakub mógł przeoczyć.
 
-**Krok 3 — uzupełnij + pokaż wyniki scanu:**
+**Krok 3 — szczera ocena architektoniczna + wyniki scanu:**
 
 Po odpowiedzi Jakuba:
 
-1. Doceń co sam zauważył
-2. Uzupełnij co pominął — max 2-3 najważniejsze rzeczy
-3. Pokaż wyniki z automatycznego scanu (jeśli znalazł coś istotnego)
+1. Doceń co sam zauważył — ale tylko jeśli to naprawdę trafne obserwacje
+2. **Daj szczerą ocenę architektoniczną** — to jest kluczowy krok. Nie waliduj tylko to co Jakub powiedział. Dodaj swoją ocenę jako coach:
+   - Czy kod jest dobrze zaprojektowany? Jeśli nie — powiedz co jest słabe i jaki kierunek byłby lepszy
+   - Czy separacja odpowiedzialności jest poprawna? Czy coś leakuje między warstwami?
+   - Czy ten sam pattern trzeba będzie powtórzyć — i czy jest wystarczająco reużywalny?
+   - Czy API modułu/funkcji jest spójne i intuicyjne dla konsumenta?
+   - Czy senior w code review przepuściłby ten kod bez komentarzy?
+3. Pokaż wyniki z automatycznego scanu (jeśli znalazły coś istotnego)
 
 ### Zasady
 
 - **Max 2-3 główne punkty** — nie dawaj listy 20 poprawek. Skup się na tym co naprawdę ważne
 - **Poprawki nie muszą być robione teraz** — mogą wejść jako task na następną sesję
-- **Jeśli Jakub sam zauważy problem → to lepsze niż gdybyś mu powiedział** — doceń to explicite
-- **Porównuj z produkcyjnymi praktykami** — nie "jak jest poprawnie" ale "jakie są trade-offy"
+- **Jeśli Jakub sam zauważy problem → doceń to** — ale nie powstrzymuj się od dodania swoich obserwacji
+- **"Działa" to za mało** — porównuj z produkcyjnymi praktykami i standardami senior-level code review
+- **Proponuj kierunek, nie kod** — powiedz co jest słabe i jak powinno wyglądać, ale nie pisz implementacji
 - **Nie przeciągaj** — całe review max 10-15 minut. Kodowanie jest priorytetem sesji
 
 ## 4. Zakres review
 
 Na co patrzysz:
 
-- **Architektura** — separation of concerns, co gdzie wydzielić, DRY vs premature abstraction
+- **Architektura** — separation of concerns, abstraction leaks, DRY vs premature abstraction, reużywalność, spójność API
 - **Produkcyjna jakość** — naming, consistency across modules, error handling
 - **Bugi i security** — z automatycznego scanu
-- **NestJS patterns** — czy użyty pattern jest idiomatyczny? Czy jest prostszy sposób?
-- **Trade-offy** — nie "to jest źle" ale "to działa, ale rozważ X bo Y"
+- **NestJS patterns** — czy użyty pattern jest idiomatyczny? Czy jest prostszy/lepszy sposób?
+- **Porównanie z produkcją** — nie "czy to działa" ale "czy senior by to przepuścił w code review"
 
 Na co NIE patrzysz (nie trać czasu):
 
@@ -92,8 +108,8 @@ Po zakończeniu review, krótkie podsumowanie:
 
 ```
 **Review summary:**
-- ✅ [co dobrze]
-- 🔧 [co poprawić — max 2-3 punkty]
+- ✅ [co dobrze — tylko naprawdę dobre rzeczy, nie "kompiluje się"]
+- ⚠️ [co jest słabe architektonicznie — max 2-3 punkty z kierunkiem poprawy]
+- 🔧 [co poprawić teraz — bugi, security]
 - 📋 [co wchodzi jako task na następną sesję, jeśli cokolwiek]
 ```
-

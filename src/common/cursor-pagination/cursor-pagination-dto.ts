@@ -12,5 +12,5 @@ export class CursorPaginationDTO {
   @IsInt()
   @Max(50)
   @Type(() => Number)
-  limit?: number;
+  limit: number = 15;
 }

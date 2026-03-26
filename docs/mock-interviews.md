@@ -8,3 +8,4 @@
 | 2026-03-24 | postgres | Composite PK vs osobne auto-increment ID w tabeli łączącej — trade-offy? | 3.5   | Techniczną stronę (indeksy) wymienił dopiero po hincie, nie wspomniał o prostszych JOINach |
 | 2026-03-25 | postgres | Filtrowanie + cursor vs offset pagination — różnice w implementacji? | 3     | Pominął że cursor nie wymaga totalCount (prostsze filtrowanie), nie wspomniał o synchronizacji where w offset |
 | 2026-03-25 | nest     | Service zależny od zewnętrznego API — jak zarchitekturyzować? | 4     | Pominął error handling (retry, circuit breaker) i mapowanie danych z zewnętrznego kształtu |
+| 2026-03-26 | nest     | Cross-module communication — WorkoutsService sprawdza exercises, jakie opcje architektoniczne? | 3     | Tylko 1 opcja (import modułu), brak alternatyw (FK constraint, event-based, shared service), nie opisał mechanizmu exports/imports, brak circular dependency awareness |

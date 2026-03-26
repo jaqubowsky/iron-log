@@ -9,25 +9,26 @@ import { ExerciseDTO } from '../dtos/exercise-dto';
 export class PrismaExerciseRepository implements ExerciseRepository {
   constructor(private prismaService: PrismaService) {}
 
-  findMany({
+  async findMany({
     skip,
-    take,
+    limit,
   }: {
     skip?: number;
-    take?: number;
-  }): Promise<ExerciseDTO[]> {
-    return this.prismaService.exercise.findMany({
-      skip,
-      take,
-    });
+    limit?: number;
+  }): Promise<{ items: ExerciseDTO[]; total: number }> {
+    const [items, total] = await Promise.all([
+      this.prismaService.exercise.findMany({
+        skip,
+        take: limit,
+      }),
+      this.prismaService.exercise.count(),
+    ]);
+
+    return { items, total };
   }
 
   findUnique(id: string): Promise<ExerciseDTO> {
     return this.prismaService.exercise.findUniqueOrThrow({ where: { id } });
-  }
-
-  count(): Promise<number> {
-    return this.prismaService.exercise.count();
   }
 
   create(data: CreateExerciseDTO): Promise<ExerciseDTO> {

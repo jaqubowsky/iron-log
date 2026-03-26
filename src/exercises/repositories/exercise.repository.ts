@@ -5,15 +5,13 @@ import { ExerciseDTO } from '../dtos/exercise-dto';
 export abstract class ExerciseRepository {
   abstract findMany({
     skip,
-    take,
+    limit,
   }: {
     skip?: number;
-    take?: number;
-  }): Promise<ExerciseDTO[]>;
+    limit?: number;
+  }): Promise<{ items: ExerciseDTO[]; total: number }>;
 
   abstract findUnique(id: string): Promise<ExerciseDTO>;
-
-  abstract count(): Promise<number>;
 
   abstract create(data: CreateExerciseDTO): Promise<ExerciseDTO>;
 

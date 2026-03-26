@@ -12,14 +12,14 @@ import {
 import { ExercisesService } from './exercises.service';
 import { UpdateExerciseByIdDTO } from './dtos/update-exercise-by-id-dto';
 import { CreateExerciseDTO } from './dtos/create-exercise-dto';
-import { PaginationDTO } from 'src/common/pagination-dto';
+import { OffsetPaginationDTO } from 'src/common/offset-pagination/offset-pagination-dto';
 
 @Controller('exercises')
 export class ExercisesController {
   constructor(private exercisesService: ExercisesService) {}
 
   @Get()
-  findAll(@Query() paginationDto: PaginationDTO) {
+  findAll(@Query() paginationDto: OffsetPaginationDTO) {
     return this.exercisesService.getAll(paginationDto);
   }
 

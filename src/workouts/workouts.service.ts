@@ -1,115 +1,45 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
-import { PrismaService } from 'src/db/prisma.service';
 import { CreateWorkoutTemplateDTO } from './dtos/create-workout-template-dto';
 import { UpdateWorkoutTemplateDTO } from './dtos/update-workout-template-dto';
-import { WorkoutExerciseDTO } from './dtos/workout-exercise-dto';
-import { CursorPaginationDTO } from 'src/common/cursor-pagination-dto';
-
-const DEFAULT_LIMIT = 15;
+import { CursorPaginationDTO } from 'src/common/cursor-pagination/cursor-pagination-dto';
+import { WorkoutRepository } from './repositories/workout.repository';
+import { getCursorPagination } from 'src/common/cursor-pagination/lib';
 
 @Injectable()
 export class WorkoutsService {
-  constructor(private prisma: PrismaService) {}
+  constructor(private workoutRepository: WorkoutRepository) {}
 
-  private async getNonExistingExerciseIds(
-    workoutExercises: WorkoutExerciseDTO[],
-  ) {
-    const ids = workoutExercises.map((exercise) => exercise.exerciseId);
+  async getAll(pagination: CursorPaginationDTO) {
+    const { cursor, limit } = pagination;
 
-    const exercises = await this.prisma.exercise.findMany({
-      where: {
-        id: {
-          in: ids,
-        },
-      },
-    });
+    // we need to take 1 more item to avoid duplicating item vs cursor in reponse
+    const take = limit + 1;
 
-    const nonExistingIds = ids.filter(
-      (id) => !exercises.find((exercise) => exercise.id === id),
-    );
-
-    return nonExistingIds;
-  }
-
-  async getAll(cursorPaginationDto: CursorPaginationDTO) {
-    const { cursor, limit = DEFAULT_LIMIT } = cursorPaginationDto;
-
-    const data = await this.prisma.workoutTemplate.findMany({
-      cursor: cursor
-        ? {
-            id: cursor,
-          }
-        : undefined,
-      take: limit + 1,
-      include: {
-        exercises: {
-          include: { exercise: true },
-        },
-      },
-    });
-
-    const hasNextPage = data.length > limit;
-    const nextCursor = hasNextPage ? data[data.length - 1].id : null;
-
-    const slicedData = data.slice(0, limit);
-
-    return {
-      data: slicedData,
-      meta: {
-        nextCursor,
-        limit,
-      },
-    };
+    const data = await this.workoutRepository.findMany({ cursor, take });
+    return getCursorPagination({ items: data, limit: pagination.limit });
   }
 
   async getById(id: string) {
-    const workoutTemplate = await this.prisma.workoutTemplate.findUniqueOrThrow(
-      {
-        where: {
-          id,
-        },
-        include: {
-          exercises: {
-            include: {
-              exercise: true,
-            },
-          },
-        },
-      },
-    );
-
+    const workoutTemplate = await this.workoutRepository.findUnique(id);
     return workoutTemplate;
   }
 
   async createWorkoutTemplate(
     createWorkoutTemplateDTO: CreateWorkoutTemplateDTO,
   ) {
-    const ids = await this.getNonExistingExerciseIds(
+    const ids = await this.workoutRepository.findNonExistingExerciseIds(
       createWorkoutTemplateDTO.exercises,
     );
+
     if (ids.length > 0) {
       throw new BadRequestException(
         `Exercises with ids: [${ids.join(', ')}] not found.`,
       );
     }
 
-    const { exercises, ...rest } = createWorkoutTemplateDTO;
-
-    const workoutTemplate = await this.prisma.workoutTemplate.create({
-      data: {
-        ...rest,
-        exercises: {
-          create: exercises,
-        },
-      },
-      include: {
-        exercises: {
-          include: {
-            exercise: true,
-          },
-        },
-      },
-    });
+    const workoutTemplate = await this.workoutRepository.create(
+      createWorkoutTemplateDTO,
+    );
 
     return workoutTemplate;
   }
@@ -118,78 +48,28 @@ export class WorkoutsService {
     id: string,
     updateWorkoutTemplateDTO: UpdateWorkoutTemplateDTO,
   ) {
-    const { exercises, ...rest } = updateWorkoutTemplateDTO;
-
-    if (!updateWorkoutTemplateDTO.exercises) {
-      const result = await this.prisma.workoutTemplate.update({
-        where: { id },
-        data: { ...rest },
-        include: {
-          exercises: {
-            include: {
-              exercise: true,
-            },
-          },
-        },
-      });
-
-      return result;
-    }
-
-    const ids = await this.getNonExistingExerciseIds(
-      updateWorkoutTemplateDTO.exercises,
-    );
-
-    if (ids.length > 0) {
-      throw new BadRequestException(
-        `Exercises with ids: [${ids.join(', ')}] not found.`,
+    if (updateWorkoutTemplateDTO.exercises) {
+      const ids = await this.workoutRepository.findNonExistingExerciseIds(
+        updateWorkoutTemplateDTO.exercises,
       );
+
+      if (ids.length > 0) {
+        throw new BadRequestException(
+          `Exercises with ids: [${ids.join(', ')}] not found.`,
+        );
+      }
     }
 
-    const deleteExistingExercisesPromise = this.prisma.workoutTemplate.update({
-      where: {
-        id,
-      },
-      data: {
-        exercises: {
-          deleteMany: {},
-        },
-      },
+    const result = await this.workoutRepository.update({
+      id,
+      data: updateWorkoutTemplateDTO,
     });
 
-    const updateWorkoutTemplateWithNewDataPromise =
-      this.prisma.workoutTemplate.update({
-        where: {
-          id,
-        },
-        data: {
-          ...rest,
-          exercises: {
-            create: exercises,
-          },
-        },
-        include: {
-          exercises: {
-            include: { exercise: true },
-          },
-        },
-      });
-
-    const updateResult = await this.prisma.$transaction([
-      deleteExistingExercisesPromise,
-      updateWorkoutTemplateWithNewDataPromise,
-    ]);
-
-    return updateResult[1];
+    return result;
   }
 
   async deleteWorkoutTemplate(id: string) {
-    const result = await this.prisma.workoutTemplate.delete({
-      where: {
-        id,
-      },
-    });
-
+    const result = await this.workoutRepository.delete(id);
     return result;
   }
 }
