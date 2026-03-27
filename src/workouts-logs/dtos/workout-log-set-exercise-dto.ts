@@ -23,6 +23,10 @@ export class WorkoutLogExerciseSetDTO {
   @Max(10)
   rpe: number;
 
+  @IsInt()
+  @Min(0)
+  order: number;
+
   @IsOptional()
   @IsString()
   @MaxLength(255)

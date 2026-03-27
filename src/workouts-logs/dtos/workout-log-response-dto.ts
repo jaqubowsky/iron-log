@@ -5,6 +5,7 @@ class WorkoutLogSetResponseDTO {
   weight: number;
   reps: number;
   rpe: number;
+  order: number;
   notes: string | null;
 }
 
@@ -46,6 +47,7 @@ export class WorkoutLogResponseDTO {
           id: set.id,
           weight: set.weight,
           reps: set.reps,
+          order: set.order,
           rpe: set.rpe,
           notes: set.notes,
         })),

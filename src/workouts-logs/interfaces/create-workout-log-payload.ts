@@ -4,6 +4,7 @@ interface WorkoutLogExerciseSet {
   reps: number;
   weight: number;
   rpe: number;
+  order: number;
   notes: string | null;
 }
 

@@ -5,6 +5,6 @@ export class WorkoutExerciseDTO {
   exerciseId: string;
 
   @IsInt()
-  @Min(1)
+  @Min(0)
   order: number;
 }

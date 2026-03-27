@@ -5,6 +5,7 @@ export interface WorkoutLogSet {
   weight: number;
   reps: number;
   rpe: number;
+  order: number;
   notes: string | null;
 }
 

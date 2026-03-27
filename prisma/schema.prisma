@@ -74,6 +74,7 @@ model WorkoutLogExerciseSet {
   weight               Float
   reps                 Int
   rpe                  Int
+  order                Int
   notes                String?
   workoutLogExercise   WorkoutLogExercise @relation(fields: [workoutLogExerciseId], references: [id], onDelete: Cascade)
   workoutLogExerciseId String

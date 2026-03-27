@@ -21,6 +21,7 @@ export class WorkoutLogMapper {
         sets: exercise.sets.map((set) => ({
           reps: set.reps,
           weight: set.weight,
+          order: set.order,
           rpe: set.rpe,
           notes: set.notes ?? null,
         })),
