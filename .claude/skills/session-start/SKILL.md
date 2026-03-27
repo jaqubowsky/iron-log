@@ -142,7 +142,7 @@ Session-end zostawił rekomendację — ale to TY podejmujesz decyzję. Przeanal
 2. **Rekomendacja session-end** — sprawdź jej uzasadnienie. Jeśli ma sens i pasuje do roadmapy — podążaj za nią. Jeśli nie — wybierz lepszy task i uzasadnij (w myślach, nie Jakubowi)
 3. **Trendy słabości** — jeśli ten sam temat pojawia się jako słabość w 2+ sesjach, rozważ task który go adresuje
 4. **Mock interview scores** — tematy ze score ≤2 od 3+ sesji to sygnał alarmowy
-5. **Backlog retencji** — jeśli >5 nieodhaczonych checkpointów "potrafię wytłumaczyć X" → rozważ sesję mock interview zamiast kodowania
+5. **Backlog retencji** — jeśli >5 nieodhaczonych checkpointów typu "potrafię wytłumaczyć/porównać X" (wiedza do artykułacji) → rozważ sesję mock interview zamiast kodowania. NIE licz checkpointów praktycznych ("potrafię napisać X", "X działa") — te nie wymagają recall i nie zawyżają backlogu
 
 ### Tematy `🔴 zero` — wymagają przygotowania
 

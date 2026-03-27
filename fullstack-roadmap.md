@@ -44,7 +44,7 @@ Każdy nieodhaczony checkpoint ma tag przy sobie:
 | Tag | Znaczenie | Blokuje? |
 |---|---|---|
 | `[x]` | Odhaczony | — |
-| `[ ] checkpoint text ⏳ retencja X/5 — data` | Był na sesji, czeka na recall 3+/5 | NIE — koduj dalej |
+| `[ ] checkpoint text ⏳ retencja X/5 — data` | Był na sesji, czeka na recall 3+/5 (dotyczy TYLKO checkpointów "potrafię wytłumaczyć/porównać") | NIE — koduj dalej |
 | `[ ] checkpoint text 🔴 zero` | Nigdy nie był na sesji | TAK — zaplanuj sesję |
 
 **Jak to stosować:**
@@ -90,10 +90,10 @@ Każdy nieodhaczony checkpoint ma tag przy sobie:
 Prereq: SQLBolt + PostgreSQL Tutorial ZANIM sesja coachingowa z raw SQL.
 
 - **CRUD w SQL** — SELECT, INSERT, UPDATE, DELETE z WHERE. Umiesz napisać ręcznie bez ORM
-  - [ ] Potrafię napisać CREATE TABLE z FK i constraints z pamięci `⏳ retencja 3.5/5 — 2026-03-27`
+  - [x] Potrafię napisać CREATE TABLE z FK i constraints z pamięci
   - [x] Umiem napisać raw SQL: SELECT z JOIN, INSERT, UPDATE, DELETE
 - **JOINy** — INNER, LEFT. Umiesz napisać SELECT z JOIN na danych IRONLOG
-  - [ ] Potrafię wytłumaczyć różnicę INNER vs LEFT JOIN i kiedy który `⏳ retencja ?/5 — 2026-03-21`
+  - [ ] Potrafię wytłumaczyć różnicę INNER vs LEFT JOIN i kiedy który `⏳ retencja 3.5/5 — 2026-03-27`
 - **Constraints** — PRIMARY KEY, FOREIGN KEY, UNIQUE, NOT NULL, CASCADE DELETE, ON DELETE SET NULL
   - [ ] Potrafię wymienić typy constraints i wytłumaczyć kiedy ON DELETE CASCADE vs SET NULL `⏳ retencja 3/5 — 2026-03-22`
 - **Transakcje i ACID** — co to, po co, kiedy użyć `$transaction`. Isolation levels (basics)
@@ -104,7 +104,7 @@ Prereq: SQLBolt + PostgreSQL Tutorial ZANIM sesja coachingowa z raw SQL.
 - **Normalizacja** — 1NF, 2NF, 3NF. Kiedy denormalizować i dlaczego (trade-off: spójność vs performance)
   - [ ] Potrafię wytłumaczyć 3 formy normalne i podać przykład kiedy denormalizować `⏳ retencja 3.5/5 — 2026-03-27`
 - **Indeksy** — kiedy dodać, jak wpływają na performance, co robi `EXPLAIN ANALYZE`
-  - [ ] Umiem przeczytać EXPLAIN ANALYZE i powiedzieć kiedy dodać indeks `⏳ retencja ?/5 — 2026-03-22`
+  - [ ] Umiem przeczytać EXPLAIN ANALYZE i powiedzieć kiedy dodać indeks `⏳ retencja 3.5/5 — 2026-03-27`
   - [x] Rozumiem co Prisma generuje — potrafię przeczytać migrację SQL i wytłumaczyć każdą linię
 
 ### Przykładowe pytania
@@ -123,7 +123,7 @@ Budujesz WorkoutTemplates, WorkoutLogs — cross-module communication. Widzisz j
 
 - **Repository pattern** — wydziel dostęp do bazy z service do repository
   - [x] Repository pattern wdrożony — service nie woła Prisma bezpośrednio
-  - [ ] Potrafię wytłumaczyć po co repository layer i kiedy to overengineering `⏳ retencja ?/5 — 2026-03-25`
+  - [ ] Potrafię wytłumaczyć po co repository layer i kiedy to overengineering `⏳ retencja 3/5 — 2026-03-26`
 - **Ustrukturyzowana paginacja** — wydziel do common, reużywalny pattern
   - [x] Paginacja wydzielona do common — reużywalna dla dowolnego modułu
   - [x] Paginacja działa, potrafię uzasadnić wybór (offset vs cursor)

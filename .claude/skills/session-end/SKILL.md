@@ -23,7 +23,7 @@ Symuluj code review — Jakub daje krótki overview, Ty wyciągasz pytania o dec
 
 - NIE wymuszaj monologu o 40 plikach — przy dużych taskach to nierealne i nie symuluje prawdziwej rozmowy
 - Pytania dopasuj do tego co Jakub faktycznie robił — nie generyczne
-- Oceń (1-5): 1=nie umie wytłumaczyć, 3=zna koncept ale brakuje detali, 5=wytłumaczyłby na rozmowie
+- Oceń (1-5): 1=nie umie wytłumaczyć, 3=zna koncept ale brakuje detali, 5=wytłumaczyłby na rozmowie. Hinty/naprowadzanie obniżają score — sam bez pomocy = wyższy score (spójne z mock-interview skill)
 
 ## 2. Mock interview (5 min)
 
@@ -32,6 +32,7 @@ Mock interview jest **obowiązkowy co sesję**. Nie pytaj "chcesz pytanie?" — 
 - Przeprowadź mock interview zgodnie z protokołem z `.claude/skills/mock-interview/SKILL.md` (przeczytaj go)
 - Pytanie powiązane z tym co właśnie kodował LUB losowe z wcześniejszych tematów (element zaskoczenia)
 - Zanotuj wyniki
+- **Opcja:** jeśli backlog retencji >5 nieodhaczonych "potrafię wytłumaczyć" checkpointów → zaproponuj `/mock-interview session` (dedykowana 30-min sesja na czyszczenie backlogu, 5-6 pytań)
 
 ## 3. Feedback + session log
 
@@ -155,7 +156,10 @@ Flow odhaczania:
 3. Na KOLEJNEJ sesji recall challenge weryfikuje retencję
 4. Jeśli recall challenge zdany (3+/5) → **TERAZ odhacz**
 
-Jedyny wyjątek: checkpointy czysto praktyczne ("X działa", "kod jest napisany") — te można odhaczać od razu, bo to fakty a nie wiedza do zweryfikowania.
+Jedyny wyjątek: checkpointy czysto praktyczne — te można odhaczać od razu po sesji na której zostały wykonane, bo to fakty a nie wiedza do zweryfikowania. Rozpoznajesz je po sformułowaniu:
+- **"X działa"**, **"kod jest napisany"**, **"X skonfigurowany"** — fakt: albo działa albo nie
+- **"Potrafię napisać X"**, **"Umiem napisać X"** — umiejętność praktyczna: jeśli napisał z pamięci z poprawnym core (FK, constraints, typy) → odhacz. Drobne błędy (nazwy kolumn, przecinki) nie blokują odhaczenia
+- **"Potrafię wytłumaczyć X"**, **"Potrafię porównać X"** — wiedza do artykułacji: te WYMAGAJĄ recall na kolejnej sesji, NIE odhaczaj od razu
 
 **Articulation tracker** (`docs/articulation-tracker.md`): jeśli na mock interview lub recall challenge Jakub zdał pytanie z JS/TS/React/Next.js na 3+/5 — odhacz odpowiedni checkbox w articulation tracker.
 

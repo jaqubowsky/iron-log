@@ -112,7 +112,10 @@ Dedykowana sesja na czyszczenie backlogu retencji. Zamiast kodowania — 30 min 
 - Jedno pytanie na raz — czekaj na odpowiedź
 - Każde pytanie = 3-5 min (odpowiedź + follow-up + feedback)
 - Pytania z różnych milestones i kategorii — interleaving
-- Score 3+/5 = odhacz checkpoint, ALE tylko jeśli temat był przerobiony na **wcześniejszej sesji** (nie dzisiejszej). Mock interview session weryfikuje retencję tematów z przeszłości — to odpowiednik recall challenge z session-end. Jeśli temat był poznany dziś → NIE odhaczaj, nawet przy 5/5. Score <3 = nie odhaczaj, zanotuj jako słabość
+- Score 3+/5 = odhacz checkpoint, ALE z rozróżnieniem typów:
+  - **"Potrafię wytłumaczyć/porównać X"** (wiedza) — odhacz TYLKO jeśli temat był przerobiony na **wcześniejszej sesji** (nie dzisiejszej). Jeśli temat był poznany dziś → NIE odhaczaj, nawet przy 5/5
+  - **"Potrafię napisać X" / "X działa"** (praktyczne) — odhacz od razu jeśli core poprawny, nie wymaga spacing
+  - Score <3 = nie odhaczaj żadnego typu, zanotuj jako słabość
 - Nie naprowadzaj za dużo — to weryfikacja retencji, nie nauka. Jeden hint OK, ale jeśli nie wie → score 1-2 i idziemy dalej
 - Po sesji: zaktualizuj roadmapę, mock-interviews.md, i session log
 
