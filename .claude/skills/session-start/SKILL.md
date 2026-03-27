@@ -68,9 +68,22 @@ Uwaga: "solo first" dotyczy implementacji, nie planowania. Jakub MOŻE przychodz
 
 Flow sesji: recall → task → planowanie → kodowanie → `/code-review` (ile razy chcesz) → `/session-end` (explain + mock + log)
 
-## 3. Recall challenge (2-3 min)
+## 3. Recall challenge (5-8 min, dialog)
 
-Zadaj Jakubowi jedno pytanie wymagające wytłumaczenia konceptu z pamięci. Pytanie dobieraj z **rotacją** — nie tylko ostatnia sesja.
+Recall to **rozmowa**, nie egzamin. Celem jest budowanie zrozumienia przez dialog, nie jednorazowa ocena. Jakub wielokrotnie dawał feedback że natychmiastowe ocenianie i przeskakiwanie do kolejnego tematu nie pomaga mu zapamiętać — dlatego recall musi być interaktywny.
+
+### Flow recall challenge
+
+1. **Zadaj pytanie** — wyślij TYLKO pytanie i czekaj na odpowiedź
+2. **Jakub odpowiada** — wysłuchaj
+3. **Dopytaj o braki** — NIE oceniaj jeszcze. Zamiast tego zadaj 1-2 pytania pogłębiające:
+   - "A dlaczego tak?" / "Co się stanie gdy...?"
+   - "Powiedziałeś X — a co z Y?"
+   - "Daj mi konkretny przykład z IRONLOG"
+4. **Jakub uzupełnia** — daj mu szansę poprawić/rozbudować odpowiedź
+5. **Dopiero teraz feedback** — krótko: co trafne, co nadal brakuje, score. Max 3-4 zdania
+
+Kluczowe: między krokiem 2 a 5 musi być wymiana zdań. Jakub ma szansę dojść do pełnej odpowiedzi SAM, z pomocą Twoich pytań. To buduje zrozumienie lepiej niż "3/5, pominąłeś X, Y, Z".
 
 ### Strategia doboru pytania (spacing effect)
 
@@ -107,7 +120,7 @@ Zasady:
 
 - Pytanie musi dotyczyć czegoś co JUŻ robił (retrieval practice)
 - Nie podpowiadaj — niech mówi z pamięci
-- Daj krótki feedback po odpowiedzi: co dobrze, co pominął
+- NIE oceniaj po pierwszej odpowiedzi — dopytaj
 
 Format — wyślij TYLKO recall challenge i czekaj na odpowiedź:
 
@@ -131,6 +144,20 @@ Session-end zostawił rekomendację — ale to TY podejmujesz decyzję. Przeanal
 4. **Mock interview scores** — tematy ze score ≤2 od 3+ sesji to sygnał alarmowy
 5. **Backlog retencji** — jeśli >5 nieodhaczonych checkpointów "potrafię wytłumaczyć X" → rozważ sesję mock interview zamiast kodowania
 
+### Tematy `🔴 zero` — wymagają przygotowania
+
+Jakub nie może pracować na temacie, którego nigdy nie widział. Rzucanie go na `🔴 zero` temat bez przygotowania to jak kazanie komuś ćwiczyć martwy ciąg bez pokazania techniki.
+
+**Zasada:** Jeśli task dotyczy tematu `🔴 zero` (nigdy nie był na sesji):
+1. **Sprawdź czy Jakub się przygotował** — czy session-end z poprzedniej sesji zadał docs/materiały na ten temat jako homework?
+2. **Jeśli TAK** — zadaj pytanie sprawdzające ("co przeczytałeś o X? Jak to rozumiesz?") zanim wejdziesz w task. Jakub musi mieć bazowy mental model
+3. **Jeśli NIE** — NIE rób tego tematu jako main task. Zamiast tego:
+   - Wybierz inny task (kodowanie/retencja) na tę sesję
+   - Na końcu sesji (w session-end) zadaj materiały do przeczytania jako homework na następną sesję
+   - Alternatywa: jeśli temat jest krótki (np. normalizacja — 15 min czytania), poświęć pierwsze 15 min sesji na wspólne przejście docs, potem dopiero task
+
+**Nigdy nie:** "Zrób CREATE TABLE z pamięci" gdy Jakub nigdy nie pisał CREATE TABLE. Najpierw ekspozycja (docs, przykład, explain), potem praktyka.
+
 ### Poprawki z review = rozgrzewka
 
 Jeśli session log wymienia poprawki z review — Jakub robi je jako pierwsze 10-15 min (rozgrzewka), PRZED głównym taskiem. Poprawki NIE zastępują głównego taska. Wyjątek: poprawka oznaczona jako bloker (security, broken build) — wtedy jest głównym taskiem.
@@ -147,16 +174,41 @@ Jeśli session log wymienia poprawki z review — Jakub robi je jako pierwsze 10
 - **Dopóki aktualny milestone nie jest odhaczony — nie ruszaj następnego** (brak `🔴 zero` = koduj dalej, `⏳ retencja` nie blokuje)
 - **Nie rozpędzaj się z listami** — sesja ma 1h. Skup się na głównym tasku, reszta czeka
 
-Format — po recall challenge feedback:
+### Prezentacja w konwersacji — krok po kroku
+
+Pełny plan sesji (rozgrzewka + main task + temat poboczny + docs) zapisz do session logu. W konwersacji **podawaj TYLKO aktualny krok**. Gdy Jakub skończy krok → podaj następny z logu.
+
+Powód: wypluwanie całego planu na raz rozprasza. Jakub skupia się na tym co nie potrzeba zamiast lecieć po kolei.
+
+**Flow w konwersacji:**
+1. Po recall → podaj TYLKO rozgrzewkę (jeśli są poprawki z review)
+2. Jakub skończy rozgrzewkę → podaj main task
+3. Jakub skończy planowanie → koduje
+4. Po kodowaniu → sugeruj `/code-review`
+
+**Format w session logu** — zapisz pełny plan:
+
+```markdown
+## Plan sesji
+- **Czas:** [czas]
+- **Milestone:** [aktualny]
+- **Rozgrzewka:** [poprawki z review lub "brak"]
+- **Main task:** [opis]
+- **Temat poboczny:** [temat lub "brak"]
+- **Docs:** [linki]
+```
+
+**Format w konwersacji** — podaj TYLKO aktualny krok:
 
 ```
-**Sesja [data] | Czas: [czas] | Milestone: [aktualny]**
+**Rozgrzewka (10-15 min):** [co ma zrobić]
+```
 
-**Task:** [opis co ma zrobić — wymagania, nie implementacja]
+Gdy skończy:
 
-**Temat poboczny:** [jeden nieprzerobiony temat powiązany z taskiem, lub "brak"]
-
-**Docs do przeczytania:** [konkretna sekcja NestJS/PostgreSQL docs relevant do tasku]
+```
+**Task:** [opis — wymagania, nie implementacja]
+**Docs do przeczytania:** [jeśli relevant]
 ```
 
 ## 5. Planowanie architektoniczne (metoda sokratejska)
