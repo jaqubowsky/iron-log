@@ -10,10 +10,13 @@ Rozpoczynasz nową sesję coachingową z Jakubem. Wykonaj poniższe kroki:
 
 ## 1. Załaduj kontekst
 
-- Przeczytaj WSZYSTKIE pliki w `docs/sessions/` — posortuj chronologicznie, skup się na ostatnich 2-3 (słabości wyciągaj z sekcji "Słabości — update" w session logach)
-- **Przeczytaj sekcję "Następna sesja" z OSTATNIEGO session logu** — tam jest zaplanowany task (Kodowanie), tematy do retencji i nieprzerobione tematy do wplenienia. To jest Twój plan na tę sesję.
-- Przeczytaj `fullstack-roadmap.md` — znajdź aktualny milestone i nieodhaczone checkpointy
-- Przeczytaj `docs/mock-interviews.md` (jeśli istnieje) — sprawdź które tematy mają najniższe score'y → wpleć w recall challenge lub task (deliberate practice)
+Przeczytaj wszystkie źródła. Decyzję o tasku podejmiesz w kroku 4.
+
+### Źródła do przeczytania
+- `fullstack-roadmap.md` — aktualny milestone, nieodhaczone checkpointy z tagami (`🔴 zero` / `⏳ retencja`). Sprawdź też wcześniejsze milestones
+- `docs/sessions/` — ostatnie 2-3 logi. Szukaj: słabości (sekcja "Słabości — update"), trendy, obserwacje z review
+- `docs/mock-interviews.md` (jeśli istnieje) — score'y tematów
+- **Sekcja "Następna sesja" z ostatniego session logu** — rekomendacja od session-end. Traktuj ją jako sugestię, NIE rozkaz
 
 ## 2. Coaching protocol — kontekst do załadowania
 
@@ -114,33 +117,35 @@ Format — wyślij TYLKO recall challenge i czekaj na odpowiedź:
 _(temat z sesji [data] / mock interview [data])_
 ```
 
-## 4. Task na sesję
+## 4. Task na sesję — Twoja decyzja
 
-Po recall challenge, zaproponuj task. **Najpierw sprawdź sekcję "Następna sesja" z ostatniego session logu** — tam jest zaplanowany task. Jeśli Jakub nie podał czasu ($ARGUMENTS), zapytaj ile ma czasu.
+Po recall challenge, zaproponuj task. Jeśli Jakub nie podał czasu ($ARGUMENTS), zapytaj ile ma czasu.
 
-### Priorytet: session log > nowy task
+### Jak wybrać task
 
-1. **Jest zaplanowany task w "Następna sesja"?** → użyj go jako bazę. Dopasuj do dostępnego czasu:
-   - **Za mało czasu na cały task** → wybierz fragment (np. "zrób tylko repository, paginacja następnym razem")
-   - **Więcej czasu niż task wymaga** → po zakończeniu taska wpleć max 1 temat z "Wpleść w kodowanie" z session logu (jeśli jest). Nie wciskaj więcej — czas na kodowanie jest cenniejszy
-   - **Brak zaplanowanego taska** (np. pierwsza sesja, brak logu) → dobierz task z roadmapy na podstawie czasu
-2. **Brak session logu** → dobierz task z nieodhaczonych checkpointów w aktualnym milestone
+Session-end zostawił rekomendację — ale to TY podejmujesz decyzję. Przeanalizuj WSZYSTKIE źródła z kroku 1 i wybierz task który daje najlepszy progres w milestone biorąc pod uwagę:
 
-### Dopasowanie do czasu (gdy brak zaplanowanego taska):
+1. **Roadmapa jest kompasem** — nieodhaczone checkpointy wyznaczają kierunek. Główny task = NOWY checkpoint, nie poprawki z review. **Checkpointy `🔴 zero` w poprzednich milestones mają priorytet nad nowymi feature'ami z aktualnego milestone** — fundamenty przed features
+2. **Rekomendacja session-end** — sprawdź jej uzasadnienie. Jeśli ma sens i pasuje do roadmapy — podążaj za nią. Jeśli nie — wybierz lepszy task i uzasadnij (w myślach, nie Jakubowi)
+3. **Trendy słabości** — jeśli ten sam temat pojawia się jako słabość w 2+ sesjach, rozważ task który go adresuje
+4. **Mock interview scores** — tematy ze score ≤2 od 3+ sesji to sygnał alarmowy
+5. **Backlog retencji** — jeśli >5 nieodhaczonych checkpointów "potrafię wytłumaczyć X" → rozważ sesję mock interview zamiast kodowania
+
+### Poprawki z review = rozgrzewka
+
+Jeśli session log wymienia poprawki z review — Jakub robi je jako pierwsze 10-15 min (rozgrzewka), PRZED głównym taskiem. Poprawki NIE zastępują głównego taska. Wyjątek: poprawka oznaczona jako bloker (security, broken build) — wtedy jest głównym taskiem.
+
+### Dopasowanie do czasu
 
 - **30 min**: jeden edge case, refactor, lub mock interview session
 - **1h**: mały feature end-to-end (endpoint + service + testy ręczne)
 - **2h+**: pełny feature lub nowy moduł
 
-### Zasady:
+### Zasady
 
 - Podaj TYLKO wymagania — bez podpowiedzi jak zacząć
-- Jeśli milestone ma nieodhaczone checkpointy → priorytet na nie
-- Jeśli milestone jest zamknięty → przejdź do następnego
-- **Dopóki aktualny milestone nie jest odhaczony — nie ruszaj następnego**
-- **Retencja (max 2-3 tematy) = recall challenge + mock interview TYLKO** — nie "wpletaj" retencji w kodowanie. Retencja testuje się pytaniami (30 sek), nie dygresjami w trakcie pracy. Reszta retencji idzie do Anki
-- **Wpleść w kodowanie = max 1 temat** — jeden nieprzerobiony temat naturalnie wynikający z taska. Nie wciskaj na siłę. Jeśli żaden nie pasuje — nie wplataj niczego, kodowanie jest ważniejsze
-- **Nie rozpędzaj się z listami** — sesja ma 1h. Jeśli session log ma 9 tematów do "wplenienia" — to fikcja. Skup się na tasku, reszta czeka
+- **Dopóki aktualny milestone nie jest odhaczony — nie ruszaj następnego** (brak `🔴 zero` = koduj dalej, `⏳ retencja` nie blokuje)
+- **Nie rozpędzaj się z listami** — sesja ma 1h. Skup się na głównym tasku, reszta czeka
 
 Format — po recall challenge feedback:
 
@@ -148,6 +153,8 @@ Format — po recall challenge feedback:
 **Sesja [data] | Czas: [czas] | Milestone: [aktualny]**
 
 **Task:** [opis co ma zrobić — wymagania, nie implementacja]
+
+**Temat poboczny:** [jeden nieprzerobiony temat powiązany z taskiem, lub "brak"]
 
 **Docs do przeczytania:** [konkretna sekcja NestJS/PostgreSQL docs relevant do tasku]
 ```

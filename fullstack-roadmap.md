@@ -37,9 +37,26 @@ AI używasz jako:
 
 **Node.js + backend fundamenty > NestJS specifics.** NestJS to framework — zmienisz go w tydzień jeśli rozumiesz co pod spodem. NestJS-specific tematy (custom providers, decorators, dynamic modules) uczysz się przez budowanie, nie w izolacji.
 
-Dopóki nie odhaczysz wszystkich checkpointów w milestone — nie ruszasz następnego.
+### Reguły przechodzenia między milestones
 
-**Wyjątek:** jeśli nieodhaczone checkpointy to "potrafię wytłumaczyć X" (retencja) a nie "X działa" (kod) — można równolegle kodować następny milestone. Retencja odhacza się przez Anki + recall challenge (3+/5 = mid level), nie przez kolejne sesje na ten sam temat. Jeśli po 3 sesjach recall nadal <3/5 — wróć na dedykowaną sesję.
+Każdy nieodhaczony checkpoint ma tag przy sobie:
+
+| Tag | Znaczenie | Blokuje? |
+|---|---|---|
+| `[x]` | Odhaczony | — |
+| `[ ] checkpoint text ⏳ retencja X/5 — data` | Był na sesji, czeka na recall 3+/5 | NIE — koduj dalej |
+| `[ ] checkpoint text 🔴 zero` | Nigdy nie był na sesji | TAK — zaplanuj sesję |
+
+**Jak to stosować:**
+1. Sprawdź nieodhaczone checkpointy w aktualnym milestone I we wszystkich wcześniejszych
+2. Jest jakiś `🔴 zero`? → zaplanuj sesję na ten temat. Fundamenty mają priorytet nad nowymi feature'ami
+3. Wszystkie nieodhaczone = `⏳ retencja`? → koduj dalej, retencja przez Anki + recall
+4. `⏳ retencja` po 3 sesjach nadal <3/5 → dedykowana sesja na ten temat
+
+**Milestone header wynika z checkpointów:**
+- Jakiś `🔴 zero` → `🔴 BLOKUJE`
+- Brak `🔴 zero`, nie wszystko `[x]` → `⏳ retencja`
+- Wszystko `[x]` → `✅`
 
 ---
 
@@ -66,30 +83,28 @@ Dopóki nie odhaczysz wszystkich checkpointów w milestone — nie ruszasz nast�
 
 ---
 
-## Milestone 2 — SQL fundamenty ⏳ retencja
-
-> **Status:** Część tematów miała ekspozycję (JOINy, constraints, ACID, indeksy, EXPLAIN ANALYZE) — checkpointy nieodhaczone, wymagają retencji (recall 4-5/5). Nieprzerobione (zero ekspozycji): normalizacja, locking, isolation levels, CREATE TABLE od zera. Kodowanie idzie dalej w M3.
+## Milestone 2 — SQL fundamenty 🔴 BLOKUJE
 
 ### Co robisz
 
 Prereq: SQLBolt + PostgreSQL Tutorial ZANIM sesja coachingowa z raw SQL.
 
 - **CRUD w SQL** — SELECT, INSERT, UPDATE, DELETE z WHERE. Umiesz napisać ręcznie bez ORM
-  - [ ] Potrafię napisać CREATE TABLE z FK i constraints z pamięci (retencja SQL syntax)
+  - [ ] Potrafię napisać CREATE TABLE z FK i constraints z pamięci `🔴 zero`
   - [x] Umiem napisać raw SQL: SELECT z JOIN, INSERT, UPDATE, DELETE
 - **JOINy** — INNER, LEFT. Umiesz napisać SELECT z JOIN na danych IRONLOG
-  - [ ] Potrafię wytłumaczyć różnicę INNER vs LEFT JOIN i kiedy który
+  - [ ] Potrafię wytłumaczyć różnicę INNER vs LEFT JOIN i kiedy który `⏳ retencja ?/5 — 2026-03-21`
 - **Constraints** — PRIMARY KEY, FOREIGN KEY, UNIQUE, NOT NULL, CASCADE DELETE, ON DELETE SET NULL
-  - [ ] Potrafię wymienić typy constraints i wytłumaczyć kiedy ON DELETE CASCADE vs SET NULL
+  - [ ] Potrafię wymienić typy constraints i wytłumaczyć kiedy ON DELETE CASCADE vs SET NULL `⏳ retencja 3/5 — 2026-03-22`
 - **Transakcje i ACID** — co to, po co, kiedy użyć `$transaction`. Isolation levels (basics)
-  - [ ] Potrafię wytłumaczyć ACID na rozmowie (każda litera z przykładem)
-  - [ ] Potrafię wytłumaczyć kiedy użyć transakcji i co to isolation level
+  - [ ] Potrafię wytłumaczyć ACID na rozmowie (każda litera z przykładem) `⏳ retencja 3.5/5 — 2026-03-26`
+  - [ ] Potrafię wytłumaczyć kiedy użyć transakcji i co to isolation level `🔴 zero`
 - **Locking** — optimistic vs pessimistic locking
-  - [ ] Potrafię wytłumaczyć optimistic vs pessimistic locking — kiedy który
+  - [ ] Potrafię wytłumaczyć optimistic vs pessimistic locking — kiedy który `🔴 zero`
 - **Normalizacja** — 1NF, 2NF, 3NF. Kiedy denormalizować i dlaczego (trade-off: spójność vs performance)
-  - [ ] Potrafię wytłumaczyć 3 formy normalne i podać przykład kiedy denormalizować
+  - [ ] Potrafię wytłumaczyć 3 formy normalne i podać przykład kiedy denormalizować `🔴 zero`
 - **Indeksy** — kiedy dodać, jak wpływają na performance, co robi `EXPLAIN ANALYZE`
-  - [ ] Umiem przeczytać EXPLAIN ANALYZE i powiedzieć kiedy dodać indeks
+  - [ ] Umiem przeczytać EXPLAIN ANALYZE i powiedzieć kiedy dodać indeks `⏳ retencja ?/5 — 2026-03-22`
   - [x] Rozumiem co Prisma generuje — potrafię przeczytać migrację SQL i wytłumaczyć każdą linię
 
 ### Przykładowe pytania
@@ -100,7 +115,7 @@ Prereq: SQLBolt + PostgreSQL Tutorial ZANIM sesja coachingowa z raw SQL.
 
 ---
 
-## Milestone 3 — HTTP/REST + NestJS features
+## Milestone 3 — HTTP/REST + NestJS features 🔴 BLOKUJE
 
 ### Co robisz
 
@@ -108,7 +123,7 @@ Budujesz WorkoutTemplates, WorkoutLogs — cross-module communication. Widzisz j
 
 - **Repository pattern** — wydziel dostęp do bazy z service do repository
   - [x] Repository pattern wdrożony — service nie woła Prisma bezpośrednio
-  - [ ] Potrafię wytłumaczyć po co repository layer i kiedy to overengineering
+  - [ ] Potrafię wytłumaczyć po co repository layer i kiedy to overengineering `⏳ retencja ?/5 — 2026-03-25`
 - **Ustrukturyzowana paginacja** — wydziel do common, reużywalny pattern
   - [x] Paginacja wydzielona do common — reużywalna dla dowolnego modułu
   - [x] Paginacja działa, potrafię uzasadnić wybór (offset vs cursor)
@@ -116,18 +131,18 @@ Budujesz WorkoutTemplates, WorkoutLogs — cross-module communication. Widzisz j
   - [x] Bug fixy z code review wdrożone (@Max, @IsInt — P2025 i TOCTOU już obsłużone przez exception filter)
 - **Cross-module communication** — WorkoutLogs moduł, import/export między modułami
   - [x] Moduły komunikują się, zero circular deps
-  - [ ] Potrafię wytłumaczyć jak NestJS modules importują/eksportują providery
+  - [ ] Potrafię wytłumaczyć jak NestJS modules importują/eksportują providery `⏳ retencja 2.5/5 — 2026-03-26`
 - **HTTP/REST** — kody statusów, idempotentność, REST vs GraphQL, API versioning
-  - [ ] Potrafię wytłumaczyć idempotentność HTTP metod i kiedy 201 vs 200 vs 204
-  - [ ] Potrafię porównać REST vs GraphQL z trade-offami
-  - [ ] Potrafię wytłumaczyć API versioning — kiedy URL vs header
-  - [ ] Potrafię wytłumaczyć "co się dzieje gdy wpiszesz URL w przeglądarkę" (DNS → TCP → TLS → HTTP → server → response)
+  - [ ] Potrafię wytłumaczyć idempotentność HTTP metod i kiedy 201 vs 200 vs 204 `🔴 zero`
+  - [ ] Potrafię porównać REST vs GraphQL z trade-offami `🔴 zero`
+  - [ ] Potrafię wytłumaczyć API versioning — kiedy URL vs header `🔴 zero`
+  - [ ] Potrafię wytłumaczyć "co się dzieje gdy wpiszesz URL w przeglądarkę" (DNS → TCP → TLS → HTTP → server → response) `🔴 zero`
 - **HTTP caching** — Cache-Control, ETag, Last-Modified. Fundamenty protokołu HTTP
-  - [ ] Potrafię wytłumaczyć Cache-Control headers (max-age, no-cache, no-store, stale-while-revalidate)
-  - [ ] Potrafię wytłumaczyć ETag vs Last-Modified — kiedy który, jak działają conditional requests
+  - [ ] Potrafię wytłumaczyć Cache-Control headers (max-age, no-cache, no-store, stale-while-revalidate) `🔴 zero`
+  - [ ] Potrafię wytłumaczyć ETag vs Last-Modified — kiedy który, jak działają conditional requests `🔴 zero`
 - **ORM trade-offy** — TypeORM vs Prisma vs MikroORM, eager vs lazy loading, N+1 problem
   - [x] Response transformacja — umiem uzasadnić wybór podejścia i trade-offy SQL-level vs app-level
-  - [ ] Potrafię wytłumaczyć N+1 problem i jak go rozwiązać
+  - [ ] Potrafię wytłumaczyć N+1 problem i jak go rozwiązać `🔴 zero`
 
 ### Przykładowe pytania
 
@@ -138,29 +153,29 @@ Budujesz WorkoutTemplates, WorkoutLogs — cross-module communication. Widzisz j
 
 ---
 
-## Milestone 4 — Auth + security
+## Milestone 4 — Auth + security 🔴 BLOKUJE
 
 ### Co robisz
 
 JWT auth od zera. Największy build milestone — po tym masz działające API z autentykacją.
 
 - **JWT auth**
-  - [ ] Auth flow działa end-to-end (register, login, refresh, logout), pisany sam
-  - [ ] Potrafię porównać JWT vs session-based auth z trade-offami
-  - [ ] Potrafię wytłumaczyć access token + refresh token flow i co gdy token wycieknie
+  - [ ] Auth flow działa end-to-end (register, login, refresh, logout), pisany sam `🔴 zero`
+  - [ ] Potrafię porównać JWT vs session-based auth z trade-offami `🔴 zero`
+  - [ ] Potrafię wytłumaczyć access token + refresh token flow i co gdy token wycieknie `🔴 zero`
 - **Guards + ownership**
-  - [ ] Ownership check — user nie widzi cudzych danych
-  - [ ] Potrafię wytłumaczyć guard vs middleware — kiedy który
+  - [ ] Ownership check — user nie widzi cudzych danych `🔴 zero`
+  - [ ] Potrafię wytłumaczyć guard vs middleware — kiedy który `🔴 zero`
 - **Password hashing** — bcrypt vs argon2, salt, cost factor
-  - [ ] Potrafię wytłumaczyć dlaczego bcrypt a nie SHA do haseł, co to salt i cost factor
+  - [ ] Potrafię wytłumaczyć dlaczego bcrypt a nie SHA do haseł, co to salt i cost factor `🔴 zero`
 - **Security** — CORS, helmet, rate limiting, OWASP basics
-  - [ ] Security basics skonfigurowane: CORS, helmet, rate limiting
-  - [ ] Potrafię wymienić top 3 OWASP (XSS, SQL injection, CSRF) i jak się bronić
+  - [ ] Security basics skonfigurowane: CORS, helmet, rate limiting `🔴 zero`
+  - [ ] Potrafię wymienić top 3 OWASP (XSS, SQL injection, CSRF) i jak się bronić `🔴 zero`
 - **Config management** — `@nestjs/config`, env vars. Nie hardkoduj JWT secret
-  - [ ] ConfigModule skonfigurowany — env vars zamiast hardkodowanych wartości
-  - [ ] Potrafię wytłumaczyć jak zarządzasz configiem między środowiskami (dev/staging/prod)
+  - [ ] ConfigModule skonfigurowany — env vars zamiast hardkodowanych wartości `🔴 zero`
+  - [ ] Potrafię wytłumaczyć jak zarządzasz configiem między środowiskami (dev/staging/prod) `🔴 zero`
 - **Basic testing** — min. 1 unit test dla auth service. Pełna strategia testów w M7
-  - [ ] Min. 1 unit test dla auth service napisany sam
+  - [ ] Min. 1 unit test dla auth service napisany sam `🔴 zero`
 
 ### Przykładowe pytania
 
@@ -173,21 +188,21 @@ JWT auth od zera. Największy build milestone — po tym masz działające API z
 
 ---
 
-## Milestone 5 — Node.js runtime
+## Milestone 5 — Node.js runtime 🔴 BLOKUJE
 
 ### Co robisz
 
 Teoria Node.js — event loop, streams, skalowanie. Nie budujesz nowych features, ale musisz to umieć wytłumaczyć bo pytają na KAŻDEJ rozmowie Node.js.
 
 - **Event loop** — fazy, microtasks vs macrotasks, single-threaded non-blocking model
-  - [ ] Potrafię wytłumaczyć event loop i dlaczego Node jest single-threaded ale non-blocking
-  - [ ] Potrafię wytłumaczyć co się dzieje gdy Node dostaje 1000 requestów jednocześnie
+  - [ ] Potrafię wytłumaczyć event loop i dlaczego Node jest single-threaded ale non-blocking `🔴 zero`
+  - [ ] Potrafię wytłumaczyć co się dzieje gdy Node dostaje 1000 requestów jednocześnie `🔴 zero`
 - **Streams** (koncept) — kiedy użyć, co to backpressure. "Jak przetworzysz duży plik bez OOM?"
-  - [ ] Potrafię wytłumaczyć kiedy użyć stream i co to backpressure
+  - [ ] Potrafię wytłumaczyć kiedy użyć stream i co to backpressure `🔴 zero`
 - **Scaling Node.js** — cluster module vs worker_threads (koncept)
-  - [ ] Potrafię wytłumaczyć kiedy cluster (multi-process) vs worker_threads (CPU-bound tasks)
+  - [ ] Potrafię wytłumaczyć kiedy cluster (multi-process) vs worker_threads (CPU-bound tasks) `🔴 zero`
 - **Error handling w Node.js** — operational vs programmer errors
-  - [ ] Potrafię wytłumaczyć operational errors vs programmer errors i jak je obsługujesz inaczej
+  - [ ] Potrafię wytłumaczyć operational errors vs programmer errors i jak je obsługujesz inaczej `🔴 zero`
 
 ### Przykładowe pytania
 
@@ -198,24 +213,24 @@ Teoria Node.js — event loop, streams, skalowanie. Nie budujesz nowych features
 
 ---
 
-## Milestone 6 — NestJS deeper + SOLID + patterns
+## Milestone 6 — NestJS deeper + SOLID + patterns 🔴 BLOKUJE
 
 ### Co robisz
 
 Refleksja na tym co zbudowałeś w M4 (auth). Teraz rozumiesz request lifecycle, custom providers, SOLID, design patterns — bo masz kod w którym to widzisz.
 
 - **Request lifecycle**
-  - [ ] Potrafię narysować request lifecycle z pamięci (Middleware → Guard → Interceptor → Pipe → Controller → Service → Interceptor → Filter)
-  - [ ] Response envelope pattern działa na całym API (interceptor)
+  - [ ] Potrafię narysować request lifecycle z pamięci (Middleware → Guard → Interceptor → Pipe → Controller → Service → Interceptor → Filter) `🔴 zero`
+  - [ ] Response envelope pattern działa na całym API (interceptor) `🔴 zero`
 - **NestJS deeper** — custom providers, custom decorators, dynamic modules
-  - [ ] Potrafię wytłumaczyć useClass vs useValue vs useFactory z realnym przykładem
-  - [ ] Potrafię wytłumaczyć createParamDecorator i SetMetadata + Reflector (bo użyłem w auth)
-  - [ ] Potrafię wytłumaczyć forRoot vs forFeature pattern
+  - [ ] Potrafię wytłumaczyć useClass vs useValue vs useFactory z realnym przykładem `🔴 zero`
+  - [ ] Potrafię wytłumaczyć createParamDecorator i SetMetadata + Reflector (bo użyłem w auth) `🔴 zero`
+  - [ ] Potrafię wytłumaczyć forRoot vs forFeature pattern `🔴 zero`
 - **SOLID principles** — każda litera z przykładem
-  - [ ] Potrafię wytłumaczyć każdą literę SOLID z przykładem łamania i naprawy
-  - [ ] Potrafię wskazać gdzie w NestJS widzę SRP, OCP, DIP
+  - [ ] Potrafię wytłumaczyć każdą literę SOLID z przykładem łamania i naprawy `🔴 zero`
+  - [ ] Potrafię wskazać gdzie w NestJS widzę SRP, OCP, DIP `🔴 zero`
 - **Design patterns** — Strategy, Observer, Factory, Singleton
-  - [ ] Potrafię wskazać Strategy (guards, pipes), Singleton (DI default scope), Factory (useFactory), Observer (RxJS) w NestJS
+  - [ ] Potrafię wskazać Strategy (guards, pipes), Singleton (DI default scope), Factory (useFactory), Observer (RxJS) w NestJS `🔴 zero`
 
 ### Przykładowe pytania
 
@@ -227,34 +242,34 @@ Refleksja na tym co zbudowałeś w M4 (auth). Teraz rozumiesz request lifecycle,
 
 ---
 
-## Milestone 7 — Docker + deploy + testy + logging + Next.js front
+## Milestone 7 — Docker + deploy + testy + logging + Next.js front 🔴 BLOKUJE
 
 ### Co robisz
 
 IRONLOG idzie na produkcję. Docker, deploy, testy, logging. Podłącz Next.js frontend — fullstack demo.
 
 - **Docker + deploy**
-  - [ ] `docker-compose up` i działa (Nest + Postgres)
-  - [ ] App jest na produkcji, dostępna przez przeglądarkę
-  - [ ] Potrafię wytłumaczyć multi-stage build — dlaczego i co zyskujesz
-  - [ ] Graceful shutdown działa — `docker stop` domyka połączenia czysto
+  - [ ] `docker-compose up` i działa (Nest + Postgres) `🔴 zero`
+  - [ ] App jest na produkcji, dostępna przez przeglądarkę `🔴 zero`
+  - [ ] Potrafię wytłumaczyć multi-stage build — dlaczego i co zyskujesz `🔴 zero`
+  - [ ] Graceful shutdown działa — `docker stop` domyka połączenia czysto `🔴 zero`
 - **Structured logging** — Pino zamiast console.log
-  - [ ] Structured logging (Pino) działa w IRONLOG
-  - [ ] Potrafię odpowiedzieć: "Jak debugujesz problem na produkcji? Co logujesz?"
+  - [ ] Structured logging (Pino) działa w IRONLOG `🔴 zero`
+  - [ ] Potrafię odpowiedzieć: "Jak debugujesz problem na produkcji? Co logujesz?" `🔴 zero`
 - **Reverse proxy** — co to, co robi Nginx/Traefik. 1 pytanie na rozmowie
-  - [ ] Potrafię wytłumaczyć co to reverse proxy i czym różni się od load balancera
+  - [ ] Potrafię wytłumaczyć co to reverse proxy i czym różni się od load balancera `🔴 zero`
 - **Testy**
-  - [ ] Unit testy dla kluczowej logiki w services
-  - [ ] E2e test: rejestracja → login → CRUD → logout
-  - [ ] Potrafię wytłumaczyć unit vs integration vs e2e — co daje najlepszy ROI
-  - [ ] Potrafię wytłumaczyć jak działa `Test.createTestingModule()` i kiedy mockować vs testować z DB
+  - [ ] Unit testy dla kluczowej logiki w services `🔴 zero`
+  - [ ] E2e test: rejestracja → login → CRUD → logout `🔴 zero`
+  - [ ] Potrafię wytłumaczyć unit vs integration vs e2e — co daje najlepszy ROI `🔴 zero`
+  - [ ] Potrafię wytłumaczyć jak działa `Test.createTestingModule()` i kiedy mockować vs testować z DB `🔴 zero`
 - **Next.js front**
-  - [ ] Next.js front konsumuje API — fullstack demo gotowe
-  - [ ] Potrafię narysować data flow: user action → component → fetch → API → DB → response → UI update
+  - [ ] Next.js front konsumuje API — fullstack demo gotowe `🔴 zero`
+  - [ ] Potrafię narysować data flow: user action → component → fetch → API → DB → response → UI update `🔴 zero`
 - **Swagger + CI/CD + Git**
-  - [ ] Swagger docs dla całego API
-  - [ ] CI pipeline działa (lint + test + build)
-  - [ ] Potrafię wytłumaczyć rebase vs merge — kiedy który
+  - [ ] Swagger docs dla całego API `🔴 zero`
+  - [ ] CI pipeline działa (lint + test + build) `🔴 zero`
+  - [ ] Potrafię wytłumaczyć rebase vs merge — kiedy który `🔴 zero`
 
 ### Przykładowe pytania
 
@@ -267,25 +282,25 @@ IRONLOG idzie na produkcję. Docker, deploy, testy, logging. Podłącz Next.js f
 
 ---
 
-## Milestone 8 — Caching + Queues + Advanced SQL
+## Milestone 8 — Caching + Queues + Advanced SQL 🔴 BLOKUJE
 
 ### Co robisz
 
 Produkcyjne features: Redis caching, BullMQ queues, zaawansowany SQL.
 
 - **Redis**
-  - [ ] Redis cache działa na wybranym endpoincie, potrafię zmierzyć różnicę
-  - [ ] Potrafię wytłumaczyć cache-aside pattern i narysować flow (cache hit vs miss)
-  - [ ] Potrafię wytłumaczyć cache invalidation strategies i trade-offy
-  - [ ] Potrafię odpowiedzieć: "Co się dzieje gdy Redis padnie? Czy API dalej działa?"
+  - [ ] Redis cache działa na wybranym endpoincie, potrafię zmierzyć różnicę `🔴 zero`
+  - [ ] Potrafię wytłumaczyć cache-aside pattern i narysować flow (cache hit vs miss) `🔴 zero`
+  - [ ] Potrafię wytłumaczyć cache invalidation strategies i trade-offy `🔴 zero`
+  - [ ] Potrafię odpowiedzieć: "Co się dzieje gdy Redis padnie? Czy API dalej działa?" `🔴 zero`
 - **Message queues**
-  - [ ] Queue przetwarza zadanie asynchronicznie, retry działa
-  - [ ] Potrafię narysować flow: request → API → queue → consumer → result
-  - [ ] Potrafię wytłumaczyć producer/consumer, dead letter queue, retry strategy
-  - [ ] Potrafię wytłumaczyć kiedy synchroniczny request a kiedy queue
-  - [ ] Potrafię wytłumaczyć idempotency w message processing — jak zapewnić że wiadomość nie przetworzona 2x
+  - [ ] Queue przetwarza zadanie asynchronicznie, retry działa `🔴 zero`
+  - [ ] Potrafię narysować flow: request → API → queue → consumer → result `🔴 zero`
+  - [ ] Potrafię wytłumaczyć producer/consumer, dead letter queue, retry strategy `🔴 zero`
+  - [ ] Potrafię wytłumaczyć kiedy synchroniczny request a kiedy queue `🔴 zero`
+  - [ ] Potrafię wytłumaczyć idempotency w message processing — jak zapewnić że wiadomość nie przetworzona 2x `🔴 zero`
 - **Advanced SQL** — CTEs (Common Table Expressions)
-  - [ ] Potrafię wytłumaczyć co to CTE (WITH clause) i kiedy użyć zamiast subquery
+  - [ ] Potrafię wytłumaczyć co to CTE (WITH clause) i kiedy użyć zamiast subquery `🔴 zero`
 
 ### Przykładowe pytania
 
@@ -297,28 +312,28 @@ Produkcyjne features: Redis caching, BullMQ queues, zaawansowany SQL.
 
 ---
 
-## Milestone 9 — System design + advanced topics
+## Milestone 9 — System design + advanced topics 🔴 BLOKUJE
 
 ### Co robisz
 
 Capstone. Dotrzesz tu TYLKO jak M1-M8 odhaczone. System design, advanced topics, interview polish.
 
 - **Behavioral prep**
-  - [ ] Mam przygotowane 2-3 historie behawioralne (najtrudniejszy bug, decyzja architektoniczna, code review)
-  - [ ] Potrafię opowiedzieć każdą w formacie STAR w 2-3 minuty
+  - [ ] Mam przygotowane 2-3 historie behawioralne (najtrudniejszy bug, decyzja architektoniczna, code review) `🔴 zero`
+  - [ ] Potrafię opowiedzieć każdą w formacie STAR w 2-3 minuty `🔴 zero`
 - **DDD basics**
-  - [ ] Potrafię wytłumaczyć bounded context, aggregate i ubiquitous language
-  - [ ] Potrafię podać przykład kiedy DDD ma sens a kiedy overkill
+  - [ ] Potrafię wytłumaczyć bounded context, aggregate i ubiquitous language `🔴 zero`
+  - [ ] Potrafię podać przykład kiedy DDD ma sens a kiedy overkill `🔴 zero`
 - **CQRS**
-  - [ ] Potrafię wytłumaczyć co to CQRS i kiedy warto rozdzielić read/write model
-  - [ ] Potrafię podać jakie problemy rozwiązuje a jakie tworzy
+  - [ ] Potrafię wytłumaczyć co to CQRS i kiedy warto rozdzielić read/write model `🔴 zero`
+  - [ ] Potrafię podać jakie problemy rozwiązuje a jakie tworzy `🔴 zero`
 - **WebSocket vs SSE vs polling**
-  - [ ] Potrafię porównać WebSocket vs SSE vs polling z trade-offami i podać kiedy który
+  - [ ] Potrafię porównać WebSocket vs SSE vs polling z trade-offami i podać kiedy który `🔴 zero`
 - **Scaling fundamentals**
-  - [ ] Potrafię wytłumaczyć horizontal vs vertical scaling
-  - [ ] Potrafię wytłumaczyć read replicas, circuit breaker, graceful degradation
+  - [ ] Potrafię wytłumaczyć horizontal vs vertical scaling `🔴 zero`
+  - [ ] Potrafię wytłumaczyć read replicas, circuit breaker, graceful degradation `🔴 zero`
 - **Monolith vs Microservices** — trade-offy, kiedy migrować, dlaczego monolith-first
-  - [ ] Potrafię wytłumaczyć kiedy monolith a kiedy microservices — z konkretnymi argumentami, nie buzzwordami
+  - [ ] Potrafię wytłumaczyć kiedy monolith a kiedy microservices — z konkretnymi argumentami, nie buzzwordami `🔴 zero`
 
 ### System design challenges
 
@@ -330,13 +345,13 @@ Capstone. Dotrzesz tu TYLKO jak M1-M8 odhaczone. System design, advanced topics,
 
 ### Checkpointy (recall verification — weryfikacja płynności z wcześniejszych milestones)
 
-- [ ] Wysłane min. 5 aplikacji na pozycje Fullstack Mid+
-- [ ] Potrafię wytłumaczyć event loop bez zacinania (M5)
-- [ ] Potrafię wytłumaczyć DI i NestJS module system bez zacinania (M1/M6)
-- [ ] Potrafię wytłumaczyć JWT auth flow bez zacinania (M4)
-- [ ] Potrafię narysować request lifecycle bez zacinania (M6)
-- [ ] Potrafię zaprojektować prosty system od zera na kartce w 20 min
-- [ ] IRONLOG jest na GitHubie z README, Dockerem, testami — portfolio ready
+- [ ] Wysłane min. 5 aplikacji na pozycje Fullstack Mid+ `🔴 zero`
+- [ ] Potrafię wytłumaczyć event loop bez zacinania (M5) `🔴 zero`
+- [ ] Potrafię wytłumaczyć DI i NestJS module system bez zacinania (M1/M6) `🔴 zero`
+- [ ] Potrafię wytłumaczyć JWT auth flow bez zacinania (M4) `🔴 zero`
+- [ ] Potrafię narysować request lifecycle bez zacinania (M6) `🔴 zero`
+- [ ] Potrafię zaprojektować prosty system od zera na kartce w 20 min `🔴 zero`
+- [ ] IRONLOG jest na GitHubie z README, Dockerem, testami — portfolio ready `🔴 zero`
 
 ---
 

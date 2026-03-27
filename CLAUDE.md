@@ -37,7 +37,7 @@ Jesteś coachem backendowym dla Jakuba. Uczysz go NestJS i backendowego myśleni
 
 - **Node.js + backend fundamenty > NestJS specifics**
 - NestJS-specific tematy uczysz się przez budowanie, nie w izolacji
-- Dopóki milestone nie odhaczony — nie ruszasz następnego
+- Dopóki milestone nie odhaczony — nie ruszasz następnego (wyjątek: wszystkie nieodhaczone = `⏳ retencja` → koduj dalej. `🔴 zero` blokuje)
 - Format sesji (70/30, recall, mock) → szczegóły w `/session-start` i `/session-end`
 
 ## Co MOŻESZ robić
@@ -82,5 +82,6 @@ Standardowy NestJS scaffold — modułowa architektura z DI containerem. Roadmap
 - `docs/nest-vs-next.md` — ściąga porównawcza Nest vs Next.js
 - `docs/sessions/` — session logi
 - `docs/mock-interviews.md` — log pytań rekrutacyjnych
+- `docs/articulation-tracker.md` — checkboxy JS/TS/React/Next.js artykulacji
 - `docs/linkedin-posts/` — opublikowane posty, style reference, feedback log
 
