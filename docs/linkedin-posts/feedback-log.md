@@ -22,3 +22,13 @@ Patterns learned from Jakub's edits and feedback during post writing.
 - 2026-03-22: Don't add context about tagged people ("a Polish dev") — on LinkedIn people can click the profile. Adding descriptions feels forced.
 - 2026-03-22: Don't say "I make flashcards" when the AI generates them — be accurate about what the system does vs what Jakub does. He reviews, AI generates.
 - 2026-03-22: Avoid redundancy like "daily" + "a day" in the same sentence. Pick one.
+- 2026-03-28: Hook must be concrete and sharp, not vague. "I used Prisma for 2 years without writing a single SQL query" > "I've been using Prisma for a while and never really thought about what happens underneath". Numbers + specifics stop the scroll.
+- 2026-03-28: Too many sentences starting with "I" makes the post monotone. Vary subjects: drop "I" sometimes ("Picked up normalization too."), lead with the object ("My schemas got cleaner").
+- 2026-03-28: Don't enumerate concepts like a textbook ("1NF, 2NF, 3NF. Sounds academic but it changed how I think"). Show what the concept did in practice or compress to one sentence without labels.
+- 2026-03-28: Include at least one concrete micro-story. "I wrote DELETE and watched CASCADE wipe the exercises and sets" > "I started learning SQL and it helped". Specific moments are more memorable than general claims.
+- 2026-03-28: Avoid cliché phrases seen in every LinkedIn post: "it works, until it doesn't and you have no idea why". If you've read it 100 times, rewrite it.
+- 2026-03-28: Closers should sound like Jakub talking, not a bumper sticker. "tools change, fundamentals don't" = motivational poster. "I'd rather know what my tools do than hope they're right" = personal opinion with "I".
+- 2026-03-28: Don't introduce topics as afterthoughts ("X helped too"). Weave into narrative — start from discovery, name the concept last. "Once I saw how tables relate, I stopped duplicating data. Turns out there's a name for that, normalization."
+- 2026-03-28: Generic outcomes are weak. "My schemas make more sense" → "I stopped duplicating data that should've been a foreign key". Concrete actions > vague improvements.
+- 2026-03-28: Closer should echo the hook (klamra). Hook mentions Prisma → closer lands on "my ORM generates". Reader feels the post is complete.
+- 2026-03-28: Use 👉 on key middle paragraphs as visual separators. Not on hook or closer. 2-4 per post. Breaks wall of text on mobile.

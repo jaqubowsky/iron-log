@@ -55,13 +55,26 @@ Read `docs/linkedin-posts/style-reference.md` and match it exactly. The core pri
 - He's a mid-level dev sharing what he's learning, not giving expert advice
 - Drop subjects sometimes ("Not faster, but...", "Next up:")
 - Links go in comments (👇 or "link in comments")
+- Use 👉 as directional indicators on key middle paragraphs (not on hook or closer). This breaks up the wall of text and guides the eye. See React re-renders reference post for pattern. Don't overdo it — 2-4 per post max
 
 ### Content rules
 
 - Open with what he did or found, not with a clickbait hook or question
+- Hook must be sharp and concrete — use specific numbers or facts, not vague statements.
+  Bad: "I've been using Prisma for a while and never really thought about what happens underneath"
+  Good: "I used Prisma for 2 years without writing a single SQL query."
+  The difference: concrete ("2 years", "single SQL query") + slightly provocative > vague + descriptive
 - Show growth and honest process, not polished results
 - Don't expose specific knowledge gaps that look bad to recruiters (e.g. "I didn't know SQL")
   — instead frame as growth ("I understand concepts I used to just skim over")
+- Include at least one concrete micro-story instead of staying abstract the whole post.
+  Bad: "I started learning SQL and it helped me understand my ORM better"
+  Good: "I wrote DELETE on a workout log and watched CASCADE wipe the exercises and sets with it. Turns out that's not Prisma doing something clever, that's just PostgreSQL."
+  One specific moment is more memorable and believable than general claims
+- Don't enumerate concepts like a textbook ("1NF, 2NF, 3NF"). Show what the concept did for you in practice, or compress to one sentence without listing labels
+- Don't introduce topics as afterthoughts ("X helped too"). Weave them into the narrative — start from what you discovered, then name the concept at the end if needed. Bad: "Normalization helped too. There are rules and my schemas make more sense." Good: "Once I saw how tables actually relate, I stopped duplicating data that should've been a foreign key. Turns out there's a name for that, normalization."
+- Generic outcomes kill credibility. Replace "my schemas make more sense" with concrete actions: "I stopped duplicating data across three tables", "I knew exactly which JOIN to use". What did you START or STOP doing?
+- Closer should echo the hook for thematic closure. If the hook mentions Prisma/ORM, the closer should land on the same concept. This creates a "klamra" — the reader feels the post is complete, not just cut off
 - Credit sources when sharing videos/articles/courses
 - No hashtags unless Jakub asks
 - Keep it 6-12 sentences. When in doubt, shorter.
@@ -92,9 +105,12 @@ Before showing the draft, check it against the full humanizer skill at `.claude/
 - Negative parallelisms (it's not just X, it's Y)
 - Generic positive conclusions
 - Filler phrases (in order to, it is important to note)
-- Overly clean structure (hook → problem → solution → CTA)
+- Overly clean structure (hook → problem → solution → CTA) — also check if each paragraph does exactly one predictable job (sign of assembled text, not written text)
 - Same-length sentences in a row
 - Copula avoidance (serves as → is)
+- "I" monotony — if most sentences start with "I", restructure some. Drop subjects ("Picked up normalization too."), use passive constructions, or lead with the object ("My schemas got cleaner")
+- Clichéd phrases that sound smart but say nothing: "it works, until it doesn't", "the rest is history", "and that's OK". If you've seen it in 100 LinkedIn posts, rewrite it
+- Slogan-y closers that sound like motivational posters: "tools change, fundamentals don't". Better: personal opinion with "I" ("I'd rather know what my tools do than hope they're right") — closers should sound like Jakub talking, not a bumper sticker
 
 Then read it one more time and ask: "Would Jakub actually type this?" If any sentence feels too polished or too clever, simplify it.
 
