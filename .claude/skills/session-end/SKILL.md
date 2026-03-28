@@ -32,7 +32,7 @@ Mock interview jest **obowiązkowy co sesję**. Nie pytaj "chcesz pytanie?" — 
 - Przeprowadź mock interview zgodnie z protokołem z `.claude/skills/mock-interview/SKILL.md` (przeczytaj go)
 - Pytanie powiązane z tym co właśnie kodował LUB losowe z wcześniejszych tematów (element zaskoczenia)
 - Zanotuj wyniki
-- **Opcja:** jeśli backlog retencji >5 nieodhaczonych "potrafię wytłumaczyć" checkpointów → zaproponuj `/mock-interview session` (dedykowana 30-min sesja na czyszczenie backlogu, 5-6 pytań)
+- **Rekomendacja artykulacyjna:** jeśli backlog retencji >5 nieodhaczonych "potrafię wytłumaczyć" checkpointów LUB ostatnie 3+ sesje były czysto kodowe → **rekomenduj `/mock-interview session` jako main task następnej sesji** (dedykowana 30-min sesja na czyszczenie backlogu, 5-6 pytań). Wpisz to wyraźnie w sekcji "Następna sesja" — session-start to podchwyci
 
 ## 3. Odhacz checkpointy z recall/mock (PRZED session logiem)
 

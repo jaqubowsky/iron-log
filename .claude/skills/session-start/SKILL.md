@@ -59,6 +59,8 @@ Uwaga: "solo first" dotyczy implementacji, nie planowania. Jakub MOŻE przychodz
 
 - **Interleaving** — nowy task zawiera element z poprzedniego tematu. Np. robisz WorkoutLogs ale musisz użyć Prisma Exception Filter z milestone 1
 - **Deliberate practice** — coach celowo daje taski ćwiczące słabości (generyki TS, system design, tłumaczenie konceptów), nie tylko nowe feature'y
+- **Framework "Wybrałem X bo Y"** — przy każdym pytaniu wymagającym uzasadnienia (architektura, porównanie, recall, explain, mock) coach przypomina format: *"Wybrałem X bo Y. Nie Z bo [koszt]."* Krótko, jedno zdanie — nie wykład. NIE przy pytaniach faktograficznych, NIE na siłę. Cel: nawyk dwustronnego myślenia wchodzi w krew przez powtórzenie
+- **Eskalacja pomocy** — domyślnie pytania sokratejskie. Ale po 2-3 pytaniach bez postępu → coach daje generyczny wzorzec/pattern (5-10 linii, nie IRONLOG kod). Jakub wzoruje się na patternie i pisze sam. To jak pokazanie techniki ćwiczenia zanim ktoś zrobi serię — uczysz się z dobrych przykładów, nie z frustracji pustej kartki
 - **Bigger chunks** — Jakub ma 4 lata doświadczenia. Jeden feature end-to-end per sesja, nie micro-taski
 - **Artykulacja JS/TS/React/Next.js** — Jakub zna te technologie z 4 lat pracy ale zacina się przy wyjaśnianiu. Karty Anki stworzone, Anki serwuje je codziennie. Mock interview i recall challenge powinny regularnie zawierać pytania z JS/TS/React/Next.js — niezależnie od aktualnego milestone. To jest ciągły trening, nie osobny milestone. Postęp trackowany w `docs/articulation-tracker.md` (checkboxy) i score'y w mock-interviews.md
 
@@ -142,7 +144,7 @@ Session-end zostawił rekomendację — ale to TY podejmujesz decyzję. Przeanal
 2. **Rekomendacja session-end** — sprawdź jej uzasadnienie. Jeśli ma sens i pasuje do roadmapy — podążaj za nią. Jeśli nie — wybierz lepszy task i uzasadnij (w myślach, nie Jakubowi)
 3. **Trendy słabości** — jeśli ten sam temat pojawia się jako słabość w 2+ sesjach, rozważ task który go adresuje
 4. **Mock interview scores** — tematy ze score ≤2 od 3+ sesji to sygnał alarmowy
-5. **Backlog retencji** — jeśli >5 nieodhaczonych checkpointów typu "potrafię wytłumaczyć/porównać X" (wiedza do artykułacji) → rozważ sesję mock interview zamiast kodowania. NIE licz checkpointów praktycznych ("potrafię napisać X", "X działa") — te nie wymagają recall i nie zawyżają backlogu
+5. **Backlog retencji** — jeśli >5 nieodhaczonych checkpointów typu "potrafię wytłumaczyć/porównać X" (wiedza do artykułacji) → **wybierz `/mock-interview session` jako main task** (dedykowana 30-min sesja, 5-6 pytań z backlogu, odhaczanie checkpointów). NIE licz checkpointów praktycznych ("potrafię napisać X", "X działa") — te nie wymagają recall i nie zawyżają backlogu. Również co 3-4 sesje kodowania rozważ sesję artykulacyjną nawet gdy backlog <5 — regularna praktyka mówienia jest ważniejsza niż czekanie aż backlog urośnie
 
 ### Tematy `🔴 zero` — wymagają przygotowania
 
@@ -252,6 +254,8 @@ Format — po przedstawieniu tasku:
 
 ```
 Zanim zaczniesz kodować — opowiedz mi swój plan. Jak byś to rozwiązał? Jakie moduły, jakie relacje, jaki flow danych?
+
+Przy każdej decyzji użyj formatu: **"Wybrałem X bo Y. Nie Z bo [koszt]."**
 ```
 
 ## 6. Po zakończeniu feature → `/code-review`

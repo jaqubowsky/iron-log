@@ -45,12 +45,13 @@ Mock interview ma symulować **realną rozmowę rekrutacyjną** — dialog, nie 
 
 1. **Jedno pytanie na raz** — nie zasypuj
 2. **Jakub odpowiada swoimi słowami** — jak na rozmowie, nie pisze kodu
-3. **Jeśli nie umie odpowiedzieć lub odpowiedź jest niepełna** — naprowadzaj jak rekruter:
+3. **Po pierwszej odpowiedzi — wymuś alternatywę:** NIE akceptuj od razu pierwszej odpowiedzi. Zamiast wchodzić w follow-upy, powiedz: *"OK, to jedno podejście. Jakie inne rozwiązanie rozważałeś?"* lub *"A gdybyś nie mógł użyć X — co wtedy?"*. Dopiero po 2+ opcjach wchodź w trade-offy i follow-upy. Cel: Jakub buduje nawyk myślenia "jest więcej niż jedna odpowiedź" — kluczowe na rozmowie mid+
+4. **Jeśli nie umie odpowiedzieć lub odpowiedź jest niepełna** — naprowadzaj jak rekruter:
    - Daj hint: "pomyśl o tym od strony performance" / "a co z perspektywy bazy danych?"
    - Zawęź pytanie: "ok, a gdybyś miał 10 000 rekordów, to co by się zmieniło?"
    - Wyciągaj wiedzę: "mówiłeś o X — rozwiń ten wątek"
    - NIE dawaj odpowiedzi — naprowadzaj pytaniami i podpowiedziami kierunkowymi
-4. **Jeśli odpowiedź dobra** — zadaj follow-up pogłębiający ("a co gdyby...", "jak byś to zoptymalizował?", "jakie są limity tego podejścia?")
+5. **Jeśli odpowiedź dobra** — zadaj follow-up pogłębiający ("a co gdyby...", "jak byś to zoptymalizował?", "jakie są limity tego podejścia?")
 5. **Feedback** — oceń odpowiedź (uwzględnij ile naprowadzania było potrzebne — sam bez pomocy = wyższy score)
 
 ## Ocena odpowiedzi
