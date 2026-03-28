@@ -1,12 +1,12 @@
 import { CreateWorkoutLogPayload } from '../interfaces/create-workout-log-payload';
 import { UpdateWorkoutLogPayload } from '../interfaces/update-workout-log-payload';
-import { WorkoutLog } from '../interfaces/workout-log';
+import { WorkoutLog, WorkoutLogSimple } from '../interfaces/workout-log';
 
 export abstract class WorkoutLogRepository {
   abstract findMany(params: {
     cursor?: string;
     take: number;
-  }): Promise<WorkoutLog[]>;
+  }): Promise<WorkoutLogSimple[]>;
 
   abstract findUnique(id: string): Promise<WorkoutLog>;
 

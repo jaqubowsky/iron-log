@@ -95,7 +95,7 @@ Prereq: SQLBolt + PostgreSQL Tutorial ZANIM sesja coachingowa z raw SQL.
 - **JOINy** — INNER, LEFT. Umiesz napisać SELECT z JOIN na danych IRONLOG
   - [ ] Potrafię wytłumaczyć różnicę INNER vs LEFT JOIN i kiedy który `⏳ retencja 3.5/5 — 2026-03-27`
 - **Constraints** — PRIMARY KEY, FOREIGN KEY, UNIQUE, NOT NULL, CASCADE DELETE, ON DELETE SET NULL
-  - [ ] Potrafię wymienić typy constraints i wytłumaczyć kiedy ON DELETE CASCADE vs SET NULL `⏳ retencja 3/5 — 2026-03-22`
+  - [x] Potrafię wymienić typy constraints i wytłumaczyć kiedy ON DELETE CASCADE vs SET NULL
 - **Transakcje i ACID** — co to, po co, kiedy użyć `$transaction`. Isolation levels (basics)
   - [ ] Potrafię wytłumaczyć ACID na rozmowie (każda litera z przykładem) `⏳ retencja 3.5/5 — 2026-03-26`
   - [ ] Potrafię wytłumaczyć kiedy użyć transakcji i co to isolation level `⏳ retencja 3/5 — 2026-03-27`
@@ -115,7 +115,7 @@ Prereq: SQLBolt + PostgreSQL Tutorial ZANIM sesja coachingowa z raw SQL.
 
 ---
 
-## Milestone 3 — HTTP/REST + NestJS features 🔴 BLOKUJE
+## Milestone 3 — HTTP/REST + NestJS features 🔴 BLOKUJE (3 checkpointy 🔴 zero)
 
 ### Co robisz
 
@@ -123,7 +123,7 @@ Budujesz WorkoutTemplates, WorkoutLogs — cross-module communication. Widzisz j
 
 - **Repository pattern** — wydziel dostęp do bazy z service do repository
   - [x] Repository pattern wdrożony — service nie woła Prisma bezpośrednio
-  - [ ] Potrafię wytłumaczyć po co repository layer i kiedy to overengineering `⏳ retencja 3/5 — 2026-03-26`
+  - [ ] Potrafię wytłumaczyć po co repository layer i kiedy to overengineering `⏳ retencja 3/5 — 2026-03-28`
 - **Ustrukturyzowana paginacja** — wydziel do common, reużywalny pattern
   - [x] Paginacja wydzielona do common — reużywalna dla dowolnego modułu
   - [x] Paginacja działa, potrafię uzasadnić wybór (offset vs cursor)
@@ -131,18 +131,18 @@ Budujesz WorkoutTemplates, WorkoutLogs — cross-module communication. Widzisz j
   - [x] Bug fixy z code review wdrożone (@Max, @IsInt — P2025 i TOCTOU już obsłużone przez exception filter)
 - **Cross-module communication** — WorkoutLogs moduł, import/export między modułami
   - [x] Moduły komunikują się, zero circular deps
-  - [ ] Potrafię wytłumaczyć jak NestJS modules importują/eksportują providery `⏳ retencja 2.5/5 — 2026-03-26`
+  - [x] Potrafię wytłumaczyć jak NestJS modules importują/eksportują providery
 - **HTTP/REST** — kody statusów, idempotentność, REST vs GraphQL, API versioning
-  - [ ] Potrafię wytłumaczyć idempotentność HTTP metod i kiedy 201 vs 200 vs 204 `🔴 zero`
-  - [ ] Potrafię porównać REST vs GraphQL z trade-offami `🔴 zero`
+  - [ ] Potrafię wytłumaczyć idempotentność HTTP metod i kiedy 201 vs 200 vs 204 `⏳ retencja 3.5/5 — 2026-03-28`
+  - [ ] Potrafię porównać REST vs GraphQL z trade-offami `⏳ retencja 3.5/5 — 2026-03-28`
   - [ ] Potrafię wytłumaczyć API versioning — kiedy URL vs header `🔴 zero`
-  - [ ] Potrafię wytłumaczyć "co się dzieje gdy wpiszesz URL w przeglądarkę" (DNS → TCP → TLS → HTTP → server → response) `🔴 zero`
+  - [ ] Potrafię wytłumaczyć "co się dzieje gdy wpiszesz URL w przeglądarkę" (DNS → TCP → TLS → HTTP → server → response) `⏳ retencja 3.5/5 — 2026-03-28`
 - **HTTP caching** — Cache-Control, ETag, Last-Modified. Fundamenty protokołu HTTP
   - [ ] Potrafię wytłumaczyć Cache-Control headers (max-age, no-cache, no-store, stale-while-revalidate) `🔴 zero`
   - [ ] Potrafię wytłumaczyć ETag vs Last-Modified — kiedy który, jak działają conditional requests `🔴 zero`
 - **ORM trade-offy** — TypeORM vs Prisma vs MikroORM, eager vs lazy loading, N+1 problem
   - [x] Response transformacja — umiem uzasadnić wybór podejścia i trade-offy SQL-level vs app-level
-  - [ ] Potrafię wytłumaczyć N+1 problem i jak go rozwiązać `🔴 zero`
+  - [ ] Potrafię wytłumaczyć N+1 problem i jak go rozwiązać `⏳ retencja 3.5/5 — 2026-03-28`
 
 ### Przykładowe pytania
 

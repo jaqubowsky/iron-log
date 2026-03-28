@@ -1,36 +1,47 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from 'src/db/prisma.service';
-import { WorkoutLog } from '../interfaces/workout-log';
+import { WorkoutLog, WorkoutLogSimple } from '../interfaces/workout-log';
 import { WorkoutLogRepository } from './workout-log.repository';
 import { CreateWorkoutLogPayload } from '../interfaces/create-workout-log-payload';
 import { UpdateWorkoutLogPayload } from '../interfaces/update-workout-log-payload';
+import { PrismaWorkoutLogMapper } from './prisma-workout-log.mapper';
 
 @Injectable()
 export class PrismaWorkoutLogRepository implements WorkoutLogRepository {
   constructor(private prismaService: PrismaService) {}
 
-  findMany({
+  async findMany({
     cursor,
     take,
   }: {
     cursor?: string;
     take: number;
-  }): Promise<WorkoutLog[]> {
-    return this.prismaService.workoutLog.findMany({
+  }): Promise<WorkoutLogSimple[]> {
+    const workoutLogsSimple = await this.prismaService.workoutLog.findMany({
       cursor: cursor ? { id: cursor } : undefined,
       take,
-      include: {
+      select: {
+        id: true,
+        name: true,
+        description: true,
+        createdAt: true,
+        updatedAt: true,
         workoutLogExercises: {
-          include: {
-            sets: true,
+          select: {
+            category: true,
+            _count: { select: { sets: true } },
           },
         },
       },
     });
+
+    return workoutLogsSimple.map((log) =>
+      PrismaWorkoutLogMapper.toWorkoutLogSimple(log),
+    );
   }
 
-  findUnique(id: string): Promise<WorkoutLog> {
-    return this.prismaService.workoutLog.findUniqueOrThrow({
+  async findUnique(id: string): Promise<WorkoutLog> {
+    const workoutLog = await this.prismaService.workoutLog.findUniqueOrThrow({
       where: {
         id,
       },
@@ -42,6 +53,8 @@ export class PrismaWorkoutLogRepository implements WorkoutLogRepository {
         },
       },
     });
+
+    return PrismaWorkoutLogMapper.toWorkoutLog(workoutLog);
   }
 
   async create(data: CreateWorkoutLogPayload): Promise<WorkoutLog> {
@@ -68,7 +81,7 @@ export class PrismaWorkoutLogRepository implements WorkoutLogRepository {
       },
     });
 
-    return workoutLog;
+    return PrismaWorkoutLogMapper.toWorkoutLog(workoutLog);
   }
 
   async update({
@@ -120,11 +133,12 @@ export class PrismaWorkoutLogRepository implements WorkoutLogRepository {
       updateWorkoutLogWithNewDataPromise,
     ]);
 
-    return updateResult[1];
+    const workoutLog = updateResult[1];
+    return PrismaWorkoutLogMapper.toWorkoutLog(workoutLog);
   }
 
   async delete(id: string) {
-    return await this.prismaService.workoutLog.delete({
+    const workoutLog = await this.prismaService.workoutLog.delete({
       where: { id },
       include: {
         workoutLogExercises: {
@@ -134,5 +148,7 @@ export class PrismaWorkoutLogRepository implements WorkoutLogRepository {
         },
       },
     });
+
+    return PrismaWorkoutLogMapper.toWorkoutLog(workoutLog);
   }
 }

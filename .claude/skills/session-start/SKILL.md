@@ -168,6 +168,16 @@ Jeśli session log wymienia poprawki z review — Jakub robi je jako pierwsze 10
 - **1h**: mały feature end-to-end (endpoint + service + testy ręczne)
 - **2h+**: pełny feature lub nowy moduł
 
+### Sesje teorii — głębokość > szerokość
+
+Gdy sesja dotyczy checkpointów teorii (`🔴 zero` typu "potrafię wytłumaczyć X"):
+
+- **Max 2-3 tematy na sesję** — lepiej 2 tematy z głębokim zrozumieniem niż 5 po łebkach
+- Każdy temat = wyjaśnienie + pytania sokratejskie + Jakub sam formułuje odpowiedź + feedback na formę
+- Nie próbuj nadrobić wszystkich `🔴 zero` na raz — Jakub i tak nie zapamięta 5 nowych tematów z jednej sesji
+- Tematy tylko liźnięte (bez pełnego zrozumienia) NIE idą na Anki — najpierw głębsza ekspozycja, potem powtórki
+- Analogia: lepiej 3 serie po 8 z dobrą techniką niż 10 serii byle jak
+
 ### Zasady
 
 - Podaj TYLKO wymagania — bez podpowiedzi jak zacząć

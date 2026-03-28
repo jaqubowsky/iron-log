@@ -73,7 +73,7 @@ Content-Type: application/json
 GET http://localhost:3000/workout-logs?limit=10
 
 ### Get workout log by id (replace with real id after create)
-GET http://localhost:3000/workout-logs/29ccbc35-a95c-4567-92dc-fc9f6696a9e2
+GET http://localhost:3000/workout-logs/bbbbbbbb-2222-2222-2222-222222222222
 
 ### Get workout log - nonexistent
 GET http://localhost:3000/workout-logs/00000000-0000-0000-0000-000000000000

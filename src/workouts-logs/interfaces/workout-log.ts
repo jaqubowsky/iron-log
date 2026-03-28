@@ -23,8 +23,20 @@ export interface WorkoutLog {
   id: string;
   name: string;
   description: string | null;
-  workoutTemplateId: string | null;
-  workoutLogExercises: WorkoutLogExercise[];
+  templateId: string | null;
+  exercises: WorkoutLogExercise[];
+  createdAt: Date;
+  updatedAt: Date;
+}
+
+export interface WorkoutLogSimple {
+  id: string;
+  name: string;
+  description: string | null;
+  exercises: Array<{
+    category: ExerciseCategory;
+    setsCount: number;
+  }>;
   createdAt: Date;
   updatedAt: Date;
 }

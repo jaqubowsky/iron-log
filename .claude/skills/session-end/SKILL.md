@@ -34,7 +34,23 @@ Mock interview jest **obowiązkowy co sesję**. Nie pytaj "chcesz pytanie?" — 
 - Zanotuj wyniki
 - **Opcja:** jeśli backlog retencji >5 nieodhaczonych "potrafię wytłumaczyć" checkpointów → zaproponuj `/mock-interview session` (dedykowana 30-min sesja na czyszczenie backlogu, 5-6 pytań)
 
-## 3. Feedback + session log
+## 3. Odhacz checkpointy z recall/mock (PRZED session logiem)
+
+**ZAWSZE wykonaj ten krok — nie pomijaj go.** Po explain phase i mock interview masz wyniki recall challenge (z session-start) i mock interview. Przeczytaj `fullstack-roadmap.md` i sprawdź czy którykolwiek checkpoint kwalifikuje się do odhaczenia:
+
+### Algorytm (wykonaj dla KAŻDEGO recall i mock z tej sesji)
+
+1. Jaki temat był testowany? Jaki score?
+2. Score ≥ 3/5? Jeśli nie → nie odhaczaj, idź dalej
+3. Typ checkpointu:
+   - **"Potrafię wytłumaczyć/porównać X"** → sprawdź: kiedy temat był PIERWSZY RAZ przerobiony? Jeśli na tej samej sesji → NIE odhaczaj. Jeśli na wcześniejszej sesji (min. 2 dni temu) → **ODHACZ**
+   - **"Potrafię napisać X" / "X działa"** → odhacz od razu jeśli wykonane poprawnie
+4. Odhacz w `fullstack-roadmap.md` i zaktualizuj milestone header
+5. Powiedz Jakubowi co odhaczasz i dlaczego
+
+Dopiero po tym kroku → pisz session log (krok 4).
+
+## 4. Feedback + session log
 
 Daj Jakubowi szczery ustny feedback (co dobrze, co źle, jedna rzecz do poprawy). Potem zapisz session log — feedback trafia bezpośrednio do sekcji "Co poszło dobrze" i "Co poszło źle" w logu.
 
@@ -113,7 +129,7 @@ Plik: `docs/sessions/YYYY-MM-DD.md`
 - Jeśli samodzielność spada — zanotuj dlaczego i co zmienić
 - Po 4+ sesjach z oceną 4-5 → zasugeruj przejście do następnej fazy
 
-## 4. Aktualizacja roadmapy + articulation tracker
+## 5. Aktualizacja roadmapy + articulation tracker
 
 Przeczytaj `fullstack-roadmap.md` i `docs/articulation-tracker.md`. Dla roadmapy:
 
@@ -163,11 +179,11 @@ Jedyny wyjątek: checkpointy czysto praktyczne — te można odhaczać od razu p
 
 **Articulation tracker** (`docs/articulation-tracker.md`): jeśli na mock interview lub recall challenge Jakub zdał pytanie z JS/TS/React/Next.js na 3+/5 — odhacz odpowiedni checkbox w articulation tracker.
 
-## 5. Aktualizacja mock-interviews.md
+## 6. Aktualizacja mock-interviews.md
 
 Dopisz wiersz do `docs/mock-interviews.md` (stwórz plik z headerem tabeli jeśli nie istnieje). Mock interview jest obowiązkowy co sesję — zawsze będzie co zalogować.
 
-## 6. Fiszki Anki
+## 7. Fiszki Anki
 
 Wygeneruj fiszki z tej sesji zgodnie z zasadami skilla `/create-anki` (przeczytaj `~/.claude/skills/create-anki/SKILL.md`). Zapisz je do `~/Anki/programming.tsv` (dopisz na końcu) i pokaż Jakubowi podgląd w markdown.
 
@@ -179,7 +195,7 @@ Oprócz standardowych fiszek, dodaj min. 1-2 **connection cards** — fiszki ł�
 
 Connection cards budują sieć wiedzy zamiast izolowanych faktów — to sprawia że wiedza jest trwalsza i łatwiejsza do przywołania na rozmowie.
 
-## 7. Rekomendacja na następną sesję
+## 8. Rekomendacja na następną sesję
 
 Ta sekcja to **rekomendacja z uzasadnieniem** — NIE sztywny plan. Session-start na następnej sesji podejmie finalną decyzję na bazie pełnego kontekstu (roadmapa, trendy z wielu sesji, mock scores, stan retencji). Twoim zadaniem jest przekazać mu najważniejsze obserwacje z tej sesji.
 

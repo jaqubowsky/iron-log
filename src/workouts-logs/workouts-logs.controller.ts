@@ -13,7 +13,10 @@ import { WorkoutsLogsService } from './workouts-logs.service';
 import { CreateWorkoutLogDTO } from './dtos/create-workout-log-dto';
 import { UpdateWorkoutLogDTO } from './dtos/update-workout-log-dto';
 import { CursorPaginationDTO } from 'src/common/cursor-pagination/cursor-pagination-dto';
-import { WorkoutLogResponseDTO } from './dtos/workout-log-response-dto';
+import {
+  WorkoutLogResponseDTO,
+  WorkoutLogSimpleResponseDTO,
+} from './dtos/workout-log-response-dto';
 
 @Controller('workout-logs')
 export class WorkoutsLogsController {
@@ -25,7 +28,7 @@ export class WorkoutsLogsController {
     const response = await this.workoutsLogsService.findMany({ cursor, limit });
 
     const workoutLogResponse = response.data.map((result) =>
-      WorkoutLogResponseDTO.from(result),
+      WorkoutLogSimpleResponseDTO.from(result),
     );
 
     return {
