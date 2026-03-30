@@ -18,8 +18,7 @@ Jeśli argument = `session`, przejdź do sekcji "Tryb session" poniżej. W przec
 ## Przed pytaniem
 
 1. Przeczytaj `docs/sessions/` i `fullstack-roadmap.md` — co Jakub już przerobił
-2. Przeczytaj `docs/articulation-tracker.md` — nieodhaczone tematy [ ] mają priorytet w pytaniach
-3. Przeczytaj sekcje "Słabości — update" z ostatnich session logów w `docs/sessions/` — aktualne słabości, targetuj pytania w te obszary
+2. Przeczytaj sekcje "Słabości — update" z ostatnich session logów w `docs/sessions/` — aktualne słabości, targetuj pytania w te obszary
 4. Przeczytaj `docs/mock-interviews.md` (jeśli istnieje) — sprawdź które pytania już padły, nie powtarzaj ich. Zwróć uwagę na tematy z najniższymi score'ami — priorytetyzuj je (deliberate practice)
 5. Na podstawie argumentu ($ARGUMENTS) wybierz temat lub losowo jeśli brak argumentu
 
@@ -37,7 +36,7 @@ Jeśli temat = system-design: daj mini challenge (5 min, bez kodu) — "zaprojek
 
 ### Kategorie tematów
 
-Nie hardkoduj listy — czytaj `fullstack-roadmap.md` i `docs/articulation-tracker.md` żeby dobrać temat na podstawie tego co Jakub faktycznie przerobił i co ma w checkpointach. Argument (`$ARGUMENTS`) to wskazówka kierunkowa (np. "postgres", "nest", "ts"), nie ścisła kategoria. Jeśli brak argumentu — wybierz losowo z przerobionego materiału, priorytetyzując słabe tematy z mock-interviews.md.
+Nie hardkoduj listy — czytaj `fullstack-roadmap.md` żeby dobrać temat na podstawie tego co Jakub faktycznie przerobił i co ma w checkpointach. Argument (`$ARGUMENTS`) to wskazówka kierunkowa (np. "postgres", "nest", "ts"), nie ścisła kategoria. Jeśli brak argumentu — wybierz losowo z przerobionego materiału, priorytetyzując słabe tematy z mock-interviews.md.
 
 ## Przebieg
 
@@ -97,8 +96,7 @@ Dedykowana sesja na czyszczenie backlogu retencji. Zamiast kodowania — 30 min 
 
 1. Przeczytaj `fullstack-roadmap.md` — wylistuj WSZYSTKIE nieodhaczone checkpointy typu "potrafię wytłumaczyć X" (nie "X działa")
 2. Przeczytaj `docs/mock-interviews.md` — sprawdź score'y, priorytetyzuj tematy z najniższymi score'ami
-3. Przeczytaj `docs/articulation-tracker.md` — nieodhaczone JS/TS/React/Next.js tematy
-4. Wybierz 5-6 pytań pokrywających najsłabsze tematy. Mieszaj milestones — nie rób 5 pytań z jednego
+3. Wybierz 5-6 pytań pokrywających najsłabsze tematy. Mieszaj milestones — nie rób 5 pytań z jednego
 
 ### Flow
 

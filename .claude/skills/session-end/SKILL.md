@@ -131,7 +131,7 @@ Plik: `docs/sessions/YYYY-MM-DD.md`
 
 ## 5. Aktualizacja roadmapy + articulation tracker
 
-Przeczytaj `fullstack-roadmap.md` i `docs/articulation-tracker.md`. Dla roadmapy:
+Przeczytaj `fullstack-roadmap.md`. Dla roadmapy:
 
 1. **Odhacz checkpointy** — ale TYLKO jeśli spełniają kryterium retencji (patrz zasady poniżej)
 2. **Aktualizuj status każdego milestone'a** — patrz sekcja "Status milestone'a" poniżej
@@ -176,8 +176,6 @@ Jedyny wyjątek: checkpointy czysto praktyczne — te można odhaczać od razu p
 - **"X działa"**, **"kod jest napisany"**, **"X skonfigurowany"** — fakt: albo działa albo nie
 - **"Potrafię napisać X"**, **"Umiem napisać X"** — umiejętność praktyczna: jeśli napisał z pamięci z poprawnym core (FK, constraints, typy) → odhacz. Drobne błędy (nazwy kolumn, przecinki) nie blokują odhaczenia
 - **"Potrafię wytłumaczyć X"**, **"Potrafię porównać X"** — wiedza do artykułacji: te WYMAGAJĄ recall na kolejnej sesji, NIE odhaczaj od razu
-
-**Articulation tracker** (`docs/articulation-tracker.md`): jeśli na mock interview lub recall challenge Jakub zdał pytanie z JS/TS/React/Next.js na 3+/5 — odhacz odpowiedni checkbox w articulation tracker.
 
 ## 6. Aktualizacja mock-interviews.md
 

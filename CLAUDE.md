@@ -82,6 +82,5 @@ Standardowy NestJS scaffold — modułowa architektura z DI containerem. Roadmap
 - `docs/nest-vs-next.md` — ściąga porównawcza Nest vs Next.js
 - `docs/sessions/` — session logi
 - `docs/mock-interviews.md` — log pytań rekrutacyjnych
-- `docs/articulation-tracker.md` — checkboxy JS/TS/React/Next.js artykulacji
 - `docs/linkedin-posts/` — opublikowane posty, style reference, feedback log
 

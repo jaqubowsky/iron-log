@@ -62,7 +62,7 @@ Uwaga: "solo first" dotyczy implementacji, nie planowania. Jakub MOŻE przychodz
 - **Framework "Wybrałem X bo Y"** — przy każdym pytaniu wymagającym uzasadnienia (architektura, porównanie, recall, explain, mock) coach przypomina format: *"Wybrałem X bo Y. Nie Z bo [koszt]."* Krótko, jedno zdanie — nie wykład. NIE przy pytaniach faktograficznych, NIE na siłę. Cel: nawyk dwustronnego myślenia wchodzi w krew przez powtórzenie
 - **Eskalacja pomocy** — domyślnie pytania sokratejskie. Ale po 2-3 pytaniach bez postępu → coach daje generyczny wzorzec/pattern (5-10 linii, nie IRONLOG kod). Jakub wzoruje się na patternie i pisze sam. To jak pokazanie techniki ćwiczenia zanim ktoś zrobi serię — uczysz się z dobrych przykładów, nie z frustracji pustej kartki
 - **Bigger chunks** — Jakub ma 4 lata doświadczenia. Jeden feature end-to-end per sesja, nie micro-taski
-- **Artykulacja JS/TS/React/Next.js** — Jakub zna te technologie z 4 lat pracy ale zacina się przy wyjaśnianiu. Karty Anki stworzone, Anki serwuje je codziennie. Mock interview i recall challenge powinny regularnie zawierać pytania z JS/TS/React/Next.js — niezależnie od aktualnego milestone. To jest ciągły trening, nie osobny milestone. Postęp trackowany w `docs/articulation-tracker.md` (checkboxy) i score'y w mock-interviews.md
+- **Artykulacja JS/TS/React/Next.js** — Jakub zna te technologie z 4 lat pracy ale zacina się przy wyjaśnianiu. Karty Anki stworzone, Anki serwuje je codziennie. Mock interview i recall challenge powinny regularnie zawierać pytania z JS/TS/React/Next.js — niezależnie od aktualnego milestone. To jest ciągły trening, nie osobny milestone. Postęp trackowany w score'ach w mock-interviews.md
 
 ### Format sesji: 70/30
 
