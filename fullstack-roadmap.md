@@ -115,7 +115,7 @@ Prereq: SQLBolt + PostgreSQL Tutorial ZANIM sesja coachingowa z raw SQL.
 
 ---
 
-## Milestone 3 — HTTP/REST + NestJS features 🔴 BLOKUJE (3 checkpointy 🔴 zero)
+## Milestone 3 — HTTP/REST + NestJS features ⏳ retencja
 
 ### Co robisz
 
@@ -135,11 +135,11 @@ Budujesz WorkoutTemplates, WorkoutLogs — cross-module communication. Widzisz j
 - **HTTP/REST** — kody statusów, idempotentność, REST vs GraphQL, API versioning
   - [ ] Potrafię wytłumaczyć idempotentność HTTP metod i kiedy 201 vs 200 vs 204 `⏳ retencja 3.5/5 — 2026-03-28`
   - [ ] Potrafię porównać REST vs GraphQL z trade-offami `⏳ retencja 3.5/5 — 2026-03-28`
-  - [ ] Potrafię wytłumaczyć API versioning — kiedy URL vs header `🔴 zero`
+  - [ ] Potrafię wytłumaczyć API versioning — kiedy URL vs header `⏳ retencja 3.5/5 — 2026-03-31`
   - [ ] Potrafię wytłumaczyć "co się dzieje gdy wpiszesz URL w przeglądarkę" (DNS → TCP → TLS → HTTP → server → response) `⏳ retencja 3.5/5 — 2026-03-28`
 - **HTTP caching** — Cache-Control, ETag, Last-Modified. Fundamenty protokołu HTTP
-  - [ ] Potrafię wytłumaczyć Cache-Control headers (max-age, no-cache, no-store, stale-while-revalidate) `🔴 zero`
-  - [ ] Potrafię wytłumaczyć ETag vs Last-Modified — kiedy który, jak działają conditional requests `🔴 zero`
+  - [ ] Potrafię wytłumaczyć Cache-Control headers (max-age, no-cache, no-store, stale-while-revalidate) `⏳ retencja 3.5/5 — 2026-03-31`
+  - [ ] Potrafię wytłumaczyć ETag vs Last-Modified — kiedy który, jak działają conditional requests `⏳ retencja 3.5/5 — 2026-03-31`
 - **ORM trade-offy** — TypeORM vs Prisma vs MikroORM, eager vs lazy loading, N+1 problem
   - [x] Response transformacja — umiem uzasadnić wybór podejścia i trade-offy SQL-level vs app-level
   - [ ] Potrafię wytłumaczyć N+1 problem i jak go rozwiązać `⏳ retencja 3.5/5 — 2026-03-28`

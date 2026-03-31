@@ -27,6 +27,9 @@ export class PrismaWorkoutLogRepository implements WorkoutLogRepository {
         createdAt: true,
         updatedAt: true,
         workoutLogExercises: {
+          orderBy: {
+            order: 'asc',
+          },
           select: {
             category: true,
             _count: { select: { sets: true } },
@@ -47,8 +50,15 @@ export class PrismaWorkoutLogRepository implements WorkoutLogRepository {
       },
       include: {
         workoutLogExercises: {
+          orderBy: {
+            order: 'asc',
+          },
           include: {
-            sets: true,
+            sets: {
+              orderBy: {
+                order: 'asc',
+              },
+            },
           },
         },
       },
