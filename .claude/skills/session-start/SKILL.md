@@ -13,10 +13,13 @@ Rozpoczynasz nową sesję coachingową z Jakubem. Wykonaj poniższe kroki:
 Przeczytaj wszystkie źródła. Decyzję o tasku podejmiesz w kroku 4.
 
 ### Źródła do przeczytania
+
+**OBOWIĄZKOWO użyj Read tool dla każdego źródła — nie polegaj na pamięci konwersacji.**
+
 - `fullstack-roadmap.md` — aktualny milestone, nieodhaczone checkpointy z tagami (`🔴 zero` / `⏳ retencja`). Sprawdź też wcześniejsze milestones
-- `docs/sessions/` — ostatnie 2-3 logi. Szukaj: słabości (sekcja "Słabości — update"), trendy, obserwacje z review
-- `docs/mock-interviews.md` (jeśli istnieje) — score'y tematów
-- **Sekcja "Następna sesja" z ostatniego session logu** — rekomendacja od session-end. Traktuj ją jako sugestię, NIE rozkaz
+- `docs/sessions/` — użyj Glob żeby znaleźć ostatnie 3 pliki, przeczytaj je Read toolem. Szukaj: słabości (sekcja "Słabości — update"), trendy, obserwacje z review
+- `docs/mock-interviews.md` — przeczytaj cały plik Read toolem. Score'y tematów
+- **Sekcja "Następna sesja" z ostatniego session logu** — przeczytaj Read toolem. Rekomendacja od session-end. Traktuj ją poważnie — session-end widział sesję, Ty nie. Override tylko gdy roadmapa wyraźnie wskazuje inny priorytet
 
 ## 2. Coaching protocol — kontekst do załadowania
 
@@ -93,12 +96,14 @@ Spacing jest kluczowy dla retencji — testowanie tematu z wczoraj to prawie zer
 
 **Algorytm doboru (wykonaj krok po kroku, nie pomijaj):**
 
-1. **Sprawdź mock-interviews.md** — znajdź tematy ze score'em ≤3. Posortuj od najstarszych. Wybierz najstarszy temat ze score ≤3 który NIE był testowany w ostatnich 2 sesjach.
+0. **NAJPIERW sprawdź roadmapę** — znajdź wszystkie checkpointy `⏳ retencja` z datą ≥3 sesje temu i score <3/5. Posortuj od najstarszych. Ten zbiór ma **priorytet** nad mock-interviews.md — tematy z roadmapy które nigdy nie były testowane przez recall są "martwą strefą" i właśnie tam backlog rośnie.
+1. **Jeśli nie znalazłeś kandydata w kroku 0** — sprawdź mock-interviews.md: znajdź tematy ze score'em ≤3. Posortuj od najstarszych. Wybierz najstarszy temat ze score ≤3 który NIE był testowany w ostatnich 2 sesjach.
 2. **Jeśli brak takiego** — sprawdź session logi z **4-6 sesji wstecz** (nie 1-2!). Wybierz temat który nie był na recall challenge od co najmniej 3 sesji.
 3. **Jeśli temat był testowany <3 sesje temu** — POMIŃ go, wybierz starszy. Nawet jeśli miał słaby score — spacing ważniejszy niż natychmiastowa powtórka.
 4. **Jeśli temat był na recall i nie zdał (<3/5)** — wróć do niego po minimum 3 sesjach (nie 1-2).
+5. **Exit condition** — jeśli temat uzyskał ≥4/5 na recall/mock I nie pojawił się jako słabość w ostatnich 3 session logach → usuń go z aktywnej puli retencji (nie musi być testowany ponownie).
 
-**Priorytet:** najstarsze słabe tematy z mock interviews (4+ sesji temu) > tematy z 4-6 sesji wstecz > tematy z 3 sesji wstecz. NIGDY tematy z ostatniej lub przedostatniej sesji.
+**Priorytet:** ⏳ checkpointy z roadmapy (najstarsze, score <3) > słabe tematy z mock-interviews.md (4+ sesji temu) > tematy z 4-6 sesji wstecz. NIGDY tematy z ostatniej lub przedostatniej sesji.
 
 **Wiele sesji tego samego dnia:** Jeśli dziś była już sesja — recall challenge ciągnij z 4+ sesji wstecz (nie z dzisiejszej ani wczorajszej). Zdanie recalla tego samego dnia NIE liczy się do odhaczenia checkpointu — minimum 2 dni przerwy.
 
@@ -144,7 +149,7 @@ Session-end zostawił rekomendację — ale to TY podejmujesz decyzję. Przeanal
 2. **Rekomendacja session-end** — sprawdź jej uzasadnienie. Jeśli ma sens i pasuje do roadmapy — podążaj za nią. Jeśli nie — wybierz lepszy task i uzasadnij (w myślach, nie Jakubowi)
 3. **Trendy słabości** — jeśli ten sam temat pojawia się jako słabość w 2+ sesjach, rozważ task który go adresuje
 4. **Mock interview scores** — tematy ze score ≤2 od 3+ sesji to sygnał alarmowy
-5. **Backlog retencji** — jeśli >5 nieodhaczonych checkpointów typu "potrafię wytłumaczyć/porównać X" (wiedza do artykułacji) → **wybierz `/mock-interview session` jako main task** (dedykowana 30-min sesja, 5-6 pytań z backlogu, odhaczanie checkpointów). NIE licz checkpointów praktycznych ("potrafię napisać X", "X działa") — te nie wymagają recall i nie zawyżają backlogu. Również co 3-4 sesje kodowania rozważ sesję artykulacyjną nawet gdy backlog <5 — regularna praktyka mówienia jest ważniejsza niż czekanie aż backlog urośnie
+5. **Backlog retencji — TWARDY PRÓG:** Policz teraz nieodhaczone checkpointy `⏳ retencja` typu "potrafię wytłumaczyć/porównać X" z M1-M4 (NIE licz "X działa" ani "potrafię napisać X"). Jeśli wynik **≥8 → main task MUSI być `/mock-interview session`**. To nie jest sugestia, nie można wybrać taska kodowego. Jeśli wynik 5-7 → **rekomenduj** sesję artykulacyjną ale możesz kodować jeśli session-end wyraźnie uzasadnił inaczej. Jeśli <5 → koduj. Również co 3-4 sesje kodowania zrób sesję artykulacyjną nawet gdy backlog <5 — regularność ważniejsza niż czekanie aż backlog urośnie
 
 ### Tematy `🔴 zero` — wymagają przygotowania
 
@@ -258,11 +263,19 @@ Zanim zaczniesz kodować — opowiedz mi swój plan. Jak byś to rozwiązał? Ja
 Przy każdej decyzji użyj formatu: **"Wybrałem X bo Y. Nie Z bo [koszt]."**
 ```
 
-## 6. Po zakończeniu feature → `/code-review`
+## 6. Docs do przeczytania — pobierz przez context7
+
+Jeśli plan sesji zawiera docs dla Jakuba (NestJS, Prisma, Passport, JWT, itp.) — **nie linkuj ślepo**. Pobierz konkretną sekcję:
+1. `mcp__plugin_context7_context7__resolve-library-id` (nazwa biblioteki)
+2. `mcp__plugin_context7_context7__query-docs` (ID + temat)
+
+Daj Jakubowi kluczowy fragment (5-15 linii), nie URL do przeczytania samemu. To różnica między "przeczytaj docs" (ignorowane) a "tu jest konkretna sekcja którą musisz zrozumieć przed zadaniem".
+
+## 7. Po zakończeniu feature → `/code-review`
 
 Gdy Jakub skończy feature/task → odpala `/code-review` (lub coach sugeruje). Ten skill robi review kodu (scan + sokratejska dyskusja). Explain i mock interview odbywają się w `/session-end`.
 
-## 7. Notatki na bieżąco w session logu
+## 8. Notatki na bieżąco w session logu
 
 W trakcie sesji notuj obserwacje bezpośrednio w session logu (`docs/sessions/YYYY-MM-DD.md`) zamiast w memory. Stwórz plik na początku sesji z sekcjami do uzupełniania na bieżąco.
 

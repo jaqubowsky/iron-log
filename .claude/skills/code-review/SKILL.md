@@ -17,7 +17,10 @@ Konkretnie:
 - Widzisz duplikację logiki, abstraction leak, brak reużywalności? → Naprowadź pytaniem, np. "wyobraź sobie że zmieniasz ORM — ile plików ruszasz?" albo "gdzie jeszcze widzisz ten sam pattern?"
 - Jakub zrobił coś poprawnie ale nie optymalnie? → Naprowadź pytaniem, np. "jakie widzisz wady tego podejścia?" albo "jak byś to wytłumaczył seniorowi na review?"
 
-Nie pisz za niego kodu i nie mów wprost co jest źle. **Naprowadzaj pytaniami** — o konsekwencje, scenariusze, porównania, uzasadnienia, cokolwiek co wymusi myślenie. Forma dowolna, cel jeden: Jakub sam dochodzi do wniosku. Wyjątek: trywialne problemy (literówka, brak dekoratora) gdzie pytanie byłoby sztuczne — tam powiedz wprost.
+Nie pisz za niego kodu. **Naprowadzaj pytaniami** dla niuansów i decyzji projektowych. Ale: **jeśli problem jest systemowy (zły design warstwy, abstraction leak, naruszenie separation of concerns) — powiedz to wprost, nie pytaj.** Pytania są dla subtelności, nie dla fundamentalnych błędów. Pytanie na temat "service robi za dużo" gdy service ma 200 linii logiki biznesowej to teatr, nie nauczanie.
+
+Wyjątek nr 1: trywialne problemy (literówka, brak dekoratora) — powiedz wprost.
+Wyjątek nr 2: systemowe problemy architektoniczne — powiedz wprost, maksymalnie 1 pytanie naprowadzające. Jeśli Jakub nie trafi po 1 pytaniu → diagnozuj bezpośrednio.
 
 ## 1. Zidentyfikuj co się zmieniło
 
@@ -34,8 +37,10 @@ Jeśli nie ma uncommitted changes, sprawdź ostatnie commity z dzisiejszej daty.
 
 Uruchom **równolegle** dwóch agentów:
 
-1. `feature-dev:code-reviewer` — szuka bugów, błędów logicznych, problemów bezpieczeństwa (SQL injection, brak walidacji, DoS vectors), niespójności z resztą codebase. **Dodatkowo:** flaguj kod który kompiluje się i działa ale jest źle zaprojektowany — abstraction leaks, złe separation of concerns, duplikacja logiki, niska reużywalność, niespójna abstrakcja między modułami.
-2. `superpowers:code-reviewer` — sprawdza zgodność z planem sesji, coding standards projektu, architektoniczne decyzje vs roadmapa. **Dodatkowo:** porównaj architekturę z produkcyjnymi standardami — czy senior w code review przepuściłby ten kod? Jeśli nie, co by zaproponował?
+**Przed uruchomieniem agentów:** Przeczytaj sekcję "Słabości — update" z ostatniego session logu (`docs/sessions/` — ostatni plik). Wiesz co Jakub robi powtarzalnie źle — powiedz agentom.
+
+1. `feature-dev:code-reviewer` — szuka bugów, błędów logicznych, problemów bezpieczeństwa (SQL injection, brak walidacji, DoS vectors), niespójności z resztą codebase. **Dodatkowo:** flaguj kod który kompiluje się i działa ale jest źle zaprojektowany — abstraction leaks, złe separation of concerns, duplikacja logiki, niska reużywalność, niespójna abstrakcja między modułami. **NestJS checklist:** czy service boundary jest czysty (brak Prisma w controller)? Czy repository pattern jest spójny z resztą projektu? Czy async error handling jest kompletny? Czy DTO waliduje edge case'y (puste stringi, negatywne liczby)?
+2. `superpowers:code-reviewer` — sprawdza zgodność z planem sesji, coding standards projektu, architektoniczne decyzje vs roadmapa. **Dodatkowo:** porównaj architekturę z produkcyjnymi standardami — czy senior w code review przepuściłby ten kod? Jeśli nie, powiedz wprost co jest nie tak. Przekaż agentowi aktualne słabości Jakuba z session logu jako kontekst.
 
 Wyniki trzymaj na razie — nie pokazuj ich Jakubowi od razu. Najpierw sokratejska dyskusja.
 
@@ -75,7 +80,7 @@ Po odpowiedzi Jakuba:
    - Abstraction leak? → "Co z tego modułu wie o Prisma? Czy powinien?"
    - Brak reużywalności? → "Jak dodasz ten sam pattern w kolejnym module — co kopiujesz?"
    - Niespójne API? → "Porównaj to API z exercises — widzisz różnicę w konwencji?"
-   - Pytania dobieraj do konkretnego kodu. Jeśli Jakub nie dojdzie do odpowiedzi po 2 pytaniach — wtedy powiedz wprost
+   - Pytania dobieraj do konkretnego kodu. Jeśli Jakub nie dojdzie do odpowiedzi po **1 pytaniu** — diagnozuj wprost. Nie pytaj w kółko — to nie pomaga, to frustruje
 3. Pokaż wyniki z automatycznego scanu (jeśli znalazły coś istotnego)
 
 ### Zasady
@@ -117,3 +122,5 @@ Po zakończeniu review, krótkie podsumowanie. Użyj DOKŁADNIE tego formatu z e
 ```
 
 Każda linia zaczyna się od odpowiedniego emoji. Puste kategorie (np. brak bugów) — pomiń, nie pisz "brak".
+
+**Puste ✅ to akceptowalny wynik.** Nie wymuszaj pochwały gdy kod jest słaby. Lepiej żaden ✅ niż fałszywy ✅ który uśpi czujność Jakuba.

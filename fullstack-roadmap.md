@@ -1,5 +1,13 @@
 # Fullstack Mid+ — Roadmap (milestone-based)
 
+## Status (aktualizuj po każdej sesji)
+- **Aktywny milestone:** M4 — Auth + Security 🔴 BLOKUJE
+- **Następny 🔴 zero:** Auth flow end-to-end (register, login, refresh, logout)
+- **Backlog retencji:** ~14 nieodhaczonych "potrafię wytłumaczyć" z M2-M4
+- **Priorytet:** sesja artykulacyjna (`/mock-interview session`) zanim kolejny feature
+
+---
+
 **Cel:** Aplikuję na Fullstack Mid+ (Next.js + NestJS/Node.js).
 **Tempo:** 1-2h dziennie. Codziennie. Bez wymówek. + 15 min Anki poza sesją.
 **Projekt:** IRONLOG API — backend do aplikacji treningowej.
@@ -20,18 +28,6 @@ AI używasz jako:
 - Reference — "jak wygląda syntax tego decoratora?" (potem SAM piszesz)
 - Code reviewer — "co byś zmienił w tym kodzie?"
 - NIE ghostwriter
-
-## Format sesji
-
-**70% kodowanie / 30% mówienie** — kodowanie to główna oś sesji. Explain i mock interview na końcu w `/session-end`.
-
-- **Recall challenge na start** — z rotacją: nie tylko ostatnia sesja, też tematy z 3-5 sesji wstecz (spacing effect)
-- **Planowanie architektoniczne** — przed kodowaniem, metoda sokratejska
-- **Kodowanie feature** — główna oś sesji
-- **Mini-recall w trakcie** — losowe pytanie z poprzednich milestones ("a czym się różnił LEFT JOIN od INNER? 15 sekund")
-- **Po feature → `/code-review`** — review kodu (scan + sokratejska dyskusja). Odpalaj ile razy chcesz
-- **`/session-end`** — explain + mock interview + feedback, session log, roadmap update, fiszki Anki, planowanie następnej sesji
-- **System design** — co 3-4 sesje, bazowany na IRONLOG ("zaprojektuj to co za chwilę zbudujesz")
 
 ## Priorytet tematów
 
@@ -162,7 +158,7 @@ JWT auth od zera. Największy build milestone — po tym masz działające API z
 - **JWT auth**
   - [ ] Auth flow działa end-to-end (register, login, refresh, logout), pisany sam `🔴 zero`
   - [ ] Potrafię porównać JWT vs session-based auth z trade-offami `🔴 zero`
-  - [ ] Potrafię wytłumaczyć access token + refresh token flow i co gdy token wycieknie `🔴 zero`
+  - [ ] Potrafię wytłumaczyć access token + refresh token flow i co gdy token wycieknie `⏳ retencja 3.5/5 — 2026-04-04`
 - **Guards + ownership**
   - [ ] Ownership check — user nie widzi cudzych danych `🔴 zero`
   - [ ] Potrafię wytłumaczyć guard vs middleware — kiedy który `🔴 zero`
@@ -195,7 +191,7 @@ JWT auth od zera. Największy build milestone — po tym masz działające API z
 Teoria Node.js — event loop, streams, skalowanie. Nie budujesz nowych features, ale musisz to umieć wytłumaczyć bo pytają na KAŻDEJ rozmowie Node.js.
 
 - **Event loop** — fazy, microtasks vs macrotasks, single-threaded non-blocking model
-  - [ ] Potrafię wytłumaczyć event loop i dlaczego Node jest single-threaded ale non-blocking `🔴 zero`
+  - [ ] Potrafię wytłumaczyć event loop i dlaczego Node jest single-threaded ale non-blocking `⏳ retencja 3/5 — 2026-04-04`
   - [ ] Potrafię wytłumaczyć co się dzieje gdy Node dostaje 1000 requestów jednocześnie `🔴 zero`
 - **Streams** (koncept) — kiedy użyć, co to backpressure. "Jak przetworzysz duży plik bez OOM?"
   - [ ] Potrafię wytłumaczyć kiedy użyć stream i co to backpressure `🔴 zero`
@@ -355,24 +351,3 @@ Capstone. Dotrzesz tu TYLKO jak M1-M8 odhaczone. System design, advanced topics,
 
 ---
 
-## Rytuały sesyjne (od milestone 2)
-
-- **Recall challenge** — co sesję na start, z rotacją tematów (spacing effect)
-- **Mini-recall** — losowe pytanie z poprzednich milestones w trakcie kodowania
-- **`/code-review`** — po feature, scan + sokratejska dyskusja. Odpalaj ile razy chcesz
-- **Explain phase** — w `/session-end`, "wytłumacz co zrobiłeś i dlaczego"
-- **Mock interview** — w `/session-end`, co sesję, pytanie z bieżącego tematu LUB losowe z wcześniejszych
-- **Design challenge** — co 3-4 sesje: 20 min z kartką: "zaprojektuj API dla X"
-- **Review session logu** — co 5 sesji: sprawdź progres samodzielności, porównaj z poprzednimi
-
----
-
-## Zasady
-
-1. **Zanim napiszesz kod — podejmij decyzję i zapisz uzasadnienie**
-2. **Pisz kod sam — AI to reference i reviewer, nie ghostwriter**
-3. **Próbuj sam → utknie >15 min → dopiero Claude** (ale rubber duck / architektura od razu OK)
-4. **Nie pamiętasz syntax? Docs. Nie rozumiesz dlaczego? Zatrzymaj się i przemyśl.**
-5. **Jeśli nie potrafisz wytłumaczyć DLACZEGO tak — nie rozumiesz tego**
-6. **Rysuj diagramy — data flow, nie UI mockupy**
-7. **1-2h dziennie + 15 min Anki — consistency > intensity**

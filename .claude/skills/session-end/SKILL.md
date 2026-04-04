@@ -23,7 +23,7 @@ Symuluj code review — Jakub daje krótki overview, Ty wyciągasz pytania o dec
 
 - NIE wymuszaj monologu o 40 plikach — przy dużych taskach to nierealne i nie symuluje prawdziwej rozmowy
 - Pytania dopasuj do tego co Jakub faktycznie robił — nie generyczne
-- Oceń (1-5): 1=nie umie wytłumaczyć, 3=zna koncept ale brakuje detali, 5=wytłumaczyłby na rozmowie. Hinty/naprowadzanie obniżają score — sam bez pomocy = wyższy score (spójne z mock-interview skill)
+- Oceń (1-5): patrz skala w `mock-interview` SKILL (single source of truth). Hinty/naprowadzanie obniżają score — sam bez pomocy = wyższy score.
 
 ## 2. Mock interview (5 min)
 
@@ -181,6 +181,8 @@ Jedyny wyjątek: checkpointy czysto praktyczne — te można odhaczać od razu p
 
 Dopisz wiersz do `docs/mock-interviews.md` (stwórz plik z headerem tabeli jeśli nie istnieje). Mock interview jest obowiązkowy co sesję — zawsze będzie co zalogować.
 
+**Krytyczne — nowe ⏳ checkpointy:** Dla każdego checkpointu który właśnie zmienił tag z `🔴 zero` na `⏳ retencja` (czyli był przerabiany na tej sesji po raz pierwszy) — **dodaj wiersz do mock-interviews.md z score 0**. Format: `| YYYY-MM-DD | temat | [krótki opis tematu — pierwsze omówienie, brak recall] | 0 | Nie testowany jeszcze |`. Score 0 gwarantuje że recall algorithm go podchwyci przy następnej sesji (score ≤3). Bez tego wpisu temat siedzi w roadmapie jako ⏳ ale jest niewidoczny dla recall — to jest główna przyczyna rosnącego backlogu.
+
 ## 7. Fiszki Anki
 
 Wygeneruj fiszki z tej sesji zgodnie z zasadami skilla `/create-anki` (przeczytaj `~/.claude/skills/create-anki/SKILL.md`). Zapisz je do `~/Anki/programming.tsv` (dopisz na końcu) i pokaż Jakubowi podgląd w markdown.
@@ -228,5 +230,5 @@ Session-end ma gorący kontekst z sesji: co Jakub robił, gdzie się zacinał, j
 - **Poprawki z review** — drobne (naming, orderBy, response format) wrzuć do obserwacji. Poważne (zmiana modelu transakcji) zaznacz jako bloker jeśli blokują dalszą pracę
 - **Retencja = max 2-3 tematy** — testowane TYLKO przez recall challenge i mock interview (30 sek pytania). Reszta retencji idzie do Anki
 - **Tematy wiszące 3+ sesji bez postępu** — sprawdź session logi. Jeśli temat jest w "Retencja" od 3+ sesji i nie był zaadresowany → zanotuj to w obserwacjach (session-start zdecyduje: dedykowana sesja, usunięcie, lub Anki)
-- **Backlog retencji > 5 nieodhaczonych tematów?** — zanotuj to wyraźnie w obserwacjach. Session-start rozważy sesję mock interview zamiast kodowania
+- **Backlog retencji — policz teraz:** Zlicz wszystkie nieodhaczone checkpointy `⏳ retencja` typu "potrafię wytłumaczyć/porównać X" z M1-M4. Wpisz liczbę wprost w rekomendacji ("backlog: X checkpointów"). Jeśli ≥8 → **wyraźnie napisz że następna sesja MUSI być `/mock-interview session`** — nie "rozważ", nie "warto". Session-start potraktuje to jako twardy priorytet
 - **NIE wrzucaj tematu tylko dlatego że Jakub powiedział że jest "ciekawy"** — jeśli temat nie pasuje do aktualnego milestone, zanotuj go w roadmapie, nie w rekomendacji
