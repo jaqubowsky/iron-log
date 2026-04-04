@@ -33,7 +33,7 @@ Mock interview jest **obowiązkowy co sesję**. Nie pytaj "chcesz pytanie?" — 
 - Przeprowadź mock interview zgodnie z protokołem z `.claude/skills/mock-interview/SKILL.md` (przeczytaj go)
 - Pytanie powiązane z tym co właśnie kodował LUB losowe z wcześniejszych tematów (element zaskoczenia)
 - Wyniki zapamiętaj — trafią do session logu (krok 4, sekcja "Mock interview") i do `docs/mock-interviews.md` (krok 6)
-- **Rekomendacja artykulacyjna:** jeśli backlog retencji >5 nieodhaczonych "potrafię wytłumaczyć" checkpointów LUB ostatnie 3+ sesje były czysto kodowe → **rekomenduj `/mock-interview session` jako main task następnej sesji** (dedykowana 30-min sesja na czyszczenie backlogu, 5-6 pytań). Wpisz to wyraźnie w sekcji "Następna sesja" — session-start to podchwyci
+- **Rekomendacja artykulacyjna:** jeśli backlog retencji ≥8 nieodhaczonych "potrafię wytłumaczyć" checkpointów → **następna sesja MUSI być `/mock-interview session`**. Jeśli 5-7 → rekomenduj, ale możesz kodować jeśli jest istotny powód. Wpisz liczbę backlogu wprost w sekcji "Następna sesja" — session-start to podchwyci
 
 ## 3. Odhacz checkpointy z recall/mock (PRZED session logiem)
 
@@ -44,7 +44,7 @@ Mock interview jest **obowiązkowy co sesję**. Nie pytaj "chcesz pytanie?" — 
 1. Jaki temat był testowany? Jaki score?
 2. Score ≥ 3/5? Jeśli nie → nie odhaczaj, idź dalej
 3. Typ checkpointu:
-   - **"Potrafię wytłumaczyć/porównać X"** → sprawdź: kiedy temat był PIERWSZY RAZ przerobiony? Jeśli na tej samej sesji → NIE odhaczaj. Jeśli na wcześniejszej sesji (min. 2 dni temu) → **ODHACZ**
+   - **"Potrafię wytłumaczyć/porównać X"** → sprawdź: kiedy temat był PIERWSZY RAZ przerobiony? Jeśli na tej samej sesji → NIE odhaczaj. Jeśli na wcześniejszej sesji (kolejna sesja, min. 24h przerwy) → **ODHACZ**
    - **"Potrafię napisać X" / "X działa"** → odhacz od razu jeśli wykonane poprawnie
 4. Odhacz w `fullstack-roadmap.md` i zaktualizuj milestone header
 5. Powiedz Jakubowi co odhaczasz i dlaczego
@@ -182,7 +182,11 @@ Jedyny wyjątek: checkpointy czysto praktyczne — te można odhaczać od razu p
 
 ## 6. Aktualizacja mock-interviews.md
 
-Dopisz wiersz do `docs/mock-interviews.md` (stwórz plik z headerem tabeli jeśli nie istnieje). Mock interview jest obowiązkowy co sesję — zawsze będzie co zalogować.
+Dopisz wiersze do `docs/mock-interviews.md` dla DWÓCH źródeł:
+
+**Źródło A — mock interview z tej sesji** (zawsze): pytanie, score, słabe punkty.
+
+**Źródło B — recall challenge z session-start** (jeśli był): zaktualizuj istniejący wiersz lub dodaj nowy. Recall score musi trafić do mock-interviews.md — bez tego recall algorithm nie widzi progresu i będzie wybierał ten sam temat w kółko mimo że Jakub go już zdał. Format: zaktualizuj kolumnę Score w istniejącym wierszu lub dopisz nowy: `| YYYY-MM-DD | temat | recall challenge — [pytanie] | [score] | [co pominął] |`
 
 **Krytyczne — nowe ⏳ checkpointy:** Dla każdego checkpointu który właśnie zmienił tag z `🔴 zero` na `⏳ retencja` (czyli był przerabiany na tej sesji po raz pierwszy) — **dodaj wiersz do mock-interviews.md z score 0**. Format: `| YYYY-MM-DD | temat | [krótki opis tematu — pierwsze omówienie, brak recall] | 0 | Nie testowany jeszcze |`. Score 0 gwarantuje że recall algorithm go podchwyci przy następnej sesji (score ≤3). Bez tego wpisu temat siedzi w roadmapie jako ⏳ ale jest niewidoczny dla recall — to jest główna przyczyna rosnącego backlogu.
 

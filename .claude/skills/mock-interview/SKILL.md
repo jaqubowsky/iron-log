@@ -44,7 +44,7 @@ Mock interview ma symulować **realną rozmowę rekrutacyjną** — dialog, nie 
 
 1. **Jedno pytanie na raz** — nie zasypuj
 2. **Jakub odpowiada swoimi słowami** — jak na rozmowie, nie pisze kodu
-3. **Po pierwszej odpowiedzi — wymuś alternatywę:** NIE akceptuj od razu pierwszej odpowiedzi. Zamiast wchodzić w follow-upy, powiedz: *"OK, to jedno podejście. Jakie inne rozwiązanie rozważałeś?"* lub *"A gdybyś nie mógł użyć X — co wtedy?"*. Dopiero po 2+ opcjach wchodź w trade-offy i follow-upy. Cel: Jakub buduje nawyk myślenia "jest więcej niż jedna odpowiedź" — kluczowe na rozmowie mid+
+3. **Po pierwszej odpowiedzi — wymuś alternatywę (tylko gdy ma sens):** Dla pytań o **design, architekturę, podejście**: NIE akceptuj od razu pierwszej odpowiedzi. Powiedz: *"OK, to jedno podejście. Jakie inne rozwiązanie rozważałeś?"*. Dopiero po 2+ opcjach wchodź w trade-offy. Cel: nawyk "jest więcej niż jedna odpowiedź". **Dla pytań o mechanizm/fakt** (jak działa event loop, co to ACID): alternatywy nie ma — przejdź od razu do follow-upu pogłębiającego.
 4. **Jeśli nie umie odpowiedzieć lub odpowiedź jest niepełna** — naprowadzaj jak rekruter:
    - Daj hint: "pomyśl o tym od strony performance" / "a co z perspektywy bazy danych?"
    - Zawęź pytanie: "ok, a gdybyś miał 10 000 rekordów, to co by się zmieniło?"
@@ -57,10 +57,17 @@ Mock interview ma symulować **realną rozmowę rekrutacyjną** — dialog, nie 
 
 Po odpowiedzi Jakuba:
 
-1. **Score (1-5)**: 1=nie wie, 2=mętne, 3=zna koncept ale brakuje detali, 4=solidna odpowiedź, 5=poziom seniora
+1. **Score (1-5)** — spójna z recall challenge:
+   - **1/5** — nie wie o co chodzi
+   - **2/5** — mętna odpowiedź, wymagała dużo naprowadzania
+   - **3/5** — zna koncept, brakuje precyzji lub detali (max 2-3 hinty)
+   - **4/5** — solidna odpowiedź z trade-offami, max 1 hint
+   - **5/5** — odpowiedź seniora, bez hintów, relacje z innymi tematami
+   - **Każdy hint obniża potencjalny score o 0.5** — "sam bez pomocy" to wyższy wynik. Przy ≥3 hintach max score to 3/5.
 2. **Co dobrze**: konkretne fragmenty odpowiedzi
-3. **Co pominął**: czego rekruter by oczekiwał — ale TYLKO rzeczy które faktycznie odpowiadają na pytanie. Nie naciągaj opcji/odpowiedzi które nie pasują do pytania żeby zwiększyć liczbę "brakujących" punktów. Jeśli Jakub słusznie zakwestionuje że coś nie jest poprawna odpowiedź na zadane pytanie — przyznaj się do błędu i skoryguj score
-4. **Tip**: jedna rzecz do zapamiętania na prawdziwą rozmowę
+3. **Co pominął**: czego rekruter by oczekiwał — TYLKO rzeczy które faktycznie odpowiadają na pytanie. Jeśli Jakub słusznie zakwestionuje — przyznaj się i skoryguj score
+4. **Strategia**: jeden nawyk myślenia dla tego typu pytania — "następnym razem gdy pada pytanie o X, automatycznie zapytaj siebie Y". To jest feed-forward, nie lista braków.
+5. **Re-recall** (jeśli score < 4): "OK, powiedz mi to jeszcze raz uwzględniając to co pominąłeś." Produkcja po feedbacku wzmacnia encoding (Roediger & Karpicke, 2006).
 
 ## Zapis
 
@@ -96,11 +103,11 @@ Dedykowana sesja na czyszczenie backlogu retencji. Zamiast kodowania — 30 min 
 
 1. Przeczytaj `fullstack-roadmap.md` — wylistuj WSZYSTKIE nieodhaczone checkpointy typu "potrafię wytłumaczyć X" (nie "X działa")
 2. Przeczytaj `docs/mock-interviews.md` — sprawdź score'y, priorytetyzuj tematy z najniższymi score'ami
-3. Wybierz 5-6 pytań pokrywających najsłabsze tematy. Mieszaj milestones — nie rób 5 pytań z jednego
+3. Wybierz **3-4 pytania** pokrywające najsłabsze tematy. Mieszaj milestones — nie rób 3 pytań z jednego. (5-6 pytań / 30 min to za mało czasu na pełny dialog + feedback + re-recall. Lepiej 3 pytania głęboko niż 6 powierzchownie)
 
 ### Flow
 
-1. **Powiedz Jakubowi plan:** "Dziś sesja mock interview — 5-6 pytań z backlogu retencji. Cel: odhaczenie checkpointów. Gotowy?"
+1. **Powiedz Jakubowi plan:** "Dziś sesja mock interview — 3-4 pytania z backlogu retencji. Cel: odhaczenie checkpointów. Gotowy?"
 2. **Pytanie 1** → Jakub odpowiada → feedback + score → jeśli 3+/5 → odhacz checkpoint w roadmapie
 3. **Pytanie 2** → to samo
 4. Powtórz do 5-6 pytań
