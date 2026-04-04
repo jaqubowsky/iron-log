@@ -1,7 +1,7 @@
 import { PrismaService } from 'src/db/prisma.service';
 import { Injectable } from '@nestjs/common';
 import { WorkoutRepository } from './workout.repository';
-import { WorkoutTemplateDTO } from '../dtos/workout-template-dto';
+import { WorkoutTemplate } from '../interfaces/workout-template';
 import { CreateWorkoutTemplateDTO } from '../dtos/create-workout-template-dto';
 import { UpdateWorkoutTemplateDTO } from '../dtos/update-workout-template-dto';
 
@@ -15,7 +15,7 @@ export class PrismaWorkoutRepository implements WorkoutRepository {
   }: {
     cursor?: string;
     take: number;
-  }): Promise<WorkoutTemplateDTO[]> {
+  }): Promise<WorkoutTemplate[]> {
     return this.prismaService.workoutTemplate.findMany({
       cursor: cursor ? { id: cursor } : undefined,
       take,
@@ -27,7 +27,7 @@ export class PrismaWorkoutRepository implements WorkoutRepository {
     });
   }
 
-  findUnique(id: string): Promise<WorkoutTemplateDTO> {
+  findUnique(id: string): Promise<WorkoutTemplate> {
     return this.prismaService.workoutTemplate.findUniqueOrThrow({
       where: {
         id,
@@ -42,7 +42,7 @@ export class PrismaWorkoutRepository implements WorkoutRepository {
     });
   }
 
-  create(data: CreateWorkoutTemplateDTO): Promise<WorkoutTemplateDTO> {
+  create(data: CreateWorkoutTemplateDTO): Promise<WorkoutTemplate> {
     const { exercises, ...rest } = data;
 
     return this.prismaService.workoutTemplate.create({
@@ -68,7 +68,7 @@ export class PrismaWorkoutRepository implements WorkoutRepository {
   }: {
     id: string;
     data: UpdateWorkoutTemplateDTO;
-  }): Promise<WorkoutTemplateDTO> {
+  }): Promise<WorkoutTemplate> {
     const { exercises, ...rest } = data;
 
     if (!exercises) {
@@ -125,7 +125,7 @@ export class PrismaWorkoutRepository implements WorkoutRepository {
     return updateResult[1];
   }
 
-  delete(id: string): Promise<WorkoutTemplateDTO> {
+  delete(id: string): Promise<WorkoutTemplate> {
     return this.prismaService.workoutTemplate.delete({
       where: { id },
       include: {

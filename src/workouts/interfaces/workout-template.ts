@@ -1,6 +1,6 @@
 import { ExerciseDTO } from 'src/exercises/dtos/exercise-dto';
 
-export class WorkoutTemplateDTO {
+export class WorkoutTemplate {
   id: string;
   name: string;
   description: string | null;

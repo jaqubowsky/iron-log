@@ -1,7 +1,7 @@
 import { ExerciseDTO } from 'src/exercises/dtos/exercise-dto';
-import { WorkoutTemplateDTO } from './workout-template-dto';
+import { WorkoutTemplate } from '../interfaces/workout-template';
 
-class WorkoutExerciseDTO extends ExerciseDTO {
+class WorkoutExercise extends ExerciseDTO {
   order: number;
 }
 
@@ -11,9 +11,9 @@ export class WorkoutTemplateResponseDTO {
   description: string | null;
   createdAt: Date;
   updatedAt: Date;
-  exercises: WorkoutExerciseDTO[];
+  exercises: WorkoutExercise[];
 
-  static from(data: WorkoutTemplateDTO): WorkoutTemplateResponseDTO {
+  static from(data: WorkoutTemplate): WorkoutTemplateResponseDTO {
     const dto = new WorkoutTemplateResponseDTO();
 
     Object.assign(dto, {

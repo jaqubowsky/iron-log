@@ -13,6 +13,27 @@ datasource db {
   provider = "postgresql"
 }
 
+model User {
+  id               String            @id @default(uuid())
+  email            String            @unique
+  password         String
+  tokens           RefreshToken[]
+  workoutTemplates WorkoutTemplate[]
+  workoutLogs      WorkoutLog[]
+  createdAt        DateTime          @default(now())
+  updatedAt        DateTime          @updatedAt
+}
+
+model RefreshToken {
+  id         String   @id @default(uuid())
+  valid      Boolean  @default(true)
+  user       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId     String
+  expiration DateTime
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+}
+
 enum ExerciseCategory {
   NECK
   SHOULDERS
@@ -49,6 +70,8 @@ model WorkoutTemplate {
   name        String
   description String?
   exercises   ExercisesOnWorkoutTemplate[]
+  user        User                         @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId      String
   workoutLogs WorkoutLog[]
   createdAt   DateTime                     @default(now())
   updatedAt   DateTime                     @updatedAt
@@ -91,4 +114,6 @@ model WorkoutLog {
   workoutTemplateId   String?
   createdAt           DateTime             @default(now())
   updatedAt           DateTime             @updatedAt
+  user                User                 @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId              String
 }

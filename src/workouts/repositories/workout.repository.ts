@@ -1,6 +1,6 @@
 import { CreateWorkoutTemplateDTO } from '../dtos/create-workout-template-dto';
 import { UpdateWorkoutTemplateDTO } from '../dtos/update-workout-template-dto';
-import { WorkoutTemplateDTO } from '../dtos/workout-template-dto';
+import { WorkoutTemplate } from '../interfaces/workout-template';
 
 export abstract class WorkoutRepository {
   abstract findMany({
@@ -9,11 +9,11 @@ export abstract class WorkoutRepository {
   }: {
     cursor?: string;
     take: number;
-  }): Promise<WorkoutTemplateDTO[]>;
+  }): Promise<WorkoutTemplate[]>;
 
-  abstract findUnique(id: string): Promise<WorkoutTemplateDTO>;
+  abstract findUnique(id: string): Promise<WorkoutTemplate>;
 
-  abstract create(data: CreateWorkoutTemplateDTO): Promise<WorkoutTemplateDTO>;
+  abstract create(data: CreateWorkoutTemplateDTO): Promise<WorkoutTemplate>;
 
   abstract update({
     id,
@@ -21,7 +21,7 @@ export abstract class WorkoutRepository {
   }: {
     id: string;
     data: UpdateWorkoutTemplateDTO;
-  }): Promise<WorkoutTemplateDTO>;
+  }): Promise<WorkoutTemplate>;
 
-  abstract delete(id: string): Promise<WorkoutTemplateDTO>;
+  abstract delete(id: string): Promise<WorkoutTemplate>;
 }

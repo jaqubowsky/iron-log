@@ -7,6 +7,8 @@ import { ConfigModule } from '@nestjs/config';
 import { PrismaExceptionFilter } from './db/prisma-exception.filter';
 import { WorkoutsModule } from './workouts/workouts.module';
 import { WorkoutsLogsModule } from './workouts-logs/workouts-logs.module';
+import { AuthModule } from './auth/auth.module';
+import { UsersModule } from './users/users.module';
 
 @Module({
   imports: [
@@ -15,6 +17,8 @@ import { WorkoutsLogsModule } from './workouts-logs/workouts-logs.module';
     ConfigModule.forRoot(),
     WorkoutsModule,
     WorkoutsLogsModule,
+    AuthModule,
+    UsersModule,
   ],
   controllers: [AppController],
   providers: [

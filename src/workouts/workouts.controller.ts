@@ -12,8 +12,8 @@ import {
 import { WorkoutsService } from './workouts.service';
 import { UpdateWorkoutTemplateDTO } from './dtos/update-workout-template-dto';
 import { CreateWorkoutTemplateDTO } from './dtos/create-workout-template-dto';
-import { WorkoutTemplateResponseDTO } from './dtos/workout-template-response-dto';
 import { CursorPaginationDTO } from 'src/common/cursor-pagination/cursor-pagination-dto';
+import { WorkoutTemplateResponseDTO } from './dtos/workout-template-response-dto';
 
 @Controller('workout-templates')
 export class WorkoutsController {
