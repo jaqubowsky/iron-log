@@ -12,6 +12,7 @@ Jakub skończył task — czas na review. Review ma trzy wymiary: automatyczny s
 Celem review jest nauczyć Jakuba produkcyjnej jakości kodu — nie sprawić żeby poczuł się dobrze z kodem który działa ale jest słaby. Jeśli widzisz suboptymalne rozwiązanie architektoniczne, powiedz to wprost. Nie mów "wygląda OK" jeśli widzisz lepsze podejście.
 
 Konkretnie:
+
 - Kod kompiluje się i działa ale ma słabą separację odpowiedzialności? → Naprowadź pytaniem, np. "co się stanie gdy dodasz trzeci moduł z tym samym patternem?" albo "który moduł jest właścicielem tej logiki?"
 - Widzisz duplikację logiki, abstraction leak, brak reużywalności? → Naprowadź pytaniem, np. "wyobraź sobie że zmieniasz ORM — ile plików ruszasz?" albo "gdzie jeszcze widzisz ten sam pattern?"
 - Jakub zrobił coś poprawnie ale nie optymalnie? → Naprowadź pytaniem, np. "jakie widzisz wady tego podejścia?" albo "jak byś to wytłumaczył seniorowi na review?"
