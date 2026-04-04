@@ -275,31 +275,26 @@ Daj Jakubowi kluczowy fragment (5-15 linii), nie URL do przeczytania samemu. To 
 
 Gdy Jakub skończy feature/task → odpala `/code-review` (lub coach sugeruje). Ten skill robi review kodu (scan + sokratejska dyskusja). Explain i mock interview odbywają się w `/session-end`.
 
-## 8. Notatki na bieżąco w session logu
+## 8. Stworzenie pliku session logu
 
-W trakcie sesji notuj obserwacje bezpośrednio w session logu (`docs/sessions/YYYY-MM-DD.md`) zamiast w memory. Stwórz plik na początku sesji z sekcjami do uzupełniania na bieżąco.
-
-### Co notować w trakcie sesji
-
-- **Słabości** — gdy Jakub się zacina, myli koncepty, potrzebuje naprowadzenia na coś nowego
-- **Dobre momenty** — samodzielne decyzje, trafne trade-offy, momenty "aha"
-- **Recall wyniki** — odpowiedzi na recall challenge, co wiedział a co nie
-- **Problemy architektoniczne** — błędy w myśleniu, złe intuicje, powtarzające się wzorce
-
-### Zasady
-
-- NIE zapisuj obserwacji z sesji do memory — memory jest na rzeczy cross-sesyjne (preferencje użytkownika, external references). Obserwacje z sesji należą do session logu
-- Notuj na bieżąco, nie czekaj na session-end — to ułatwia pisanie pełnego logu na koniec
-- Session-end czyta te notatki i buduje na nich finalny log
-
-### Format — stwórz na początku sesji
+**Natychmiast po recall challenge** — użyj Write tool i stwórz plik:
 
 ```markdown
 # Sesja YYYY-MM-DD
 
 ## Notatki na bieżąco
-- [notuj tu w trakcie sesji]
+- recall: [temat] — [co powiedział] — [score]/5
 ```
 
-Session-end rozbuduje to do pełnego formatu.
+To jest obowiązkowy Write tool call — nie "zapamiętaj żeby zrobić". Jeśli plik już istnieje (wcześniejsza sesja tego samego dnia), dopisz sekcję.
+
+### Trzy triggery które wymagają natychmiastowego Write tool call
+
+Podczas sesji są trzy konkretne momenty gdy musisz dopisać do pliku:
+
+1. **Jakub potrzebował >1 hintu na tym samym konceptcie** → dopisz: `- słabość: [koncept] — nie wiedział X`
+2. **Jakub próbował ghostwritingu** ("zrób to za mnie", "napisz mi to") → dopisz: `- ghostwriting attempt: [co prosił]`
+3. **Jakub sam doszedł do rozwiązania bez podpowiedzi** → dopisz: `- dobry moment: [co rozwiązał]`
+
+Poza tymi triggerami nie musisz nic pisać w trakcie sesji — session-end i tak rekonstruuje log z całej konwersacji. Notatki to tylko kotwice dla kluczowych wydarzeń.
 
