@@ -16,14 +16,15 @@ Symuluj code review — Jakub daje krótki overview, Ty wyciągasz pytania o dec
 1. **Poproś o overview:** "Opowiedz w 2-3 zdaniach co zrobiłeś i jakie kluczowe decyzje podjąłeś"
 2. **Czekaj na odpowiedź** — nie przerywaj, nie podpowiadaj
 3. **Zadaj 3-4 celowane pytania** o decyzje, trade-offy i alternatywy na podstawie tego co powiedział i tego co widziałeś na sesji. Np. "dlaczego SET NULL a nie CASCADE?", "jakie inne opcje rozważałeś?"
-4. **Czekaj na odpowiedź na KAŻDE pytanie** — nie zasypuj pytaniami, nie przechodź do mock interview dopóki Jakub nie odpowie
+4. **Czekaj na odpowiedź na KAŻDE pytanie** — nie zasypuj pytaniami. Jeśli odpowiedź niekompletna: jedno follow-up ("a co z X?"), potem feedback i zamknij. NIE drąż w nieskończoność.
 5. **Daj feedback** po odpowiedziach: co dobrze, co pominął
 
 ### Zasady
 
 - NIE wymuszaj monologu o 40 plikach — przy dużych taskach to nierealne i nie symuluje prawdziwej rozmowy
 - Pytania dopasuj do tego co Jakub faktycznie robił — nie generyczne
-- Oceń (1-5): patrz skala w `mock-interview` SKILL (single source of truth). Hinty/naprowadzanie obniżają score — sam bez pomocy = wyższy score.
+- Oceń (1-5): 1=nie umie wytłumaczyć, 3=zna koncept ale brakuje detali, 5=wytłumaczyłby na rozmowie. Hinty obniżają score.
+- **Sesje <20 min** (debug call, szybkie pytanie): pomiń explain phase i mock interview. Log skróć do: "Co robił", "Samodzielność", "Następna sesja".
 
 ## 2. Mock interview (5 min)
 
@@ -31,7 +32,7 @@ Mock interview jest **obowiązkowy co sesję**. Nie pytaj "chcesz pytanie?" — 
 
 - Przeprowadź mock interview zgodnie z protokołem z `.claude/skills/mock-interview/SKILL.md` (przeczytaj go)
 - Pytanie powiązane z tym co właśnie kodował LUB losowe z wcześniejszych tematów (element zaskoczenia)
-- Zanotuj wyniki
+- Wyniki zapamiętaj — trafią do session logu (krok 4, sekcja "Mock interview") i do `docs/mock-interviews.md` (krok 6)
 - **Rekomendacja artykulacyjna:** jeśli backlog retencji >5 nieodhaczonych "potrafię wytłumaczyć" checkpointów LUB ostatnie 3+ sesje były czysto kodowe → **rekomenduj `/mock-interview session` jako main task następnej sesji** (dedykowana 30-min sesja na czyszczenie backlogu, 5-6 pytań). Wpisz to wyraźnie w sekcji "Następna sesja" — session-start to podchwyci
 
 ## 3. Odhacz checkpointy z recall/mock (PRZED session logiem)
@@ -118,7 +119,7 @@ Plik: `docs/sessions/YYYY-MM-DD.md`
 
 ## Następna sesja
 
-[Co powinien zrobić następnym razem + prereq-y/materiały do nauki. MUSI być zgodne z priorytetami roadmapy, patrz zasady poniżej]
+→ użyj formatu z kroku 8
 ```
 
 ### Zasady logowania
@@ -131,9 +132,11 @@ Plik: `docs/sessions/YYYY-MM-DD.md`
 
 ## 5. Aktualizacja roadmapy + articulation tracker
 
+Checkpointy były odhaczane w kroku 3 — **nie rób tego ponownie**. Tutaj aktualizujesz TAGI i status milestone'ów dla pozostałych zmian z sesji.
+
 Przeczytaj `fullstack-roadmap.md`. Dla roadmapy:
 
-1. **Odhacz checkpointy** — ale TYLKO jeśli spełniają kryterium retencji (patrz zasady poniżej)
+1. **Aktualizuj tagi nowych tematów** — dla każdego tematu NOWO omówionego na tej sesji: zmień `🔴 zero` → `⏳ retencja 0/5 — YYYY-MM-DD`
 2. **Aktualizuj status każdego milestone'a** — patrz sekcja "Status milestone'a" poniżej
 3. **Wykrywaj luki** — jeśli podczas sesji wyszło że Jakub nie zna czegoś fundamentalnego co powinno być w roadmapie (np. brakujący temat SQL, brakujący koncept backendowy), dodaj to do odpowiedniego milestone'a
 4. **Dodawaj nowe pytania do przemyślenia** — jeśli sesja ujawniła ciekawy trade-off lub problem architektoniczny wart zapisania

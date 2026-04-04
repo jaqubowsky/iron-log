@@ -98,18 +98,15 @@ Spacing jest kluczowy dla retencji — testowanie tematu z wczoraj to prawie zer
 
 **Algorytm doboru (wykonaj krok po kroku, nie pomijaj):**
 
-0. **NAJPIERW sprawdź roadmapę** — znajdź wszystkie checkpointy `⏳ retencja` z datą ≥3 sesje temu i score <3/5. Posortuj od najstarszych. Ten zbiór ma **priorytet** nad mock-interviews.md — tematy z roadmapy które nigdy nie były testowane przez recall są "martwą strefą" i właśnie tam backlog rośnie.
+0. **NAJPIERW sprawdź roadmapę** — znajdź `⏳ retencja` checkpointy które **nigdy nie były testowane na recall** (score 0 w mock-interviews.md lub brak wpisu w ogóle) i mają datę ≥3 sesje temu. Te mają najwyższy priorytet — to "martwa strefa" gdzie backlog rośnie niewidocznie.
 1. **Jeśli nie znalazłeś kandydata w kroku 0** — sprawdź mock-interviews.md: znajdź tematy ze score'em ≤3. Posortuj od najstarszych. Wybierz najstarszy temat ze score ≤3 który NIE był testowany w ostatnich 2 sesjach.
 2. **Jeśli brak takiego** — sprawdź session logi z **4-6 sesji wstecz** (nie 1-2!). Wybierz temat który nie był na recall challenge od co najmniej 3 sesji.
-3. **Jeśli temat był testowany <3 sesje temu** — POMIŃ go, wybierz starszy. Nawet jeśli miał słaby score — spacing ważniejszy niż natychmiastowa powtórka.
-4. **Jeśli temat był na recall i nie zdał (<3/5)** — wróć do niego po minimum 3 sesjach (nie 1-2).
-5. **Exit condition** — jeśli temat uzyskał ≥4/5 na recall/mock I nie pojawił się jako słabość w ostatnich 3 session logach → usuń go z aktywnej puli retencji (nie musi być testowany ponownie).
+3. **Spacing guard — ZAWSZE:** Sprawdź datę ostatniego omówienia wybranego tematu. Muszą być spełnione OBA warunki: (a) ≥3 sesje temu ORAZ (b) min. 24h od ostatniej ekspozycji. Spacing bez 24h przerwy nie daje efektu retencji (Cepeda et al., 2006). Jeśli temat był omawiany dziś — POMIŃ, wybierz inny.
+4. **Exit condition** — jeśli temat uzyskał ≥4/5 na recall/mock I nie pojawił się jako słabość w ostatnich 3 session logach → usuń go z aktywnej puli retencji.
 
-**Priorytet:** ⏳ checkpointy z roadmapy (najstarsze, score <3) > słabe tematy z mock-interviews.md (4+ sesji temu) > tematy z 4-6 sesji wstecz. NIGDY tematy z ostatniej lub przedostatniej sesji.
+**Priorytet:** ⏳ nigdy nie testowane przez recall (score 0) > słabe tematy z mock-interviews.md (score ≤3, 4+ sesji temu) > tematy z 4-6 sesji wstecz. NIGDY tematy z ostatniej lub przedostatniej sesji, NIGDY tematy omawiane dziś.
 
-**Wiele sesji tego samego dnia:** Jeśli dziś była już sesja — recall challenge ciągnij z 4+ sesji wstecz (nie z dzisiejszej ani wczorajszej). Zdanie recalla tego samego dnia NIE liczy się do odhaczenia checkpointu — minimum 2 dni przerwy.
-
-**Weryfikacja przed zadaniem pytania:** Zanim zadasz pytanie, sprawdź: "kiedy ostatnio ten temat był testowany?". Jeśli <3 sesje temu — wybierz inny.
+**Weryfikacja przed zadaniem pytania:** "Kiedy ostatnio ten temat był testowany? Kiedy ostatnio omawiany?" Jeśli <3 sesje temu LUB <24h — wybierz inny.
 
 ### Eskalacja trudności (milestone-based)
 
@@ -124,6 +121,13 @@ Dobre pytania (dopasuj do milestone):
 - "Narysuj mi flow danych dla Z"
 - (M4+) "Jak X łączy się z Y? Np. jak DI łączy się z Dependency Inversion z SOLID?"
 - (M7+) "Zaprojektuj cache strategy dla endpointu X — kiedy Redis, kiedy HTTP cache, kiedy oba?"
+
+**Skala oceny (używaj konsekwentnie):**
+- **1/5** — nie wie o co chodzi, odpowiedź chaotyczna
+- **2/5** — mętna odpowiedź, wymagała dużo naprowadzania
+- **3/5** — zna koncept, brakuje precyzji lub detali
+- **4/5** — solidna odpowiedź z trade-offami, minimalne naprowadzanie
+- **5/5** — odpowiedź seniora, relacje z innymi tematami, kontekst
 
 Zasady:
 
@@ -179,13 +183,18 @@ Jeśli session log wymienia poprawki z review — Jakub robi je jako pierwsze 10
 
 ### Sesje teorii — głębokość > szerokość
 
-Gdy sesja dotyczy checkpointów teorii (`🔴 zero` typu "potrafię wytłumaczyć X"):
+Gdy sesja dotyczy checkpointów teorii (`🔴 zero` lub `/mock-interview session` z backlogu):
 
-- **Max 2-3 tematy na sesję** — lepiej 2 tematy z głębokim zrozumieniem niż 5 po łebkach
-- Każdy temat = wyjaśnienie + pytania sokratejskie + Jakub sam formułuje odpowiedź + feedback na formę
-- Nie próbuj nadrobić wszystkich `🔴 zero` na raz — Jakub i tak nie zapamięta 5 nowych tematów z jednej sesji
-- Tematy tylko liźnięte (bez pełnego zrozumienia) NIE idą na Anki — najpierw głębsza ekspozycja, potem powtórki
-- Analogia: lepiej 3 serie po 8 z dobrą techniką niż 10 serii byle jak
+**Max 2-3 tematy na sesję** — cognitive load theory (Sweller, 1988): nowe informacje zakłócają konsolidację gdy jest ich za dużo. Temat liźnięty NIE idzie na Anki.
+
+**Flow dla każdego tematu (15-20 min):**
+1. **Wyjaśnij z analogią** — 1-2 zdania nawiązujące do czegoś co Jakub zna (siłownia, GPS, React analogy)
+2. **Pokaż generyczny przykład kodu** jeśli temat ma implementację (10-15 linii, NIE IRONLOG-specific)
+3. **Zadaj jedno pytanie sokratejskie** — "co by się stało gdyby...?", "kiedy tego nie użyjesz?"
+4. **Jakub formułuje własnymi słowami** — "powiedz mi to jak gdybyś tłumaczył juniorowi"
+5. **Feedback na formę** — czy potrafi to powiedzieć na rozmowie? Co brzmi niepewnie?
+
+Cel: po kroku 4 Jakub powinien umieć wytłumaczyć temat z pamięci. Jeśli nie potrafi — nie przechodź dalej. Jeśli potrafi — tag w roadmapie zmienia się na `⏳ retencja`.
 
 ### Zasady
 
@@ -279,7 +288,9 @@ Gdy Jakub skończy feature/task → odpala `/code-review` (lub coach sugeruje). 
 
 ## 8. Stworzenie pliku session logu
 
-**Natychmiast po recall challenge** — użyj Write tool i stwórz plik:
+Dwa Write tool calle w dwóch momentach — NIE jeden na końcu:
+
+**Call 1 — natychmiast po recall challenge** — stwórz plik:
 
 ```markdown
 # Sesja YYYY-MM-DD
@@ -288,7 +299,18 @@ Gdy Jakub skończy feature/task → odpala `/code-review` (lub coach sugeruje). 
 - recall: [temat] — [co powiedział] — [score]/5
 ```
 
-To jest obowiązkowy Write tool call — nie "zapamiętaj żeby zrobić". Jeśli plik już istnieje (wcześniejsza sesja tego samego dnia), dopisz sekcję.
+**Call 2 — po kroku 4 (task decision)** — dopisz blok planu:
+
+```markdown
+## Plan sesji
+- **Czas:** [czas]
+- **Milestone:** [aktualny]
+- **Rozgrzewka:** [poprawki z review lub "brak"]
+- **Main task:** [opis]
+- **Docs:** [biblioteka + temat lub "brak"]
+```
+
+Jeśli plik z dzisiejszą datą już istnieje (wcześniejsza sesja), dopisz sekcję zamiast tworzyć nowy plik.
 
 ### Trzy triggery które wymagają natychmiastowego Write tool call
 
