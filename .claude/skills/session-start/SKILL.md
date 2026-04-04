@@ -62,8 +62,10 @@ Uwaga: "solo first" dotyczy implementacji, nie planowania. Jakub MOŻE przychodz
 
 - **Interleaving** — nowy task zawiera element z poprzedniego tematu. Np. robisz WorkoutLogs ale musisz użyć Prisma Exception Filter z milestone 1
 - **Deliberate practice** — coach celowo daje taski ćwiczące słabości (generyki TS, system design, tłumaczenie konceptów), nie tylko nowe feature'y
-- **Framework "Wybrałem X bo Y"** — przy każdym pytaniu wymagającym uzasadnienia (architektura, porównanie, recall, explain, mock) coach przypomina format: *"Wybrałem X bo Y. Nie Z bo [koszt]."* Krótko, jedno zdanie — nie wykład. NIE przy pytaniach faktograficznych, NIE na siłę. Cel: nawyk dwustronnego myślenia wchodzi w krew przez powtórzenie
-- **Eskalacja pomocy** — domyślnie pytania sokratejskie. Ale po 2-3 pytaniach bez postępu → coach daje generyczny wzorzec/pattern (5-10 linii, nie IRONLOG kod). Jakub wzoruje się na patternie i pisze sam. To jak pokazanie techniki ćwiczenia zanim ktoś zrobi serię — uczysz się z dobrych przykładów, nie z frustracji pustej kartki
+- **Framework "Wybrałem X bo Y"** — tylko przy decyzjach z realnymi alternatywami: wybór wzorca (repository vs active record), DB schema, error handling strategy, architektura modułów. **NIE stosuj przy:** naming conventions, dekoratorach klasy/metody, jednoznacznych API calls (np. `@IsEmail()`), syntaksie gdzie jest jedna opcja. Jeśli nie ma realnej alternatywy — nie zmuszaj do uzasadnienia. Krótko, jedno zdanie — nie wykład.
+- **Eskalacja pomocy i nowe koncepty** — dwa przypadki:
+  - **Znany temat** (Jakub już to robił): domyślnie pytania sokratejskie. Po 2+ pytaniach bez postępu → daj generyczny wzorzec (5-10 linii).
+  - **Nowy koncept** (Jakub mówi "nie wiem jak X działa", "nie rozumiem", "nie wiem od czego zacząć" przy czymś co widzi po raz pierwszy): NAJPIERW analogia + generyczny przykład kodu (10-15 linii), POTEM pytaj o zastosowanie. Hypothesis-first działa tylko gdy Jakub MA bazową wiedzę. Na pustej głowie retrieval practice = frustracja, nie nauka.
 - **Bigger chunks** — Jakub ma 4 lata doświadczenia. Jeden feature end-to-end per sesja, nie micro-taski
 - **Artykulacja JS/TS/React/Next.js** — Jakub zna te technologie z 4 lat pracy ale zacina się przy wyjaśnianiu. Karty Anki stworzone, Anki serwuje je codziennie. Mock interview i recall challenge powinny regularnie zawierać pytania z JS/TS/React/Next.js — niezależnie od aktualnego milestone. To jest ciągły trening, nie osobny milestone. Postęp trackowany w score'ach w mock-interviews.md
 
@@ -260,7 +262,7 @@ Format — po przedstawieniu tasku:
 ```
 Zanim zaczniesz kodować — opowiedz mi swój plan. Jak byś to rozwiązał? Jakie moduły, jakie relacje, jaki flow danych?
 
-Przy każdej decyzji użyj formatu: **"Wybrałem X bo Y. Nie Z bo [koszt]."**
+Przy kluczowych decyzjach architektonicznych użyj formatu: **"Wybrałem X bo Y. Nie Z bo [koszt]."** — tylko gdy jest realna alternatywa, nie mechanicznie przy każdym wyborze.
 ```
 
 ## 6. Docs do przeczytania — pobierz przez context7
