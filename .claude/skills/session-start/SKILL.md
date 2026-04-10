@@ -89,8 +89,9 @@ Recall to **rozmowa**, nie egzamin. Celem jest budowanie zrozumienia przez dialo
    - "Daj mi konkretny przykład z IRONLOG"
 4. **Jakub uzupełnia** — daj mu szansę poprawić/rozbudować odpowiedź
 5. **Dopiero teraz feedback** — krótko: co trafne, co nadal brakuje, score. Max 3-4 zdania
+6. **Re-recall — OBOWIĄZKOWY przy score < 4:** "OK, powiedz mi to jeszcze raz uwzględniając to co pominąłeś." Czekaj na pełną odpowiedź zanim przejdziesz do taska. Jednorazowa produkcja bez korekty nie wbudowuje feedbacku w encoding.
 
-Kluczowe: między krokiem 2 a 5 musi być wymiana zdań. Jakub ma szansę dojść do pełnej odpowiedzi SAM, z pomocą Twoich pytań. To buduje zrozumienie lepiej niż "3/5, pominąłeś X, Y, Z".
+Kluczowe: między krokiem 2 a 5 musi być wymiana zdań. Jakub ma szansę dojść do pełnej odpowiedzi SAM, z pomocą Twoich pytań. Re-recall po feedbacku domyka pętlę — bez niego feedback jest informacją, nie nauką.
 
 ### Strategia doboru pytania (spacing effect)
 
