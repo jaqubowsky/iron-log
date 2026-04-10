@@ -183,9 +183,9 @@ Jeśli session log wymienia poprawki z review — Jakub robi je jako pierwsze 10
 
 ### Sesje teorii — głębokość > szerokość
 
-Gdy sesja dotyczy checkpointów teorii (`🔴 zero` lub `/mock-interview session` z backlogu):
+**Dwa tryby — różne protokoły:**
 
-**Max 2-3 tematy na sesję** — cognitive load theory (Sweller, 1988): nowe informacje zakłócają konsolidację gdy jest ich za dużo. Temat liźnięty NIE idzie na Anki.
+**Tryb A: `🔴 zero`** — nauka nowego konceptu. Max 2-3 tematy.
 
 **Flow dla każdego tematu (15-20 min):**
 1. **Wyjaśnij z analogią** — 1-2 zdania nawiązujące do czegoś co Jakub zna (siłownia, GPS, React analogy)
@@ -195,6 +195,8 @@ Gdy sesja dotyczy checkpointów teorii (`🔴 zero` lub `/mock-interview session
 5. **Feedback na formę** — czy potrafi to powiedzieć na rozmowie? Co brzmi niepewnie?
 
 Cel: po kroku 4 Jakub powinien umieć wytłumaczyć temat z pamięci. Jeśli nie potrafi — nie przechodź dalej. Jeśli potrafi — tag w roadmapie zmienia się na `⏳ retencja`.
+
+**Tryb B: `/mock-interview session`** — weryfikacja retencji istniejących `⏳` checkpointów. **Użyj mock-interview SKILL (Tryb session)** zamiast Trybu A. Kluczowe różnice: recall bez uprzedniego wyjaśnienia, re-recall obowiązkowy przy score <4, odhaczanie przy ≥4/5. Przeczytaj `.claude/skills/mock-interview/SKILL.md` przed sesją.
 
 ### Zasady
 

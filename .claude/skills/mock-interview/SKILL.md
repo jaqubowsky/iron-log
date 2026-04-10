@@ -118,8 +118,8 @@ Dedykowana sesja na czyszczenie backlogu retencji. Zamiast kodowania — 30 min 
 - Jedno pytanie na raz — czekaj na odpowiedź
 - Każde pytanie = 3-5 min (odpowiedź + follow-up + feedback)
 - Pytania z różnych milestones i kategorii — interleaving
-- Score 3+/5 = odhacz checkpoint zgodnie z zasadami odhaczania w `session-end` SKILL.md (single source of truth). Kluczowe: "potrafię wytłumaczyć" wymaga spacing — nie odhaczaj jeśli temat był poznany tej samej sesji.
-- Score <3 = nie odhaczaj, zanotuj jako słabość
+- Score 4+/5 = odhacz checkpoint zgodnie z zasadami odhaczania w `session-end` SKILL.md (single source of truth). Kluczowe: "potrafię wytłumaczyć" wymaga spacing — nie odhaczaj jeśli temat był poznany tej samej sesji.
+- Score <4 = nie odhaczaj, zanotuj jako słabość. Score 3-3.5 = aktualizuj tag w roadmapie z nowym score i datą (zostaje w rotacji)
 - Nie naprowadzaj za dużo — to weryfikacja retencji, nie nauka. Jeden hint OK, ale jeśli nie wie → score 1-2 i idziemy dalej
 - Po sesji: zaktualizuj roadmapę, mock-interviews.md, i session log
 
