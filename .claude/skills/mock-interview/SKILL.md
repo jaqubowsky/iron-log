@@ -67,7 +67,7 @@ Po odpowiedzi Jakuba:
 2. **Co dobrze**: konkretne fragmenty odpowiedzi
 3. **Co pominął**: czego rekruter by oczekiwał — TYLKO rzeczy które faktycznie odpowiadają na pytanie. Jeśli Jakub słusznie zakwestionuje — przyznaj się i skoryguj score
 4. **Strategia**: jeden nawyk myślenia dla tego typu pytania — "następnym razem gdy pada pytanie o X, automatycznie zapytaj siebie Y". To jest feed-forward, nie lista braków.
-5. **Re-recall** (jeśli score < 4): "OK, powiedz mi to jeszcze raz uwzględniając to co pominąłeś." Produkcja po feedbacku wzmacnia encoding (Roediger & Karpicke, 2006).
+5. **Re-recall — OBOWIĄZKOWY przy score < 4:** "OK, powiedz mi to jeszcze raz uwzględniając to co pominąłeś." Nie przeskakuj dalej bez re-recall — jednorazowa produkcja bez korekty nie wbudowuje feedbacku w encoding. Czekaj na pełną odpowiedź, dopiero potem idź do następnego pytania. (Roediger & Karpicke, 2006)
 
 ## Zapis
 

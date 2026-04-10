@@ -25,12 +25,15 @@ Symuluj code review — Jakub daje krótki overview, Ty wyciągasz pytania o dec
 - Pytania dopasuj do tego co Jakub faktycznie robił — nie generyczne
 - Oceń (1-5): 1=nie umie wytłumaczyć, 3=zna koncept ale brakuje detali, 5=wytłumaczyłby na rozmowie. Hinty obniżają score.
 - **Sesje <20 min** (debug call, szybkie pytanie): pomiń explain phase i mock interview. Log skróć do: "Co robił", "Samodzielność", "Następna sesja".
+- **Sesje `/mock-interview session`**: explain phase zamień na krótkie "co zapamiętałeś z dzisiejszych tematów, który był najtrudniejszy?" — 1-2 pytania, bez formalnego overview. Pomiń mock interview (krok 2).
 
 ## 2. Mock interview (5 min)
 
 Mock interview jest **obowiązkowy co sesję**. Nie pytaj "chcesz pytanie?" — po prostu zadaj je. **Dopiero PO zakończeniu explain phase** — nie łącz obu w jedną wiadomość.
 
-- Przeprowadź mock interview zgodnie z protokołem z `.claude/skills/mock-interview/SKILL.md` (przeczytaj go)
+**Wyjątek:** Jeśli sesja była `/mock-interview session` (Jakub przeprowadził już 5+ pytań mock interview jako główny task) → **pomiń ten krok**. Dodatkowe pytanie nie wnosi wartości i wydłuża zamknięcie sesji niepotrzebnie.
+
+- Przeprowadź mock interview zgodnie z protokołem z `.claude/skills/mock-interview/SKILL.md` (przeczytaj go — ścieżka projekt-lokalna: `.claude/skills/mock-interview/SKILL.md`)
 - Pytanie powiązane z tym co właśnie kodował LUB losowe z wcześniejszych tematów (element zaskoczenia)
 - Wyniki zapamiętaj — trafią do session logu (krok 4, sekcja "Mock interview") i do `docs/mock-interviews.md` (krok 6)
 - **Rekomendacja artykulacyjna:** jeśli backlog retencji ≥8 nieodhaczonych "potrafię wytłumaczyć" checkpointów → **następna sesja MUSI być `/mock-interview session`**. Jeśli 5-7 → rekomenduj, ale możesz kodować jeśli jest istotny powód. Wpisz liczbę backlogu wprost w sekcji "Następna sesja" — session-start to podchwyci
@@ -42,7 +45,7 @@ Mock interview jest **obowiązkowy co sesję**. Nie pytaj "chcesz pytanie?" — 
 ### Algorytm (wykonaj dla KAŻDEGO recall i mock z tej sesji)
 
 1. Jaki temat był testowany? Jaki score?
-2. Score ≥ 3/5? Jeśli nie → nie odhaczaj, idź dalej
+2. Score ≥ 4/5? Jeśli nie → nie odhaczaj, idź dalej (3-3.5/5 = zostaje w rotacji, wróci na recall)
 3. Typ checkpointu:
    - **"Potrafię wytłumaczyć/porównać X"** → sprawdź: kiedy temat był PIERWSZY RAZ przerobiony? Jeśli na tej samej sesji → NIE odhaczaj. Jeśli na wcześniejszej sesji (kolejna sesja, min. 24h przerwy) → **ODHACZ**
    - **"Potrafię napisać X" / "X działa"** → odhacz od razu jeśli wykonane poprawnie

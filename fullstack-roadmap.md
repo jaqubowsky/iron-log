@@ -3,8 +3,8 @@
 ## Status (aktualizuj po każdej sesji)
 - **Aktywny milestone:** M4 — Auth + Security 🔴 BLOKUJE
 - **Następny 🔴 zero:** Auth flow end-to-end (register, login, refresh, logout)
-- **Backlog retencji:** ~14 nieodhaczonych "potrafię wytłumaczyć" z M2-M4
-- **Priorytet:** sesja artykulacyjna (`/mock-interview session`) zanim kolejny feature
+- **Backlog retencji:** ~13 nieodhaczonych "potrafię wytłumaczyć" z M2-M4 (sesja 2026-04-10: 2 odhaczone — locking 4/5, normalizacja 4/5; 5 przywróconych — próg podniesiony do 4/5)
+- **Priorytet:** backlog ≥8 → następna sesja artykulacyjna LUB kodowanie M4 jeśli session-end uzasadni (bcrypt homework zrobiony?)
 
 ---
 
@@ -89,16 +89,16 @@ Prereq: SQLBolt + PostgreSQL Tutorial ZANIM sesja coachingowa z raw SQL.
   - [x] Potrafię napisać CREATE TABLE z FK i constraints z pamięci
   - [x] Umiem napisać raw SQL: SELECT z JOIN, INSERT, UPDATE, DELETE
 - **JOINy** — INNER, LEFT. Umiesz napisać SELECT z JOIN na danych IRONLOG
-  - [ ] Potrafię wytłumaczyć różnicę INNER vs LEFT JOIN i kiedy który `⏳ retencja 3.5/5 — 2026-03-27`
+  - [ ] Potrafię wytłumaczyć różnicę INNER vs LEFT JOIN i kiedy który `⏳ retencja 3.5/5 — 2026-04-10`
 - **Constraints** — PRIMARY KEY, FOREIGN KEY, UNIQUE, NOT NULL, CASCADE DELETE, ON DELETE SET NULL
   - [x] Potrafię wymienić typy constraints i wytłumaczyć kiedy ON DELETE CASCADE vs SET NULL
 - **Transakcje i ACID** — co to, po co, kiedy użyć `$transaction`. Isolation levels (basics)
-  - [ ] Potrafię wytłumaczyć ACID na rozmowie (każda litera z przykładem) `⏳ retencja 3.5/5 — 2026-03-26`
-  - [ ] Potrafię wytłumaczyć kiedy użyć transakcji i co to isolation level `⏳ retencja 3/5 — 2026-03-27`
+  - [ ] Potrafię wytłumaczyć ACID na rozmowie (każda litera z przykładem) `⏳ retencja 3.5/5 — 2026-04-10`
+  - [ ] Potrafię wytłumaczyć kiedy użyć transakcji i co to isolation level `⏳ retencja 3.5/5 — 2026-04-10`
 - **Locking** — optimistic vs pessimistic locking
-  - [ ] Potrafię wytłumaczyć optimistic vs pessimistic locking — kiedy który `⏳ retencja 3/5 — 2026-03-27`
+  - [x] Potrafię wytłumaczyć optimistic vs pessimistic locking — kiedy który
 - **Normalizacja** — 1NF, 2NF, 3NF. Kiedy denormalizować i dlaczego (trade-off: spójność vs performance)
-  - [ ] Potrafię wytłumaczyć 3 formy normalne i podać przykład kiedy denormalizować `⏳ retencja 3.5/5 — 2026-03-27`
+  - [x] Potrafię wytłumaczyć 3 formy normalne i podać przykład kiedy denormalizować
 - **Indeksy** — kiedy dodać, jak wpływają na performance, co robi `EXPLAIN ANALYZE`
   - [ ] Umiem przeczytać EXPLAIN ANALYZE i powiedzieć kiedy dodać indeks `⏳ retencja 3.5/5 — 2026-03-27`
   - [x] Rozumiem co Prisma generuje — potrafię przeczytać migrację SQL i wytłumaczyć każdą linię
@@ -119,7 +119,7 @@ Budujesz WorkoutTemplates, WorkoutLogs — cross-module communication. Widzisz j
 
 - **Repository pattern** — wydziel dostęp do bazy z service do repository
   - [x] Repository pattern wdrożony — service nie woła Prisma bezpośrednio
-  - [ ] Potrafię wytłumaczyć po co repository layer i kiedy to overengineering `⏳ retencja 3/5 — 2026-03-28`
+  - [ ] Potrafię wytłumaczyć po co repository layer i kiedy to overengineering `⏳ retencja 3.5/5 — 2026-04-10`
 - **Ustrukturyzowana paginacja** — wydziel do common, reużywalny pattern
   - [x] Paginacja wydzielona do common — reużywalna dla dowolnego modułu
   - [x] Paginacja działa, potrafię uzasadnić wybór (offset vs cursor)
@@ -132,7 +132,7 @@ Budujesz WorkoutTemplates, WorkoutLogs — cross-module communication. Widzisz j
   - [ ] Potrafię wytłumaczyć idempotentność HTTP metod i kiedy 201 vs 200 vs 204 `⏳ retencja 3.5/5 — 2026-03-28`
   - [ ] Potrafię porównać REST vs GraphQL z trade-offami `⏳ retencja 3.5/5 — 2026-03-28`
   - [ ] Potrafię wytłumaczyć API versioning — kiedy URL vs header `⏳ retencja 3.5/5 — 2026-03-31`
-  - [ ] Potrafię wytłumaczyć "co się dzieje gdy wpiszesz URL w przeglądarkę" (DNS → TCP → TLS → HTTP → server → response) `⏳ retencja 3.5/5 — 2026-03-28`
+  - [ ] Potrafię wytłumaczyć "co się dzieje gdy wpiszesz URL w przeglądarkę" (DNS → TCP → TLS → HTTP → server → response) `⏳ retencja 3.5/5 — 2026-04-10`
 - **HTTP caching** — Cache-Control, ETag, Last-Modified. Fundamenty protokołu HTTP
   - [ ] Potrafię wytłumaczyć Cache-Control headers (max-age, no-cache, no-store, stale-while-revalidate) `⏳ retencja 3.5/5 — 2026-03-31`
   - [ ] Potrafię wytłumaczyć ETag vs Last-Modified — kiedy który, jak działają conditional requests `⏳ retencja 3.5/5 — 2026-03-31`
