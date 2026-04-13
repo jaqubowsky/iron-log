@@ -1,84 +1,115 @@
 ---
 name: session-end
-description: Zamyka sesję coachingową — explain phase, feedback, session log, aktualizacja roadmapy i słabości. ZAWSZE używaj gdy Jakub kończy pracę: "kończymy", "koniec", "zamykamy", "tyle na dziś", "muszę lecieć", "ostatnie 5 min", albo gdy czas sesji się kończy. Nawet jeśli nie powie wprost "koniec sesji" — jeśli sygnalizuje że kończy, odpal ten skill.
+description: Zamyka sesję coachingową — explain phase, articulation check (2 pytania z banku), feedback, session log, aktualizacja roadmapy L3. ZAWSZE używaj gdy Jakub kończy pracę: "kończymy", "koniec", "zamykamy", "tyle na dziś", "muszę lecieć", "ostatnie 5 min", albo gdy czas sesji się kończy. Nawet jeśli nie powie wprost "koniec sesji" — jeśli sygnalizuje że kończy, odpal ten skill.
 ---
 
 # Session End Protocol
 
-Zamykasz sesję coachingową z Jakubem. Wykonaj poniższe kroki w kolejności:
+Zamykasz sesję coachingową z Jakubem. Wykonaj kroki w kolejności.
+
+## Sesje <20 min — wszystkie wyjątki w jednym miejscu
+
+Dla krótkich sesji (debug call, szybkie pytanie) **pomijasz wszystkie kroki 1-2 i 6-7** (explain phase, articulation check, Anki, rekomendacja). Wykonujesz tylko:
+
+- **Krok 3:** Odhacz L3 jeśli coś ukończyłeś
+- **Krok 4:** Skrócony session log (sekcje: "Co robił", "Samodzielność", "Następna sesja")
+- **Krok 5:** Update roadmapy jeśli zmieniło się coś w L3
+
+Powrót do pełnego flow gdy sesja ≥20 min.
+
+---
 
 ## 1. Explain phase (5 min)
 
-Symuluj code review — Jakub daje krótki overview, Ty wyciągasz pytania o decyzje i alternatywy.
+Symuluj code review — Jakub daje overview, Ty wyciągasz pytania o decyzje.
 
 ### Flow
 
 1. **Poproś o overview:** "Opowiedz w 2-3 zdaniach co zrobiłeś i jakie kluczowe decyzje podjąłeś"
-2. **Czekaj na odpowiedź** — nie przerywaj, nie podpowiadaj
-3. **Zadaj 3-4 celowane pytania** o decyzje, trade-offy i alternatywy na podstawie tego co powiedział i tego co widziałeś na sesji. Np. "dlaczego SET NULL a nie CASCADE?", "jakie inne opcje rozważałeś?"
-4. **Czekaj na odpowiedź na KAŻDE pytanie** — nie zasypuj pytaniami. Jeśli odpowiedź niekompletna: jedno follow-up ("a co z X?"), potem feedback i zamknij. NIE drąż w nieskończoność.
-5. **Daj feedback** po odpowiedziach: co dobrze, co pominął
+2. **Czekaj na odpowiedź** — nie przerywaj
+3. **Zadaj 3-4 celowane pytania** o decyzje, trade-offy, alternatywy
+4. **Czekaj na odpowiedź na KAŻDE pytanie** — nie zasypuj. Jedno follow-up max, potem feedback
+5. **Daj feedback** — co dobrze, co pominął
 
 ### Zasady
 
-- NIE wymuszaj monologu o 40 plikach — przy dużych taskach to nierealne i nie symuluje prawdziwej rozmowy
+- NIE wymuszaj monologu o 40 plikach — przy dużych taskach nierealne
 - Pytania dopasuj do tego co Jakub faktycznie robił — nie generyczne
-- Oceń (1-5): 1=nie umie wytłumaczyć, 3=zna koncept ale brakuje detali, 5=wytłumaczyłby na rozmowie. Hinty obniżają score.
-- **Sesje <20 min** (debug call, szybkie pytanie): pomiń explain phase i mock interview. Log skróć do: "Co robił", "Samodzielność", "Następna sesja".
-- **Sesje `/mock-interview session`**: explain phase zamień na krótkie "co zapamiętałeś z dzisiejszych tematów, który był najtrudniejszy?" — 1-2 pytania, bez formalnego overview. Pomiń mock interview (krok 2).
+- Oceń (1-5): 1=nie umie wytłumaczyć, 3=zna koncept brakuje detali, 5=wytłumaczyłby na rozmowie. Hinty obniżają score.
 
-## 2. Mock interview (5 min)
+## 2. Articulation check (2 pytania z banku)
 
-Mock interview jest **obowiązkowy co sesję**. Nie pytaj "chcesz pytanie?" — po prostu zadaj je. **Dopiero PO zakończeniu explain phase** — nie łącz obu w jedną wiadomość.
+Po explain phase wywołaj `articulation-check` skill przez Skill tool.
 
-**Wyjątek:** Jeśli sesja była `/mock-interview session` (Jakub przeprowadził już 5+ pytań mock interview jako główny task) → **pomiń ten krok**. Dodatkowe pytanie nie wnosi wartości i wydłuża zamknięcie sesji niepotrzebnie.
+**Dokładna forma wywołania:**
 
-- Przeprowadź mock interview zgodnie z protokołem z `.claude/skills/mock-interview/SKILL.md` (przeczytaj go — ścieżka projekt-lokalna: `.claude/skills/mock-interview/SKILL.md`)
-- Pytanie powiązane z tym co właśnie kodował LUB losowe z wcześniejszych tematów (element zaskoczenia)
-- Wyniki zapamiętaj — trafią do session logu (krok 4, sekcja "Mock interview") i do `docs/mock-interviews.md` (krok 6)
-- **Rekomendacja artykulacyjna:** jeśli backlog retencji ≥8 nieodhaczonych "potrafię wytłumaczyć" checkpointów → **następna sesja MUSI być `/mock-interview session`**. Jeśli 5-7 → rekomenduj, ale możesz kodować jeśli jest istotny powód. Wpisz liczbę backlogu wprost w sekcji "Następna sesja" — session-start to podchwyci
+```
+Skill tool:
+  skill: "articulation-check"
+  args: ""
+```
 
-## 3. Odhacz checkpointy z recall/mock (PRZED session logiem)
+Pusty `args` = default 2 pytania, priority-based selection z całego banku.
 
-**ZAWSZE wykonaj ten krok — nie pomijaj go.** Po explain phase i mock interview masz wyniki recall challenge (z session-start) i mock interview. Przeczytaj `fullstack-roadmap.md` i sprawdź czy którykolwiek checkpoint kwalifikuje się do odhaczenia:
+Dla dress rehearsal (Jakub wyraźnie prosi) użyj `args: "dress-rehearsal 5"` — 5 pytań, spacing guard off, pure score ascending.
 
-### Algorytm (wykonaj dla KAŻDEGO recall i mock z tej sesji)
+### Co robi articulation-check (za sceną)
 
-1. Jaki temat był testowany? Jaki score?
-2. Score ≥ 4/5? Jeśli nie → nie odhaczaj, idź dalej (3-3.5/5 = zostaje w rotacji, wróci na recall)
-3. Typ checkpointu:
-   - **"Potrafię wytłumaczyć/porównać X"** → sprawdź: kiedy temat był PIERWSZY RAZ przerobiony? Jeśli na tej samej sesji → NIE odhaczaj. Jeśli na wcześniejszej sesji (kolejna sesja, min. 24h przerwy) → **ODHACZ**
-   - **"Potrafię napisać X" / "X działa"** → odhacz od razu jeśli wykonane poprawnie
-4. Odhacz w `fullstack-roadmap.md` i zaktualizuj milestone header
-5. Powiedz Jakubowi co odhaczasz i dlaczego
+1. Wczytuje `docs/articulation-bank.md`
+2. Filtruje score-0 topics (wymagają task briefing w session-start, nie quiz)
+3. Priority selection: słabe → dawno nietestowane → starsze milestone
+4. Spacing guard: min. 3 dni od ostatniego testu per topic
+5. Zadaje 2 pytania w protokole: pytanie → dopytanie → feedback → re-recall jeśli <3.5 → atomic update banku
+6. **Mastery promotion:** streak 2/2 z ≥3.5, 3+ dni spacing, brak lapse → dodaje flagę `Status: mastered` do wpisu (wpis zostaje w banku z pełną historią)
+7. Zwraca podsumowanie: topics, scores, trendy, promoted-to-mastered list, lapse list
 
-Dopiero po tym kroku → pisz session log (krok 4).
+### Edge cases — co robisz jeśli articulation-check zwraca problem
+
+**"Bank ma <2 eligible candidates"** (bank pusty lub wszystko score-0):
+- Log w session logu: `"Articulation check: N/A — bank nie ma wystarczających kandydatów"`
+- Przejdź do kroku 3 bez articulation check
+- W rekomendacji na następną sesję (krok 7) zaznacz: "Bank jest niski, priorytet na task briefing który doda nowe topics do rotation"
+
+**"Spacing guard zablokował wszystkich kandydatów"** (wszyscy testowani w ostatnich 3 dniach):
+- Log: `"Articulation check: skipped — spacing guard (all topics tested within 3 days)"`
+- To jest zdrowe — znaczy że articulation check w session-end jest częsty. Nic nie robisz.
+
+**Wszystko OK, 2 pytania wykonane:** wyniki trafią do session logu (krok 4) w sekcji "Articulation check".
+
+## 3. Odhacz checkpointy L3 z roadmapy
+
+**ZAWSZE wykonaj** (nawet dla sesji <20 min). Po kroku 1-2 sprawdź czy jakikolwiek **L3 praktyczny** checkpoint w `fullstack-roadmap.md` kwalifikuje się do odhaczenia.
+
+**L3 checkpointy odhaczasz od razu** gdy task wykonany poprawnie:
+- "X działa" / "kod jest napisany" / "X skonfigurowany" — fakt: albo działa albo nie
+- "X zaimplementowane" — jeśli kod w repo
+
+**L3 to jedyny rodzaj checkpointów w roadmap.** Tematy narracyjne są w `articulation-bank.md` i promowane do `mastered` state przez streak 2/2 w `articulation-check` — nie są odhaczane w roadmap, zostają w banku z pełną historią.
+
+**Algorytm:**
+
+1. Czy dzisiejszy task ukończył L3 checkpoint? → odhacz
+2. Odhacz w `fullstack-roadmap.md` (zmień `[ ]` na `[x]`)
+3. Zaktualizuj milestone header (cokolwiek `[ ]` → `🔴 BLOKUJE`, wszystko `[x]` → `✅`)
+4. Powiedz Jakubowi co odhaczasz i dlaczego
 
 ## 4. Feedback + session log
 
-Daj Jakubowi szczery ustny feedback (co dobrze, co źle, jedna rzecz do poprawy). Potem zapisz session log — feedback trafia bezpośrednio do sekcji "Co poszło dobrze" i "Co poszło źle" w logu.
+Daj ustny feedback (co dobrze, co źle, jedna rzecz do poprawy). Potem zapisz session log.
 
-**Sprawdź czy istnieje plik z notatkami na bieżąco** (`docs/sessions/YYYY-MM-DD.md` z sekcją "Notatki na bieżąco" — tworzony przez session-start). Jeśli tak — przeczytaj je jako dodatkowy kontekst. Bazą do session logu jest cała konwersacja + poprzednie session logi — notatki na bieżąco to pomoc, nie zamiennik.
+**Sprawdź plik** `docs/sessions/YYYY-MM-DD.md` (tworzony przez session-start). Jeśli istnieje → rozbuduj. Jeśli nie → stwórz nowy.
 
-Przeczytaj `docs/sessions/` żeby porównać z poprzednimi sesjami, potem rozbuduj istniejący wpis (lub stwórz nowy jeśli nie istnieje).
-
-Plik: `docs/sessions/YYYY-MM-DD.md`
-
-- Jeśli plik z dzisiejszą datą już istnieje → dopisz nową sesję na końcu pliku (z nagłówkiem np. "# Sesja 2 — YYYY-MM-DD")
-- Jeśli nie istnieje → stwórz nowy
-
-### Format session logu
+### Format session logu (pełny, dla sesji ≥20 min)
 
 ```markdown
 # Sesja YYYY-MM-DD
 
-## Recall challenge
+## Plan sesji (z session-start — bez zmian)
+...
 
-[Pytanie + skąd (spacing: z sesji X / mock interview Y) + jak odpowiedział (1-5). Co pamiętał, co pominął]
+## Task briefing (jeśli był)
 
-## Mini-recall (jeśli były)
-
-[Jakie pytania padły w trakcie kodowania, czy odpowiedział poprawnie]
+[Topics które dostały pierwszą ekspozycję w task briefingu — lista z formatu session-start. Każdy temat ma teraz wpis w banku ze score 1.5/5.]
 
 ## Co robił
 
@@ -86,23 +117,34 @@ Plik: `docs/sessions/YYYY-MM-DD.md`
 
 ## Planowanie architektoniczne
 
-[Jak wypadło planowanie? Czy sam doszedł do planu? Jakie pytania sokratejskie były potrzebne? Co pominął?]
+[Czy sam doszedł do planu? Jakie pytania sokratejskie? Co pominął?]
 
-## Code review (jeśli był /code-review)
+## Code review (jeśli był)
 
-[Kluczowe findings: co Jakub sam zauważył, co pominął, wyniki automatycznego scanu]
+[Kluczowe findings: co Jakub sam zauważył, co pominął]
 
 ## Samodzielność (1-5)
 
-[Ocena: 1=pisałem za niego, 2=mocno naprowadzałem, 3=naprowadzałem pytaniami, 4=sam z minimalną pomocą, 5=sam od A do Z]
+[1=pisałem za niego, 2=mocno naprowadzałem, 3=naprowadzałem pytaniami, 4=sam z minimalną pomocą, 5=sam od A do Z]
 
 ## Explain phase
 
-[Jak wytłumaczył co zrobił? Czy umiał uzasadnić decyzje? Co pominął? Score (1-5)]
+[Jak wytłumaczył? Score (1-5). Jakie decyzje uzasadnił, jakie pominął.]
 
-## Mock interview
+## Articulation check
 
-[Pytanie, score (1-5), krótki feedback — co trafił, co pominął]
+[Wyniki z articulation-check skilla — skopiuj podsumowanie:
+- Topics + scores + trendy
+- Promoted to mastered (lub "brak")
+- Lapse list (lub "brak")
+- Nowe słabości (Do domknięcia added)
+
+Jeśli pominięty: "N/A — [powód]"]
+
+## Nowe L2 topics (dodane mid-session)
+
+[Jeśli w trakcie sesji wypłynął nowy temat narracyjny którego nie było w banku — dodaj go tutaj i do banku.
+Zobacz "Protokół: nowy L2 topic mid-session" poniżej.]
 
 ## Co poszło dobrze
 
@@ -114,131 +156,87 @@ Plik: `docs/sessions/YYYY-MM-DD.md`
 
 ## Słabości — update
 
-[Czy któraś słabość się poprawiła? Czy nowa się pojawiła?]
+[Czy słabość się poprawiła? Nowa się pojawiła?]
 
 ## Faza coachingu
 
-[Aktualna faza (Faza 1=M1-3, Faza 2=M4-6, Faza 3=M7-9) i czy jest gotowy na przejście do następnej. Milestone: aktualny (M1-M9)]
+[Aktualna faza (1=M1-3, 2=M4-6, 3=M7-9) i gotowość na następną. Milestone aktywny.]
 
-## Następna sesja
-
-→ użyj formatu z kroku 8
-```
-
-### Zasady logowania
-
-- Bądź szczery — log ma pokazywać realny progres, nie pocieszać
-- Samodzielność 3+ to dobry wynik na początku
-- Porównuj z poprzednimi sesjami — "tydzień temu potrzebował pomocy z X, dziś zrobił sam"
-- Jeśli samodzielność spada — zanotuj dlaczego i co zmienić
-- Po 4+ sesjach z oceną 4-5 → zasugeruj przejście do następnej fazy
-
-## 5. Aktualizacja roadmapy + articulation tracker
-
-Checkpointy były odhaczane w kroku 3 — **nie rób tego ponownie**. Tutaj aktualizujesz TAGI i status milestone'ów dla pozostałych zmian z sesji.
-
-Przeczytaj `fullstack-roadmap.md`. Dla roadmapy:
-
-1. **Aktualizuj tagi nowych tematów** — dla każdego tematu NOWO omówionego na tej sesji: zmień `🔴 zero` → `⏳ retencja 0/5 — YYYY-MM-DD`
-2. **Aktualizuj status każdego milestone'a** — patrz sekcja "Status milestone'a" poniżej
-3. **Wykrywaj luki** — jeśli podczas sesji wyszło że Jakub nie zna czegoś fundamentalnego co powinno być w roadmapie (np. brakujący temat SQL, brakujący koncept backendowy), dodaj to do odpowiedniego milestone'a
-4. **Dodawaj nowe pytania do przemyślenia** — jeśli sesja ujawniła ciekawy trade-off lub problem architektoniczny wart zapisania
-5. **Przenoś tematy** — jeśli temat okazał się trudniejszy niż zakładano, przenieś do wcześniejszego milestone'a żeby dać więcej czasu
-
-### Aktualizacja tagów przy checkpointach
-
-Każdy nieodhaczony checkpoint ma tag inline — aktualizuj go po każdej sesji:
-
-| Tag | Znaczenie | Kiedy zmienić |
-|---|---|---|
-| `🔴 zero` | Nigdy nie był na sesji | Zmień na `⏳ retencja X/5 — data` gdy temat był przerabiany na tej sesji |
-| `⏳ retencja X/5 — data` | Był na sesji, czeka na recall | Zaktualizuj score i datę gdy testowany na recall/mock. Zmień na `[x]` gdy recall 3+/5 NA KOLEJNEJ sesji (nie tej samej co nauka) |
-| `[x]` | Odhaczony | — |
-
-**Po aktualizacji tagów — zaktualizuj milestone header:**
-- Jakiś `🔴 zero`? → `🔴 BLOKUJE`
-- Brak `🔴 zero`, nie wszystko `[x]`? → `⏳ retencja`
-- Wszystko `[x]`? → `✅`
-
-Zasady:
-
-- Nie usuwaj istniejących checkpointów — tylko odhaczaj lub dodawaj nowe
-- Nowe tematy dodawaj z tagiem `🔴 zero` i uzasadnieniem (np. "— wyszło na sesji 2026-03-22 że brakuje fundamentów")
-- Jeśli milestone się za bardzo rozrósł → zaproponuj podział na 2 mniejsze
-- **Milestones M1-M9:** M1=CRUD ✅, M2=SQL, M3=HTTP+NestJS features, M4=Auth+Security, M5=Node.js runtime, M6=NestJS deeper+SOLID, M7=Docker+Deploy+Testy+Logging+Next.js front, M8=Caching+Queues+Advanced SQL, M9=System Design+Advanced
-
-### Kryterium odhaczania checkpointów
-
-**NIE odhaczaj checkpointu po pierwszym kontakcie z tematem.** Checkpoint typu "potrafię wytłumaczyć X na rozmowie" oznacza: potrafię z pamięci, bez zacinania, po kilku dniach — nie "zrozumiałem 2 godziny temu".
-
-Flow odhaczania:
-
-1. Jakub poznaje temat na sesji → **NIE odhaczaj**
-2. Generujesz fiszki Anki z tego tematu (krok 6)
-3. Na KOLEJNEJ sesji recall challenge weryfikuje retencję
-4. Jeśli recall challenge zdany (3+/5) → **TERAZ odhacz**
-
-Jedyny wyjątek: checkpointy czysto praktyczne — te można odhaczać od razu po sesji na której zostały wykonane, bo to fakty a nie wiedza do zweryfikowania. Rozpoznajesz je po sformułowaniu:
-- **"X działa"**, **"kod jest napisany"**, **"X skonfigurowany"** — fakt: albo działa albo nie
-- **"Potrafię napisać X"**, **"Umiem napisać X"** — umiejętność praktyczna: jeśli napisał z pamięci z poprawnym core (FK, constraints, typy) → odhacz. Drobne błędy (nazwy kolumn, przecinki) nie blokują odhaczenia
-- **"Potrafię wytłumaczyć X"**, **"Potrafię porównać X"** — wiedza do artykułacji: te WYMAGAJĄ recall na kolejnej sesji, NIE odhaczaj od razu
-
-## 6. Aktualizacja mock-interviews.md
-
-Dopisz wiersze do `docs/mock-interviews.md` dla DWÓCH źródeł:
-
-**Źródło A — mock interview z tej sesji** (zawsze): pytanie, score, słabe punkty.
-
-**Źródło B — recall challenge z session-start** (jeśli był): zaktualizuj istniejący wiersz lub dodaj nowy. Recall score musi trafić do mock-interviews.md — bez tego recall algorithm nie widzi progresu i będzie wybierał ten sam temat w kółko mimo że Jakub go już zdał. Format: zaktualizuj kolumnę Score w istniejącym wierszu lub dopisz nowy: `| YYYY-MM-DD | temat | recall challenge — [pytanie] | [score] | [co pominął] |`
-
-**Krytyczne — nowe ⏳ checkpointy:** Dla każdego checkpointu który właśnie zmienił tag z `🔴 zero` na `⏳ retencja` (czyli był przerabiany na tej sesji po raz pierwszy) — **dodaj wiersz do mock-interviews.md z score 0**. Format: `| YYYY-MM-DD | temat | [krótki opis tematu — pierwsze omówienie, brak recall] | 0 | Nie testowany jeszcze |`. Score 0 gwarantuje że recall algorithm go podchwyci przy następnej sesji (score ≤3). Bez tego wpisu temat siedzi w roadmapie jako ⏳ ale jest niewidoczny dla recall — to jest główna przyczyna rosnącego backlogu.
-
-## 7. Fiszki Anki
-
-Wygeneruj fiszki z tej sesji zgodnie z zasadami skilla `/create-anki` (przeczytaj `~/.claude/skills/create-anki/SKILL.md`). Zapisz je do `~/Anki/programming.tsv` (dopisz na końcu) i pokaż Jakubowi podgląd w markdown.
-
-Oprócz standardowych fiszek, dodaj min. 1-2 **connection cards** — fiszki łączące koncepty z różnych tematów:
-
-- "Jak NestJS DI łączy się z Dependency Inversion Principle z SOLID?"
-- "Czym Guard w NestJS jest przykładem Strategy Pattern?"
-- "Jak HTTP Cache-Control headers współgrają z Redis cache-aside?"
-
-Connection cards budują sieć wiedzy zamiast izolowanych faktów — to sprawia że wiedza jest trwalsza i łatwiejsza do przywołania na rozmowie.
-
-## 8. Rekomendacja na następną sesję
-
-Ta sekcja to **rekomendacja z uzasadnieniem** — NIE sztywny plan. Session-start na następnej sesji podejmie finalną decyzję na bazie pełnego kontekstu (roadmapa, trendy z wielu sesji, mock scores, stan retencji). Twoim zadaniem jest przekazać mu najważniejsze obserwacje z tej sesji.
-
-### Co session-end wie czego session-start nie wie
-
-Session-end ma gorący kontekst z sesji: co Jakub robił, gdzie się zacinał, jakie słabości się ujawniły, co wyszło na review. Te obserwacje są cenniejsze niż sztywna lista tasków — przekaż je jako input do decyzji.
-
-### Format sekcji "Następna sesja" w session logu
-
-```markdown
 ## Następna sesja
 
 ### Rekomendacja głównego taska
-[Który checkpoint z roadmapy powinien być następny i DLACZEGO — uzasadnij na bazie: co Jakub właśnie skończył, jaki jest naturalny następny krok w milestone, jakie fundamenty ma już opanowane. Podaj konkretny checkpoint z roadmapy]
+[Który L3 checkpoint z roadmapy + DLACZEGO. Konkretny checkpoint.]
+
+### Task briefing — relevant score-0 topics
+[Lista topics z articulation bank ze score 0 które są relevant do rekomendowanego taska — session-start użyje tego]
 
 ### Obserwacje z sesji (input dla session-start)
-- **Słabości do zaadresowania:** [co się ujawniło — np. "myli many-to-many z one-to-many", "nie umie wyjaśnić ACID bez notatek"]
-- **Poprawki z review:** [konkretna lista drobnych fixów — jeśli brak, pomiń. Zaznacz które blokują dalszą pracę a które są kosmetyczne]
-- **Co poszło dobrze:** [co Jakub opanował — session-start może to pominąć w recall i skupić się na słabościach]
-
-### Retencja (tematy do weryfikacji)
-[max 2-3 nieodhaczone checkpointy typu "potrafię wytłumaczyć X" — z aktualnym score'em jeśli był testowany]
+- **Słabości do zaadresowania:** [...]
+- **Poprawki z review:** [drobne fixy jako rozgrzewka, lub "brak"]
+- **Co poszło dobrze:** [...]
 
 ### Materiały do nauki przed sesją
 - **Docs:** [konkretna sekcja docs relevant do rekomendowanego taska]
 - **Pytanie do przemyślenia:** [jedno pytanie architektoniczne]
 ```
 
+### Protokół: nowy L2 topic mid-session
+
+Jeśli w trakcie sesji Jakub natrafił na koncept narracyjny którego **nie było w articulation bank** (np. omówiliście coś spontanicznie przy code review), session-end **dodaje go do banku**:
+
+1. **Czy była ekspozycja** (coach wytłumaczył, Jakub formułował odpowiedź)?
+   - **TAK** → pierwszy score w zależności od poziomu odpowiedzi:
+     - Dobra odpowiedź z drobnymi brakami → 3.0/5
+     - Mętna, wymagała dużo naprowadzania → 2.0/5
+     - Tylko signposting (coach wyjaśnił, Jakub nie formułował) → 1.5/5 (tak samo jak task briefing)
+   - **NIE** (pojawiło się w dyskusji ale bez realnego wyjaśnienia) → 0/5 (czeka na task briefing w przyszłości)
+2. **Atomic Edit** dodający nowy wpis do `articulation-bank.md` w odpowiedniej sekcji milestone:
+
+   ```markdown
+   ### [Topic name] (Mx)
+
+   **Score:** [SCORE]/5 | **Last tested:** [TODAY] | **Streak:** 0/2
+
+   Historia:
+   - [TODAY] ([tag: "explain" jeśli z explain phase, "code review" jeśli z review]): [SCORE]/5 — [krótki opis]
+
+   Do domknięcia:
+   - [konkretne gapy]
+   ```
+
+3. **Log w session logu** w sekcji "Nowe L2 topics (dodane mid-session)": wymień tematy które dodałeś z powodem.
+
+## 5. Aktualizacja roadmapy — tylko L3
+
+Checkpointy L3 już odhaczone w kroku 3. Tutaj aktualizujesz **status milestone'ów** i dodajesz nowe L3 checkpointy jeśli pojawiły się w trakcie sesji.
+
+**Co możesz robić:**
+
+1. Odhaczać nowe L3 checkpointy (`[ ]` → `[x]`)
+2. Dodawać nowe L3 checkpointy jeśli wyszła fundamentalna luka (np. "brakuje rate limiting w M4" → dodaj L3 `[ ]`)
+3. Update milestone header (cokolwiek `[ ]` → `🔴 BLOKUJE`, wszystko `[x]` → `✅`)
+4. Dodawać tematy narracyjne do cross-reference listy "Tematy narracyjne" w danym milestone — ale samo tworzenie wpisu w `articulation-bank.md` robisz w kroku 4 (protokół nowy L2 topic)
+
+Roadmap zawiera tylko L3 checkpointy. Tematy narracyjne to cross-reference do banku (lista nazw bez state/score). Pełna retencja L2 żyje w banku.
+
+## 6. Fiszki Anki
+
+Wygeneruj fiszki z tej sesji zgodnie z `create-anki` SKILL. Zapisz do `~/Anki/programming.tsv`. Pokaż Jakubowi podgląd w markdown.
+
+**Anki = L1 (atomic facts).** Krótkie fiszki Q/A w 2 zdaniach — fakty, definicje, wartości, syntax. Długie narracyjne tematy NIE idą do Anki — idą do articulation bank.
+
+Oprócz standardowych fiszek dodaj 1-2 **connection cards** łączące koncepty z różnych tematów, żeby budować sieć wiedzy zamiast izolowanych faktów.
+
+## 7. Rekomendacja na następną sesję
+
+Rekomendacja z uzasadnieniem — nie sztywny plan. Session-start podejmie finalną decyzję.
+
 ### Zasady pisania rekomendacji
 
-- **Uzasadniaj, nie nakazuj** — "Rekomendacja: testy HTTP, bo Jakub skończył CRUD + cross-module i nie testował jeszcze żadnego endpointu" jest lepsze niż "Następny task: testy HTTP"
-- **Poprawki z review** — drobne (naming, orderBy, response format) wrzuć do obserwacji. Poważne (zmiana modelu transakcji) zaznacz jako bloker jeśli blokują dalszą pracę
-- **Retencja = max 2-3 tematy** — testowane TYLKO przez recall challenge i mock interview (30 sek pytania). Reszta retencji idzie do Anki
-- **Tematy wiszące 3+ sesji bez postępu** — sprawdź session logi. Jeśli temat jest w "Retencja" od 3+ sesji i nie był zaadresowany → zanotuj to w obserwacjach (session-start zdecyduje: dedykowana sesja, usunięcie, lub Anki)
-- **Backlog retencji — policz teraz:** Zlicz wszystkie nieodhaczone checkpointy `⏳ retencja` typu "potrafię wytłumaczyć/porównać X" z M1-M4. Wpisz liczbę wprost w rekomendacji ("backlog: X checkpointów"). Jeśli ≥8 → **wyraźnie napisz że następna sesja MUSI być `/mock-interview session`** — nie "rozważ", nie "warto". Session-start potraktuje to jako twardy priorytet
-- **NIE wrzucaj tematu tylko dlatego że Jakub powiedział że jest "ciekawy"** — jeśli temat nie pasuje do aktualnego milestone, zanotuj go w roadmapie, nie w rekomendacji
+- **Uzasadniaj, nie nakazuj:** "Rekomendacja: ownership guard dla workouts, bo register działa ale guards jeszcze są score 0" lepsze niż "Następny task: ownership guard"
+- **L3 jako główny task — zawsze.** Bank kręci się w tle przez articulation check, nie generuje tasków. Nie ma takiej rzeczy jak "sesja articulation-only" — articulation check to 5-10 min na końcu sesji kodowej.
+- **Task briefing topics** — przeglądaj bank, wylistuj score-0 topics relevant do rekomendowanego taska. Session-start użyje tego do planowania briefingu w krok 4.
+- **Poprawki z review** — drobne (naming, orderBy, format) wrzuć do obserwacji jako rozgrzewka. Poważne (zmiana modelu, security) → bloker.
+- **Nie wrzucaj tematu bo Jakub powiedział "ciekawy"** — jeśli nie pasuje do aktualnego milestone, zanotuj w roadmap jako future L3 checkpoint, nie w rekomendacji na jutro.
+
+### Format sekcji "Następna sesja" — patrz wzór w kroku 4.

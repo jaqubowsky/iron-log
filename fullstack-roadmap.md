@@ -2,17 +2,17 @@
 
 ## Status (aktualizuj po każdej sesji)
 - **Aktywny milestone:** M4 — Auth + Security 🔴 BLOKUJE
-- **Następny 🔴 zero:** Auth flow end-to-end (register, login, refresh, logout)
-- **Backlog retencji:** ~13 nieodhaczonych "potrafię wytłumaczyć" z M2-M4 (sesja 2026-04-10: 2 odhaczone — locking 4/5, normalizacja 4/5; 5 przywróconych — próg podniesiony do 4/5)
-- **Priorytet:** backlog ≥8 → następna sesja artykulacyjna LUB kodowanie M4 jeśli session-end uzasadni (bcrypt homework zrobiony?)
+- **Następny checkpoint:** Passport LocalStrategy + POST /auth/register
+- **Articulation bank:** tematy narracyjne w `docs/articulation-bank.md`
 
 ---
 
-**Cel:** Aplikuję na Fullstack Mid+ (Next.js + NestJS/Node.js).
+**Cel:** Aplikuję na Fullstack Mid+ (NestJS + Next.js).
 **Tempo:** 1-2h dziennie. Codziennie. Bez wymówek. + 15 min Anki poza sesją.
-**Projekt:** IRONLOG API — backend do aplikacji treningowej.
+**Projekt:** IRONLOG API — backend do aplikacji treningowej (API-only).
+**Dlaczego API-only:** Next.js znasz komercyjnie z 4 lat doświadczenia. Czas sesji inwestujesz w to czego nie umiesz — NestJS, Postgres, Node runtime, system design. Frontend w IRONLOG byłby powtórką materiału który już masz w głowie.
 **Progresja:** Milestones, nie tygodnie. Kończysz milestone → idziesz dalej. Nie czekasz na kalendarz.
-**Timeline:** 3-4 miesiące. Aktywnie aplikuję od teraz. Priorytet: solidne przyswojenie > pęd przez materiał.
+**Timeline:** 3-4 miesiące. Aktywnie aplikuję od teraz.
 
 ## Filozofia
 
@@ -22,37 +22,46 @@
 2. **Rozumiesz DLACZEGO** — zanim napiszesz linijkę kodu, odpowiadasz sobie dlaczego tak a nie inaczej.
 3. **Myślisz data flow, nie ekranami** — zanim kodujesz feature: narysuj request → controller → service → DB → response.
 
-AI używasz jako:
+### Trzy warstwy retencji
 
-- Rubber duck — "czy moje podejście ma sens?"
-- Reference — "jak wygląda syntax tego decoratora?" (potem SAM piszesz)
-- Code reviewer — "co byś zmienił w tym kodzie?"
-- NIE ghostwriter
-
-## Priorytet tematów
-
-**Node.js + backend fundamenty > NestJS specifics.** NestJS to framework — zmienisz go w tydzień jeśli rozumiesz co pod spodem. NestJS-specific tematy (custom providers, decorators, dynamic modules) uczysz się przez budowanie, nie w izolacji.
-
-### Reguły przechodzenia między milestones
-
-Każdy nieodhaczony checkpoint ma tag przy sobie:
-
-| Tag | Znaczenie | Blokuje? |
+| Warstwa | Co | Gdzie |
 |---|---|---|
-| `[x]` | Odhaczony | — |
-| `[ ] checkpoint text ⏳ retencja X/5 — data` | Był na sesji, czeka na recall 3+/5 (dotyczy TYLKO checkpointów "potrafię wytłumaczyć/porównać") | NIE — koduj dalej |
-| `[ ] checkpoint text 🔴 zero` | Nigdy nie był na sesji | TAK — zaplanuj sesję |
+| **L1: Atomic facts** | Fakty, definicje, wartości, składnia (2 zdania) | Anki (`~/Anki/programming.tsv`) |
+| **L2: Articulation topics** | Tematy narracyjne 1-3 min ("wytłumacz mi X") | `docs/articulation-bank.md` |
+| **L3: Practical checkpoints** | "X działa", "potrafię napisać X" — kod w IRONLOG | Ten plik (roadmap) |
 
-**Jak to stosować:**
-1. Sprawdź nieodhaczone checkpointy w aktualnym milestone I we wszystkich wcześniejszych
-2. Jest jakiś `🔴 zero`? → zaplanuj sesję na ten temat. Fundamenty mają priorytet nad nowymi feature'ami
-3. Wszystkie nieodhaczone = `⏳ retencja`? → koduj dalej, retencja przez Anki + recall
-4. `⏳ retencja` po 3 sesjach nadal <3/5 → dedykowana sesja na ten temat
+Roadmap zawiera **L3 checkpointy** (blokują milestone header) + **cross-reference** do tematów narracyjnych per milestone (scope dla banku).
 
-**Milestone header wynika z checkpointów:**
-- Jakiś `🔴 zero` → `🔴 BLOKUJE`
-- Brak `🔴 zero`, nie wszystko `[x]` → `⏳ retencja`
+### Transferable backend concepts — priorytet
+
+Uczysz się NestJS, ale celem jest **rozumienie zasad na tyle żeby ogarnąć każdy backend framework**. Te koncepty są uniwersalne — zobaczysz je w Spring (Java), Django/FastAPI (Python), Laravel (PHP), ASP.NET (C#):
+
+- **IoC + DI container** — Spring, Angular, NestJS, .NET Core implementują ten sam principle. Rozumiesz jak działa container → rozumiesz każdy framework z DI.
+- **Request lifecycle / middleware pipeline** — Express/Koa middleware, Laravel middleware, Django middleware, ASP.NET pipeline — wszystkie to ta sama idea: chain of handlers dla request/response.
+- **Metadata-driven development** — decorators (TS), annotations (Java/Python), attributes (C#) — ten sam koncept różnie nazwany. Kod opisujesz przez metadata, framework je czyta i robi magic.
+- **Exception handling pipeline** — filters, error middleware, exception handlers — różne implementacje jednej idei (jedno miejsce do catch-all error).
+- **Schema validation pipeline** — Zod, class-validator, Joi, Pydantic, FluentValidation — wszystko to samo: walidacja jako pipeline przed handler.
+- **12-factor app principles** — env vars, stateless, logs jako stream, port binding — uniwersalne dla backendów cloudowych.
+- **ORM patterns** — Active Record (Laravel Eloquent, Rails) vs Data Mapper (Prisma, Doctrine, Hibernate) vs Repository (Spring Data, NestJS repository pattern). Rozumiesz różnicę → rozumiesz każdy ORM w 30 minut.
+
+Każde NestJS-specific ćwiczenie jest też ćwiczeniem z tych zasad. W `articulation-bank.md` masz temat narracyjny **"transferable concept X na przykładzie NestJS"** — ten kto opowie to na rozmowie pokazuje senior thinking, nie junior "znam framework".
+
+AI używasz jako: rubber duck, reference, code reviewer — nigdy jako ghostwriter.
+
+## Reguły przechodzenia między milestones
+
+Każdy checkpoint w roadmap to **L3 (praktyczny)**:
+
+| Stan | Znaczenie |
+|---|---|
+| `[x]` | Zrealizowany (kod w repo) |
+| `[ ]` | Do zrobienia |
+
+**Milestone header:**
+- Jakieś `[ ]` → `🔴 BLOKUJE`
 - Wszystko `[x]` → `✅`
+
+Tematy narracyjne per milestone są w `docs/articulation-bank.md` — kręcą się w rotacji przez session-end articulation check. Każdy milestone w roadmap ma sekcję "Tematy narracyjne (articulation bank)" jako **cross-reference** (lista nazw tematów bez stanu). Polityka kiedy wpis powstaje w banku, jak się aktualizuje i jak jest promowany — wszystko w `docs/articulation-bank.md` (SSOT).
 
 ---
 
@@ -65,122 +74,134 @@ Każdy nieodhaczony checkpoint ma tag przy sobie:
 - Prisma + PostgreSQL — schemat bazy, relacje, migracje ✅
 - Error handling strategy — spójne kody HTTP, format errorów ✅
 
-### Checkpointy
+### Checkpointy L3
 
 - [x] ExercisesModule CRUD działa, pisany sam
 - [x] Error handling jest spójny w całym module
-- [x] Potrafię wytłumaczyć podział controller/service komuś na rozmowie
 
-### Przykładowe pytania
+### Tematy narracyjne (articulation bank)
 
-- Dlaczego logika w Service a nie w Controller? 3 konkretne powody.
-- DTO vs surowy obiekt — po co ta warstwa?
-- 400 vs 404 vs 422 vs 500 — kiedy który?
+- Controller/Service split — 3 powody dlaczego logika w Service
 
 ---
 
-## Milestone 2 — SQL fundamenty ⏳ retencja
+## Milestone 2 — SQL fundamenty ✅
 
 ### Co robisz
 
-Prereq: SQLBolt + PostgreSQL Tutorial ZANIM sesja coachingowa z raw SQL.
+- CRUD w SQL — SELECT, INSERT, UPDATE, DELETE z WHERE. Umiesz napisać ręcznie bez ORM
+- JOINy — INNER, LEFT. Umiesz napisać SELECT z JOIN na danych IRONLOG
+- Constraints — PRIMARY KEY, FOREIGN KEY, UNIQUE, NOT NULL, CASCADE DELETE, ON DELETE SET NULL
+- Transakcje i ACID, Locking, Normalizacja, Indeksy
 
-- **CRUD w SQL** — SELECT, INSERT, UPDATE, DELETE z WHERE. Umiesz napisać ręcznie bez ORM
-  - [x] Potrafię napisać CREATE TABLE z FK i constraints z pamięci
-  - [x] Umiem napisać raw SQL: SELECT z JOIN, INSERT, UPDATE, DELETE
-- **JOINy** — INNER, LEFT. Umiesz napisać SELECT z JOIN na danych IRONLOG
-  - [ ] Potrafię wytłumaczyć różnicę INNER vs LEFT JOIN i kiedy który `⏳ retencja 3.5/5 — 2026-04-10`
-- **Constraints** — PRIMARY KEY, FOREIGN KEY, UNIQUE, NOT NULL, CASCADE DELETE, ON DELETE SET NULL
-  - [x] Potrafię wymienić typy constraints i wytłumaczyć kiedy ON DELETE CASCADE vs SET NULL
-- **Transakcje i ACID** — co to, po co, kiedy użyć `$transaction`. Isolation levels (basics)
-  - [ ] Potrafię wytłumaczyć ACID na rozmowie (każda litera z przykładem) `⏳ retencja 3.5/5 — 2026-04-10`
-  - [ ] Potrafię wytłumaczyć kiedy użyć transakcji i co to isolation level `⏳ retencja 3.5/5 — 2026-04-10`
-- **Locking** — optimistic vs pessimistic locking
-  - [x] Potrafię wytłumaczyć optimistic vs pessimistic locking — kiedy który
-- **Normalizacja** — 1NF, 2NF, 3NF. Kiedy denormalizować i dlaczego (trade-off: spójność vs performance)
-  - [x] Potrafię wytłumaczyć 3 formy normalne i podać przykład kiedy denormalizować
-- **Indeksy** — kiedy dodać, jak wpływają na performance, co robi `EXPLAIN ANALYZE`
-  - [ ] Umiem przeczytać EXPLAIN ANALYZE i powiedzieć kiedy dodać indeks `⏳ retencja 3.5/5 — 2026-03-27`
-  - [x] Rozumiem co Prisma generuje — potrafię przeczytać migrację SQL i wytłumaczyć każdą linię
+### Checkpointy L3
 
-### Przykładowe pytania
+- [x] Potrafię napisać CREATE TABLE z FK i constraints z pamięci
+- [x] Umiem napisać raw SQL: SELECT z JOIN, INSERT, UPDATE, DELETE
 
-- Dlaczego Prisma generuje indeks na foreign key? Co by się stało bez niego?
-- Tworzysz WorkoutTemplate z 5 ćwiczeniami — jedno ID nie istnieje. Jak to obsłużyć? Atomowo (transakcja) czy częściowo?
-- Napisz SQL query który zwraca ten sam kształt co Response DTO — jak JOINujesz tabelę łączącą?
+### Tematy narracyjne (articulation bank)
+
+- FK constraints + ON DELETE CASCADE/SET NULL/NO ACTION/RESTRICT
+- INNER vs LEFT JOIN — kiedy który, NULL w kolumnach prawej tabeli
+- ACID — każda litera z przykładem z IRONLOG
+- Transakcje + isolation levels — dirty/phantom/non-repeatable read
+- Optimistic vs pessimistic locking — version field, SELECT FOR UPDATE, 409 Conflict
+- Normalizacja 1NF/2NF/3NF + kiedy denormalizować
+- Composite PK vs auto-increment w tabeli łączącej
+- EXPLAIN ANALYZE — Seq Scan vs Index Scan, kiedy dodać indeks
+- Prisma → SQL mapping (migracje, JOINy, relacje)
+- ORM patterns — Active Record vs Data Mapper vs Repository (transferable concept)
 
 ---
 
-## Milestone 3 — HTTP/REST + NestJS features ⏳ retencja
+## Milestone 3 — HTTP/REST + NestJS features ✅
 
 ### Co robisz
 
 Budujesz WorkoutTemplates, WorkoutLogs — cross-module communication. Widzisz jak ORM mapuje się na SQL.
 
-- **Repository pattern** — wydziel dostęp do bazy z service do repository
-  - [x] Repository pattern wdrożony — service nie woła Prisma bezpośrednio
-  - [ ] Potrafię wytłumaczyć po co repository layer i kiedy to overengineering `⏳ retencja 3.5/5 — 2026-04-10`
-- **Ustrukturyzowana paginacja** — wydziel do common, reużywalny pattern
-  - [x] Paginacja wydzielona do common — reużywalna dla dowolnego modułu
-  - [x] Paginacja działa, potrafię uzasadnić wybór (offset vs cursor)
-- **Code review + bug fixy**
-  - [x] Bug fixy z code review wdrożone (@Max, @IsInt — P2025 i TOCTOU już obsłużone przez exception filter)
-- **Cross-module communication** — WorkoutLogs moduł, import/export między modułami
-  - [x] Moduły komunikują się, zero circular deps
-  - [x] Potrafię wytłumaczyć jak NestJS modules importują/eksportują providery
-- **HTTP/REST** — kody statusów, idempotentność, REST vs GraphQL, API versioning
-  - [ ] Potrafię wytłumaczyć idempotentność HTTP metod i kiedy 201 vs 200 vs 204 `⏳ retencja 3.5/5 — 2026-03-28`
-  - [ ] Potrafię porównać REST vs GraphQL z trade-offami `⏳ retencja 3.5/5 — 2026-03-28`
-  - [ ] Potrafię wytłumaczyć API versioning — kiedy URL vs header `⏳ retencja 3.5/5 — 2026-03-31`
-  - [ ] Potrafię wytłumaczyć "co się dzieje gdy wpiszesz URL w przeglądarkę" (DNS → TCP → TLS → HTTP → server → response) `⏳ retencja 3.5/5 — 2026-04-10`
-- **HTTP caching** — Cache-Control, ETag, Last-Modified. Fundamenty protokołu HTTP
-  - [ ] Potrafię wytłumaczyć Cache-Control headers (max-age, no-cache, no-store, stale-while-revalidate) `⏳ retencja 3.5/5 — 2026-03-31`
-  - [ ] Potrafię wytłumaczyć ETag vs Last-Modified — kiedy który, jak działają conditional requests `⏳ retencja 3.5/5 — 2026-03-31`
-- **ORM trade-offy** — TypeORM vs Prisma vs MikroORM, eager vs lazy loading, N+1 problem
-  - [x] Response transformacja — umiem uzasadnić wybór podejścia i trade-offy SQL-level vs app-level
-  - [ ] Potrafię wytłumaczyć N+1 problem i jak go rozwiązać `⏳ retencja 3.5/5 — 2026-03-28`
+- Repository pattern — wydziel dostęp do bazy z service do repository
+- Ustrukturyzowana paginacja — wydziel do common, reużywalny pattern
+- Cross-module communication — WorkoutLogs moduł, import/export między modułami
+- HTTP/REST — kody statusów, idempotentność, API versioning, caching
 
-### Przykładowe pytania
+### Checkpointy L3
 
-- Offset pagination vs cursor pagination — trade-offy?
-- WorkoutLogsService potrzebuje sprawdzić czy exercise istnieje. Import modułu czy osobny query?
-- Circular dependency — dlaczego problem? Jak rozwiązać architekturalnie (nie forwardRef)?
-- `GET /workout-logs?exerciseId=5` vs `GET /exercises/5/workout-logs` — kiedy który?
+- [x] Repository pattern wdrożony — service nie woła Prisma bezpośrednio
+- [x] Paginacja wydzielona do common — reużywalna dla dowolnego modułu
+- [x] Paginacja działa (offset)
+- [x] Bug fixy z code review wdrożone
+- [x] Moduły komunikują się, zero circular deps
+
+### Tematy narracyjne (articulation bank)
+
+- Repository pattern — po co, kiedy overengineering
+- Offset vs cursor pagination — trade-offy, filtrowanie
+- NestJS modules — exports/imports, providery, cross-module communication
+- External API service — retry, circuit breaker, error handling
+- Response transformation — SQL-level vs app-level trade-offy
+- REST sparse fields — mobile vs web, field filtering, DTO per client
+- Idempotentność HTTP + idempotency key pattern (Stripe 200+cached vs 409)
+- N+1 problem — detection, JOIN vs DataLoader, Prisma include internals
+- Cache-Control headers + conditional requests (ETag, Last-Modified, 304)
+- API versioning — URL vs header vs query param, Vary: Accept, semver
+- "Co się dzieje gdy wpiszesz URL w przeglądarce" — DNS/TCP/TLS/HTTP
+- REST vs GraphQL — trade-offy, kiedy który
+- Middleware pipeline — transferable concept (Express, Koa, Laravel, NestJS)
 
 ---
 
-## Milestone 4 — Auth + security 🔴 BLOKUJE
+## Milestone 4 — Auth + Security (NestJS + Passport) 🔴 BLOKUJE
 
 ### Co robisz
 
-JWT auth od zera. Największy build milestone — po tym masz działające API z autentykacją.
+JWT auth od zera z Passport.js (standard w NestJS). Największy build milestone — po tym masz działające API z pełną autentykacją.
 
-- **JWT auth**
-  - [ ] Auth flow działa end-to-end (register, login, refresh, logout), pisany sam `🔴 zero`
-  - [ ] Potrafię porównać JWT vs session-based auth z trade-offami `🔴 zero`
-  - [ ] Potrafię wytłumaczyć access token + refresh token flow i co gdy token wycieknie `⏳ retencja 3.5/5 — 2026-04-04`
-- **Guards + ownership**
-  - [ ] Ownership check — user nie widzi cudzych danych `🔴 zero`
-  - [ ] Potrafię wytłumaczyć guard vs middleware — kiedy który `🔴 zero`
-- **Password hashing** — bcrypt vs argon2, salt, cost factor
-  - [ ] Potrafię wytłumaczyć dlaczego bcrypt a nie SHA do haseł, co to salt i cost factor `🔴 zero`
-- **Security** — CORS, helmet, rate limiting, OWASP basics
-  - [ ] Security basics skonfigurowane: CORS, helmet, rate limiting `🔴 zero`
-  - [ ] Potrafię wymienić top 3 OWASP (XSS, SQL injection, CSRF) i jak się bronić `🔴 zero`
-- **Config management** — `@nestjs/config`, env vars. Nie hardkoduj JWT secret
-  - [ ] ConfigModule skonfigurowany — env vars zamiast hardkodowanych wartości `🔴 zero`
-  - [ ] Potrafię wytłumaczyć jak zarządzasz configiem między środowiskami (dev/staging/prod) `🔴 zero`
-- **Basic testing** — min. 1 unit test dla auth service. Pełna strategia testów w M7
-  - [ ] Min. 1 unit test dla auth service napisany sam `🔴 zero`
+**NestJS-specific focus:** Passport strategies są standardem w NestJS — bez nich `@nestjs/passport` używasz niepoprawnie. Każda rekrutacja NestJS pyta o Passport strategies.
 
-### Przykładowe pytania
+### Checkpointy L3 — Passport strategies
+
+- [ ] `LocalStrategy` implementowana — `AuthService.validateUser()` sprawdza email+password, strategy zwraca user object
+- [ ] `JwtStrategy` implementowana — wyciąga token z Authorization header, weryfikuje signature, zwraca user z payload
+- [ ] `JwtRefreshStrategy` implementowana — osobna strategy dla refresh tokenów, weryfikuje refresh token z httpOnly cookie
+- [ ] `AuthGuard('local')` chroni `POST /auth/login`, wywołuje LocalStrategy
+- [ ] `AuthGuard('jwt')` chroni protected endpoints, wywołuje JwtStrategy
+- [ ] `AuthGuard('jwt-refresh')` chroni `POST /auth/refresh`, używa refresh strategy
+
+### Checkpointy L3 — Auth endpoints
+
+- [ ] `POST /auth/register` — email + password, bcrypt hash, unique email constraint, 409 na duplikat
+- [ ] `POST /auth/login` — LocalStrategy validates, wystawia access + refresh tokens
+- [ ] `POST /auth/refresh` — JwtRefreshStrategy validates, rotuje refresh token, wystawia nowy access
+- [ ] `POST /auth/logout` — unieważnia refresh token (usuwa z DB lub dodaje do blacklist)
+- [ ] `GET /auth/me` — zwraca aktualnego usera (protected przez JwtStrategy)
+
+### Checkpointy L3 — Ownership + Security
+
+- [ ] Ownership guard — custom guard sprawdzający że user widzi tylko swoje zasoby (workout logs, templates)
+- [ ] `@CurrentUser()` custom decorator — wyciąga user z request (używa `createParamDecorator`)
+- [ ] ConfigModule skonfigurowany — wszystkie secrets (JWT_SECRET, DB_URL, bcrypt cost) z env vars
+- [ ] Security basics: CORS (konfig per env), helmet, rate limiting (global + per-route)
+- [ ] Min. 2 unit testy dla AuthService (validateUser, hashPassword) napisane samodzielnie
+### Tematy narracyjne (articulation bank)
+
+- JWT access+refresh token flow — storage, lifetime, rotation, reuse detection
+- JWT vs session-based auth — trade-offy
+- Guard vs Middleware — oba blokują request, kiedy który
+- Passport strategy lifecycle — jak `validate()` jest wywoływana, co zwraca, skąd AuthGuard bierze user
+- bcrypt vs SHA256 — salt, cost factor, dlaczego do haseł
+- OWASP top 3 (XSS, SQL injection, CSRF) — mechanizm i obrona
+- Config management — env vars, secrets, 12-factor app principles
+- CORS — dlaczego istnieje, kiedy browser blokuje request, konfig w NestJS
+
+### Przykładowe pytania rekrutacyjne
 
 - JWT vs session-based — trade-offy? Kiedy który?
 - Access token + refresh token vs sam access token — co gdy wycieknie?
 - Guard vs Middleware — oba blokują request. Kiedy który?
+- Jak działa Passport Strategy w NestJS? Co zwraca validate() i gdzie idzie dalej?
 - "User widzi tylko swoje treningi" — guard? Service? Query filter? Konsekwencje?
-- Co to CORS i dlaczego istnieje? Kiedy browser blokuje request?
-- Dlaczego bcrypt a nie SHA256 do hashowania haseł?
+- Dlaczego bcrypt a nie SHA256? Co to cost factor?
 
 ---
 
@@ -188,19 +209,20 @@ JWT auth od zera. Największy build milestone — po tym masz działające API z
 
 ### Co robisz
 
-Teoria Node.js — event loop, streams, skalowanie. Nie budujesz nowych features, ale musisz to umieć wytłumaczyć bo pytają na KAŻDEJ rozmowie Node.js.
+Teoria Node.js — event loop, streams, skalowanie. Jeden praktyczny endpoint używający streams żeby zakotwiczyć wiedzę w kodzie.
 
-- **Event loop** — fazy, microtasks vs macrotasks, single-threaded non-blocking model
-  - [ ] Potrafię wytłumaczyć event loop i dlaczego Node jest single-threaded ale non-blocking `⏳ retencja 3/5 — 2026-04-04`
-  - [ ] Potrafię wytłumaczyć co się dzieje gdy Node dostaje 1000 requestów jednocześnie `🔴 zero`
-- **Streams** (koncept) — kiedy użyć, co to backpressure. "Jak przetworzysz duży plik bez OOM?"
-  - [ ] Potrafię wytłumaczyć kiedy użyć stream i co to backpressure `🔴 zero`
-- **Scaling Node.js** — cluster module vs worker_threads (koncept)
-  - [ ] Potrafię wytłumaczyć kiedy cluster (multi-process) vs worker_threads (CPU-bound tasks) `🔴 zero`
-- **Error handling w Node.js** — operational vs programmer errors
-  - [ ] Potrafię wytłumaczyć operational errors vs programmer errors i jak je obsługujesz inaczej `🔴 zero`
+### Checkpointy L3
 
-### Przykładowe pytania
+- [ ] Stream processing endpoint — `POST /workout-logs/import-csv` używający `fs.createReadStream` + `csv-parser`, przetwarzający duży plik bez OOM
+### Tematy narracyjne (articulation bank)
+
+- Event loop — fazy, microtasks/macrotasks, single-threaded non-blocking
+- Node 1000 concurrent requests — co się dzieje
+- Streams + backpressure — kiedy użyć, CSV 50MB scenario
+- cluster vs worker_threads — multi-process vs CPU-bound
+- Operational errors vs programmer errors — handling strategy
+
+### Przykładowe pytania rekrutacyjne
 
 - Narysuj event loop — co się dzieje gdy Node dostaje 1000 requestów jednocześnie?
 - Masz duży plik do przetworzenia. Jak to robisz w Node? Co to backpressure?
@@ -209,72 +231,109 @@ Teoria Node.js — event loop, streams, skalowanie. Nie budujesz nowych features
 
 ---
 
-## Milestone 6 — NestJS deeper + SOLID + patterns 🔴 BLOKUJE
+## Milestone 6 — NestJS deep dive + SOLID + patterns 🔴 BLOKUJE
 
 ### Co robisz
 
-Refleksja na tym co zbudowałeś w M4 (auth). Teraz rozumiesz request lifecycle, custom providers, SOLID, design patterns — bo masz kod w którym to widzisz.
+Głębokie NestJS features: interceptors, exception filters, pipes, dynamic modules, custom providers, serialization, events. Refleksja na auth z M4 + rozbudowa IRONLOG o advanced patterns.
 
-- **Request lifecycle**
-  - [ ] Potrafię narysować request lifecycle z pamięci (Middleware → Guard → Interceptor → Pipe → Controller → Service → Interceptor → Filter) `🔴 zero`
-  - [ ] Response envelope pattern działa na całym API (interceptor) `🔴 zero`
-- **NestJS deeper** — custom providers, custom decorators, dynamic modules
-  - [ ] Potrafię wytłumaczyć useClass vs useValue vs useFactory z realnym przykładem `🔴 zero`
-  - [ ] Potrafię wytłumaczyć createParamDecorator i SetMetadata + Reflector (bo użyłem w auth) `🔴 zero`
-  - [ ] Potrafię wytłumaczyć forRoot vs forFeature pattern `🔴 zero`
-- **SOLID principles** — każda litera z przykładem
-  - [ ] Potrafię wytłumaczyć każdą literę SOLID z przykładem łamania i naprawy `🔴 zero`
-  - [ ] Potrafię wskazać gdzie w NestJS widzę SRP, OCP, DIP `🔴 zero`
-- **Design patterns** — Strategy, Observer, Factory, Singleton
-  - [ ] Potrafię wskazać Strategy (guards, pipes), Singleton (DI default scope), Factory (useFactory), Observer (RxJS) w NestJS `🔴 zero`
+**NestJS-specific focus:** to milestone który pokazuje że **rozumiesz framework jak senior** — custom providers, dynamic modules, event-driven communication. Każda rekrutacja NestJS pyta o te koncepty.
 
-### Przykładowe pytania
+### Checkpointy L3 — Interceptors + Filters + Pipes
+
+- [ ] Response envelope interceptor — wszystkie responses pakowane w `{ data, meta }` format, jeden global interceptor
+- [ ] Logging interceptor — loguje każdy request (method, path, duration, user ID) przez Pino
+- [ ] Global exception filter — catch-all dla nieobsłużonych wyjątków, loguje + zwraca sanitized response
+- [ ] Custom exception classes — `BusinessRuleViolation`, `ResourceNotFound` z dedykowanym filterem
+- [ ] Custom ValidationPipe — rozszerzony `ValidationPipe` z logiką specyficzną dla projektu
+
+### Checkpointy L3 — Dynamic Modules + Custom Providers
+
+- [ ] `DatabaseModule.forRoot({...})` — dynamic module dla Prisma z configiem przekazywanym przy imporcie
+- [ ] `useFactory` provider — przynajmniej jeden real use case (np. PrismaClient z różną konfiguracją per env)
+- [ ] Custom decorator dla `@CurrentUser()` + `@Roles()` — używające `createParamDecorator` i `SetMetadata` + `Reflector`
+
+### Checkpointy L3 — Serialization + Events
+
+- [ ] `class-transformer` serialization — WorkoutLogResponseDto z groups: `'owner'` widzi swoje notatki/komentarze, `'public'` widzi tylko liczby (weight, reps, date) dla leaderboardu
+- [ ] EventEmitter module (`@nestjs/event-emitter`) — `WorkoutLogCreatedEvent` emitowany przez WorkoutLogsService po zapisie, consumowany przez: (a) StatsService (pre-compute daily stats), (b) PersonalRecordService (sprawdza czy pobił PR dla ćwiczenia)
+### Tematy narracyjne (articulation bank)
+
+- Request lifecycle w NestJS — Middleware → Guard → Interceptor → Pipe → Controller → Service → Interceptor → Filter
+- useClass vs useValue vs useFactory — kiedy który z realnym przykładem
+- createParamDecorator + Reflector — jak wyciągnąć metadata
+- forRoot vs forFeature pattern — kiedy który
+- SOLID principles — każda litera z przykładem łamania i naprawy
+- Strategy, Singleton, Factory, Observer — gdzie widać w NestJS
+- IoC + DI container — transferable concept (Spring, Angular, .NET)
+- class-transformer serialization — @Expose/@Exclude, groups, response shaping
+- Event-driven communication — kiedy events zamiast direct call, decoupling trade-offy
+- Metadata-driven development — decorators vs annotations vs attributes (transferable)
+
+### Przykładowe pytania rekrutacyjne
 
 - Interceptor transformuje response — jak to wpływa na testowanie?
 - DI scope REQUEST vs DEFAULT — kiedy potrzebujesz request-scoped provider?
-- SOLID — podaj przykład łamania Open/Closed Principle w NestJS. Jak byś to naprawił?
-- Strategy pattern — gdzie widzisz go w NestJS?
 - Custom providers — useClass vs useValue vs useFactory. Kiedy który?
+- Dynamic module forRoot vs forFeature — pokaż przykład
+- Jak działa ExecutionContext w guards/interceptors?
+- SOLID — przykład łamania Open/Closed Principle w NestJS. Jak naprawisz?
+- Kiedy używasz events zamiast bezpośredniego method call między modułami?
+- class-transformer @Expose vs manual response mapping — trade-offy?
 
 ---
 
-## Milestone 7 — Docker + deploy + testy + logging + Next.js front 🔴 BLOKUJE
+## Milestone 7 — Docker + deploy + testy + production readiness 🔴 BLOKUJE
 
 ### Co robisz
 
-IRONLOG idzie na produkcję. Docker, deploy, testy, logging. Podłącz Next.js frontend — fullstack demo.
+IRONLOG idzie na produkcję jako backend API. Docker, deploy, testy, logging, Swagger, rate limiting, healthchecks, scheduled tasks, file handling.
 
-- **Docker + deploy**
-  - [ ] `docker-compose up` i działa (Nest + Postgres) `🔴 zero`
-  - [ ] App jest na produkcji, dostępna przez przeglądarkę `🔴 zero`
-  - [ ] Potrafię wytłumaczyć multi-stage build — dlaczego i co zyskujesz `🔴 zero`
-  - [ ] Graceful shutdown działa — `docker stop` domyka połączenia czysto `🔴 zero`
-- **Structured logging** — Pino zamiast console.log
-  - [ ] Structured logging (Pino) działa w IRONLOG `🔴 zero`
-  - [ ] Potrafię odpowiedzieć: "Jak debugujesz problem na produkcji? Co logujesz?" `🔴 zero`
-- **Reverse proxy** — co to, co robi Nginx/Traefik. 1 pytanie na rozmowie
-  - [ ] Potrafię wytłumaczyć co to reverse proxy i czym różni się od load balancera `🔴 zero`
-- **Testy**
-  - [ ] Unit testy dla kluczowej logiki w services `🔴 zero`
-  - [ ] E2e test: rejestracja → login → CRUD → logout `🔴 zero`
-  - [ ] Potrafię wytłumaczyć unit vs integration vs e2e — co daje najlepszy ROI `🔴 zero`
-  - [ ] Potrafię wytłumaczyć jak działa `Test.createTestingModule()` i kiedy mockować vs testować z DB `🔴 zero`
-- **Next.js front**
-  - [ ] Next.js front konsumuje API — fullstack demo gotowe `🔴 zero`
-  - [ ] Potrafię narysować data flow: user action → component → fetch → API → DB → response → UI update `🔴 zero`
-- **Swagger + CI/CD + Git**
-  - [ ] Swagger docs dla całego API `🔴 zero`
-  - [ ] CI pipeline działa (lint + test + build) `🔴 zero`
-  - [ ] Potrafię wytłumaczyć rebase vs merge — kiedy który `🔴 zero`
+### Checkpointy L3 — Docker + Deploy
 
-### Przykładowe pytania
+- [ ] `docker-compose up` i działa (Nest + Postgres), multi-stage build
+- [ ] App jest na produkcji (Railway/Fly/Render), dostępna przez URL
+- [ ] Graceful shutdown działa — `docker stop` domyka DB connection pool czysto (`enableShutdownHooks`)
+- [ ] Health endpoints — `GET /health` (liveness), `GET /ready` (readiness) z `@nestjs/terminus`, sprawdzają DB connection
+
+### Checkpointy L3 — Testing (NestJS-specific)
+
+- [ ] `Test.createTestingModule()` — unit testy dla AuthService z mockowanym PrismaService przez useValue
+- [ ] Unit testy dla kluczowej logiki w services (min. 10 testów pokrywających happy path + edge cases)
+- [ ] E2e test (`@nestjs/testing` + supertest) — flow: rejestracja → login → CRUD workout → logout → protected endpoint odrzuca bez tokena
+
+### Checkpointy L3 — Production features
+
+- [ ] Structured logging (Pino) z request IDs — każdy log ma `reqId`, możesz śledzić request przez cały flow
+- [ ] Rate limiting — dwie strategie: global IP-based (`@nestjs/throttler`) + per-user dla sensitive endpoints (login, register)
+- [ ] Swagger docs dla całego API — każdy endpoint ma `@ApiOperation`, `@ApiResponse`, DTOs mają `@ApiProperty` z examples
+- [ ] Scheduled task (`@nestjs/schedule`) — cron job o 3 rano pre-computing weekly volume stats per user (sum of weight × reps per muscle group), zapisuje do `user_stats_cache` table żeby `GET /stats` nie liczył per request
+- [ ] CSV import — `POST /workout-logs/import` (Multer) bulk import historii z innej aplikacji, walidacja struktury, rollback przy błędzie
+- [ ] CSV export — `GET /workout-logs/export` (StreamableFile) download własnej historii treningowej (user data export, GDPR compliance)
+- [ ] CI pipeline (GitHub Actions): lint + test + build na każdy PR
+- [ ] README w IRONLOG: setup, architecture diagram, API docs link, deployment notes
+### Tematy narracyjne (articulation bank)
+
+- Multi-stage Docker build — dlaczego, co zyskujesz
+- Graceful shutdown w Node — SIGTERM, enableShutdownHooks, DB connection cleanup
+- Reverse proxy vs load balancer — różnica, kiedy który
+- Unit vs integration vs e2e — ROI, co gdy
+- `Test.createTestingModule()` — jak działa, kiedy mockować, kiedy testować z DB
+- Rate limiting strategies — token bucket, sliding window, fixed window
+- Scheduled tasks — cron, intervals, kiedy używać, gotchas (distributed systems)
+- File upload best practices — multipart, streaming, Multer, S3 presigned URLs
+- 12-factor app principles — transferable dla każdego backendu w cloudzie
+
+### Przykładowe pytania rekrutacyjne
 
 - Multi-stage build — dlaczego? Co zyskujesz?
 - Docker wysyła SIGTERM — co robi Twoja Nest app?
 - Unit vs integration vs e2e — co daje najlepszy ROI?
 - Jak mockujesz Prisma w unit teście NestJS service?
-- Rebase vs merge — kiedy który?
 - Jak debugujesz problem na produkcji? Czego szukasz w logach?
+- Jak działa rate limiting? Jakie strategie znasz?
+- Masz cron job który wysyła email — co gdy masz 3 instancje aplikacji?
+- File upload 500MB — jak to robisz żeby nie zajechać memory?
 
 ---
 
@@ -282,72 +341,80 @@ IRONLOG idzie na produkcję. Docker, deploy, testy, logging. Podłącz Next.js f
 
 ### Co robisz
 
-Produkcyjne features: Redis caching, BullMQ queues, zaawansowany SQL.
+Produkcyjne backend features: Redis caching, BullMQ queues, zaawansowany SQL. Wszystko NestJS-native przez dedykowane moduły.
 
-- **Redis**
-  - [ ] Redis cache działa na wybranym endpoincie, potrafię zmierzyć różnicę `🔴 zero`
-  - [ ] Potrafię wytłumaczyć cache-aside pattern i narysować flow (cache hit vs miss) `🔴 zero`
-  - [ ] Potrafię wytłumaczyć cache invalidation strategies i trade-offy `🔴 zero`
-  - [ ] Potrafię odpowiedzieć: "Co się dzieje gdy Redis padnie? Czy API dalej działa?" `🔴 zero`
-- **Message queues**
-  - [ ] Queue przetwarza zadanie asynchronicznie, retry działa `🔴 zero`
-  - [ ] Potrafię narysować flow: request → API → queue → consumer → result `🔴 zero`
-  - [ ] Potrafię wytłumaczyć producer/consumer, dead letter queue, retry strategy `🔴 zero`
-  - [ ] Potrafię wytłumaczyć kiedy synchroniczny request a kiedy queue `🔴 zero`
-  - [ ] Potrafię wytłumaczyć idempotency w message processing — jak zapewnić że wiadomość nie przetworzona 2x `🔴 zero`
-- **Advanced SQL** — CTEs (Common Table Expressions)
-  - [ ] Potrafię wytłumaczyć co to CTE (WITH clause) i kiedy użyć zamiast subquery `🔴 zero`
+### Checkpointy L3 — Redis + Cache
 
-### Przykładowe pytania
+- [ ] Redis skonfigurowany (`@nestjs/cache-manager` + `cache-manager-ioredis-yet`)
+- [ ] Cache interceptor dla wybranych endpointów (np. `GET /exercises` — rzadko się zmienia)
+- [ ] Cache invalidation działa — po `POST/PUT/DELETE` exercise, cache jest czyszczony
+- [ ] Fallback strategy — co robi API gdy Redis padnie (graceful degradation)
+
+### Checkpointy L3 — Queues
+
+- [ ] BullMQ module (`@nestjs/bullmq`) skonfigurowany z Redis jako broker
+- [ ] Queue consumer (processor) — przetwarzanie asynchronicznego zadania (np. email po skończonym treningu)
+- [ ] Retry + DLQ (dead letter queue) — nieudane jobs lądują w DLQ, można je zainspekować
+- [ ] Idempotency w processor — ten sam job przetwarzany 2x daje ten sam wynik
+
+### Checkpointy L3 — Advanced SQL
+
+- [ ] CTE (WITH clause) w raw SQL query — np. top 5 ćwiczeń per user z sub-queries
+### Tematy narracyjne (articulation bank)
+
+- Cache-aside pattern — flow cache hit vs miss
+- Cache invalidation strategies — TTL, write-through, write-behind, explicit
+- Co gdy Redis padnie — graceful degradation
+- Producer/consumer pattern + DLQ
+- Idempotency w message processing
+- Synchroniczny request vs queue — kiedy który
+- CTE vs subquery — czytelność vs performance
+
+### Przykładowe pytania rekrutacyjne
 
 - Cache hit vs miss — narysuj flow danych
 - Co się dzieje gdy Redis padnie? Czy API dalej działa?
 - Synchroniczny request vs queue — kiedy który? Co gdy consumer padnie?
 - Idempotency — jak zapewnić że wiadomość nie przetworzona 2x?
-- Kiedy CTE a kiedy subquery? Co zyskujesz czytelności?
+- Kiedy CTE a kiedy subquery?
 
 ---
 
-## Milestone 9 — System design + advanced topics 🔴 BLOKUJE
+## Milestone 9 — System design + real-time + interview prep 🔴 BLOKUJE
 
 ### Co robisz
 
-Capstone. Dotrzesz tu TYLKO jak M1-M8 odhaczone. System design, advanced topics, interview polish.
+Capstone. Real-time features, system design, interview polish, aplikowanie.
 
-- **Behavioral prep**
-  - [ ] Mam przygotowane 2-3 historie behawioralne (najtrudniejszy bug, decyzja architektoniczna, code review) `🔴 zero`
-  - [ ] Potrafię opowiedzieć każdą w formacie STAR w 2-3 minuty `🔴 zero`
-- **DDD basics**
-  - [ ] Potrafię wytłumaczyć bounded context, aggregate i ubiquitous language `🔴 zero`
-  - [ ] Potrafię podać przykład kiedy DDD ma sens a kiedy overkill `🔴 zero`
-- **CQRS**
-  - [ ] Potrafię wytłumaczyć co to CQRS i kiedy warto rozdzielić read/write model `🔴 zero`
-  - [ ] Potrafię podać jakie problemy rozwiązuje a jakie tworzy `🔴 zero`
-- **WebSocket vs SSE vs polling**
-  - [ ] Potrafię porównać WebSocket vs SSE vs polling z trade-offami i podać kiedy który `🔴 zero`
-- **Scaling fundamentals**
-  - [ ] Potrafię wytłumaczyć horizontal vs vertical scaling `🔴 zero`
-  - [ ] Potrafię wytłumaczyć read replicas, circuit breaker, graceful degradation `🔴 zero`
-- **Monolith vs Microservices** — trade-offy, kiedy migrować, dlaczego monolith-first
-  - [ ] Potrafię wytłumaczyć kiedy monolith a kiedy microservices — z konkretnymi argumentami, nie buzzwordami `🔴 zero`
+### Checkpointy L3
 
-### System design challenges
+- [ ] WebSocket gateway (`@nestjs/websockets`) — Personal Record notifications. Flow: user kończy workout → WorkoutLogCreatedEvent (z M6) → PersonalRecordService sprawdza czy `maxWeight > previousBest` (cache z M8) → jeśli tak, WS gateway pusha `pr:new` event do client. User widzi live toast "🎉 Nowy rekord: Squat 150kg!". Pokrywa: EventEmitter (M6) + Redis cache (M8) + WebSocket (M9) end-to-end
+- [ ] 2-3 historie behawioralne w formacie STAR — spisane
+- [ ] Wysłane min. 5 aplikacji na pozycje Fullstack Mid+ / NestJS
+- [ ] IRONLOG na GitHubie: README, Dockerfile, testy, Swagger, live demo URL
+- [ ] Potrafię zaprojektować system od zera na kartce w 20 min (system design challenge)
+### Tematy narracyjne (articulation bank)
+
+- DDD basics — bounded context, aggregate, ubiquitous language
+- CQRS — kiedy rozdzielić read/write, jakie problemy rozwiązuje
+- WebSocket vs SSE vs polling — trade-offy, kiedy który
+- Horizontal vs vertical scaling — read replicas, circuit breaker
+- Monolith vs Microservices — kiedy który, bez buzzwordów
+
+### System design challenges (task briefings w session-start)
 
 - System notyfikacji real-time (WebSockets vs SSE vs polling)
-- Auth flow z social login, JWT, refresh tokens — front do bazy
-- Formularz wielokrokowy z walidacją server-side
 - File upload z progress barem (presigned URLs, chunked upload, S3)
 - Scaling — IRONLOG ma 100k userów. Co skalujesz najpierw?
+- Auth flow z social login (Google OAuth)
+- Multi-tenant architecture dla SaaS version IRONLOG
 
-### Checkpointy (recall verification — weryfikacja płynności z wcześniejszych milestones)
+### Przykładowe pytania rekrutacyjne (pełen zestaw dress rehearsal)
 
-- [ ] Wysłane min. 5 aplikacji na pozycje Fullstack Mid+ `🔴 zero`
-- [ ] Potrafię wytłumaczyć event loop bez zacinania (M5) `🔴 zero`
-- [ ] Potrafię wytłumaczyć DI i NestJS module system bez zacinania (M1/M6) `🔴 zero`
-- [ ] Potrafię wytłumaczyć JWT auth flow bez zacinania (M4) `🔴 zero`
-- [ ] Potrafię narysować request lifecycle bez zacinania (M6) `🔴 zero`
-- [ ] Potrafię zaprojektować prosty system od zera na kartce w 20 min `🔴 zero`
-- [ ] IRONLOG jest na GitHubie z README, Dockerem, testami — portfolio ready `🔴 zero`
-
----
-
+- Event loop bez zacinania (M5)
+- DI i NestJS module system (M1/M6)
+- JWT auth flow (M4)
+- Request lifecycle w NestJS (M6)
+- SOLID + gdzie łamiesz Open/Closed (M6)
+- Zaprojektuj cache strategy dla X (M8)
+- WebSocket vs SSE vs polling (M9)
