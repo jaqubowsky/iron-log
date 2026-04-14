@@ -79,17 +79,30 @@ Dla każdego tematu z briefingu sprawdź czy trafił do napisanego kodu. **Forma
 3. Uruchom `git diff` (uncommitted) + `git log --since="midnight" --name-only` (today's commits) → zbuduj jeden tekst z całym dzisiejszym diffem
 4. Dla każdego briefed topic: grep keywordów (lowercase, OR) w diff
 5. Wyciągnij **konkretną ścieżkę:linię** pierwszego matchu — to jest `L3 anchor` dla tego tematu
-6. Zapisz wynik w session logu (krok 4) w sekcji "Briefing utrwalenie":
-   - `✅ [topic] — anchor: src/path/file.ts:N`
-   - `⚠ [topic] — brak anchora w dzisiejszym diffie → zostaje jako theory only, rekomendacja na następną sesję`
+6. Klasyfikuj wynik per topic i zapisz w session logu (krok 4) w sekcji "Briefing utrwalenie":
+   - **Match w diff** → `OK: [topic] — anchor: src/path/file.ts:N`
+   - **Brak matchu, score topica w banku < 3.5** → `PENDING: [topic] — brak anchora, score zbyt niski na bridge task. Zostaje w rotacji bank.` (jeszcze za wcześnie żeby zakładać że to dług — to świeży temat z briefingu który nie zdążył)
+   - **Brak matchu, score topica w banku ≥ 3.5** (cargo cult retention risk) → **napisz bridge task do roadmap** (procedura niżej) i zaloguj: `BRIDGE WRITTEN: [topic] → fullstack-roadmap.md M<X>`
+
+**Procedura: bridge writer (gdy brak anchora + score ≥ 3.5)**
+
+To jest aktywne wymuszenie theory→task. Coach (Ty) sformułuje konkretny task implementacyjny, nie tylko nazwę topica:
+
+1. Określ właściwy milestone w roadmap. Dla tematów cross-milestone (np. caching) wybierz najbliższy logicznie milestone w którym task ma sens architektonicznie (np. caching → M8, ale prosty ETag → M3).
+2. Sformułuj konkretną treść taska: **co dokładnie zaimplementować w IRONLOG**, na którym module/endpointcie, jaki test go weryfikuje. Nie ogólnik "dodaj caching" — konkret "dodaj `Cache-Control: public, max-age=3600` na `GET /exercises` + curl test ETag round-trip".
+3. **Edit** `fullstack-roadmap.md` — znajdź sekcję `### Checkpointy L3` w odpowiednim milestone, dopisz na końcu listy nową linię w formacie:
+   ```
+   - [ ] (bridge) **<topic name>** — <konkretny task implementacyjny z testem>
+   ```
+4. W session logu w sekcji "Następna sesja" / "Obserwacje z sesji" zaznacz: `Bridge task napisany dla [topic] w M<X> — kandydat na priority next session`.
 
 **Aktualizacja banku z anchorem:** nie tutaj. Pole `L3 anchor:` we wpisie tematu jest aktualizowane przez `articulation-check` przy najbliższym teście (lazy update). Wynik sekcji "Briefing utrwalenie" w session logu jest źródłem prawdy do tego czasu — articulation-check go odczyta przy najbliższej rotacji tematu.
 
-**Dlaczego to robimy:** każda teoria powinna zostać utrwalona taskiem w IRONLOG, inaczej wiedza trafia do martwej pamięci. Bez tego kroku bank może rosnąć ze score'ami 3.5+, a kod nigdy nie dotyka konceptu — dokładnie to co chcemy wyłapać.
+**Dlaczego to robimy aktywnie a nie pasywnie:** każda teoria powinna zostać utrwalona taskiem w IRONLOG, inaczej wiedza trafia do martwej pamięci. Bez tej procedury bank rośnie ze score'ami 3.5+, a kod nigdy nie dotyka konceptu. Pasywne flagowanie ("notuj że brak anchora") nie działa — fix musi się materializować jako konkretny task w SSOT (roadmap), żeby session-start mógł go podnieść.
 
 **Edge case — brak briefingu dzisiaj:** jeśli sesja nie zaczynała się od task briefingu (np. kontynuacja wcześniejszego taska), pomiń 3a. W logu zanotuj "Briefing utrwalenie check: N/A — brak briefingu dzisiaj".
 
-**Edge case — briefing topic wymaga więcej niż 1 sesji:** OK, to normalne. Zapisz `⚠ briefing X — częściowo utrwalony, potrzebuje kontynuacji` i zaproponuj konkretny follow-up task.
+**Edge case — briefing topic wymaga więcej niż 1 sesji:** OK, to normalne. Zapisz `PARTIAL: briefing X — częściowo utrwalony, potrzebuje kontynuacji` i zaproponuj konkretny follow-up task w sekcji "Następna sesja" (NIE bridge writer, bo dług nie istnieje — to jest po prostu kontynuacja).
 
 ### 3b. Odhacz L3 checkpointy — hard gate (anchor required)
 
@@ -104,8 +117,8 @@ Dla każdego tematu z briefingu sprawdź czy trafił do napisanego kodu. **Forma
 
 1. Dla każdego `[ ]` L3 w aktywnym milestone:
    - **Step A (verify):** czy istnieje konkretna ścieżka:linia w dzisiejszym diffie/repo która realizuje ten checkpoint? (nie "task był robiony" — `Read` plik i potwierdź)
-   - **Step B (gate):** jeśli `tak` → `[ ]` → `[x]`. Jeśli `nie` → checkpoint **zostaje** `[ ]`, dodaj do session logu: `⚠ L3 "[checkpoint name]" — task wykonany ale brak persystowanego anchora w kodzie. Następna sesja: zweryfikuj/dokończ.`
-2. Update milestone header (cokolwiek `[ ]` → `🔴 BLOKUJE`, wszystko `[x]` → `✅`)
+   - **Step B (gate):** jeśli `tak` → `[ ]` → `[x]`. Jeśli `nie` → checkpoint **zostaje** `[ ]`, dodaj do session logu: `BLOCKED L3 "[checkpoint name]" — task wykonany ale brak persystowanego anchora w kodzie. Następna sesja: zweryfikuj/dokończ.`
+2. Update milestone header (jakieś **core** `[ ]` bez prefixu `(bridge)` → `🔴 BLOKUJE`, wszystko core `[x]` → `✅`. **Bridge taski nie blokują** milestone progression — są addytywne, nie liczone do header status.)
 3. Powiedz Jakubowi co odhaczasz **i dlaczego konkretnie** (cytuj anchor: `[x] LocalStrategy implementowana — anchor src/auth/strategies/local.strategy.ts:12`)
 4. Dla każdego checkpointu który ZOSTAŁ `[ ]` mimo że Jakub coś dziś robił — powiedz wprost dlaczego nie odhaczasz: brak anchora, brak testu, brak X.
 
@@ -115,7 +128,7 @@ Dla każdego tematu z briefingu sprawdź czy trafił do napisanego kodu. **Forma
 - Test był ale failuje
 - "Wpisałem przykład z docs" bez żywego endpointu
 
-**L3 to jedyny rodzaj checkpointów w roadmap.** Tematy narracyjne żyją w `articulation-bank.md` — tam interval SRS rośnie sam po udanych testach, nie ma tu ręcznej promocji.
+**L3 to jedyny rodzaj checkpointów w roadmap** (core + bridge w jednej liście). Tematy narracyjne L2 żyją wyłącznie w `articulation-bank.md` — tam interval SRS rośnie sam po udanych testach, nie ma tu ręcznej promocji. Roadmap nie duplikuje listy tematów L2.
 
 ## 4. Feedback + session log
 
@@ -251,12 +264,12 @@ Checkpointy L3 już odhaczone w kroku 3. Tutaj aktualizujesz **status milestone'
 
 **Co możesz robić:**
 
-1. Odhaczać nowe L3 checkpointy (`[ ]` → `[x]`)
-2. Dodawać nowe L3 checkpointy jeśli wyszła fundamentalna luka (np. "brakuje rate limiting w M4" → dodaj L3 `[ ]`)
-3. Update milestone header (cokolwiek `[ ]` → `🔴 BLOKUJE`, wszystko `[x]` → `✅`)
-4. Dodawać tematy narracyjne do cross-reference listy "Tematy narracyjne" w danym milestone — ale samo tworzenie wpisu w `articulation-bank.md` robisz w kroku 4 (protokół nowy L2 topic)
+1. Odhaczać nowe L3 checkpointy (`[ ]` → `[x]`) — core lub bridge
+2. Dodawać nowe **core** L3 checkpointy jeśli wyszła fundamentalna luka (np. "brakuje rate limiting w M4" → dodaj `- [ ] <task>` bez prefixu)
+3. Dodawać nowe **bridge** L3 checkpointy — zrobione już w kroku 3a przez bridge writer (`- [ ] (bridge) <task>`). Tutaj tylko upewnij się że Edit faktycznie się zapisał.
+4. Update milestone header — patrz reguła w kroku 3b (bridge nie blokują)
 
-Roadmap zawiera tylko L3 checkpointy. Tematy narracyjne to cross-reference do banku (lista nazw bez state/score). Pełna retencja L2 żyje w banku.
+Roadmap zawiera **wyłącznie** L3 checkpointy (core + bridge w jednej liście). Tematy L2 żyją tylko w `articulation-bank.md`. Roadmap nie duplikuje banku — ani jako lista, ani jako cross-reference.
 
 ## 6. Fiszki Anki
 
@@ -273,7 +286,8 @@ Rekomendacja z uzasadnieniem — nie sztywny plan. Session-start podejmie finaln
 ### Zasady pisania rekomendacji
 
 - **Uzasadniaj, nie nakazuj:** "Rekomendacja: ownership guard dla workouts, bo register działa ale guards jeszcze są score 0" lepsze niż "Następny task: ownership guard"
-- **L3 jako główny task — zawsze.** Bank kręci się w tle przez articulation check, nie generuje tasków. Nie ma takiej rzeczy jak "sesja articulation-only" — articulation check to 5-10 min na końcu sesji kodowej.
+- **L3 jako główny task — domyślnie.** Bank kręci się w tle przez articulation check, sam nie generuje tasków (to robi bridge writer w kroku 3a). Wyjątek: dress rehearsal / mock interview session — gdy bank ma duży backlog (≥8 tematów due) lub Jakub explicit prosi o "sprawdź mnie", zamiast L3 taska sesja może być w całości articulation-driven. Wtedy w rekomendacji zaznacz "Sesja: dress rehearsal — N tematów".
+- **Bridge taski** (`(bridge)` prefix w roadmap) są priority kandydatami gdy nie ma core'owych `[ ]` w aktywnym milestone, lub gdy session-start chce zamknąć dług teorii. Wymień je w rekomendacji jako alternatywę dla głównego taska.
 - **Task briefing topics** — przeglądaj bank, wylistuj score-0 topics relevant do rekomendowanego taska. Session-start użyje tego do planowania briefingu w krok 4.
 - **Poprawki z review** — drobne (naming, orderBy, format) wrzuć do obserwacji jako rozgrzewka. Poważne (zmiana modelu, security) → bloker.
 - **Nie wrzucaj tematu bo Jakub powiedział "ciekawy"** — jeśli nie pasuje do aktualnego milestone, zanotuj w roadmap jako future L3 checkpoint, nie w rekomendacji na jutro.

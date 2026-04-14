@@ -111,29 +111,32 @@ Na co NIE patrzysz (nie trać czasu):
 
 ## 5. Output — review domyka pętlę nauki
 
-Po zakończeniu review, podsumowanie + **mapping do systemu nauki**. Każda ⚠️ linia musi mieć decyzję dalej (do banku, do briefingu następnej sesji, lub natychmiastowy fix).
+Po zakończeniu review, podsumowanie + **mapping do systemu nauki**. Każda linia z `WEAK:` musi mieć decyzję dalej (do banku, do briefingu następnej sesji, lub natychmiastowy fix).
 
-Format dokładnie taki — nie zamieniaj emoji na myślniki:
+Format dokładnie taki:
 
 ```
 **Review summary:**
-- ✅ [co dobrze — tylko naprawdę dobre rzeczy, nie "kompiluje się"]
-- ⚠️ [co jest słabe architektonicznie — max 2-3 punkty z kierunkiem poprawy]
-- 🔧 [co poprawić teraz — bugi, security]
-- 📋 [co wchodzi jako task na następną sesję, jeśli cokolwiek]
+- OK: [co dobrze — tylko naprawdę dobre rzeczy, nie "kompiluje się"]
+- WEAK: [co jest słabe architektonicznie — max 2-3 punkty z kierunkiem poprawy]
+- FIX NOW: [co poprawić teraz — bugi, security]
+- NEXT SESSION: [co wchodzi jako task na następną sesję, jeśli cokolwiek]
 
 **Mapping do nauki:**
-- 🧠 [koncept którego brakowało Jakubowi → temat do dodania/aktualizacji w articulation-bank]
-- 📚 [score-0 topic z banku który byłby przydatny przed kolejnym taskiem → flag dla session-end jako briefing topic na następną sesję]
-- 🎯 [konkretny L3 checkpoint który ten kod realizuje (lub powinien) — anchor src/path:N jeśli istnieje, lub `brak anchora — checkpoint nie zalicza się`]
+- CONCEPT GAP: [koncept którego brakowało Jakubowi → temat do dodania/aktualizacji w articulation-bank]
+- BRIEFING: [score-0 topic z banku który byłby przydatny przed kolejnym taskiem → flag dla session-end jako briefing topic na następną sesję]
+- L3 ANCHOR: [konkretny L3 checkpoint który ten kod realizuje (lub powinien) — anchor src/path:N jeśli istnieje, lub `brak anchora — checkpoint nie zalicza się`]
+- BRIDGE NEEDED: [jeśli review odsłonił że Jakub używa konceptu bez rozumienia DLACZEGO (klasyczny cargo cult) i ten temat ma score ≥3.5 w banku, flaguj jako kandydata na bridge task; session-end napisze go w kroku 3a]
 ```
 
-Puste kategorie pomiń, nie pisz "brak". **Puste ✅ to akceptowalny wynik** — lepiej żaden ✅ niż fałszywy ✅.
+Puste kategorie pomiń, nie pisz "brak". **Puste OK to akceptowalny wynik** — lepiej żaden OK niż fałszywy OK.
 
 ### Jak wypełnić "Mapping do nauki"
 
-1. **🧠 Koncept którego brakowało:** jeśli Jakub napisał kod ale nie umiał uzasadnić decyzji w sokratejskim review (np. użył guarda ale nie wiedział czemu nie middleware), wpisz topic name dokładnie tak jak istnieje (lub powinien istnieć) w `docs/articulation-bank.md`. Session-end skill weźmie to i utworzy/zaktualizuje wpis L2.
+1. **CONCEPT GAP:** jeśli Jakub napisał kod ale nie umiał uzasadnić decyzji w sokratejskim review (np. użył guarda ale nie wiedział czemu nie middleware), wpisz topic name dokładnie tak jak istnieje (lub powinien istnieć) w `docs/articulation-bank.md`. Session-end skill weźmie to i utworzy/zaktualizuje wpis L2.
 
-2. **📚 Score-0 do briefingu:** Read `docs/articulation-bank.md`, znajdź tematy `Score: 0` które dotyczą obszaru tego review (np. review auth → szukaj M4 score-0 topics). Wypisz 1-2 najsilniej powiązane. Session-end zapisze je do "Następna sesja → Task briefing topics".
+2. **BRIEFING:** Read `docs/articulation-bank.md`, znajdź tematy `Score: 0` które dotyczą obszaru tego review (np. review auth → szukaj M4 score-0 topics). Wypisz 1-2 najsilniej powiązane. Session-end zapisze je do "Następna sesja → Task briefing topics".
 
-3. **🎯 L3 anchor:** Read odpowiedni plik z dzisiejszego diffu. Jeśli kod realizuje konkretny L3 checkpoint z `fullstack-roadmap.md` — wpisz checkpoint name + ścieżkę:linię. Jeśli kod jest niekompletny (TODO, placeholder, brak testu), wpisz `brak anchora — checkpoint nie zalicza się` żeby session-end nie odhaczył błędnie.
+3. **L3 ANCHOR:** Read odpowiedni plik z dzisiejszego diffu. Jeśli kod realizuje konkretny L3 checkpoint z `fullstack-roadmap.md` (w root projektu, nie w docs/) — wpisz checkpoint name + ścieżkę:linię. Jeśli kod jest niekompletny (TODO, placeholder, brak testu), wpisz `brak anchora — checkpoint nie zalicza się` żeby session-end nie odhaczył błędnie.
+
+4. **BRIDGE NEEDED:** sytuacja, gdy review pokazuje że Jakub ZNA temat narracyjnie (jest w banku ze score ≥3.5) ale używa konceptu mechanicznie, bez intuicji o trade-offach. Flaguj nazwę topica + sugerowany milestone dla bridge task. Session-end w kroku 3a sformułuje konkretny task implementacyjny i dopisze do roadmap.

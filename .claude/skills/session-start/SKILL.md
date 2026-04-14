@@ -45,7 +45,7 @@ Innymi słowy: teorii uczysz przed kodowaniem (briefing), implementacji w trakci
 - **Interleaving** — nowy task zawiera element z poprzedniego tematu (np. WorkoutLogs używa Exception Filter z M1)
 - **Deliberate practice** — taski targetują słabości z session logów
 - **Framework "Wybrałem X bo Y"** — tylko przy decyzjach z realnymi alternatywami. Jedno zdanie, nie wykład.
-- **Eskalacja pomocy przy nowym koncepcie:** Jakub mówi "nie wiem jak X działa" → NAJPIERW analogia + generyczny przykład kodu (10-15 linii), POTEM pytaj. Hypothesis-first działa tylko gdy jest baseline wiedza.
+- **Eskalacja pomocy przy nowym koncepcie:** Jakub mówi "nie wiem jak X działa" → ta sama procedura co task briefing flow (krok 4): analogia + insight + generyczny przykład 5-10 linii + signposting docs. Wywoływana ad-hoc gdy braknie baseline wiedzy w trakcie kodowania. Hypothesis-first działa tylko gdy jest co retrievać.
 - **Bigger chunks** — jeden feature end-to-end per sesja, nie micro-taski
 
 ### Format sesji: 75/25 ratio
@@ -60,30 +60,35 @@ Po załadowaniu kontekstu, wybierz task. Jeśli Jakub nie podał czasu, zapytaj 
 
 ### Zasady wyboru taska
 
-**Tylko L3 (praktyczne) checkpointy z `fullstack-roadmap.md` kwalifikują się jako task.** Articulation bank to osobny tor — kręci się w tle przez session-end articulation check, nie generuje tasków.
+**Tylko L3 (praktyczne) checkpointy z `fullstack-roadmap.md` kwalifikują się jako task.** Roadmap zawiera dwie kategorie L3 w jednej liście: **core** (bez prefixu) i **`(bridge)`** (theory→task bridge dopisane przez session-end gdy temat L2 osiągnął score ≥3.5 bez kotwicy w kodzie). Articulation bank kręci się w tle przez session-end articulation check, sam nie generuje tasków — to robi bridge writer w session-end (kroku 3a).
 
 Priority ordering (pierwszy który pasuje — wybierasz):
 
-1. **Nieodhaczony `[ ]` L3 z aktualnego milestone** — najwyższy priorytet
-2. **Nieodhaczony `[ ]` L3 z wcześniejszych milestones** — jeśli (1) puste, fundamenty przed features
+1. **Nieodhaczony `[ ]` core L3 z aktualnego milestone** — najwyższy priorytet
+2. **Nieodhaczony `[ ]` core L3 z wcześniejszych milestones** — jeśli (1) puste, fundamenty przed features
 3. **Poprawki z code review z ostatniego session logu** — jako **rozgrzewka 10-15 min PRZED main task**, nie zamiast. Wyjątek: security/broken build → staje się main task
-4. **Rekomendacja session-end z ostatniego logu** — jeśli pasuje do (1) lub (2) podążaj, inaczej wybierz lepszy
+4. **Nieodhaczony `[ ]` `(bridge)` task** — gdy core puste w aktualnym milestone, lub gdy session-end explicit rekomendowała "zamknij dług teorii". Bridge taski są pełnoprawnymi L3, traktuj je tak samo (planowanie sokratejskie + kodowanie + review)
+5. **Rekomendacja session-end z ostatniego logu** — jeśli pasuje do (1)/(2)/(4), podążaj. Inaczej wybierz lepszy
 
-### Fallback — zero L3 w aktualnym milestone
+Wyjątek od priority — **dress rehearsal session**: gdy session-end ostatniej sesji explicit zaplanowała mock-interview / dress rehearsal (bank ma duży backlog L2), albo Jakub explicit prosi o "sprawdź mnie" / "symulacja rozmowy", **sesja może być w całości articulation-driven** zamiast L3 task. Wtedy pomijasz priority ordering, leć do articulation-check skill z `args: "dress-rehearsal N"`.
 
-Gdy aktualny milestone ma zero `[ ]` L3 checkpointów (wszystko odhaczone), a następny milestone się jeszcze nie zaczął:
+### Fallback — zero core L3 w aktualnym milestone
 
-1. **Jeśli milestone header wciąż 🔴 BLOKUJE** (znaczy że są nieodhaczone L3) → użyj (1)
-2. **Jeśli milestone header ✅** (wszystko odhaczone) → milestone zamknięty, przechodzisz do następnego:
+Gdy aktualny milestone ma zero `[ ]` **core** L3 checkpointów (wszystko core odhaczone, header `✅`), kolejność:
+
+1. **Sprawdź `(bridge)` taski w aktywnym milestone** — jeśli są nieodhaczone, weź pierwszy jako main task. Bridge zamykają dług teorii i zachowują cohesion z bieżącym milestone.
+2. **Jeśli brak bridge w aktywnym milestone** → przechodzisz do następnego milestone:
    - Update `fullstack-roadmap.md` Status sekcję (aktywny milestone → następny)
-   - Wybierz pierwszy `[ ]` L3 z nowego milestone jako task
-3. **Jeśli nowy milestone też pusty** (wszystko `[x]`) — skipuj do kolejnego. Jeśli masz 3 milestones z rzędu bez L3 → to błąd roadmap (milestone teoretyczny bez kodu) → powiedz Jakubowi: "M5 wygląda jak milestone teoretyczny, nie ma praktycznych checkpointów. Proponuję dodać mały build (stream endpoint) albo pominąć do M6."
+   - Wybierz pierwszy `[ ]` core L3 z nowego milestone jako task
+3. **Jeśli nowy milestone też nie ma core L3** (wyłącznie bridge albo wszystko `[x]`) — skipuj do kolejnego. Jeśli masz 3 milestones z rzędu bez core L3 → to błąd roadmap (milestone teoretyczny bez kodu) → powiedz Jakubowi: "M5 wygląda jak milestone teoretyczny, nie ma praktycznych checkpointów. Proponuję dodać mały build (stream endpoint) albo pominąć do M6."
+
+**Reguła milestone header:** jakieś **core** `[ ]` (bez prefixu `(bridge)`) → `🔴 BLOKUJE`. Wszystkie core `[x]` → `✅`. Bridge nie wpływają na header — są addytywne.
 
 ### Zasady dodatkowe
 
 - Jeden task end-to-end lepszy niż trzy nieukończone
-- Backlog articulation banku nie wpływa na wybór taska — bank i roadmap to osobne tory
-- Jakub może zaproponować inny task niż rekomendowany — respektuj jego wybór jeśli jest to L3 z roadmap. Jeśli chce coś spoza roadmap (np. "zróbmy X ale X nie ma w roadmap") → powiedz "X nie jest w roadmap, dodaj je do M[number] jako checkpoint albo wróćmy do [recommended task]"
+- Bank L2 nie generuje tasków bezpośrednio — robi to bridge writer w session-end (kroku 3a). Jeśli widzisz w banku temat ze score ≥3.5 i `L3 anchor: unknown` ale nie ma odpowiadającego `(bridge)` taska w roadmap → znaczy że poprzednia sesja-end nie zdążyła go napisać. Możesz to zaadresować w bieżącej sesji: zaproponuj "Widzę że [topic] ma score 4/5 ale brak kotwicy w kodzie. Wpiszmy to dziś jako bridge task w M<X>?" i jeśli Jakub zgodzi się, dopisz `(bridge)` do roadmap.
+- Jakub może zaproponować inny task niż rekomendowany — respektuj jego wybór jeśli jest to L3 z roadmap (core lub bridge). Jeśli chce coś spoza roadmap (np. "zróbmy X ale X nie ma w roadmap") → powiedz "X nie jest w roadmap, dodaj je do M[number] jako checkpoint albo wróćmy do [recommended task]"
 
 ## 4. Task briefing — ekspozycja dla score-0 topics (jeśli potrzebny)
 
@@ -91,20 +96,39 @@ Jakub nie może kodować bez bazowej wiedzy teoretycznej (nie użyje `bcrypt.has
 
 ### Kiedy robisz task briefing
 
-1. **Zidentyfikuj relevant score-0 topics:** z `docs/articulation-bank.md` znajdź tematy z `**Score:** 0` które dotyczą dzisiejszego taska
-2. **Jeśli 0 relevant score-0 topics** → pomiń briefing, leć do kroku 5 (planowanie)
-3. **Jeśli ≥1 relevant score-0 topic** → briefing w limicie czasowym poniżej
+1. **Zidentyfikuj kandydatów score-0** — z `docs/articulation-bank.md` wczytaj wszystkie tematy z `**Score:** 0`
+2. **Filtr wstępny: milestone gating (twardy, deterministyczny)** — patrz sekcja niżej. Bez tego filtra ryzyko premature exposure tematów z dalszych milestones
+3. **Z odfiltrowanego zbioru zastosuj 4 kryteria relewancji** (sekcja "Kryterium relevant to task")
+4. **Jeśli 0 relevant score-0 topics po filtrach** → pomiń briefing, leć do kroku 5 (planowanie)
+5. **Jeśli ≥1 relevant score-0 topic** → briefing w limicie czasowym poniżej
 
-### Kryterium "relevant to task"
+### Filtr wstępny: milestone gating
 
-Temat jest **relevant** gdy spełnia **choćby jeden** z warunków:
+**Twarda reguła, stosowana PRZED kryteriami relewancji.** Bank zawiera score-0 entries dla wszystkich planowanych tematów do końca kursu (M2-M9). Większość z nich należy do milestones późniejszych niż aktywny — są w banku jako placeholders dla SSOT, ale **nie są kandydatami na briefing dopóki Jakub nie aktywuje ich milestone'a**.
+
+Algorytm:
+
+1. Odczytaj `aktywny_milestone` z `fullstack-roadmap.md` Status sekcja (np. `M4`)
+2. Dla każdego score-0 topica w banku: wyciągnij milestone z nagłówka topica (`### Topic name (Mx)` → `Mx`)
+3. **Zachowaj kandydata** jeśli `Mx ≤ aktywny_milestone` (czyli z aktywnego lub wcześniejszego)
+4. **Odrzuć kandydata** jeśli `Mx > aktywny_milestone` (z dalszego milestone — frozen do czasu aktywacji)
+
+**Dlaczego twardy filtr a nie kryterium relewancji:** kryteria relewancji są **soft** (keyword match, coach judgment) — łatwo wpaść w "ten temat z M6 jest fundamentalnie powiązany z dzisiejszym taskem M4". To brzmi sensownie ale prowadzi do premature exposure: Jakub dostaje briefing tematu którego operacyjny kontekst zobaczy dopiero za 2 miesiące. Kontekst kodu = klej dla teorii. Bez kontekstu briefing wsiąka w piasek.
+
+**Wyjątek** — gdy Jakub explicit prosi: "wytłumacz mi X" (nawet jeśli X to M9 topic), nie używasz task briefingu → idziesz do `/explain-concept` skill. Eksploracja ad-hoc to inny tor niż task briefing protocol.
+
+**Frozen ≠ niewidzialne:** score-0 z dalszych milestones są **widoczne** w banku jako zaplanowane (możesz je przeczytać, możesz wskazać Jakubowi co go czeka), ale **nie są kandydatami** dla automatycznej selekcji w session-start. Aktywują się gdy ich milestone staje się aktywny.
+
+### Kryterium "relevant to task" (po filtrze gatingu)
+
+Z **odfiltrowanego** zbioru kandydatów (po milestone gating) temat jest **relevant** gdy spełnia **choćby jeden** z warunków:
 
 - **Milestone match** — topic jest w tym samym milestone co task (np. task = `POST /auth/register` z M4, topic = "bcrypt vs SHA256" z M4)
 - **Keyword match w nazwie taska/topicu** — task `POST /auth/register`, topic "JWT vs session-based auth" → keyword "auth"
 - **Bezpośrednia zależność w kodzie** — żeby zaimplementować task, MUSISZ użyć konceptu z topic (np. task = "LocalStrategy", topic = "Guard vs Middleware" → LocalStrategy to guard, więc MUSI)
 - **Coach judgment na podstawie session logów** — jeśli ostatnie logi wskazują że Jakub się potyka na tym koncepcie, nawet jeśli nie jest bezpośrednio w tasku
 
-Tematy **irrelevant** do dzisiejszego taska → pomijasz (czekają na kolejne sesje kiedy będą relevant, lub na task briefing dedicated w przyszłości).
+Tematy **irrelevant** do dzisiejszego taska (mimo że przeszły gating) → pomijasz (czekają na kolejne sesje kiedy będą relevant).
 
 ### Hard limits czasowe (twarde — ratio theory:coding max 1:3)
 

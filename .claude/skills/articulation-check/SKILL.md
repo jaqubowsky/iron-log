@@ -143,7 +143,7 @@ Sprawdź obecną wartość `L3 anchor:` we wpisie tematu. Jeśli `unknown` → k
    - Jeśli ścieżka — sprawdź czy plik istnieje (Read na pierwsze 5 linii). Jeśli nie istnieje → zapytaj ponownie.
    - Jeśli `none` — zapisz `L3 anchor: none`. Temat narracyjny bez praktyki w kodzie (świadoma decyzja).
 5. **Jeśli `Score ≥ 3.5` AND nowa wartość = `none`** — to OK (narracja opanowana, bez problemu).
-6. **Jeśli `Score ≥ 3.5` AND nowa wartość = `unknown` (Jakub nie wie)** — flaguj jako `⚠ theory only — wymaga klasyfikacji` w summary kroku 6. Anchor zostaje `unknown`, wraca przy następnej rotacji.
+6. **Jeśli `Score ≥ 3.5` AND nowa wartość = `unknown` (Jakub nie wie)** — to cargo cult retention risk. W summary kroku 6 dodaj rekomendację: `BRIDGE NEEDED: [topic name] → dopisz (bridge) task w M<X>`. **Sam task pisze session-end** (kroku 3a bridge writer), nie articulation-check. Anchor zostaje `unknown` do czasu gdy session-end napisze bridge task i Jakub go zaimplementuje.
 
 **Skip tej sekcji** gdy `L3 anchor` ma już konkretną ścieżkę albo `none` — klasyfikacja zrobiona wcześniej.
 
@@ -151,8 +151,8 @@ Sprawdź obecną wartość `L3 anchor:` we wpisie tematu. Jeśli `unknown` → k
 
 Sprawdź warunki notatki lapse **przed** zapisem linii historii:
 
-- `prev_interval ≥ 20d` AND `grade ≤ 2` → dodaj suffix ` ⚠ lapse po [prev_interval]d spacing`
-- `prev_interval ≥ 20d` AND `days_overdue > prev_interval` AND `grade < 3` → dodaj suffix ` ⚠ lapse po [days_overdue]d overdue`
+- `prev_interval ≥ 20d` AND `grade ≤ 2` → dodaj suffix ` LAPSE po [prev_interval]d spacing`
+- `prev_interval ≥ 20d` AND `days_overdue > prev_interval` AND `grade < 3` → dodaj suffix ` LAPSE po [days_overdue]d overdue`
 
 Nie ma żadnego efektu na formułę — to tylko oznaczenie w historii dla retrospektywy. Reset do intervalu 1d wynika z grade ≤ 2 w kroku 5.6.
 
@@ -214,7 +214,7 @@ Po ostatnim pytaniu — krótkie podsumowanie (max 5 linii):
 
 Lapse notatki dzisiaj: [lista lub "brak"]
 Nowe słabości (Do domknięcia added): [konkrety lub "brak"]
-Theory only flagi: [lista tematów ze score ≥3.5 i anchor unknown — wymaga klasyfikacji, lub "brak"]
+Bridge needed: [lista tematów ze score ≥3.5 i anchor unknown — session-end ma napisać bridge task w odpowiednim milestone, lub "brak"]
 ```
 
 Session-end kopiuje to do session logu.

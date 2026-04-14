@@ -3,7 +3,7 @@
 ## Status (aktualizuj po każdej sesji)
 - **Aktywny milestone:** M4 — Auth + Security 🔴 BLOKUJE
 - **Następny checkpoint:** Passport LocalStrategy + POST /auth/register
-- **Articulation bank:** tematy narracyjne w `docs/articulation-bank.md`
+- **Articulation bank:** tematy narracyjne L2 w `docs/articulation-bank.md`
 
 ---
 
@@ -22,15 +22,18 @@
 2. **Rozumiesz DLACZEGO** — zanim napiszesz linijkę kodu, odpowiadasz sobie dlaczego tak a nie inaczej.
 3. **Myślisz data flow, nie ekranami** — zanim kodujesz feature: narysuj request → controller → service → DB → response.
 
-### Trzy warstwy retencji
+### Trzy warstwy retencji + Single Source of Truth
 
-| Warstwa | Co | Gdzie |
+| Warstwa | Co | SSOT |
 |---|---|---|
-| **L1: Atomic facts** | Fakty, definicje, wartości, składnia (2 zdania) | Anki (`~/Anki/programming.tsv`) |
+| **L1: Atomic facts** | Fakty, definicje, wartości, składnia (max 2 zdania) | Anki (`~/Anki/programming.tsv`) |
 | **L2: Articulation topics** | Tematy narracyjne 1-3 min ("wytłumacz mi X") | `docs/articulation-bank.md` |
 | **L3: Practical checkpoints** | "X działa", "potrafię napisać X" — kod w IRONLOG | Ten plik (roadmap) |
 
-Roadmap zawiera **L3 checkpointy** (blokują milestone header) + **cross-reference** do tematów narracyjnych per milestone (scope dla banku).
+**Single source of truth — bez duplikatów:**
+- Roadmap zawiera **wyłącznie** L3 checkpointy (core + bridge). Lista tematów L2 NIE jest duplikowana per milestone — żyje tylko w `articulation-bank.md`.
+- Bank zawiera **wyłącznie** L2 (score, intervals, L3 anchor). Nie zawiera tasków do zakodowania.
+- Anki zawiera **wyłącznie** L1 (atomic facts). Nie zawiera wzorców architektonicznych — te są L3 i lecą do roadmap jako bridge tasks.
 
 ### Transferable backend concepts — priorytet
 
@@ -50,18 +53,19 @@ AI używasz jako: rubber duck, reference, code reviewer — nigdy jako ghostwrit
 
 ## Reguły przechodzenia między milestones
 
-Każdy checkpoint w roadmap to **L3 (praktyczny)**:
+Każdy checkpoint w roadmap to **L3 (praktyczny)**. Dwie kategorie tasków w jednej liście:
 
 | Stan | Znaczenie |
 |---|---|
 | `[x]` | Zrealizowany (kod w repo) |
 | `[ ]` | Do zrobienia |
+| `(bridge)` | Prefix — task wynikły z theory→task bridge (temat L2 ze score ≥3.5 bez kotwicy w kodzie). Dopisywany przez `session-end` gdy briefing utrwalenie check wykryje brak anchora. |
 
 **Milestone header:**
-- Jakieś `[ ]` → `🔴 BLOKUJE`
-- Wszystko `[x]` → `✅`
+- Jakieś `[ ]` **core** (bez prefixu `(bridge)`) → `🔴 BLOKUJE`
+- Wszystkie core `[x]` → `✅` **niezależnie od stanu `(bridge)` tasków**
 
-Tematy narracyjne per milestone są w `docs/articulation-bank.md` — kręcą się w rotacji przez session-end articulation check. Każdy milestone w roadmap ma sekcję "Tematy narracyjne (articulation bank)" jako **cross-reference** (lista nazw tematów bez stanu). Polityka kiedy wpis powstaje w banku, jak się aktualizuje i jak jest promowany — wszystko w `docs/articulation-bank.md` (SSOT).
+Bridge nie blokują progression — są addytywne, utrwalają teorię która już była w briefingu. Są priority kandydatami na task w session-start gdy nie ma core'owych `[ ]` w bieżącym milestone.
 
 ---
 
@@ -79,10 +83,6 @@ Tematy narracyjne per milestone są w `docs/articulation-bank.md` — kręcą si
 - [x] ExercisesModule CRUD działa, pisany sam
 - [x] Error handling jest spójny w całym module
 
-### Tematy narracyjne (articulation bank)
-
-- Controller/Service split — 3 powody dlaczego logika w Service
-
 ---
 
 ## Milestone 2 — SQL fundamenty ✅
@@ -98,26 +98,8 @@ Tematy narracyjne per milestone są w `docs/articulation-bank.md` — kręcą si
 
 - [x] Potrafię napisać CREATE TABLE z FK i constraints z pamięci
 - [x] Umiem napisać raw SQL: SELECT z JOIN, INSERT, UPDATE, DELETE
-
-### Tematy narracyjne (articulation bank)
-
-- FK constraints + ON DELETE CASCADE/SET NULL/NO ACTION/RESTRICT
-- INNER vs LEFT JOIN — kiedy który, NULL w kolumnach prawej tabeli
-- ACID — każda litera z przykładem z IRONLOG
-- Transakcje + isolation levels — dirty/phantom/non-repeatable read
-- Optimistic vs pessimistic locking — version field, SELECT FOR UPDATE, 409 Conflict
-- Normalizacja 1NF/2NF/3NF + kiedy denormalizować
-- Composite PK vs auto-increment w tabeli łączącej
-- EXPLAIN ANALYZE — Seq Scan vs Index Scan, kiedy dodać indeks
-- Prisma → SQL mapping (migracje, JOINy, relacje)
-- ORM patterns — Active Record vs Data Mapper vs Repository (transferable concept)
-
-### M2 practice backlog — theory→task bridge
-
-Tematy narracyjne które Jakub przerobił w bank ≥3.5/5 ale bez anchora w kodzie. Nie blokują milestone progression (M2 ✅).
-
-- [ ] **Optimistic locking + `version` field** — dodać `version Int @default(1)` do `WorkoutTemplate` (lub innego modelu który ma realne ryzyko concurrent update). `PATCH /workout-templates/:id` wymaga `If-Match: <version>` lub `version` w body, inkrementuje atomowo w jednym UPDATE, 409 Conflict przy mismatch. Test integration: dwa requesty z tym samym version → drugi dostaje 409.
-- [ ] **Isolation level w krytycznych transakcjach** — obecne `$transaction` w `workouts-logs` repository zamówić z `{ isolationLevel: Prisma.TransactionIsolationLevel.ReadCommitted }`. W komentarzu (WHY-only): wyjaśnić który anomaly ten level chroni przed (dirty read blokowany, non-repeatable read dopuszczony) i dlaczego to jest akceptowalne dla tego use case'u.
+- [ ] (bridge) **Optimistic locking + `version` field** — dodać `version Int @default(1)` do `WorkoutTemplate` (lub innego modelu który ma realne ryzyko concurrent update). `PATCH /workout-templates/:id` wymaga `If-Match: <version>` lub `version` w body, inkrementuje atomowo w jednym UPDATE, 409 Conflict przy mismatch. Test integration: dwa requesty z tym samym version → drugi dostaje 409.
+- [ ] (bridge) **Isolation level w krytycznych transakcjach** — obecne `$transaction` w `workouts-logs` repository zamówić z `{ isolationLevel: Prisma.TransactionIsolationLevel.ReadCommitted }`. W komentarzu (WHY-only): wyjaśnić który anomaly ten level chroni przed (dirty read blokowany, non-repeatable read dopuszczony) i dlaczego to jest akceptowalne dla tego use case'u.
 
 ---
 
@@ -139,34 +121,13 @@ Budujesz WorkoutTemplates, WorkoutLogs — cross-module communication. Widzisz j
 - [x] Paginacja działa (offset)
 - [x] Bug fixy z code review wdrożone
 - [x] Moduły komunikują się, zero circular deps
-
-### Tematy narracyjne (articulation bank)
-
-- Repository pattern — po co, kiedy overengineering
-- Offset vs cursor pagination — trade-offy, filtrowanie
-- NestJS modules — exports/imports, providery, cross-module communication
-- External API service — retry, circuit breaker, error handling
-- Response transformation — SQL-level vs app-level trade-offy
-- REST sparse fields — mobile vs web, field filtering, DTO per client
-- Idempotentność HTTP + idempotency key pattern (Stripe 200+cached vs 409)
-- N+1 problem — detection, JOIN vs DataLoader, Prisma include internals
-- Cache-Control headers + conditional requests (ETag, Last-Modified, 304)
-- API versioning — URL vs header vs query param, Vary: Accept, semver
-- "Co się dzieje gdy wpiszesz URL w przeglądarce" — DNS/TCP/TLS/HTTP
-- REST vs GraphQL — trade-offy, kiedy który
-- Middleware pipeline — transferable concept (Express, Koa, Laravel, NestJS)
-
-### M3 practice backlog — theory→task bridge
-
-Tematy narracyjne które Jakub przerobił w bank ≥3.0/5 ale bez anchora w kodzie. Każdy task poniżej utrwala 1 temat z banku. Nie blokują milestone progression (M3 ✅), ale są priority kandydatami na task briefing gdy bank grows faster than code.
-
-- [ ] **Idempotency key pattern** — `POST /workout-logs` z `Idempotency-Key` headerem. Interceptor + in-memory store (Map z TTL). Stripe pattern: same key + same body → 200 + cached response; same key + different body → 409. Test e2e wysyłający 2× ten sam request.
-- [ ] **Cache-Control + ETag + 304** — `GET /exercises/:id`. Interceptor liczy ETag z `updatedAt` (lub hash content), `If-None-Match` → 304 Not Modified bez body. Na `GET /exercises` (lista publiczna) ustaw `Cache-Control: public, max-age=3600, stale-while-revalidate=86400`. Test curl z ETag round-trip.
-- [ ] **API versioning (URI)** — `app.enableVersioning({type: VersioningType.URI})` w `main.ts`. `ExercisesController` opakowany w `@Controller({path: 'exercises', version: '1'})`. Bonus: drugi endpoint v2 ze zmienionym shape response. Test: `/v1/exercises` i `/v2/exercises` zwracają różne formaty.
-- [ ] **Sparse fields `?fields=`** — `ParseFieldsPipe` dla query param na `GET /exercises`. `@Expose({groups: [...]})` na DTO. Test: `?fields=id,name` zwraca tylko te pola, `?fields=` zwraca wszystkie.
-- [ ] **Cursor pagination na workout-logs** — już jest lib `common/cursor-pagination`, jest też użycie w `workouts-logs.controller.ts`. Zweryfikować że pokrywa: (a) base64-encoded cursor z ostatniego ID, (b) brak totalCount, (c) działa z filtrami (userId, date range). Jeśli któryś punkt falstart → fix. **Weryfikacja, nie nowy kod.**
-- [ ] **N+1 detection setup** — włączyć `log: ['query']` w `PrismaService`. Specjalnie stworzyć n+1 w `GET /workout-logs` (lista bez `include`), zmierzyć count queries, pofixować `include`em. Commit message z before/after query count.
-- [ ] **External API integration z retry/circuit breaker** — przykładowo: integracja z ExerciseDB API (darmowe). `ExercisesService` ma `syncExternalExercises()` która używa `@nestjs/axios` + retry 3x z exponential backoff. Circuit breaker: jeśli 5 kolejnych fail → 30s cooldown.
+- [ ] (bridge) **Idempotency key pattern** — `POST /workout-logs` z `Idempotency-Key` headerem. Interceptor + in-memory store (Map z TTL). Stripe pattern: same key + same body → 200 + cached response; same key + different body → 409. Test e2e wysyłający 2× ten sam request.
+- [ ] (bridge) **Cache-Control + ETag + 304** — `GET /exercises/:id`. Interceptor liczy ETag z `updatedAt` (lub hash content), `If-None-Match` → 304 Not Modified bez body. Na `GET /exercises` (lista publiczna) ustaw `Cache-Control: public, max-age=3600, stale-while-revalidate=86400`. Test curl z ETag round-trip.
+- [ ] (bridge) **API versioning (URI)** — `app.enableVersioning({type: VersioningType.URI})` w `main.ts`. `ExercisesController` opakowany w `@Controller({path: 'exercises', version: '1'})`. Bonus: drugi endpoint v2 ze zmienionym shape response. Test: `/v1/exercises` i `/v2/exercises` zwracają różne formaty.
+- [ ] (bridge) **Sparse fields `?fields=`** — `ParseFieldsPipe` dla query param na `GET /exercises`. `@Expose({groups: [...]})` na DTO. Test: `?fields=id,name` zwraca tylko te pola, `?fields=` zwraca wszystkie.
+- [ ] (bridge) **Cursor pagination na workout-logs** — już jest lib `common/cursor-pagination`, jest też użycie w `workouts-logs.controller.ts`. Zweryfikować że pokrywa: (a) base64-encoded cursor z ostatniego ID, (b) brak totalCount, (c) działa z filtrami (userId, date range). Jeśli któryś punkt falstart → fix. **Weryfikacja, nie nowy kod.**
+- [ ] (bridge) **N+1 detection setup** — włączyć `log: ['query']` w `PrismaService`. Specjalnie stworzyć n+1 w `GET /workout-logs` (lista bez `include`), zmierzyć count queries, pofixować `include`em. Commit message z before/after query count.
+- [ ] (bridge) **External API integration z retry/circuit breaker** — przykładowo: integracja z ExerciseDB API (darmowe). `ExercisesService` ma `syncExternalExercises()` która używa `@nestjs/axios` + retry 3x z exponential backoff. Circuit breaker: jeśli 5 kolejnych fail → 30s cooldown.
 
 ---
 
@@ -202,16 +163,6 @@ JWT auth od zera z Passport.js (standard w NestJS). Największy build milestone 
 - [ ] ConfigModule skonfigurowany — wszystkie secrets (JWT_SECRET, DB_URL, bcrypt cost) z env vars
 - [ ] Security basics: CORS (konfig per env), helmet, rate limiting (global + per-route)
 - [ ] Min. 2 unit testy dla AuthService (validateUser, hashPassword) napisane samodzielnie
-### Tematy narracyjne (articulation bank)
-
-- JWT access+refresh token flow — storage, lifetime, rotation, reuse detection
-- JWT vs session-based auth — trade-offy
-- Guard vs Middleware — oba blokują request, kiedy który
-- Passport strategy lifecycle — jak `validate()` jest wywoływana, co zwraca, skąd AuthGuard bierze user
-- bcrypt vs SHA256 — salt, cost factor, dlaczego do haseł
-- OWASP top 3 (XSS, SQL injection, CSRF) — mechanizm i obrona
-- Config management — env vars, secrets, 12-factor app principles
-- CORS — dlaczego istnieje, kiedy browser blokuje request, konfig w NestJS
 
 ### Przykładowe pytania rekrutacyjne
 
@@ -233,13 +184,6 @@ Teoria Node.js — event loop, streams, skalowanie. Jeden praktyczny endpoint u�
 ### Checkpointy L3
 
 - [ ] Stream processing endpoint — `POST /workout-logs/import-csv` używający `fs.createReadStream` + `csv-parser`, przetwarzający duży plik bez OOM
-### Tematy narracyjne (articulation bank)
-
-- Event loop — fazy, microtasks/macrotasks, single-threaded non-blocking
-- Node 1000 concurrent requests — co się dzieje
-- Streams + backpressure — kiedy użyć, CSV 50MB scenario
-- cluster vs worker_threads — multi-process vs CPU-bound
-- Operational errors vs programmer errors — handling strategy
 
 ### Przykładowe pytania rekrutacyjne
 
@@ -276,18 +220,6 @@ Głębokie NestJS features: interceptors, exception filters, pipes, dynamic modu
 
 - [ ] `class-transformer` serialization — WorkoutLogResponseDto z groups: `'owner'` widzi swoje notatki/komentarze, `'public'` widzi tylko liczby (weight, reps, date) dla leaderboardu
 - [ ] EventEmitter module (`@nestjs/event-emitter`) — `WorkoutLogCreatedEvent` emitowany przez WorkoutLogsService po zapisie, consumowany przez: (a) StatsService (pre-compute daily stats), (b) PersonalRecordService (sprawdza czy pobił PR dla ćwiczenia)
-### Tematy narracyjne (articulation bank)
-
-- Request lifecycle w NestJS — Middleware → Guard → Interceptor → Pipe → Controller → Service → Interceptor → Filter
-- useClass vs useValue vs useFactory — kiedy który z realnym przykładem
-- createParamDecorator + Reflector — jak wyciągnąć metadata
-- forRoot vs forFeature pattern — kiedy który
-- SOLID principles — każda litera z przykładem łamania i naprawy
-- Strategy, Singleton, Factory, Observer — gdzie widać w NestJS
-- IoC + DI container — transferable concept (Spring, Angular, .NET)
-- class-transformer serialization — @Expose/@Exclude, groups, response shaping
-- Event-driven communication — kiedy events zamiast direct call, decoupling trade-offy
-- Metadata-driven development — decorators vs annotations vs attributes (transferable)
 
 ### Przykładowe pytania rekrutacyjne
 
@@ -331,17 +263,6 @@ IRONLOG idzie na produkcję jako backend API. Docker, deploy, testy, logging, Sw
 - [ ] CSV export — `GET /workout-logs/export` (StreamableFile) download własnej historii treningowej (user data export, GDPR compliance)
 - [ ] CI pipeline (GitHub Actions): lint + test + build na każdy PR
 - [ ] README w IRONLOG: setup, architecture diagram, API docs link, deployment notes
-### Tematy narracyjne (articulation bank)
-
-- Multi-stage Docker build — dlaczego, co zyskujesz
-- Graceful shutdown w Node — SIGTERM, enableShutdownHooks, DB connection cleanup
-- Reverse proxy vs load balancer — różnica, kiedy który
-- Unit vs integration vs e2e — ROI, co gdy
-- `Test.createTestingModule()` — jak działa, kiedy mockować, kiedy testować z DB
-- Rate limiting strategies — token bucket, sliding window, fixed window
-- Scheduled tasks — cron, intervals, kiedy używać, gotchas (distributed systems)
-- File upload best practices — multipart, streaming, Multer, S3 presigned URLs
-- 12-factor app principles — transferable dla każdego backendu w cloudzie
 
 ### Przykładowe pytania rekrutacyjne
 
@@ -379,15 +300,6 @@ Produkcyjne backend features: Redis caching, BullMQ queues, zaawansowany SQL. Ws
 ### Checkpointy L3 — Advanced SQL
 
 - [ ] CTE (WITH clause) w raw SQL query — np. top 5 ćwiczeń per user z sub-queries
-### Tematy narracyjne (articulation bank)
-
-- Cache-aside pattern — flow cache hit vs miss
-- Cache invalidation strategies — TTL, write-through, write-behind, explicit
-- Co gdy Redis padnie — graceful degradation
-- Producer/consumer pattern + DLQ
-- Idempotency w message processing
-- Synchroniczny request vs queue — kiedy który
-- CTE vs subquery — czytelność vs performance
 
 ### Przykładowe pytania rekrutacyjne
 
@@ -412,13 +324,6 @@ Capstone. Real-time features, system design, interview polish, aplikowanie.
 - [ ] Wysłane min. 5 aplikacji na pozycje Fullstack Mid+ / NestJS
 - [ ] IRONLOG na GitHubie: README, Dockerfile, testy, Swagger, live demo URL
 - [ ] Potrafię zaprojektować system od zera na kartce w 20 min (system design challenge)
-### Tematy narracyjne (articulation bank)
-
-- DDD basics — bounded context, aggregate, ubiquitous language
-- CQRS — kiedy rozdzielić read/write, jakie problemy rozwiązuje
-- WebSocket vs SSE vs polling — trade-offy, kiedy który
-- Horizontal vs vertical scaling — read replicas, circuit breaker
-- Monolith vs Microservices — kiedy który, bez buzzwordów
 
 ### System design challenges (task briefings w session-start)
 

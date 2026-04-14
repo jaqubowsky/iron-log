@@ -4,15 +4,18 @@
 
 **Bank nie blokuje roadmap.** Kręci się w tle niezależnie od aktywnego milestone. Jedyne kryterium postępu milestone = praktyczne (L3) checkpointy w `fullstack-roadmap.md`.
 
-**Source of Truth:** ten plik jest SSOT dla score'ów, historii i stanu tematów narracyjnych.
+**Source of Truth:** ten plik jest SSOT **wyłącznie** dla L2 — score, historii, intervals i L3 anchor. Bank nie zawiera tasków do zakodowania. Jeśli temat L2 wymaga utrwalenia w kodzie, task lądouje w `fullstack-roadmap.md` jako `(bridge)` checkpoint w odpowiednim milestone (dopisuje go session-end). Bank linkuje do tego kodu przez pole `L3 anchor`.
 
 ## Polityka wpisów
 
-Wpis do banku powstaje **przy pierwszej ekspozycji** na temat. Ekspozycja = coach wyjaśnił analogię + przykład + Jakub formułuje własnymi słowami, lub task briefing w session-start, lub spontaniczny recall podczas kodowania/review. Bez ekspozycji temat nie istnieje w banku — czeka w roadmap jako cross-reference.
+Bank ma **dwa rodzaje wpisów** — odpowiadające dwóm fazom życia tematu:
 
-**Dlaczego lazy creation:** bank nie puchnie tematami z przyszłych milestones. Rozmiar banku = liczba tematów w aktywnej nauce, nie plan na rok.
+1. **Score-0 entries (planowane, bez ekspozycji)** — dodawane **proactively** podczas planowania milestone'a w roadmap. Są placeholderami: bank wie że temat *istnieje w planie*, ale nie ma jeszcze danych do trackowania. Format uproszczony (patrz "Score-0 entries — convention"). Pomijane przez articulation-check w priority selection. Trafiają do rotacji **dopiero po pierwszej ekspozycji** przez task briefing w session-start (wtedy wpis dostaje pierwszy score, zwykle 1.5/5).
+2. **Live entries (pełna struktura)** — powstają **przy pierwszej ekspozycji** na temat. Ekspozycja = coach wyjaśnił analogię + przykład + Jakub formułuje własnymi słowami, lub task briefing w session-start, lub spontaniczny recall podczas kodowania/review.
 
-**Gdy temat już istnieje w banku,** każda kolejna ekspozycja (articulation check, explain phase, kolejny recall) **aktualizuje** wpis — nie tworzy duplikatu. Update = dodanie nowej linii do Historii + przeliczenie Score/Last tested/Next review/Interval.
+**Dlaczego ten podział:** SSOT requirement — bank ma być jedynym miejscem gdzie żyje lista tematów L2 (zarówno aktywnych jak i planowanych). Roadmap zawiera wyłącznie L3 checkpointy. Gdyby bank trzymał tylko aktywne tematy, lista planowanych musiałaby duplikować się w roadmapie — co właśnie dekonsolidowaliśmy. Score-0 placeholders rozwiązują problem: bank rośnie z rozmiarem planu na cały kurs, ale rozróżnia "to learn next" od "currently learning" przez score=0 vs score>0.
+
+**Gdy temat już istnieje w banku** (jako score-0 lub live), każda kolejna ekspozycja **aktualizuje** istniejący wpis — nie tworzy duplikatu. Update score-0 → live = transformacja formatu (przez session-start task briefing protokół). Update live → live = dodanie linii Historii + przeliczenie Score/Last tested/Next review/Interval.
 
 **Wpisy nigdy nie są usuwane z banku.** Historia progresu = wartość. Opanowane tematy zostają — ich `Next review` rośnie do kilku miesięcy i wypadają z widoku rotacji. Ebbinghaus forgetting curve dotyczy wszystkich, dlatego zawsze wracają choć rzadko.
 
@@ -44,10 +47,10 @@ Do domknięcia:
 ### `L3 anchor` — co znaczy każda wartość
 
 - **`src/path/file.ts:N`** — temat został zaimplementowany w IRONLOG i ścieżka pokazuje gdzie. Setowany przez `articulation-check` po pytaniu Jakuba lub przez session-end gdy briefing utrwalenie check znalazł match w git diff.
-- **`none`** — temat został świadomie sprawdzony i NIE ma implementacji w IRONLOG (czysta narracja, np. "Co się dzieje gdy wpiszesz URL w przeglądarce" — nie pisze się tego w kodzie). Nie flaguje jako theory only.
+- **`none`** — temat został świadomie sprawdzony i NIE ma implementacji w IRONLOG (czysta narracja, np. "Co się dzieje gdy wpiszesz URL w przeglądarce" — nie pisze się tego w kodzie). Nie wymaga bridge task — score wysoki + `none` to docelowy stan dla tematów narracyjnych.
 - **`unknown`** — domyślna wartość dla wpisów stworzonych przed wprowadzeniem tego pola **i** dla nowych wpisów które nie zostały jeszcze sklasyfikowane. `articulation-check` przy najbliższym teście zapyta Jakuba i zaktualizuje na konkretną ścieżkę albo `none`.
 
-**Reguła "theory only" flag:** jeśli `Score ≥ 3.5` AND `L3 anchor = unknown` → temat jest podejrzewany o cargo cult retencję. Articulation-check w summary doda flagę `⚠ theory only — wymaga klasyfikacji`. Jeśli `Score ≥ 3.5` AND `L3 anchor = none` → temat narracyjny opanowany, bez problemu (anchor świadomie nieobecny). Jeśli `L3 anchor = src/...` → wszystko OK.
+**Reguła bridge task:** jeśli `Score ≥ 3.5` AND `L3 anchor = unknown` → temat jest podejrzewany o cargo cult retencję (znasz definicję, ale nigdy tego nie napisałeś). Articulation-check w summary drukuje rekomendację: `BRIDGE NEEDED: <topic> → dopisz (bridge) task w M<X>`. Sam task pisze session-end (Edit do roadmap), nie articulation-check. Jeśli `Score ≥ 3.5` AND `L3 anchor = none` → temat narracyjny świadomie bez kodu (np. "Co się dzieje gdy wpiszesz URL w przeglądarce") — bez problemu. Jeśli `L3 anchor = src/...` → wszystko OK, temat ma kotwicę w żywym kodzie.
 
 **Migracja istniejących wpisów:** lazy. Stare wpisy traktowane jako `unknown` dopóki articulation-check ich nie odwiedzi. Nie robimy backfillu — bank klasyfikuje się sam przez naturalne rotacje.
 
@@ -113,8 +116,8 @@ Przed: interval 40d. Test 2/5 → new_interval = 1d (reset, niezależnie od popr
 
 Formalnie "lapse" nie ma osobnej reguły — grade ≤ 2 zawsze resetuje interval do 1d. Ale do **notatki w historii** warto oznaczyć regres z wysokiego poziomu:
 
-- Jeśli `prev_interval ≥ 20d` AND `new_grade ≤ 2` → dopisz do linii historii notatkę `⚠ lapse po Xd spacing`.
-- Jeśli `prev_interval ≥ 20d` AND `days_overdue > prev_interval` AND `new_grade < 3` → dopisz `⚠ lapse po X dniach overdue`.
+- Jeśli `prev_interval ≥ 20d` AND `new_grade ≤ 2` → dopisz do linii historii notatkę `LAPSE po Xd spacing`.
+- Jeśli `prev_interval ≥ 20d` AND `days_overdue > prev_interval` AND `new_grade < 3` → dopisz `LAPSE po X dniach overdue`.
 
 Nie ma "mastery promotion" ani "demotion" — mastered nie jest stanem, to po prostu duży interval. Zły test naturalnie resetuje.
 
@@ -501,6 +504,20 @@ Status: **score 0 — wymaga theory preview/task briefing przed pierwszym quizem
 
 Status: **score 0 — wymaga theory preview/task briefing przed pierwszym quizem**
 
+### Passport strategy lifecycle — jak `validate()` jest wywoływana, co zwraca, skąd AuthGuard bierze user (M4)
+
+**Score:** 0 (nigdy nie testowane, brak ekspozycji) | **Last tested:** never
+**L3 anchor:** unknown
+
+Status: **score 0 — wymaga theory preview/task briefing przed pierwszym quizem**
+
+### CORS — dlaczego istnieje, kiedy browser blokuje request, konfig w NestJS (M4)
+
+**Score:** 0 (nigdy nie testowane, brak ekspozycji) | **Last tested:** never
+**L3 anchor:** unknown
+
+Status: **score 0 — wymaga theory preview/task briefing przed pierwszym quizem**
+
 ### Config management — env vars, secrets, ConfigModule między środowiskami (M4)
 
 **Score:** 0 (nigdy nie testowane, brak ekspozycji) | **Last tested:** never
@@ -554,5 +571,238 @@ Status: **score 0 — wymaga theory preview/task briefing przed pierwszym quizem
 ### Operational errors vs programmer errors — handling strategy (M5)
 
 **Score:** 0 (nigdy nie testowane) | **Last tested:** never
+
+Status: **score 0 — wymaga theory preview/task briefing przed pierwszym quizem**
+
+---
+
+## Bank — Milestone 6 (NestJS deep dive + SOLID + patterns)
+
+### Request lifecycle w NestJS — Middleware → Guard → Interceptor → Pipe → Controller → Service → Interceptor → Filter (M6)
+
+**Score:** 0 (nigdy nie testowane, brak ekspozycji) | **Last tested:** never
+**L3 anchor:** unknown
+
+Status: **score 0 — wymaga theory preview/task briefing przed pierwszym quizem**
+
+### useClass vs useValue vs useFactory — kiedy który z realnym przykładem (M6)
+
+**Score:** 0 (nigdy nie testowane, brak ekspozycji) | **Last tested:** never
+**L3 anchor:** unknown
+
+Status: **score 0 — wymaga theory preview/task briefing przed pierwszym quizem**
+
+### createParamDecorator + Reflector — jak wyciągnąć metadata (M6)
+
+**Score:** 0 (nigdy nie testowane, brak ekspozycji) | **Last tested:** never
+**L3 anchor:** unknown
+
+Status: **score 0 — wymaga theory preview/task briefing przed pierwszym quizem**
+
+### forRoot vs forFeature pattern — kiedy który (M6)
+
+**Score:** 0 (nigdy nie testowane, brak ekspozycji) | **Last tested:** never
+**L3 anchor:** unknown
+
+Status: **score 0 — wymaga theory preview/task briefing przed pierwszym quizem**
+
+### SOLID principles — każda litera z przykładem łamania i naprawy (M6)
+
+**Score:** 0 (nigdy nie testowane, brak ekspozycji) | **Last tested:** never
+**L3 anchor:** unknown
+
+Status: **score 0 — wymaga theory preview/task briefing przed pierwszym quizem**
+
+### Strategy, Singleton, Factory, Observer — gdzie widać w NestJS (M6)
+
+**Score:** 0 (nigdy nie testowane, brak ekspozycji) | **Last tested:** never
+**L3 anchor:** unknown
+
+Status: **score 0 — wymaga theory preview/task briefing przed pierwszym quizem**
+
+### IoC + DI container — transferable concept (Spring, Angular, .NET) (M6)
+
+**Score:** 0 (nigdy nie testowane, brak ekspozycji) | **Last tested:** never
+**L3 anchor:** unknown
+
+Status: **score 0 — wymaga theory preview/task briefing przed pierwszym quizem**
+
+### class-transformer serialization — @Expose/@Exclude, groups, response shaping (M6)
+
+**Score:** 0 (nigdy nie testowane, brak ekspozycji) | **Last tested:** never
+**L3 anchor:** unknown
+
+Status: **score 0 — wymaga theory preview/task briefing przed pierwszym quizem**
+
+### Event-driven communication — kiedy events zamiast direct call, decoupling trade-offy (M6)
+
+**Score:** 0 (nigdy nie testowane, brak ekspozycji) | **Last tested:** never
+**L3 anchor:** unknown
+
+Status: **score 0 — wymaga theory preview/task briefing przed pierwszym quizem**
+
+### Metadata-driven development — decorators vs annotations vs attributes (transferable) (M6)
+
+**Score:** 0 (nigdy nie testowane, brak ekspozycji) | **Last tested:** never
+**L3 anchor:** unknown
+
+Status: **score 0 — wymaga theory preview/task briefing przed pierwszym quizem**
+
+---
+
+## Bank — Milestone 7 (Docker + deploy + testy + production readiness)
+
+### Multi-stage Docker build — dlaczego, co zyskujesz (M7)
+
+**Score:** 0 (nigdy nie testowane, brak ekspozycji) | **Last tested:** never
+**L3 anchor:** unknown
+
+Status: **score 0 — wymaga theory preview/task briefing przed pierwszym quizem**
+
+### Graceful shutdown w Node — SIGTERM, enableShutdownHooks, DB connection cleanup (M7)
+
+**Score:** 0 (nigdy nie testowane, brak ekspozycji) | **Last tested:** never
+**L3 anchor:** unknown
+
+Status: **score 0 — wymaga theory preview/task briefing przed pierwszym quizem**
+
+### Reverse proxy vs load balancer — różnica, kiedy który (M7)
+
+**Score:** 0 (nigdy nie testowane, brak ekspozycji) | **Last tested:** never
+**L3 anchor:** unknown
+
+Status: **score 0 — wymaga theory preview/task briefing przed pierwszym quizem**
+
+### Unit vs integration vs e2e — ROI, co gdy (M7)
+
+**Score:** 0 (nigdy nie testowane, brak ekspozycji) | **Last tested:** never
+**L3 anchor:** unknown
+
+Status: **score 0 — wymaga theory preview/task briefing przed pierwszym quizem**
+
+### `Test.createTestingModule()` — jak działa, kiedy mockować, kiedy testować z DB (M7)
+
+**Score:** 0 (nigdy nie testowane, brak ekspozycji) | **Last tested:** never
+**L3 anchor:** unknown
+
+Status: **score 0 — wymaga theory preview/task briefing przed pierwszym quizem**
+
+### Rate limiting strategies — token bucket, sliding window, fixed window (M7)
+
+**Score:** 0 (nigdy nie testowane, brak ekspozycji) | **Last tested:** never
+**L3 anchor:** unknown
+
+Status: **score 0 — wymaga theory preview/task briefing przed pierwszym quizem**
+
+### Scheduled tasks — cron, intervals, kiedy używać, gotchas (distributed systems) (M7)
+
+**Score:** 0 (nigdy nie testowane, brak ekspozycji) | **Last tested:** never
+**L3 anchor:** unknown
+
+Status: **score 0 — wymaga theory preview/task briefing przed pierwszym quizem**
+
+### File upload best practices — multipart, streaming, Multer, S3 presigned URLs (M7)
+
+**Score:** 0 (nigdy nie testowane, brak ekspozycji) | **Last tested:** never
+**L3 anchor:** unknown
+
+Status: **score 0 — wymaga theory preview/task briefing przed pierwszym quizem**
+
+### 12-factor app principles — transferable dla każdego backendu w cloudzie (M7)
+
+**Score:** 0 (nigdy nie testowane, brak ekspozycji) | **Last tested:** never
+**L3 anchor:** unknown
+
+Status: **score 0 — wymaga theory preview/task briefing przed pierwszym quizem**
+
+---
+
+## Bank — Milestone 8 (Caching + Queues + Advanced SQL)
+
+### Cache-aside pattern — flow cache hit vs miss (M8)
+
+**Score:** 0 (nigdy nie testowane, brak ekspozycji) | **Last tested:** never
+**L3 anchor:** unknown
+
+Status: **score 0 — wymaga theory preview/task briefing przed pierwszym quizem**
+
+### Cache invalidation strategies — TTL, write-through, write-behind, explicit (M8)
+
+**Score:** 0 (nigdy nie testowane, brak ekspozycji) | **Last tested:** never
+**L3 anchor:** unknown
+
+Status: **score 0 — wymaga theory preview/task briefing przed pierwszym quizem**
+
+### Co gdy Redis padnie — graceful degradation (M8)
+
+**Score:** 0 (nigdy nie testowane, brak ekspozycji) | **Last tested:** never
+**L3 anchor:** unknown
+
+Status: **score 0 — wymaga theory preview/task briefing przed pierwszym quizem**
+
+### Producer/consumer pattern + DLQ (M8)
+
+**Score:** 0 (nigdy nie testowane, brak ekspozycji) | **Last tested:** never
+**L3 anchor:** unknown
+
+Status: **score 0 — wymaga theory preview/task briefing przed pierwszym quizem**
+
+### Idempotency w message processing (M8)
+
+**Score:** 0 (nigdy nie testowane, brak ekspozycji) | **Last tested:** never
+**L3 anchor:** unknown
+
+Status: **score 0 — wymaga theory preview/task briefing przed pierwszym quizem**
+
+### Synchroniczny request vs queue — kiedy który (M8)
+
+**Score:** 0 (nigdy nie testowane, brak ekspozycji) | **Last tested:** never
+**L3 anchor:** unknown
+
+Status: **score 0 — wymaga theory preview/task briefing przed pierwszym quizem**
+
+### CTE vs subquery — czytelność vs performance (M8)
+
+**Score:** 0 (nigdy nie testowane, brak ekspozycji) | **Last tested:** never
+**L3 anchor:** unknown
+
+Status: **score 0 — wymaga theory preview/task briefing przed pierwszym quizem**
+
+---
+
+## Bank — Milestone 9 (System design + real-time + interview prep)
+
+### DDD basics — bounded context, aggregate, ubiquitous language (M9)
+
+**Score:** 0 (nigdy nie testowane, brak ekspozycji) | **Last tested:** never
+**L3 anchor:** unknown
+
+Status: **score 0 — wymaga theory preview/task briefing przed pierwszym quizem**
+
+### CQRS — kiedy rozdzielić read/write, jakie problemy rozwiązuje (M9)
+
+**Score:** 0 (nigdy nie testowane, brak ekspozycji) | **Last tested:** never
+**L3 anchor:** unknown
+
+Status: **score 0 — wymaga theory preview/task briefing przed pierwszym quizem**
+
+### WebSocket vs SSE vs polling — trade-offy, kiedy który (M9)
+
+**Score:** 0 (nigdy nie testowane, brak ekspozycji) | **Last tested:** never
+**L3 anchor:** unknown
+
+Status: **score 0 — wymaga theory preview/task briefing przed pierwszym quizem**
+
+### Horizontal vs vertical scaling — read replicas, circuit breaker (M9)
+
+**Score:** 0 (nigdy nie testowane, brak ekspozycji) | **Last tested:** never
+**L3 anchor:** unknown
+
+Status: **score 0 — wymaga theory preview/task briefing przed pierwszym quizem**
+
+### Monolith vs Microservices — kiedy który, bez buzzwordów (M9)
+
+**Score:** 0 (nigdy nie testowane, brak ekspozycji) | **Last tested:** never
+**L3 anchor:** unknown
 
 Status: **score 0 — wymaga theory preview/task briefing przed pierwszym quizem**
