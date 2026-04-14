@@ -13,13 +13,26 @@ Zamykasz sesję coachingową z Jakubem. Wykonaj kroki w kolejności.
 
 Różnica vs code-review skill: code-review analizuje jakość kodu z Jakubem siedzącym przy nim. Explain phase testuje czy Jakub rozumie **co robi jego kod na poziomie konceptualnym** bez patrzenia w plik.
 
+### OBOWIĄZKOWY rationale przed pytaniem
+
+**Nie zaczynaj explain phase od polecenia** — Jakub musi wiedzieć **dlaczego** plain language, bo inaczej czuje że to dziwne arbitrary zadanie i powstaje opór.
+
+**Musisz powiedzieć to PRZED pytaniem** (dosłownie lub parafrazując, ale nie możesz pominąć):
+
+> *"Teraz explain phase — wytłumacz mi to bez żargonu, jakby juniorowi. Nie dlatego żebyś uczył się mówić do juniorów — **Feynman test nie jest o stylu komunikacji, tylko o głębokości rozumienia**. Jeśli umiesz wytłumaczyć 'Prisma omit' jako 'baza fizycznie nie zwraca tego pola, więc nie ma go w pamięci' — rozumiesz intuicyjnie. Jeśli mówisz tylko 'Prisma omit' i koniec — prawdopodobnie skopiowałeś pattern bez intuicji. Na rozmowie senior cię złapie jednym dopytaniem. Teraz sprawdzamy gdzie są luki."*
+
+**Dlaczego ten rationale jest obowiązkowy:** baseline z sesji 2026-04-14 pokazał że Jakub bez kontekstu odbiera to jako arbitrary command ("dlaczego mam tłumaczyć jak juniorowi, przecież jestem backend'owcem"). Skill nauki musi być *zrozumiały jako narzędzie*, nie *wykonywalny jako nakaz*. Jakub-uczący-się ≠ Jakub-robotnik.
+
+**Skrót jest OK** gdy Jakub już przeszedł przez rationale w poprzednich sesjach (widać w session logach że explain phase miał Feynman format). Wtedy wystarczy: *"Explain phase — jak juniorowi, wiesz o co chodzi."* Ale przy **każdej pierwszej sesji w tygodniu** lub gdy Jakub wyraził opór — pełne rationale.
+
 ### Flow
 
-1. **Poproś o plain-language overview:** *"Wytłumacz mi co dzisiaj zrobiłeś tak, jakbyś tłumaczył juniorowi bez backgroundu w NestJS. Bez żargonu — jeśli używasz nazwy technicznej, musisz ją wytłumaczyć."*
-2. **Czekaj na odpowiedź** — nie przerywaj, nie podpowiadaj
-3. **Zadaj 2-3 "why" pytania** targetujące decyzje które Jakub skompresował lub ominął. Format: *"Powiedziałeś X — ale DLACZEGO tak a nie Y? Wytłumacz juniorowi."*
-4. **Czekaj na odpowiedź na KAŻDE pytanie** — jedno follow-up max, potem feedback
-5. **Daj feedback** — gdzie użył żargonu bez definicji, gdzie ominął "dlaczego", gdzie wytłumaczenie było mętne
+1. **Powiedz rationale** (powyżej) — OBOWIĄZKOWO
+2. **Poproś o plain-language overview:** *"Wytłumacz mi co dzisiaj zrobiłeś tak, jakbyś tłumaczył juniorowi bez backgroundu w NestJS. Bez żargonu — jeśli używasz nazwy technicznej, musisz ją wytłumaczyć."*
+3. **Czekaj na odpowiedź** — nie przerywaj, nie podpowiadaj
+4. **Zadaj 2-3 "why" pytania** targetujące decyzje które Jakub skompresował lub ominął. Format: *"Powiedziałeś X — ale DLACZEGO tak a nie Y? Wytłumacz juniorowi."*
+5. **Czekaj na odpowiedź na KAŻDE pytanie** — jedno follow-up max, potem feedback
+6. **Daj feedback** — gdzie użył żargonu bez definicji, gdzie ominął "dlaczego", gdzie wytłumaczenie było mętne
 
 ### Zasady
 

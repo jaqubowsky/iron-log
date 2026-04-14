@@ -175,16 +175,18 @@ Do domknięcia:
 
 ### FK constraints + ON DELETE CASCADE/SET NULL/NO ACTION/RESTRICT (M2)
 
-**Score:** 3.0/5 | **Last tested:** 2026-03-22 | **Next review:** 2026-03-25 (interval: 3d)
+**Score:** 3.5/5 | **Last tested:** 2026-04-14 | **Next review:** 2026-05-30 (interval: 46d)
+**L3 anchor:** prisma/schema.prisma:87
 
 Historia:
 
+- 2026-04-14 (articulation-check): 3.5/5 — 4 scenariusze konkretne z IRONLOG samodzielnie (CASCADE/RESTRICT/SET NULL/SET DEFAULT). Pominął NO ACTION, zamiast tego wymienił SET DEFAULT. Dopytanie: różnica NO ACTION vs RESTRICT (deferred vs immediate check) trafiona precyzyjnie (3d → 46d)
 - 2026-03-22 (mock): 3/5 — nie znał SET NULL i SET DEFAULT bez podpowiedzi
 
 Do domknięcia:
 
-- Wymienić wszystkie 4 opcje bez scaffoldingu
-- Konkretny scenariusz IRONLOG kiedy który (np. WorkoutLogs.exerciseId → SET NULL bo chcemy zachować historię treningu gdy exercise usunięty)
+- NO ACTION jako Postgres domyślny gdy nic nie piszesz (Jakub myślał że default to RESTRICT)
+- `DEFERRABLE INITIALLY DEFERRED` use case (circular FK, insert ordering)
 
 ### INNER vs LEFT JOIN — kiedy który, co zwraca gdy brak dopasowania (M2)
 
@@ -310,17 +312,20 @@ Do domknięcia:
 
 ### Offset vs cursor pagination — trade-offy, kiedy który, filtrowanie (M3)
 
-**Score:** 3.0/5 | **Last tested:** 2026-03-25 | **Next review:** 2026-03-28 (interval: 3d)
+**Score:** 3.5/5 | **Last tested:** 2026-04-14 | **Next review:** 2026-05-24 (interval: 40d)
+**L3 anchor:** src/workouts-logs/workouts-logs.controller.ts:1
 
 Historia:
 
+- 2026-04-14 (articulation-check): 3.5/5 — duplikat scenariusz samodzielnie (new insert → records push to next page → duplicate on page 2). Mechanizm LIMIT/OFFSET vs WHERE+index trafny, OFFSET = read everything + nie ma mechanizmu skip. Near miss: "UUID cursor zbugowane" (faktycznie przechodzi, tylko semantycznie bez sensu). Brak precyzji: B-tree seek, composite cursor (createdAt+id) (3d → 40d)
 - 2026-03-25 (mock): 3/5 — pominął że cursor nie wymaga totalCount, synchronizację where w offset
 
 Do domknięcia:
 
-- Cursor nie wymaga totalCount (prostsze filtrowanie, mniejsze payload)
-- Synchronizacja WHERE w offset gdy dane się zmieniają (duplicate/missing rows)
-- Kiedy offset jest OK (small datasets, random access), kiedy cursor (feeds, infinite scroll)
+- Cursor nie wymaga totalCount (prostsze filtrowanie, mniejsze payload) — nadal nie pojawiło się samodzielnie
+- Composite cursor `(createdAt, id)` dla duplicate timestamps — UUID cursor jest useless, timestamp+id to production pattern (Stripe, GitHub)
+- B-tree index seek jako nazwany mechanism cursor speedu
+- MVCC visibility check w OFFSET nawet z indexem (senior-level nuance)
 
 ### NestJS modules — exports/imports, providery, cross-module communication (M3)
 
@@ -494,9 +499,19 @@ Status: **score 0 — wymaga theory preview/task briefing przed pierwszym quizem
 
 ### bcrypt vs SHA256 — salt, cost factor, dlaczego do haseł (M4)
 
-**Score:** 0 (nigdy nie testowane, brak ekspozycji) | **Last tested:** never
+**Score:** 1.5/5 | **Last tested:** 2026-04-14 | **Next review:** 2026-04-15 (interval: 1d)
+**L3 anchor:** src/auth/auth.service.ts:11
 
-Status: **score 0 — wymaga theory preview/task briefing przed pierwszym quizem**
+Historia:
+
+- 2026-04-14 (task briefing): 1.5/5 — pierwsza ekspozycja, signposting bez deep dive
+
+Do domknięcia:
+
+- Bez scaffoldingu: "dlaczego SHA256 NIE do haseł" (odpowiedź: za szybkie, GPU-friendly)
+- Cost factor = 2^n iteracji — umieć wymienić liczbowo dla cost=10, 12
+- Salt wbudowany w output bcrypt — dlaczego `compare()` zamiast `===`
+- Argon2 jako następca — znać istnienie i dlaczego bcrypt dalej standard
 
 ### OWASP top 3 (XSS, SQL injection, CSRF) — mechanizm i obrona (M4)
 

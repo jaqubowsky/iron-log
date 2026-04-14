@@ -3,6 +3,7 @@ import { CreateWorkoutLogDTO } from './dtos/create-workout-log-dto';
 import { CreateWorkoutLogPayload } from './interfaces/create-workout-log-payload';
 import { UpdateWorkoutLogPayload } from './interfaces/update-workout-log-payload';
 import { UpdateWorkoutLogDTO } from './dtos/update-workout-log-dto';
+import { NotFoundException } from '@nestjs/common';
 
 export class WorkoutLogMapper {
   static toExercisesPayload(
@@ -10,7 +11,12 @@ export class WorkoutLogMapper {
     exercises: ExerciseDTO[],
   ): CreateWorkoutLogPayload['exercises'] {
     return dto.exercises.map((exercise) => {
-      const original = exercises.find((e) => e.id === exercise.exerciseId)!;
+      const original = exercises.find((e) => e.id === exercise.exerciseId);
+      if (!original) {
+        throw new NotFoundException(
+          `Exercise ${exercise.exerciseId} not found`,
+        );
+      }
 
       return {
         name: original.name,

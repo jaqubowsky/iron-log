@@ -2,21 +2,32 @@ import { Injectable } from '@nestjs/common';
 import { UsersRepository } from './users.repository';
 import { PrismaService } from 'src/db/prisma.service';
 import { User } from '../interfaces/user';
-import { CreateUserDTO } from '../dtos/create-user-dto';
+import { PrismaUsersMapper } from './prisma-users-mapper';
+import { CreateUserInput } from '../interfaces/create-user-input';
 
 @Injectable()
 export class PrismaUsersRepository implements UsersRepository {
   constructor(private prismaService: PrismaService) {}
 
   async findByEmail(email: string): Promise<User | null> {
-    return await this.prismaService.user.findUnique({
+    const user = await this.prismaService.user.findUnique({
       where: { email },
+      omit: { password: true },
     });
+    if (!user) return null;
+
+    return PrismaUsersMapper.toUser(user);
   }
 
-  async create(data: CreateUserDTO): Promise<User> {
-    return await this.prismaService.user.create({
-      data,
+  async create(data: CreateUserInput): Promise<User> {
+    const user = await this.prismaService.user.create({
+      data: {
+        email: data.email,
+        password: data.hashedPassword,
+      },
+      omit: { password: true },
     });
+
+    return PrismaUsersMapper.toUser(user);
   }
 }

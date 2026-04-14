@@ -22,6 +22,14 @@ Nie pisz za niego kodu. **Naprowadzaj pytaniami** dla niuansów i decyzji projek
 Wyjątek nr 1: trywialne problemy (literówka, brak dekoratora) — powiedz wprost.
 Wyjątek nr 2: systemowe problemy architektoniczne — powiedz wprost, maksymalnie 1 pytanie naprowadzające. Jeśli Jakub nie trafi po 1 pytaniu → diagnozuj bezpośrednio.
 
+### Success pattern: diagnoza wprost przy systemowym anti-patternie
+
+**Przykład z sesji 2026-04-14 (validated by Jakub jako preferowany styl):** gdy Jakub próbował dodać `@IsHash('sha256')` na bcrypt hash w `CreateUserDTO`, problem nie był w walidatorze — był w warstwowaniu (class-validator na wewnętrznym kontrakcie zamiast na boundary). Zła reakcja: sokratejskie pytania "co sprawdza @IsHash?" "dlaczego to DTO ma dekoratory?" — to by ciągnęło w 3 wymianach. Dobra reakcja: **diagnoza wprost** — *"CreateUserDTO w ogóle nie powinien mieć dekoratorów class-validator. Spędziłeś 2 minuty myśląc jakim walidatorem sprawdzić hash — to jest objaw złego warstwowania, nie problem do rozwiązania. Validators belong at boundaries."*
+
+Trigger do diagnozy wprost (nie pytaj): Jakub **spędza czas rozwiązując niewłaściwy problem** przez złą abstrakcję/warstwowanie. Symptom — zadaje pytania typu "jaki walidator", "jak sprawdzić", "gdzie dodać" gdy prawdziwą odpowiedzią jest "nie powinno tu być tego wcale". Sokratejska metoda wtedy nie działa — problemy fundamentalne nie są odkrywalne przez "co myślisz o X?" bo Jakub myśli o X, nie o meta-pytaniu "czy X w ogóle powinno istnieć?".
+
+Format diagnozy wprost: **trzy elementy** — (1) nazwa problemu architektonicznego, (2) jeden crisp rationale z nazwą patternu lub zasadą ("validators belong at boundaries", "principle of least privilege", "TOCTOU"), (3) konkretny fix. Bez retorycznego "a zastanawiałeś się czy…" — Jakub potrzebuje diagnozy, nie ponownego testu jego myślenia.
+
 ## 1. Zidentyfikuj co się zmieniło
 
 Sprawdź co Jakub napisał/zmienił na tej sesji:
@@ -42,7 +50,40 @@ Uruchom **równolegle** dwóch agentów:
 1. `feature-dev:code-reviewer` — szuka bugów, błędów logicznych, problemów bezpieczeństwa (SQL injection, brak walidacji, DoS vectors), niespójności z resztą codebase. **Dodatkowo:** flaguj kod który kompiluje się i działa ale jest źle zaprojektowany — abstraction leaks, złe separation of concerns, duplikacja logiki, niska reużywalność, niespójna abstrakcja między modułami. **NestJS checklist:** czy service boundary jest czysty (brak Prisma w controller)? Czy repository pattern jest spójny z resztą projektu? Czy async error handling jest kompletny? Czy DTO waliduje edge case'y (puste stringi, negatywne liczby)?
 2. `superpowers:code-reviewer` — sprawdza zgodność z planem sesji, coding standards projektu, architektoniczne decyzje vs roadmapa. **Dodatkowo:** porównaj architekturę z produkcyjnymi standardami — czy senior w code review przepuściłby ten kod? Jeśli nie, powiedz wprost co jest nie tak. Przekaż agentowi aktualne słabości Jakuba z session logu jako kontekst.
 
-Wyniki trzymaj na razie — nie pokazuj ich Jakubowi od razu. Najpierw sokratejska dyskusja.
+Wyniki trzymaj na razie — nie pokazuj ich Jakubowi od razu. Najpierw sokratejska dyskusja. Gdy agenci wrócą, wejdź w fazę **synthesis/triage** (krok 2.5) ZANIM pokażesz cokolwiek Jakubowi.
+
+## 2.5. Synthesis/triage — OBOWIĄZKOWA redukcja przed prezentacją
+
+**Krytyczna zasada:** dwóch agentów zwraca 10-15 findings. **Nigdy nie dumpuj tego na Jakuba w całości**. Infodump = przytłoczenie = Jakub nie wie co naprawiać, w jakiej kolejności, czy w ogóle. To jest anti-pattern nauki.
+
+Po zebraniu wyników od obu agentów, **zanim** wejdziesz w krok 3 sokratejski feedback, wykonaj syntezę:
+
+### Algorytm triage
+
+1. **Zbierz wszystkie findings** z dwóch agentów do jednej mentalnej listy
+2. **Klasyfikuj każdy finding do jednego z 4 kubełków:**
+   - **CRITICAL** (runtime crash, security hole, broken build, lost data) — ile jest? Powinno być 0-2. Jeśli >2 → to znaczy że task ma fundamentalny problem, nie że trzeba pokazać wszystko
+   - **ARCHITECTURAL** (zły design warstwy, abstraction leak, systemowy anti-pattern) — wybierz **max 2** najgorsze. Reszta idzie do internal memo
+   - **MINOR** (literówka, return type, naming, drobny inconsistency) — **wszystkie łączysz w jedną linię** "plus 5 drobiazgów na potem" — NIE wylewasz listy
+   - **NOICE** (hallucinations, false positives, rzeczy które są OK) — wyrzuć
+3. **Hard limit prezentacji dla Jakuba: 2 CRITICAL + 2 ARCHITECTURAL + 1 zbiorcza linia MINOR = max 5 elementów w konwersacji**
+4. **Jeśli po triage masz >5 elementów** — wymuś drugą rundę redukcji: "które 3 są najważniejsze z punktu widzenia produkcji?". Reszta idzie do internal memo, NIE znika — ale nie trafia do konwersacji
+5. **Mapping do nauki** (CONCEPT GAP / BRIEFING / L3 ANCHOR / BRIDGE NEEDED) generujesz **w tym kroku**, ale **NIE pokazujesz go Jakubowi** — to jest internal memo dla session-end. Patrz krok 5 (Output).
+
+### Zasada fundamentalna triage
+
+Jakub w trakcie code review potrzebuje odpowiedzi na **dwa pytania**:
+1. **Co naprawiam TERAZ** (musi być jasne, uporządkowane, ≤3 rzeczy)
+2. **Co mogę odłożyć na później** (jedna linia, bez detali)
+
+**Nie potrzebuje** (w trakcie review — to dla session-end):
+- Pełnej listy 13 findings
+- Mappingu do banku nauki
+- Concept gap taxonomy
+- Bridge task kandydatów
+- Score propozycji dla articulation bank
+
+Jeśli czujesz pokusę pokazać "jeszcze jedno" — **zatrzymaj się**. Im więcej dumpujesz, tym mniej Jakub naprawi. Mniej = więcej skupienia = więcej nauki.
 
 ## 3. Sokratejski review (rozmowa z Jakubem)
 
@@ -50,13 +91,25 @@ Celem jest żeby Jakub **sam** zidentyfikował problemy w swoim kodzie. To buduj
 
 ### Flow
 
-**Krok 1 — otwarte pytanie:**
+**Krok 1 — otwarte pytanie (direct introspection, TERAZ):**
 
 ```
-Popatrz na kod który napisałeś — co byś zmienił? Co ci przeszkadza? Czy coś byś wydzielił?
+Popatrz na kod który napisałeś — co Ci przeszkadza TERAZ? Co byś zmienił? Czy coś byś wydzielił?
 ```
 
 Czekaj na odpowiedź. Nie podpowiadaj.
+
+**Anti-patterny framingu** — NIE zadawaj pytań które zakładają stan którego Jakub nie ma:
+
+- ❌ *"Co byś zmienił jutro ze świeżą głową?"* — zakłada perspektywę której nie ma teraz
+- ❌ *"Co powiedziałby senior na code review?"* — abstrakcyjny obserwator, nie Jakub
+- ❌ *"Co myślisz że pominąłeś?"* — naprowadzające, nie otwarte
+- ❌ *"Gdybyś miał to napisać jeszcze raz…"* — hipotetyka, nie self-review
+- ✅ *"Co Ci przeszkadza w tym kodzie TERAZ?"* — direct introspection
+- ✅ *"Który element najmniej Ci się podoba?"* — wymusza ranking na istniejącym stanie
+- ✅ *"Jeśli kolega by Ci zadał pytanie o ten plik — na czym by Cię złapał?"* — konkretny scenariusz, nie hipotetyka
+
+Cel pytania: Jakub ma spojrzeć na **własny kod jaki jest**, nie fantazjować o alternatywnych wersjach siebie.
 
 **Krok 2 — dopytuj o konkretne decyzje:**
 
@@ -109,27 +162,108 @@ Na co NIE patrzysz (nie trać czasu):
 - Nazwy zmiennych jeśli są OK (nie micromanage)
 - Rzeczy które działają i nie mają trade-offów wartych dyskusji
 
-## 5. Output — review domyka pętlę nauki
+## 5. Output — dwa różne bloki, dwaj różni odbiorcy
 
-Po zakończeniu review, podsumowanie + **mapping do systemu nauki**. Każda linia z `WEAK:` musi mieć decyzję dalej (do banku, do briefingu następnej sesji, lub natychmiastowy fix).
+Code review output ma **dwóch odbiorców** i **dwa różne formaty**. Nie mieszaj ich w jednej wiadomości do Jakuba.
 
-Format dokładnie taki:
+### 5a. Blok DLA JAKUBA — conversational iteration (NIE infodump, NIE lista)
+
+**Krytyczna zasada: review to rozmowa, nie raport.** Nawet skrócona lista 5 elementów to dalej infodump — Jakub dostaje kilka rzeczy naraz i nie wie co naprawiać, w jakiej kolejności, czy *dlaczego*. Infodump = nauka zeru, fix 5 rzeczy bez zrozumienia = cargo cult fixes.
+
+**Prawidłowy flow: jeden bug na raz, mikro-rozmowa, fix, następny.** Każdy bug ma swoją iterację:
 
 ```
-**Review summary:**
-- OK: [co dobrze — tylko naprawdę dobre rzeczy, nie "kompiluje się"]
-- WEAK: [co jest słabe architektonicznie — max 2-3 punkty z kierunkiem poprawy]
-- FIX NOW: [co poprawić teraz — bugi, security]
-- NEXT SESSION: [co wchodzi jako task na następną sesję, jeśli cokolwiek]
+[Claude] → Krótkie podsumowanie (1 zdanie): "Review skończony. Znalazłem X critical, Y architectural, Z drobiazgów. Lecimy po kolei od najgorszego — zacznę od #1, omówimy, naprawisz, potem przejdziemy do #2."
+
+[Claude] → Iteracja #1:
+  1. **Co:** file:line — konkretny bug jednym zdaniem
+  2. **Dlaczego to jest bug:** mechanizm + konsekwencja (co się stanie jak to odpalić? jaki request to łamie?)
+  3. **Jak naprawić:** kierunek (NIE kod) — "zmień X na Y", "usuń linię Z", "dodaj pole W do konfigu"
+  4. **Pytanie do Jakuba:** "Rozumiesz dlaczego?" ALBO "Jak byś to zrobił konkretnie?" (zależnie od poziomu subtelności)
+
+[Jakub] → Odpowiada: potwierdza / pyta / nie rozumie / proponuje fix
+
+[Claude] → Jeśli rozumie i ma plan → "OK, naprawiaj, daj znać gdy gotowe"
+          Jeśli nie rozumie → dopytanie sokratejskie (max 1) lub diagnoza wprost (jeśli systemowe)
+          Jeśli zły plan → naprowadź kierunkiem
+
+[Jakub] → Naprawia, mówi "gotowe"
+
+[Claude] → **Weryfikuj** (Read pliku — NIE ufaj "mówi że zrobił") → potwierdź lub popraw → "OK, next: #2..."
+
+→ Iteracja #2 (ten sam pattern)
+→ ...
+→ Iteracja #N
+```
+
+**Reguły conversational flow:**
+
+- **Jeden bug na raz** — NIGDY nie wylewaj listy. Nawet jak masz 3 CRITICAL, pokazujesz #1, czekasz na fix, dopiero potem #2.
+- **Kolejność = blast radius DESC** — runtime crash > security > data loss > architectural > minor. Najgorsze najpierw, żeby Jakub nie utknął na kosmetyce i potem zabrakło czasu na critical.
+- **Każdy bug MUSI mieć *dlaczego*** — nie "to jest bug" tylko "request #2 wywali się bo filter zamyka socket dwa razy". Bez mechanizmu Jakub robi fix bez zrozumienia = wraca za tydzień.
+- **Weryfikacja po każdym fixie** — Read pliku, sprawdź że faktycznie naprawione. Słabość Jakuba "self-review nawyk" oznacza że "gotowe" ≠ gotowe. Ty weryfikujesz, nie on.
+- **Minor drobiazgi (literówki, return types, inconsistencies)** — **NIE lecą w conversational flow**. Na końcu jedna wiadomość: "Plus X drobiazgów do zapamiętania — są w session logu, możesz zajrzeć po sesji. Nie zatrzymujemy się na nie teraz." Lista w session logu, konwersacja zostaje czysta.
+- **Stop condition** — gdy wszystkie CRITICAL + ARCHITECTURAL zamknięte, podsumuj jednym zdaniem "review zamknięty, X fixów gotowych, Y drobiazgów w logu" i przejdź do `/session-end`.
+
+### Wstępne framowanie — co mówisz PRZED pierwszą iteracją
+
+Po synthesis (krok 2.5) zanim wejdziesz w #1, powiedz Jakubowi **co go czeka** w 2-3 zdaniach:
+
+```
+"Review skończony. Znalazłem [N] critical, [M] architectural, [K] drobiazgów.
+Lecimy po kolei od najgorszego — zaczynam od #1, omówimy mechanizm, naprawisz,
+potem #2, i tak dalej. Drobiazgi na końcu zostawimy w session logu, nie
+zatrzymujemy się na nie. Gotów? Lecimy z #1."
+```
+
+To daje Jakubowi mapę procesu — wie że nie będzie to jednorazowy dump, wie że każdy fix ma mikro-rozmowę, wie że drobiazgi nie przytłoczą. Zmniejsza cognitive load przez przewidywalność.
+
+### Anti-pattern: NIE rób tego
+
+- ❌ **Lista "Review verdict / OK / FIX NOW / NEXT SESSION"** jako jedna wiadomość — to jest infodump w przebraniu struktury
+- ❌ **"Oto 3 rzeczy do naprawy, wybierz od której chcesz zacząć"** — Jakub ma się uczyć, Ty wiesz który priorytet, prowadź
+- ❌ **Pokazanie kolejnego buga zanim poprzedni potwierdzony jako fixed** — overwhelm
+- ❌ **Skipowanie *dlaczego*** — "zmień 10 na 12" bez mechanizmu = cargo cult fix
+- ❌ **Wierzenie że "gotowe"** — zawsze Read po fixie
+
+### Na końcu — NEXT SESSION handoff (jedna wiadomość)
+
+Po ostatniej iteracji, jedna wiadomość zamykająca:
+
+```
+"Review zamknięty. Naprawiłeś [N] rzeczy, rozumiesz dlaczego każda była bugiem.
+
+Do session logu idzie:
+- [K] minor drobiazgi (literówki, return types itp) — zajrzyj jak chcesz, nie zatrzymujemy się
+- [M] follow-ups na następną sesję: [lista 1-2 najważniejszych, nie więcej]
+
+Odpal /session-end gdy gotowy."
+```
+
+To jest jedyne miejsce gdzie wolno wypisać zbiorczo — bo to jest *handoff*, nie *learning moment*.
+
+### 5b. Blok INTERNAL MEMO (dla session-end, NIE pokazywany Jakubowi)
+
+Mapping do nauki generujesz **w głowie/notatkach** w kroku 2.5 synthesis. Zapisujesz go **bezpośrednio do session logu** pod sekcją "Code review — internal memo (for session-end)". Jakub może go przeczytać po sesji, ale NIE w trakcie code review.
+
+Format:
+
+```markdown
+## Code review — internal memo (session-end input)
 
 **Mapping do nauki:**
 - CONCEPT GAP: [koncept którego brakowało Jakubowi → temat do dodania/aktualizacji w articulation-bank]
 - BRIEFING: [score-0 topic z banku który byłby przydatny przed kolejnym taskiem → flag dla session-end jako briefing topic na następną sesję]
 - L3 ANCHOR: [konkretny L3 checkpoint który ten kod realizuje (lub powinien) — anchor src/path:N jeśli istnieje, lub `brak anchora — checkpoint nie zalicza się`]
 - BRIDGE NEEDED: [jeśli review odsłonił że Jakub używa konceptu bez rozumienia DLACZEGO (klasyczny cargo cult) i ten temat ma score ≥3.5 w banku, flaguj jako kandydata na bridge task; session-end napisze go w kroku 3a]
+
+**Pełna lista findings (redukowana w synthesis):**
+- CRITICAL: [wszystkie, które nie weszły do bloku Jakuba — z plik:linia]
+- ARCHITECTURAL: [wszystkie z synthesis, nie tylko te które pokazałeś]
+- MINOR: [wszystkie drobiazgi które złączyłeś w "plus X drobiazgów"]
 ```
 
-Puste kategorie pomiń, nie pisz "brak". **Puste OK to akceptowalny wynik** — lepiej żaden OK niż fałszywy OK.
+Puste kategorie pomiń. Ten blok **MUSI** być zapisany (Edit/Write do session logu) nawet jeśli jest pusty — session-end go szuka w stałym miejscu.
 
 ### Jak wypełnić "Mapping do nauki"
 

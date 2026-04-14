@@ -1,0 +1,95 @@
+### Register - happy path (new user)
+POST http://localhost:3000/auth/register
+Content-Type: application/json
+
+{
+  "email": "anna@test.pl",
+  "password": "superSecret123"
+}
+
+### Register - same email again (should 409 Conflict via PrismaExceptionFilter)
+POST http://localhost:3000/auth/register
+Content-Type: application/json
+
+{
+  "email": "anna@test.pl",
+  "password": "anotherPassword456"
+}
+
+### Register - different user
+POST http://localhost:3000/auth/register
+Content-Type: application/json
+
+{
+  "email": "bob@test.pl",
+  "password": "bobPassword789"
+}
+
+### Register - invalid email (should 400)
+POST http://localhost:3000/auth/register
+Content-Type: application/json
+
+{
+  "email": "not-an-email",
+  "password": "validPassword123"
+}
+
+### Register - password too short (should 400, MinLength 8)
+POST http://localhost:3000/auth/register
+Content-Type: application/json
+
+{
+  "email": "short@test.pl",
+  "password": "abc"
+}
+
+### Register - password too long (should 400, MaxLength 72 — bcrypt limit)
+POST http://localhost:3000/auth/register
+Content-Type: application/json
+
+{
+  "email": "long@test.pl",
+  "password": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+}
+
+### Register - missing password (should 400)
+POST http://localhost:3000/auth/register
+Content-Type: application/json
+
+{
+  "email": "nopass@test.pl"
+}
+
+### Register - missing email (should 400)
+POST http://localhost:3000/auth/register
+Content-Type: application/json
+
+{
+  "password": "validPassword123"
+}
+
+### Register - empty body (should 400)
+POST http://localhost:3000/auth/register
+Content-Type: application/json
+
+{}
+
+### Register - extra fields (should be stripped by whitelist, or 400 with forbidNonWhitelisted)
+POST http://localhost:3000/auth/register
+Content-Type: application/json
+
+{
+  "email": "extra@test.pl",
+  "password": "validPassword123",
+  "isAdmin": true,
+  "id": "malicious-id-injection"
+}
+
+### Register - SQL-injection-ish email (should 400 on IsEmail, not reach DB)
+POST http://localhost:3000/auth/register
+Content-Type: application/json
+
+{
+  "email": "' OR 1=1 --",
+  "password": "validPassword123"
+}

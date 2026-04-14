@@ -26,7 +26,7 @@ type PrismaWorkoutLogSimple = Prisma.WorkoutLogGetPayload<{
 }>;
 
 export class PrismaWorkoutLogMapper {
-  static toWorkoutLog(raw: PrismaWorkoutLogWithExercises): WorkoutLog {
+  static toWorkoutLog(raw: PrismaWorkoutLogWithExercises) {
     return {
       id: raw.id,
       name: raw.name,
@@ -50,10 +50,10 @@ export class PrismaWorkoutLogMapper {
           notes: set.notes,
         })),
       })),
-    };
+    } satisfies WorkoutLog;
   }
 
-  static toWorkoutLogSimple(raw: PrismaWorkoutLogSimple): WorkoutLogSimple {
+  static toWorkoutLogSimple(raw: PrismaWorkoutLogSimple) {
     return {
       id: raw.id,
       name: raw.name,
@@ -64,6 +64,6 @@ export class PrismaWorkoutLogMapper {
         category: ex.category,
         setsCount: ex._count.sets,
       })),
-    };
+    } satisfies WorkoutLogSimple;
   }
 }

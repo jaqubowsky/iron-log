@@ -9,6 +9,7 @@ import { WorkoutsModule } from './workouts/workouts.module';
 import { WorkoutsLogsModule } from './workouts-logs/workouts-logs.module';
 import { AuthModule } from './auth/auth.module';
 import { UsersModule } from './users/users.module';
+import { APP_FILTER } from '@nestjs/core';
 
 @Module({
   imports: [
@@ -23,7 +24,7 @@ import { UsersModule } from './users/users.module';
   controllers: [AppController],
   providers: [
     AppService,
-    { provide: 'APP_FILTER', useClass: PrismaExceptionFilter },
+    { provide: APP_FILTER, useClass: PrismaExceptionFilter },
   ],
 })
 export class AppModule {}
