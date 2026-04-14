@@ -1,6 +1,6 @@
 ---
 name: session-start
-description: Rozpoczyna sesję coachingową — ładuje kontekst, coaching protocol, task briefing i task. ZAWSZE używaj tego skilla gdy Jakub zaczyna pracę nad IRONLOG: "zaczynamy", "sesja", "co dziś robimy", podaje czas ("mam 2h", "1h", "30 min"), pyta "co dalej", "nad czym pracujemy", albo po prostu pisze że siadł do kodu. Nawet jeśli nie użył słowa "sesja" — jeśli zaczyna pracę, odpal ten skill.
+description: Use when Jakub sygnalizuje start pracy nad IRONLOG — "zaczynamy", "sesja", "co dziś robimy", "co dalej", podaje budżet czasu ("mam 2h", "1h", "30 min"), albo po prostu pisze że siadł do kodu. Działa też bez słowa "sesja" — jeśli kontekst sugeruje rozpoczęcie pracy nad projektem, odpal.
 argument-hint: "[czas sesji np. 30m, 1h, 2h]"
 ---
 
@@ -144,7 +144,8 @@ Jeśli masz **więcej relevant score-0 topics niż Max topics** → weź top N *
    ```markdown
    ### [Topic name] (Mx)
 
-   **Score:** 1.5/5 | **Last tested:** [TODAY] | **Streak:** 0/2
+   **Score:** 1.5/5 | **Last tested:** [TODAY] | **Next review:** [TODAY+1] (interval: 1d)
+   **L3 anchor:** unknown
 
    Historia:
    - [TODAY] (task briefing): 1.5/5 — pierwsza ekspozycja, signposting bez deep dive
@@ -153,7 +154,9 @@ Jeśli masz **więcej relevant score-0 topics niż Max topics** → weź top N *
    - [konkretne gapy które trzeba zamknąć przez kodowanie/kolejny test]
    ```
 
-   **1.5/5 origin:** "widział signposting, nie opanował". Wchodzi do rotation (priority hot pool), pełna weryfikacja w kolejnych session-end articulation checks.
+   **1.5/5 origin:** "widział signposting, nie opanował". Wchodzi do rotacji z intervalem 1d (grade ≤2 branch w SRS formule), wraca do testu już na następnej sesji.
+
+   **L3 anchor: unknown** dla świeżych wpisów — temat wszedł przez signposting, nie ma jeszcze decyzji czy zostanie zaimplementowany w IRONLOG. Klasyfikuje się przy najbliższym `articulation-check` lub przez session-end briefing utrwalenie check (jeśli temat trafi do dzisiejszego diffu, anchor zostanie zaktualizowany na konkretną ścieżkę).
 
 ### Override — Jakub odmawia briefingu
 
@@ -178,17 +181,33 @@ To nie jest porażka — Jakub czasem wie co robi i chce się uczyć przez debug
 
 Po briefingu (lub od razu jeśli briefing nie był potrzebny), przed kodowaniem.
 
-### Flow
+### Flow — hypothesis-first twardy stop
 
-1. **Jakub przedstawia plan:** "Jak byś to rozwiązał? Opisz po polsku"
-2. **Coach zadaje pytania sokratejskie** — nie daje odpowiedzi:
+1. **Coach zadaje TYLKO otwarte pytanie i CZEKA:**
+
+   ```
+   "Jak byś to rozwiązał? Opisz po polsku — chcę usłyszeć Twój plan zanim cokolwiek powiem."
+   ```
+
+   **Hard stop:** wyślij to pytanie jako jedyną treść message'a. Nie łącz z hintami, sugestiami, opcjami, "być może warto zacząć od X". Czekaj na pełną odpowiedź Jakuba. Jeśli Jakub odpowie 1-2 zdaniami i się zatrzyma, zapytaj *"to wszystko? coś jeszcze?"* — daj szansę dokończyć zanim zaczniesz coachować.
+
+   **Dlaczego twardy stop:** każda sugestia coacha przed odpowiedzią Jakuba **niszczy retrieval practice**. Mózg który widzi sugestię nie produkuje własnej odpowiedzi — kopiuje. CLAUDE.md: *"Nie łącz pytania z odpowiedzią w jednej wiadomości — to niszczy retrieval practice"*.
+
+2. **Po pełnej odpowiedzi Jakuba — coach zadaje pytania sokratejskie:**
    - "Dlaczego tak a nie inaczej?"
    - "Jakie są trade-offy tego podejścia?"
    - "A co się stanie gdy...?"
    - "Jaki jest flow danych od requesta do response?"
-3. **Iteracja** — Jakub koryguje, coach dopytuje
+
+3. **Iteracja** — Jakub koryguje, coach dopytuje. Po każdym pytaniu coacha — ten sam twardy stop, czekaj na odpowiedź.
+
 4. **Potwierdzenie** — plan solidny → zielone światło
+
 5. **Kolejność implementacji** — Jakub wypisuje kolejność plików/kroków przed otwarciem edytora: "1. DTO, 2. Service method, 3. Controller, 4. Test HTTP callem"
+
+### Wyjątek od twardego stopu — "nie wiem od czego zacząć"
+
+Jeśli Jakub w odpowiedzi na otwarte pytanie powie wprost *"nie wiem"* lub *"nie mam pomysłu jak zacząć"* — to sygnał że brakuje baseline wiedzy, nie że unika myślenia. **Wtedy** dawaj analogię + generyczny przykład (zgodnie z eskalacją z sekcji "Techniki nauki" / pkt 4). Hypothesis-first działa tylko gdy jest co retrievać.
 
 ### Zasady
 
@@ -231,14 +250,30 @@ Gdy Jakub skończy feature → odpala `/code-review`. Articulation check i expla
 - **Czas:** [czas]
 - **Milestone:** [aktualny]
 - **Main task:** [opis]
-- **Task briefing:** [topics + czas, lub "brak", lub "skipped (user override)"]
 - **Rozgrzewka:** [poprawki z review lub "brak"]
 - **Docs:** [biblioteka + temat lub "brak"]
+
+## Task briefing topics
+
+<!-- Format ustrukturyzowany — session-end parsuje to w kroku 3a (briefing utrwalenie check).
+     Każdy topic jako osobna linia. Statusy: briefed | skipped | overflow.
+     Keywords = lista słów do grep w git diff (lowercase, alternatywy). -->
+
+- topic: "[nazwa banku 1:1]" | milestone: M[N] | status: briefed | keywords: [keyword1, keyword2, ...]
+- topic: "[nazwa]" | milestone: M[N] | status: skipped | keywords: [...]
+- (jeśli brak briefingu) brak
 
 ## Notatki na bieżąco
 ```
 
-**Dlaczego jeden Write, nie dwa:** po briefingu masz kompletny kontekst planu (task + briefing results). Dwóch Write'ów prowadzi do race condition gdy pamiętasz pierwszy plan ale briefing cię przesunął.
+**Reguły wypełniania `Task briefing topics`:**
+
+- **status: briefed** — temat dostał pełną ekspozycję (analogia + insight + przykład kodu), wpis w banku zaktualizowany na 1.5/5
+- **status: skipped** — Jakub wybrał override, temat zostaje score-0
+- **status: overflow** — temat planowany ale nie zmieścił się w budżecie czasowym, czeka na następną sesję
+- **keywords** — lista 2-5 lowercase słów których session-end użyje do `grep` w git diff żeby sprawdzić utrwalenie. Przykłady: `idempoten, idempotency-key`, `bcrypt, hash, salt`, `cache-control, etag, if-none-match`. **Wybieraj keywordy unikalne** dla konceptu — `error` jest za szerokie, `circuit-breaker` jest dobre.
+
+**Jeden Write po briefingu** — wtedy masz kompletny kontekst (task + briefing results) i zapis jest atomowy.
 
 ### Triggery do dopisania notatek podczas sesji
 

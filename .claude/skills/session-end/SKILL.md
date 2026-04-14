@@ -1,41 +1,37 @@
 ---
 name: session-end
-description: Zamyka sesję coachingową — explain phase, articulation check (2 pytania z banku), feedback, session log, aktualizacja roadmapy L3. ZAWSZE używaj gdy Jakub kończy pracę: "kończymy", "koniec", "zamykamy", "tyle na dziś", "muszę lecieć", "ostatnie 5 min", albo gdy czas sesji się kończy. Nawet jeśli nie powie wprost "koniec sesji" — jeśli sygnalizuje że kończy, odpal ten skill.
+description: Use when Jakub sygnalizuje koniec sesji nad IRONLOG — "kończymy", "koniec", "zamykamy", "tyle na dziś", "muszę lecieć", "ostatnie 5 min", lub gdy czas sesji dobiega końca. Działa też bez słowa "koniec" — jeśli kontekst sugeruje że kończy pracę, odpal.
 ---
 
 # Session End Protocol
 
 Zamykasz sesję coachingową z Jakubem. Wykonaj kroki w kolejności.
 
-## Sesje <20 min — wszystkie wyjątki w jednym miejscu
+## 1. Explain phase — Feynman (5 min)
 
-Dla krótkich sesji (debug call, szybkie pytanie) **pomijasz wszystkie kroki 1-2 i 6-7** (explain phase, articulation check, Anki, rekomendacja). Wykonujesz tylko:
+**Feynman technique, nie code review.** Jakub ma wytłumaczyć co zrobił **tak, jakby tłumaczył juniorowi albo nie-programiście** — prostym językiem, bez żargonu. Jeśli musi używać nazw technicznych, musi je zdefiniować. Feynman pokazuje luki lepiej niż "powiedz mi o decyzjach".
 
-- **Krok 3:** Odhacz L3 jeśli coś ukończyłeś
-- **Krok 4:** Skrócony session log (sekcje: "Co robił", "Samodzielność", "Następna sesja")
-- **Krok 5:** Update roadmapy jeśli zmieniło się coś w L3
-
-Powrót do pełnego flow gdy sesja ≥20 min.
-
----
-
-## 1. Explain phase (5 min)
-
-Symuluj code review — Jakub daje overview, Ty wyciągasz pytania o decyzje.
+Różnica vs code-review skill: code-review analizuje jakość kodu z Jakubem siedzącym przy nim. Explain phase testuje czy Jakub rozumie **co robi jego kod na poziomie konceptualnym** bez patrzenia w plik.
 
 ### Flow
 
-1. **Poproś o overview:** "Opowiedz w 2-3 zdaniach co zrobiłeś i jakie kluczowe decyzje podjąłeś"
-2. **Czekaj na odpowiedź** — nie przerywaj
-3. **Zadaj 3-4 celowane pytania** o decyzje, trade-offy, alternatywy
-4. **Czekaj na odpowiedź na KAŻDE pytanie** — nie zasypuj. Jedno follow-up max, potem feedback
-5. **Daj feedback** — co dobrze, co pominął
+1. **Poproś o plain-language overview:** *"Wytłumacz mi co dzisiaj zrobiłeś tak, jakbyś tłumaczył juniorowi bez backgroundu w NestJS. Bez żargonu — jeśli używasz nazwy technicznej, musisz ją wytłumaczyć."*
+2. **Czekaj na odpowiedź** — nie przerywaj, nie podpowiadaj
+3. **Zadaj 2-3 "why" pytania** targetujące decyzje które Jakub skompresował lub ominął. Format: *"Powiedziałeś X — ale DLACZEGO tak a nie Y? Wytłumacz juniorowi."*
+4. **Czekaj na odpowiedź na KAŻDE pytanie** — jedno follow-up max, potem feedback
+5. **Daj feedback** — gdzie użył żargonu bez definicji, gdzie ominął "dlaczego", gdzie wytłumaczenie było mętne
 
 ### Zasady
 
-- NIE wymuszaj monologu o 40 plikach — przy dużych taskach nierealne
-- Pytania dopasuj do tego co Jakub faktycznie robił — nie generyczne
-- Oceń (1-5): 1=nie umie wytłumaczyć, 3=zna koncept brakuje detali, 5=wytłumaczyłby na rozmowie. Hinty obniżają score.
+- **Test plain-language:** czy zdanie zadziałałoby na osobie bez backgroundu backendowego? Jeśli tak → 4-5/5. Jeśli zdanie ma 3 buzzwordy bez definicji → 2-3/5.
+- NIE wymuszaj monologu o 40 plikach — przy dużych taskach wybierz 1-2 kluczowe decyzje architektoniczne
+- Pytania dopasuj do tego co Jakub faktycznie robił — nie generyczne "co to DI"
+- **Score 1-5:**
+  - 1 = nie umie wytłumaczyć / używa żargonu jak tarczy
+  - 3 = zna koncept, tłumaczenie techniczne ale nie plain-language (używa buzzwordów)
+  - 3.5 = solidne plain-language z drobnymi lukami
+  - 5 = wytłumaczyłby kierownikowi produktu lub znajomemu który programuje w innym języku
+- **Hinty obniżają score.** Jeśli musiałeś zadać naprowadzające pytanie żeby Jakub dotarł do czegoś co powinno być oczywiste → -0.5/5.
 
 ## 2. Articulation check (2 pytania z banku)
 
@@ -51,51 +47,89 @@ Skill tool:
 
 Pusty `args` = default 2 pytania, priority-based selection z całego banku.
 
-Dla dress rehearsal (Jakub wyraźnie prosi) użyj `args: "dress-rehearsal 5"` — 5 pytań, spacing guard off, pure score ascending.
+Dla dress rehearsal (Jakub wyraźnie prosi) użyj `args: "dress-rehearsal 5"` — 5 pytań, filtr due off, pure grade ascending.
 
-### Co robi articulation-check (za sceną)
-
-1. Wczytuje `docs/articulation-bank.md`
-2. Filtruje score-0 topics (wymagają task briefing w session-start, nie quiz)
-3. Priority selection: słabe → dawno nietestowane → starsze milestone
-4. Spacing guard: min. 3 dni od ostatniego testu per topic
-5. Zadaje 2 pytania w protokole: pytanie → dopytanie → feedback → re-recall jeśli <3.5 → atomic update banku
-6. **Mastery promotion:** streak 2/2 z ≥3.5, 3+ dni spacing, brak lapse → dodaje flagę `Status: mastered` do wpisu (wpis zostaje w banku z pełną historią)
-7. Zwraca podsumowanie: topics, scores, trendy, promoted-to-mastered list, lapse list
+Protokół articulation-check (selekcja due topics, SRS formula, atomic Edit banku) żyje w `articulation-check/SKILL.md`. Tutaj tylko obsługa wyników.
 
 ### Edge cases — co robisz jeśli articulation-check zwraca problem
 
-**"Bank ma <2 eligible candidates"** (bank pusty lub wszystko score-0):
-- Log w session logu: `"Articulation check: N/A — bank nie ma wystarczających kandydatów"`
+**"Bank ma <2 due candidates"**:
+- Log: `"Articulation check: N/A — insufficient due candidates"`
 - Przejdź do kroku 3 bez articulation check
-- W rekomendacji na następną sesję (krok 7) zaznacz: "Bank jest niski, priorytet na task briefing który doda nowe topics do rotation"
+- W rekomendacji na następną sesję zaznacz: "Bank jest niski, priorytet na task briefing który doda nowe topics do rotation"
 
-**"Spacing guard zablokował wszystkich kandydatów"** (wszyscy testowani w ostatnich 3 dniach):
-- Log: `"Articulation check: skipped — spacing guard (all topics tested within 3 days)"`
-- To jest zdrowe — znaczy że articulation check w session-end jest częsty. Nic nie robisz.
+**"Bank in good shape" (wszystko w środku cyklu spacing)**:
+- Log: `"Articulation check: skipped — bank in good shape"`
+- To jest zdrowe — znaczy że retencja siedzi. Nic nie robisz.
 
 **Wszystko OK, 2 pytania wykonane:** wyniki trafią do session logu (krok 4) w sekcji "Articulation check".
 
-## 3. Odhacz checkpointy L3 z roadmapy
+## 3. Theory→task bridge + odhacz checkpointy L3
 
-**ZAWSZE wykonaj** (nawet dla sesji <20 min). Po kroku 1-2 sprawdź czy jakikolwiek **L3 praktyczny** checkpoint w `fullstack-roadmap.md` kwalifikuje się do odhaczenia.
+**ZAWSZE wykonaj** (nawet dla sesji <20 min). Dwie rzeczy do sprawdzenia: czy dzisiejsze teoretyczne tematy trafiły do kodu, i czy L3 checkpointy się odhaczają.
 
-**L3 checkpointy odhaczasz od razu** gdy task wykonany poprawnie:
-- "X działa" / "kod jest napisany" / "X skonfigurowany" — fakt: albo działa albo nie
-- "X zaimplementowane" — jeśli kod w repo
+### 3a. Briefing utrwalenie check
 
-**L3 to jedyny rodzaj checkpointów w roadmap.** Tematy narracyjne są w `articulation-bank.md` i promowane do `mastered` state przez streak 2/2 w `articulation-check` — nie są odhaczane w roadmap, zostają w banku z pełną historią.
+Dla każdego tematu z briefingu sprawdź czy trafił do napisanego kodu. **Format wejściowy** to ustrukturyzowana sekcja `## Task briefing topics` w session logu z session-start (każda linia: `topic | milestone | status | keywords`).
 
 **Algorytm:**
 
-1. Czy dzisiejszy task ukończył L3 checkpoint? → odhacz
-2. Odhacz w `fullstack-roadmap.md` (zmień `[ ]` na `[x]`)
-3. Zaktualizuj milestone header (cokolwiek `[ ]` → `🔴 BLOKUJE`, wszystko `[x]` → `✅`)
-4. Powiedz Jakubowi co odhaczasz i dlaczego
+1. **Read** `docs/sessions/YYYY-MM-DD.md` → wyciągnij wszystkie linie z sekcji `## Task briefing topics`
+2. Pomiń wpisy ze statusem `skipped` lub `overflow` (nie były ekspozycją do utrwalenia) — zapisz je tylko jako "do następnej sesji"
+3. Uruchom `git diff` (uncommitted) + `git log --since="midnight" --name-only` (today's commits) → zbuduj jeden tekst z całym dzisiejszym diffem
+4. Dla każdego briefed topic: grep keywordów (lowercase, OR) w diff
+5. Wyciągnij **konkretną ścieżkę:linię** pierwszego matchu — to jest `L3 anchor` dla tego tematu
+6. Zapisz wynik w session logu (krok 4) w sekcji "Briefing utrwalenie":
+   - `✅ [topic] — anchor: src/path/file.ts:N`
+   - `⚠ [topic] — brak anchora w dzisiejszym diffie → zostaje jako theory only, rekomendacja na następną sesję`
+
+**Aktualizacja banku z anchorem:** nie tutaj. Pole `L3 anchor:` we wpisie tematu jest aktualizowane przez `articulation-check` przy najbliższym teście (lazy update). Wynik sekcji "Briefing utrwalenie" w session logu jest źródłem prawdy do tego czasu — articulation-check go odczyta przy najbliższej rotacji tematu.
+
+**Dlaczego to robimy:** każda teoria powinna zostać utrwalona taskiem w IRONLOG, inaczej wiedza trafia do martwej pamięci. Bez tego kroku bank może rosnąć ze score'ami 3.5+, a kod nigdy nie dotyka konceptu — dokładnie to co chcemy wyłapać.
+
+**Edge case — brak briefingu dzisiaj:** jeśli sesja nie zaczynała się od task briefingu (np. kontynuacja wcześniejszego taska), pomiń 3a. W logu zanotuj "Briefing utrwalenie check: N/A — brak briefingu dzisiaj".
+
+**Edge case — briefing topic wymaga więcej niż 1 sesji:** OK, to normalne. Zapisz `⚠ briefing X — częściowo utrwalony, potrzebuje kontynuacji` i zaproponuj konkretny follow-up task.
+
+### 3b. Odhacz L3 checkpointy — hard gate (anchor required)
+
+**Zasada:** L3 checkpoint odhaczasz **wyłącznie** gdy w kodzie istnieje konkretny anchor go realizujący. Bez anchora — checkpoint zostaje `[ ]`, niezależnie od tego co Jakub mówi że zrobił.
+
+**Definicja "anchor":** konkretna ścieżka `src/path/file.ts:N` zawierająca implementację. Anchory pochodzą z dwóch źródeł:
+
+1. **Briefing utrwalenie check (krok 3a)** — jeśli checkpoint odpowiada bezpośrednio briefing topicowi, anchor pochodzi z grep keywordów w git diff
+2. **Direct path verification** — dla checkpointów bez briefingu (np. "Repository pattern wdrożony"), Read odpowiednich plików i potwierdź że logika faktycznie tam jest
+
+**Algorytm hard gate:**
+
+1. Dla każdego `[ ]` L3 w aktywnym milestone:
+   - **Step A (verify):** czy istnieje konkretna ścieżka:linia w dzisiejszym diffie/repo która realizuje ten checkpoint? (nie "task był robiony" — `Read` plik i potwierdź)
+   - **Step B (gate):** jeśli `tak` → `[ ]` → `[x]`. Jeśli `nie` → checkpoint **zostaje** `[ ]`, dodaj do session logu: `⚠ L3 "[checkpoint name]" — task wykonany ale brak persystowanego anchora w kodzie. Następna sesja: zweryfikuj/dokończ.`
+2. Update milestone header (cokolwiek `[ ]` → `🔴 BLOKUJE`, wszystko `[x]` → `✅`)
+3. Powiedz Jakubowi co odhaczasz **i dlaczego konkretnie** (cytuj anchor: `[x] LocalStrategy implementowana — anchor src/auth/strategies/local.strategy.ts:12`)
+4. Dla każdego checkpointu który ZOSTAŁ `[ ]` mimo że Jakub coś dziś robił — powiedz wprost dlaczego nie odhaczasz: brak anchora, brak testu, brak X.
+
+**Nie odhaczaj na podstawie:**
+- "Jakub mówi że to działa" bez Read'a pliku
+- Plik istnieje ale jest pusty / TODO / placeholder
+- Test był ale failuje
+- "Wpisałem przykład z docs" bez żywego endpointu
+
+**L3 to jedyny rodzaj checkpointów w roadmap.** Tematy narracyjne żyją w `articulation-bank.md` — tam interval SRS rośnie sam po udanych testach, nie ma tu ręcznej promocji.
 
 ## 4. Feedback + session log
 
-Daj ustny feedback (co dobrze, co źle, jedna rzecz do poprawy). Potem zapisz session log.
+Daj ustny feedback. Struktura: **co dobrze, co źle, progres samodzielny, jedna rzecz do poprawy**. Potem zapisz session log.
+
+### Progress comparison — obowiązkowy element feedbacku
+
+Dla każdego topica z dzisiejszego articulation check porównaj z poprzednim wpisem (`Historia` w banku):
+
+- **Score wzrósł samodzielnie** (np. 3/5 → 4/5 bez scaffoldingu, lub gap z "Do domknięcia" zniknął) → **powiedz to wprost**: *"Tydzień temu na `[topic]` było 3/5 i nie wiedziałeś o `[gap]`. Dzisiaj sam to wymieniłeś. To jest mierzalny progres."*
+- **Score spadł (lapse)** → **też powiedz**, ale jako diagnoza nie wyrzut: *"Na `[topic]` był 4/5 po 20d spacing, dzisiaj 2/5. To Ebbinghaus, nie regression — interval był za długi. Wraca do 1d i odbudujemy."*
+- **Score bez zmian, ale recall był punktualny** → krótkie: *"`[topic]` trzyma się solidnie."*
+
+**Dlaczego to jest obowiązkowe:** bez tej pętli zamknięcia Jakub nie widzi swojego progresu — jedyny sygnał to "kolejny task gotowy", który nie skaluje się na motywację długoterminową. CLAUDE.md to wymaga: *"powiedz to wprost: 'Tydzień temu to było 3 pytania, teraz sam.'"*
 
 **Sprawdź plik** `docs/sessions/YYYY-MM-DD.md` (tworzony przez session-start). Jeśli istnieje → rozbuduj. Jeśli nie → stwórz nowy.
 
@@ -134,9 +168,8 @@ Daj ustny feedback (co dobrze, co źle, jedna rzecz do poprawy). Potem zapisz se
 ## Articulation check
 
 [Wyniki z articulation-check skilla — skopiuj podsumowanie:
-- Topics + scores + trendy
-- Promoted to mastered (lub "brak")
-- Lapse list (lub "brak")
+- Topics + grades + interval delta (Xd → Yd)
+- Lapse notatki (lub "brak")
 - Nowe słabości (Do domknięcia added)
 
 Jeśli pominięty: "N/A — [powód]"]
@@ -180,31 +213,37 @@ Zobacz "Protokół: nowy L2 topic mid-session" poniżej.]
 - **Pytanie do przemyślenia:** [jedno pytanie architektoniczne]
 ```
 
-### Protokół: nowy L2 topic mid-session
+### Protokół: nowe L2 topics — jedna procedura dla wszystkich źródeł
 
-Jeśli w trakcie sesji Jakub natrafił na koncept narracyjny którego **nie było w articulation bank** (np. omówiliście coś spontanicznie przy code review), session-end **dodaje go do banku**:
+Nowy temat L2 może wpaść do banku z trzech źródeł: (a) explain phase ujawnił że Jakub zna koncept którego nie ma w banku, (b) code-review wyciągnął temat ze zmienionego kodu, (c) spontaniczna dyskusja podczas planowania/debug. **Procedura jest jedna**, niezależnie od źródła:
 
-1. **Czy była ekspozycja** (coach wytłumaczył, Jakub formułował odpowiedź)?
-   - **TAK** → pierwszy score w zależności od poziomu odpowiedzi:
+1. **Klasyfikuj poziom ekspozycji:**
+   - **Pełna ekspozycja** (coach wytłumaczył **i** Jakub formułował własnymi słowami) → score zależny od jakości:
      - Dobra odpowiedź z drobnymi brakami → 3.0/5
      - Mętna, wymagała dużo naprowadzania → 2.0/5
-     - Tylko signposting (coach wyjaśnił, Jakub nie formułował) → 1.5/5 (tak samo jak task briefing)
-   - **NIE** (pojawiło się w dyskusji ale bez realnego wyjaśnienia) → 0/5 (czeka na task briefing w przyszłości)
-2. **Atomic Edit** dodający nowy wpis do `articulation-bank.md` w odpowiedniej sekcji milestone:
+   - **Tylko signposting** (coach wyjaśnił, Jakub nie formułował) → 1.5/5 (jak task briefing)
+   - **Tylko wzmianka** (temat pojawił się w dyskusji ale bez wyjaśnienia) → 0/5 (wpis score-0, czeka na task briefing w przyszłości)
+
+2. **Atomic Edit** dodający wpis do `articulation-bank.md` w sekcji milestone:
 
    ```markdown
    ### [Topic name] (Mx)
 
-   **Score:** [SCORE]/5 | **Last tested:** [TODAY] | **Streak:** 0/2
+   **Score:** [SCORE]/5 | **Last tested:** [TODAY] | **Next review:** [NEXT_REVIEW] (interval: [INTERVAL]d)
+   **L3 anchor:** [anchor jeśli temat był demonstrowany na konkretnym pliku, inaczej `unknown`]
 
    Historia:
-   - [TODAY] ([tag: "explain" jeśli z explain phase, "code review" jeśli z review]): [SCORE]/5 — [krótki opis]
+   - [TODAY] ([tag]): [SCORE]/5 — [krótki opis]
 
    Do domknięcia:
    - [konkretne gapy]
    ```
 
-3. **Log w session logu** w sekcji "Nowe L2 topics (dodane mid-session)": wymień tematy które dodałeś z powodem.
+   **Tag w historii:** `(explain)` jeśli z explain phase, `(code-review)` jeśli z code-review, `(planning)` jeśli z dyskusji.
+   **Interval (SRS pierwszy test):** grade 1.5-2 → 1d, grade 3 → 3d, grade 3.5-4 → 5d.
+   **Score-0 wpisy** mają uproszczony format (bez Historia/Do domknięcia) — patrz `articulation-bank.md` sekcja "Score-0 entries — convention".
+
+3. **Log w session logu** w sekcji "Nowe L2 topics (dodane mid-session)": wymień tematy z tagiem źródła i powodem.
 
 ## 5. Aktualizacja roadmapy — tylko L3
 

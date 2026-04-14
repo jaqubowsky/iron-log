@@ -112,6 +112,13 @@ Tematy narracyjne per milestone są w `docs/articulation-bank.md` — kręcą si
 - Prisma → SQL mapping (migracje, JOINy, relacje)
 - ORM patterns — Active Record vs Data Mapper vs Repository (transferable concept)
 
+### M2 practice backlog — theory→task bridge
+
+Tematy narracyjne które Jakub przerobił w bank ≥3.5/5 ale bez anchora w kodzie. Nie blokują milestone progression (M2 ✅).
+
+- [ ] **Optimistic locking + `version` field** — dodać `version Int @default(1)` do `WorkoutTemplate` (lub innego modelu który ma realne ryzyko concurrent update). `PATCH /workout-templates/:id` wymaga `If-Match: <version>` lub `version` w body, inkrementuje atomowo w jednym UPDATE, 409 Conflict przy mismatch. Test integration: dwa requesty z tym samym version → drugi dostaje 409.
+- [ ] **Isolation level w krytycznych transakcjach** — obecne `$transaction` w `workouts-logs` repository zamówić z `{ isolationLevel: Prisma.TransactionIsolationLevel.ReadCommitted }`. W komentarzu (WHY-only): wyjaśnić który anomaly ten level chroni przed (dirty read blokowany, non-repeatable read dopuszczony) i dlaczego to jest akceptowalne dla tego use case'u.
+
 ---
 
 ## Milestone 3 — HTTP/REST + NestJS features ✅
@@ -148,6 +155,18 @@ Budujesz WorkoutTemplates, WorkoutLogs — cross-module communication. Widzisz j
 - "Co się dzieje gdy wpiszesz URL w przeglądarce" — DNS/TCP/TLS/HTTP
 - REST vs GraphQL — trade-offy, kiedy który
 - Middleware pipeline — transferable concept (Express, Koa, Laravel, NestJS)
+
+### M3 practice backlog — theory→task bridge
+
+Tematy narracyjne które Jakub przerobił w bank ≥3.0/5 ale bez anchora w kodzie. Każdy task poniżej utrwala 1 temat z banku. Nie blokują milestone progression (M3 ✅), ale są priority kandydatami na task briefing gdy bank grows faster than code.
+
+- [ ] **Idempotency key pattern** — `POST /workout-logs` z `Idempotency-Key` headerem. Interceptor + in-memory store (Map z TTL). Stripe pattern: same key + same body → 200 + cached response; same key + different body → 409. Test e2e wysyłający 2× ten sam request.
+- [ ] **Cache-Control + ETag + 304** — `GET /exercises/:id`. Interceptor liczy ETag z `updatedAt` (lub hash content), `If-None-Match` → 304 Not Modified bez body. Na `GET /exercises` (lista publiczna) ustaw `Cache-Control: public, max-age=3600, stale-while-revalidate=86400`. Test curl z ETag round-trip.
+- [ ] **API versioning (URI)** — `app.enableVersioning({type: VersioningType.URI})` w `main.ts`. `ExercisesController` opakowany w `@Controller({path: 'exercises', version: '1'})`. Bonus: drugi endpoint v2 ze zmienionym shape response. Test: `/v1/exercises` i `/v2/exercises` zwracają różne formaty.
+- [ ] **Sparse fields `?fields=`** — `ParseFieldsPipe` dla query param na `GET /exercises`. `@Expose({groups: [...]})` na DTO. Test: `?fields=id,name` zwraca tylko te pola, `?fields=` zwraca wszystkie.
+- [ ] **Cursor pagination na workout-logs** — już jest lib `common/cursor-pagination`, jest też użycie w `workouts-logs.controller.ts`. Zweryfikować że pokrywa: (a) base64-encoded cursor z ostatniego ID, (b) brak totalCount, (c) działa z filtrami (userId, date range). Jeśli któryś punkt falstart → fix. **Weryfikacja, nie nowy kod.**
+- [ ] **N+1 detection setup** — włączyć `log: ['query']` w `PrismaService`. Specjalnie stworzyć n+1 w `GET /workout-logs` (lista bez `include`), zmierzyć count queries, pofixować `include`em. Commit message z before/after query count.
+- [ ] **External API integration z retry/circuit breaker** — przykładowo: integracja z ExerciseDB API (darmowe). `ExercisesService` ma `syncExternalExercises()` która używa `@nestjs/axios` + retry 3x z exponential backoff. Circuit breaker: jeśli 5 kolejnych fail → 30s cooldown.
 
 ---
 

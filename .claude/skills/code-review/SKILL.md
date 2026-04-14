@@ -1,6 +1,6 @@
 ---
 name: code-review
-description: Przeprowadza code review kodu napisanego na sesji — automatyczny scan (bugi, security, architektura) + sokratejski review + szczera ocena architektoniczna. Używaj gdy Jakub mówi "review", "sprawdź kod", "gotowe sprawdź", "code review", "przejrzyj", "zrobiłem sprawdź", "gotowe", "skończyłem", "zrobione", albo gdy skończył task i chce feedback. Nawet jeśli nie powie wprost "review" — jeśli sygnalizuje że skończył kodowanie, odpal ten skill.
+description: Use when Jakub kończy task w IRONLOG i sygnalizuje gotowość do feedbacku — "review", "sprawdź kod", "gotowe", "skończyłem", "zrobione", "przejrzyj". Działa też bez słowa "review" — jeśli kontekst sugeruje że ukończył feature i czeka na ocenę, odpal.
 ---
 
 # Code Review Protocol
@@ -109,9 +109,11 @@ Na co NIE patrzysz (nie trać czasu):
 - Nazwy zmiennych jeśli są OK (nie micromanage)
 - Rzeczy które działają i nie mają trade-offów wartych dyskusji
 
-## 5. Output
+## 5. Output — review domyka pętlę nauki
 
-Po zakończeniu review, krótkie podsumowanie. Użyj DOKŁADNIE tego formatu z emoji — nie zamieniaj na myślniki ani bullet pointy:
+Po zakończeniu review, podsumowanie + **mapping do systemu nauki**. Każda ⚠️ linia musi mieć decyzję dalej (do banku, do briefingu następnej sesji, lub natychmiastowy fix).
+
+Format dokładnie taki — nie zamieniaj emoji na myślniki:
 
 ```
 **Review summary:**
@@ -119,8 +121,19 @@ Po zakończeniu review, krótkie podsumowanie. Użyj DOKŁADNIE tego formatu z e
 - ⚠️ [co jest słabe architektonicznie — max 2-3 punkty z kierunkiem poprawy]
 - 🔧 [co poprawić teraz — bugi, security]
 - 📋 [co wchodzi jako task na następną sesję, jeśli cokolwiek]
+
+**Mapping do nauki:**
+- 🧠 [koncept którego brakowało Jakubowi → temat do dodania/aktualizacji w articulation-bank]
+- 📚 [score-0 topic z banku który byłby przydatny przed kolejnym taskiem → flag dla session-end jako briefing topic na następną sesję]
+- 🎯 [konkretny L3 checkpoint który ten kod realizuje (lub powinien) — anchor src/path:N jeśli istnieje, lub `brak anchora — checkpoint nie zalicza się`]
 ```
 
-Każda linia zaczyna się od odpowiedniego emoji. Puste kategorie (np. brak bugów) — pomiń, nie pisz "brak".
+Puste kategorie pomiń, nie pisz "brak". **Puste ✅ to akceptowalny wynik** — lepiej żaden ✅ niż fałszywy ✅.
 
-**Puste ✅ to akceptowalny wynik.** Nie wymuszaj pochwały gdy kod jest słaby. Lepiej żaden ✅ niż fałszywy ✅ który uśpi czujność Jakuba.
+### Jak wypełnić "Mapping do nauki"
+
+1. **🧠 Koncept którego brakowało:** jeśli Jakub napisał kod ale nie umiał uzasadnić decyzji w sokratejskim review (np. użył guarda ale nie wiedział czemu nie middleware), wpisz topic name dokładnie tak jak istnieje (lub powinien istnieć) w `docs/articulation-bank.md`. Session-end skill weźmie to i utworzy/zaktualizuje wpis L2.
+
+2. **📚 Score-0 do briefingu:** Read `docs/articulation-bank.md`, znajdź tematy `Score: 0` które dotyczą obszaru tego review (np. review auth → szukaj M4 score-0 topics). Wypisz 1-2 najsilniej powiązane. Session-end zapisze je do "Następna sesja → Task briefing topics".
+
+3. **🎯 L3 anchor:** Read odpowiedni plik z dzisiejszego diffu. Jeśli kod realizuje konkretny L3 checkpoint z `fullstack-roadmap.md` — wpisz checkpoint name + ścieżkę:linię. Jeśli kod jest niekompletny (TODO, placeholder, brak testu), wpisz `brak anchora — checkpoint nie zalicza się` żeby session-end nie odhaczył błędnie.
