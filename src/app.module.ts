@@ -10,12 +10,23 @@ import { WorkoutsLogsModule } from './workouts-logs/workouts-logs.module';
 import { AuthModule } from './auth/auth.module';
 import { UsersModule } from './users/users.module';
 import { APP_FILTER } from '@nestjs/core';
+import * as z from 'zod';
+
+const validationSchema = z.object({
+  JWT_SECRET: z.string().min(32),
+  JWT_EXPIRES_IN: z.string().default('15m'),
+  REFRESH_EXPIRES_IN_MS: z.string().default('604800000'),
+  BCRYPT_COST: z.coerce.number().default(10),
+});
 
 @Module({
   imports: [
     ExercisesModule,
     PrismaModule,
-    ConfigModule.forRoot(),
+    ConfigModule.forRoot({
+      isGlobal: true,
+      validate: (config) => validationSchema.parse(config),
+    }),
     WorkoutsModule,
     WorkoutsLogsModule,
     AuthModule,

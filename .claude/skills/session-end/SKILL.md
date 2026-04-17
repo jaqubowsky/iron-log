@@ -39,6 +39,7 @@ Różnica vs code-review skill: code-review analizuje jakość kodu z Jakubem si
 - **Test plain-language:** czy zdanie zadziałałoby na osobie bez backgroundu backendowego? Jeśli tak → 4-5/5. Jeśli zdanie ma 3 buzzwordy bez definicji → 2-3/5.
 - NIE wymuszaj monologu o 40 plikach — przy dużych taskach wybierz 1-2 kluczowe decyzje architektoniczne
 - Pytania dopasuj do tego co Jakub faktycznie robił — nie generyczne "co to DI"
+- **Oceniaj przekaz konceptu, nie obecność konkretnych terminów — TWARDA REGUŁA:** Jeśli zakazałeś słów ("bez DI/container/provider") — **NIE KRYTYKUJ** potem "brakuje słów runtime/env/deferred" (to też żargon). Kryterium: czy **intuicja konceptu** przeszła w plain language? Krytyka wyłącznie merytoryczna — błędne wyjaśnienie, odwrócony kierunek, mylne powody, mętność konceptu. NIE za brak określonych terminów których sam zakazałeś. Łamanie tej reguły = sprzeczność logiczna, Jakub słusznie się wścieka.
 - **Score 1-5:**
   - 1 = nie umie wytłumaczyć / używa żargonu jak tarczy
   - 3 = zna koncept, tłumaczenie techniczne ale nie plain-language (używa buzzwordów)
@@ -286,11 +287,20 @@ Roadmap zawiera **wyłącznie** L3 checkpointy (core + bridge w jednej liście).
 
 ## 6. Fiszki Anki
 
-Wygeneruj fiszki z tej sesji zgodnie z `create-anki` SKILL. Zapisz do `~/Anki/programming.tsv`. Pokaż Jakubowi podgląd w markdown.
+Wygeneruj fiszki z tej sesji zgodnie z `create-anki` SKILL. **Pokaż Jakubowi podgląd w markdown + ZAPYTAJ o zgodę — NIGDY nie appenduj automatycznie.**
+
+### Flow (TWARDA REGUŁA)
+
+1. Wygeneruj preview N fiszek w markdown w konwersacji
+2. ZAPYTAJ wprost: *"dodaję [N] fiszek do ~/Anki/programming.tsv? [y/n]"*
+3. **CZEKAJ na zgodę**. `y` → append. `n` → dopytaj które wyrzucić/zmienić. Brak odpowiedzi → nie appenduj.
+4. Dopiero po `y` → Bash append do pliku
 
 **Anki = L1 (atomic facts).** Krótkie fiszki Q/A w 2 zdaniach — fakty, definicje, wartości, syntax. Długie narracyjne tematy NIE idą do Anki — idą do articulation bank.
 
 Oprócz standardowych fiszek dodaj 1-2 **connection cards** łączące koncepty z różnych tematów, żeby budować sieć wiedzy zamiast izolowanych faktów.
+
+**Dlaczego approval jest TWARDĄ regułą:** Anki to Jakuba deck — appendowanie bez zgody zatruwa jego spaced repetition flow. Jakub eksplicit zgłaszał problem w sesji 2026-04-17: *"dodajesz karty anki automatycznie, nawet sie mnie nie pytasz o zgode czy mi to pasuje, no kurwa chyba jakies zarty?"*. Łamanie = sabotaż jego systemu nauki.
 
 ## 7. Rekomendacja na następną sesję
 

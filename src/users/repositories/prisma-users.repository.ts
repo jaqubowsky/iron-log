@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { UsersRepository } from './users.repository';
 import { PrismaService } from 'src/db/prisma.service';
-import { User } from '../interfaces/user';
+import { User, UserWithPassword } from '../interfaces/user';
 import { PrismaUsersMapper } from './prisma-users-mapper';
 import { CreateUserInput } from '../interfaces/create-user-input';
 
@@ -12,20 +12,31 @@ export class PrismaUsersRepository implements UsersRepository {
   async findByEmail(email: string): Promise<User | null> {
     const user = await this.prismaService.user.findUnique({
       where: { email },
-      omit: { password: true },
+      omit: { passwordHash: true },
     });
     if (!user) return null;
 
     return PrismaUsersMapper.toUser(user);
   }
 
+  async findByEmailWithPassword(
+    email: string,
+  ): Promise<UserWithPassword | null> {
+    const user = await this.prismaService.user.findUnique({
+      where: { email },
+    });
+    if (!user) return null;
+
+    return PrismaUsersMapper.toUserWithPassword(user);
+  }
+
   async create(data: CreateUserInput): Promise<User> {
     const user = await this.prismaService.user.create({
       data: {
         email: data.email,
-        password: data.hashedPassword,
+        passwordHash: data.passwordHash,
       },
-      omit: { password: true },
+      omit: { passwordHash: true },
     });
 
     return PrismaUsersMapper.toUser(user);

@@ -132,8 +132,8 @@ JWT auth od zera z Passport.js (standard w NestJS). Największy build milestone 
 
 ### Checkpointy L3 — Passport strategies
 
-- [ ] `LocalStrategy` implementowana — `AuthService.validateUser()` sprawdza email+password, strategy zwraca user object
-- [ ] `JwtStrategy` implementowana — wyciąga token z Authorization header, weryfikuje signature, zwraca user z payload
+- [x] `LocalStrategy` implementowana — `AuthService.validateUser()` sprawdza email+password, strategy zwraca user object
+- [x] `JwtStrategy` implementowana — wyciąga token z Authorization header, weryfikuje signature, zwraca user z payload
 - [ ] `JwtRefreshStrategy` implementowana — osobna strategy dla refresh tokenów, weryfikuje refresh token z httpOnly cookie
 - [ ] `AuthGuard('local')` chroni `POST /auth/login`, wywołuje LocalStrategy
 - [ ] `AuthGuard('jwt')` chroni protected endpoints, wywołuje JwtStrategy

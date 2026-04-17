@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { UsersRepository } from './repositories/users.repository';
 import { CreateUserInput } from './interfaces/create-user-input';
-import { User } from './interfaces/user';
+import { User, UserWithPassword } from './interfaces/user';
 
 @Injectable()
 export class UsersService {
@@ -9,6 +9,13 @@ export class UsersService {
 
   async findByEmail(email: string): Promise<User | null> {
     const user = await this.userRepository.findByEmail(email);
+    return user;
+  }
+
+  async findByEmailWithPassword(
+    email: string,
+  ): Promise<UserWithPassword | null> {
+    const user = await this.userRepository.findByEmailWithPassword(email);
     return user;
   }
 

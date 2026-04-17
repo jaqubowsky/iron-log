@@ -16,7 +16,7 @@ datasource db {
 model User {
   id               String            @id @default(uuid())
   email            String            @unique
-  password         String
+  passwordHash     String
   tokens           RefreshToken[]
   workoutTemplates WorkoutTemplate[]
   workoutLogs      WorkoutLog[]
@@ -29,6 +29,7 @@ model RefreshToken {
   valid      Boolean  @default(true)
   user       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId     String
+  tokenHash  String
   expiration DateTime
   createdAt  DateTime @default(now())
   updatedAt  DateTime @updatedAt

@@ -487,9 +487,19 @@ Do domknięcia:
 
 ### JWT vs session-based auth — trade-offy (M4)
 
-**Score:** 0 (nigdy nie testowane, brak ekspozycji) | **Last tested:** never
+**Score:** 1.5/5 | **Last tested:** 2026-04-17 | **Next review:** 2026-04-18 (interval: 1d)
+**L3 anchor:** src/auth/auth.module.ts:17
 
-Status: **score 0 — wymaga theory preview/task briefing przed pierwszym quizem**
+Historia:
+
+- 2026-04-17 (task briefing): 1.5/5 — pierwsza ekspozycja, signposting bez deep dive
+
+Do domknięcia:
+
+- Stateless vs stateful — konkretne konsekwencje (unieważnienie, skalowanie)
+- Shared storage (Redis) dla session przy multi-instance deployment
+- Unieważnienie JWT — blacklist vs short TTL + refresh token rotation
+- Kiedy session wygrywa nad JWT (admin panel z pilną potrzebą unieważnienia)
 
 ### Guard vs Middleware — oba blokują request, kiedy który (M4)
 
@@ -521,10 +531,19 @@ Status: **score 0 — wymaga theory preview/task briefing przed pierwszym quizem
 
 ### Passport strategy lifecycle — jak `validate()` jest wywoływana, co zwraca, skąd AuthGuard bierze user (M4)
 
-**Score:** 0 (nigdy nie testowane, brak ekspozycji) | **Last tested:** never
-**L3 anchor:** unknown
+**Score:** 1.5/5 | **Last tested:** 2026-04-17 | **Next review:** 2026-04-18 (interval: 1d)
+**L3 anchor:** src/auth/strategies/local.strategy.ts:8
 
-Status: **score 0 — wymaga theory preview/task briefing przed pierwszym quizem**
+Historia:
+
+- 2026-04-17 (task briefing): 1.5/5 — pierwsza ekspozycja, signposting bez deep dive
+
+Do domknięcia:
+
+- Bez scaffoldingu: co zwraca `validate()` i gdzie to ląduje (`request.user`)
+- `AuthGuard('local')` vs `AuthGuard('jwt')` — jak framework wybiera strategy przez nazwę
+- `usernameField: 'email'` default jako gotcha (domyślnie `'username'`)
+- Null/throw vs user return → 401 vs przejście do controllera
 
 ### CORS — dlaczego istnieje, kiedy browser blokuje request, konfig w NestJS (M4)
 
@@ -535,9 +554,19 @@ Status: **score 0 — wymaga theory preview/task briefing przed pierwszym quizem
 
 ### Config management — env vars, secrets, ConfigModule między środowiskami (M4)
 
-**Score:** 0 (nigdy nie testowane, brak ekspozycji) | **Last tested:** never
+**Score:** 1.5/5 | **Last tested:** 2026-04-17 | **Next review:** 2026-04-18 (interval: 1d)
+**L3 anchor:** src/app.module.ts:26
 
-Status: **score 0 — wymaga theory preview/task briefing przed pierwszym quizem**
+Historia:
+
+- 2026-04-17 (task briefing): 1.5/5 — pierwsza ekspozycja, signposting bez deep dive
+
+Do domknięcia:
+
+- 12-factor config principle (environment > code) samodzielnie
+- Joi `validationSchema` jako fail-fast mechanism przy starcie aplikacji
+- `configService.get<T>()` vs `process.env.X` — type safety argument
+- Secrets rotation — dlaczego hardcoded `JWT_SECRET` to nie tylko DX issue
 
 ---
 

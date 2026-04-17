@@ -1,8 +1,8 @@
-import { Prisma } from 'prisma/generated/prisma/client';
-import { User } from '../interfaces/user';
+import { Prisma, User as PrismaUser } from 'prisma/generated/prisma/client';
+import { User, UserWithPassword } from '../interfaces/user';
 
 type PrismaUserWithoutPassword = Prisma.UserGetPayload<{
-  omit: { password: true };
+  omit: { passwordHash: true };
 }>;
 
 export class PrismaUsersMapper {
@@ -13,5 +13,15 @@ export class PrismaUsersMapper {
       createdAt: raw.createdAt,
       updatedAt: raw.updatedAt,
     } satisfies User;
+  }
+
+  static toUserWithPassword(raw: PrismaUser) {
+    return {
+      id: raw.id,
+      email: raw.email,
+      passwordHash: raw.passwordHash,
+      createdAt: raw.createdAt,
+      updatedAt: raw.updatedAt,
+    } satisfies UserWithPassword;
   }
 }
