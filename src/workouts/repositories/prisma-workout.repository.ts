@@ -42,12 +42,16 @@ export class PrismaWorkoutRepository implements WorkoutRepository {
     });
   }
 
-  create(data: CreateWorkoutTemplateDTO): Promise<WorkoutTemplate> {
+  create(
+    data: CreateWorkoutTemplateDTO,
+    userId: string,
+  ): Promise<WorkoutTemplate> {
     const { exercises, ...rest } = data;
 
     return this.prismaService.workoutTemplate.create({
       data: {
         ...rest,
+        userId,
         exercises: {
           create: exercises,
         },

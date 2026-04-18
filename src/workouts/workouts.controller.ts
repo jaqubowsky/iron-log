@@ -14,6 +14,8 @@ import { UpdateWorkoutTemplateDTO } from './dtos/update-workout-template-dto';
 import { CreateWorkoutTemplateDTO } from './dtos/create-workout-template-dto';
 import { CursorPaginationDTO } from 'src/common/cursor-pagination/cursor-pagination-dto';
 import { WorkoutTemplateResponseDTO } from './dtos/workout-template-response-dto';
+import { JWTUser } from 'src/auth/decorators/jwt-user.decorator';
+import { type JWTUserResponse } from 'src/auth/interfaces/jwt-user-response';
 
 @Controller('workout-templates')
 export class WorkoutsController {
@@ -56,8 +58,14 @@ export class WorkoutsController {
   }
 
   @Post()
-  async create(@Body() data: CreateWorkoutTemplateDTO) {
-    const response = await this.workoutsService.createWorkoutTemplate(data);
+  async create(
+    @Body() data: CreateWorkoutTemplateDTO,
+    @JWTUser('id') userId: JWTUserResponse['id'],
+  ) {
+    const response = await this.workoutsService.createWorkoutTemplate(
+      data,
+      userId,
+    );
     return WorkoutTemplateResponseDTO.from(response);
   }
 }

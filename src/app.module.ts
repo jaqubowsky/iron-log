@@ -9,24 +9,26 @@ import { WorkoutsModule } from './workouts/workouts.module';
 import { WorkoutsLogsModule } from './workouts-logs/workouts-logs.module';
 import { AuthModule } from './auth/auth.module';
 import { UsersModule } from './users/users.module';
-import { APP_FILTER } from '@nestjs/core';
+import { APP_FILTER, APP_GUARD } from '@nestjs/core';
 import * as z from 'zod';
+import { JwtAuthGuard } from './auth/guards/jwt-auth-guard';
 
 const validationSchema = z.object({
+  DATABASE_URL: z.string().min(1),
   JWT_SECRET: z.string().min(32),
   JWT_EXPIRES_IN: z.string().default('15m'),
-  REFRESH_EXPIRES_IN_MS: z.string().default('604800000'),
+  REFRESH_EXPIRES_IN_MS: z.coerce.number().default(604800000),
   BCRYPT_COST: z.coerce.number().default(10),
 });
 
 @Module({
   imports: [
-    ExercisesModule,
-    PrismaModule,
     ConfigModule.forRoot({
       isGlobal: true,
       validate: (config) => validationSchema.parse(config),
     }),
+    ExercisesModule,
+    PrismaModule,
     WorkoutsModule,
     WorkoutsLogsModule,
     AuthModule,
@@ -36,6 +38,7 @@ const validationSchema = z.object({
   providers: [
     AppService,
     { provide: APP_FILTER, useClass: PrismaExceptionFilter },
+    { provide: APP_GUARD, useClass: JwtAuthGuard },
   ],
 })
 export class AppModule {}

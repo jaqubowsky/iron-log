@@ -93,3 +93,69 @@ Content-Type: application/json
   "email": "' OR 1=1 --",
   "password": "validPassword123"
 }
+
+### ============================================================
+### LOGIN FLOW
+### ============================================================
+
+### Login - happy path (should 200 + accessToken in body + refreshToken cookie)
+POST http://localhost:3000/auth/login
+Content-Type: application/json
+
+{
+  "email": "anna@test.pl",
+  "password": "superSecret123"
+}
+
+### Login - wrong password (should 401, same message as wrong email — no enumeration)
+POST http://localhost:3000/auth/login
+Content-Type: application/json
+
+{
+  "email": "anna@test.pl",
+  "password": "wrongPassword"
+}
+
+### Login - unknown email (should 401, same message as wrong password)
+POST http://localhost:3000/auth/login
+Content-Type: application/json
+
+{
+  "email": "nobody@test.pl",
+  "password": "somePassword123"
+}
+
+### Login - missing password (should 401)
+POST http://localhost:3000/auth/login
+Content-Type: application/json
+
+{
+  "email": "anna@test.pl"
+}
+
+### Login - empty body (should 401)
+POST http://localhost:3000/auth/login
+Content-Type: application/json
+
+{}
+
+### ============================================================
+### PROTECTED ENDPOINTS (paste accessToken from login response)
+### ============================================================
+
+@accessToken = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI4MWU1ZTQyYy1kNDY1LTQwMDUtYTZhNC05ZWYxYzRjMWExYTYiLCJlbWFpbCI6ImFubmFAdGVzdC5wbCIsImlhdCI6MTc3NjUwOTMzOSwiZXhwIjoxNzc2NTEwMjM5fQ.KpjQSht2bO7NSOdsm_77IgOneYT8d19X--ubHL2j-Is
+
+### GET /auth/me — should 401 without token (not yet implemented, placeholder)
+# GET http://localhost:3000/auth/me
+# Authorization: Bearer {{accessToken}}
+
+### GET /workout-templates — should 200 with valid token
+GET http://localhost:3000/workout-templates
+Authorization: Bearer {{accessToken}}
+
+### GET /workout-templates — should 401 without token
+GET http://localhost:3000/workout-templates
+
+### GET /workout-templates — should 401 with garbage token
+GET http://localhost:3000/workout-templates
+Authorization: Bearer garbage.token.here

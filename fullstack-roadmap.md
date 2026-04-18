@@ -135,14 +135,14 @@ JWT auth od zera z Passport.js (standard w NestJS). Największy build milestone 
 - [x] `LocalStrategy` implementowana — `AuthService.validateUser()` sprawdza email+password, strategy zwraca user object
 - [x] `JwtStrategy` implementowana — wyciąga token z Authorization header, weryfikuje signature, zwraca user z payload
 - [ ] `JwtRefreshStrategy` implementowana — osobna strategy dla refresh tokenów, weryfikuje refresh token z httpOnly cookie
-- [ ] `AuthGuard('local')` chroni `POST /auth/login`, wywołuje LocalStrategy
-- [ ] `AuthGuard('jwt')` chroni protected endpoints, wywołuje JwtStrategy
+- [x] `AuthGuard('local')` chroni `POST /auth/login`, wywołuje LocalStrategy — anchor `src/auth/auth.controller.ts:21`
+- [x] `AuthGuard('jwt')` chroni protected endpoints — APP_GUARD globalny, anchor `src/app.module.ts:40`
 - [ ] `AuthGuard('jwt-refresh')` chroni `POST /auth/refresh`, używa refresh strategy
 
 ### Checkpointy L3 — Auth endpoints
 
 - [x] `POST /auth/register` — email + password, bcrypt hash, unique email constraint, 409 na duplikat
-- [ ] `POST /auth/login` — LocalStrategy validates, wystawia access + refresh tokens
+- [x] `POST /auth/login` — LocalStrategy validates, wystawia access token + opaque refresh token w httpOnly cookie, runtime verified — anchor `src/auth/auth.controller.ts:23`
 - [ ] `POST /auth/refresh` — JwtRefreshStrategy validates, rotuje refresh token, wystawia nowy access
 - [ ] `POST /auth/logout` — unieważnia refresh token (usuwa z DB lub dodaje do blacklist)
 - [ ] `GET /auth/me` — zwraca aktualnego usera (protected przez JwtStrategy)
@@ -150,8 +150,8 @@ JWT auth od zera z Passport.js (standard w NestJS). Największy build milestone 
 ### Checkpointy L3 — Ownership + Security
 
 - [ ] Ownership guard — custom guard sprawdzający że user widzi tylko swoje zasoby (workout logs, templates)
-- [ ] `@CurrentUser()` custom decorator — wyciąga user z request (używa `createParamDecorator`)
-- [ ] ConfigModule skonfigurowany — wszystkie secrets (JWT_SECRET, DB_URL, bcrypt cost) z env vars
+- [x] `@CurrentUser()` custom decorator — `createStrategyUserDecorator<T>()` factory, type-safe — anchor `src/auth/decorators/strategy-user.decorator.ts:1`
+- [x] ConfigModule skonfigurowany — Zod schema z fail-fast, `configService.getOrThrow`, `.passthrough()` — anchor `src/app.module.ts:16`
 - [ ] Security basics: CORS (konfig per env), helmet, rate limiting (global + per-route)
 - [ ] Min. 2 unit testy dla AuthService (validateUser, hashPassword) napisane samodzielnie
 - [ ] (bridge, originally M2) **Optimistic locking + `version` field** — dodać `version Int @default(1)` do `WorkoutTemplate` (lub innego modelu który ma realne ryzyko concurrent update). `PATCH /workout-templates/:id` wymaga `If-Match: <version>` lub `version` w body, inkrementuje atomowo w jednym UPDATE, 409 Conflict przy mismatch. Test integration: dwa requesty z tym samym version → drugi dostaje 409. **Tematyczne matching z M4:** refresh token rotation (`valid` flag + reuse detection) to aplikacja tego samego patternu "detect conflict after the fact" — idealnie pasuje jako warmup przy login flow.

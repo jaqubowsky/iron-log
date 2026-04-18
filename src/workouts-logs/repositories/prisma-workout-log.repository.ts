@@ -67,12 +67,16 @@ export class PrismaWorkoutLogRepository implements WorkoutLogRepository {
     return PrismaWorkoutLogMapper.toWorkoutLog(workoutLog);
   }
 
-  async create(data: CreateWorkoutLogPayload): Promise<WorkoutLog> {
+  async create(
+    data: CreateWorkoutLogPayload,
+    userId: string,
+  ): Promise<WorkoutLog> {
     const workoutLog = await this.prismaService.workoutLog.create({
       data: {
         name: data.name,
         description: data.description,
         workoutTemplateId: data.workoutTemplateId,
+        userId,
         workoutLogExercises: {
           create: data.exercises.map((exercise) => ({
             ...exercise,

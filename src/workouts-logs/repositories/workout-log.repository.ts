@@ -10,7 +10,10 @@ export abstract class WorkoutLogRepository {
 
   abstract findUnique(id: string): Promise<WorkoutLog>;
 
-  abstract create(data: CreateWorkoutLogPayload): Promise<WorkoutLog>;
+  abstract create(
+    data: CreateWorkoutLogPayload,
+    userId: string,
+  ): Promise<WorkoutLog>;
 
   abstract update(params: {
     id: string;

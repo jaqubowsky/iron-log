@@ -8,6 +8,7 @@ import { JwtService } from '@nestjs/jwt';
 import { LoginUserInput } from './interfaces/login-user-input';
 import { ConfigService } from '@nestjs/config';
 import { JwtResponse } from './interfaces/jwt-response';
+import { AuhtRepository } from './repositories/auth-repository';
 import { createHash, randomUUID } from 'node:crypto';
 
 @Injectable()
@@ -16,6 +17,7 @@ export class AuthService {
     private usersService: UsersService,
     private configService: ConfigService,
     private jwtService: JwtService,
+    private authRepository: AuhtRepository,
   ) {}
 
   async register(data: RegisterUserDTO): Promise<User> {
@@ -27,20 +29,27 @@ export class AuthService {
     });
   }
 
-  async login(data: LoginUserInput): Promise<JwtResponse> {
+  async createAuthTokens(data: LoginUserInput): Promise<JwtResponse> {
     const accessToken = await this.jwtService.signAsync({
       sub: data.id,
       email: data.email,
     });
 
-    const refreshToken = createHash('sha256')
-      .update(randomUUID())
+    const refreshToken = randomUUID();
+    const refreshTokenHash = createHash('sha256')
+      .update(refreshToken)
       .digest('hex');
 
     const refreshExpiresAt = new Date(
       Date.now() +
-        this.configService.getOrThrow<number>('JWT_REFRESH_EXPIRES_IN_MS'),
+        this.configService.getOrThrow<number>('REFRESH_EXPIRES_IN_MS'),
     );
+
+    await this.authRepository.createRefreshToken({
+      userId: data.id,
+      tokenHash: refreshTokenHash,
+      expiration: refreshExpiresAt,
+    });
 
     return { accessToken, refreshToken, refreshExpiresAt };
   }

@@ -329,10 +329,12 @@ Do domknięcia:
 
 ### NestJS modules — exports/imports, providery, cross-module communication (M3)
 
-**Score:** 3.0/5 | **Last tested:** 2026-03-26 | **Next review:** 2026-03-29 (interval: 3d)
+**Score:** 3.5/5 | **Last tested:** 2026-04-18 | **Next review:** 2026-06-03 (interval: 46d)
+**L3 anchor:** unknown
 
 Historia:
 
+- 2026-04-18 (articulation-check): 3.5/5 — 4 opcje samodzielnie (import/export, bezpośrednia klasa, new, events) z trade-offami SOLID D. Circular dependency mechanizm po dopytaniu, pominął rozwiązanie architekturalne i API call jako opcję. (3d → 46d)
 - 2026-03-26 (mock 2x):
   - "WorkoutsService sprawdza exercises": 3/5 — tylko 1 opcja (import), brak alternatyw
   - "Moduł A potrzebuje danych z modułu B — 3+ opcje": 3/5 — DI/import od razu, event-based po hincie
@@ -340,9 +342,8 @@ Historia:
 
 Do domknięcia:
 
-- 3+ opcje komunikacji samodzielnie (import/export, shared service, event-based, API call)
-- Mechanizm exports/imports (Module decorator providers/exports arrays)
-- Circular dependency — dlaczego problem, jak rozwiązać architekturalnie (nie forwardRef)
+- Circular dependency — jak rozwiązać architekturalnie (wydzielenie shared module, nie forwardRef)
+- API call jako opcja komunikacji (mikroserwisy / zewnętrzny serwis)
 
 ### External API service — retry, circuit breaker, error handling (M3)
 
@@ -503,9 +504,19 @@ Do domknięcia:
 
 ### Guard vs Middleware — oba blokują request, kiedy który (M4)
 
-**Score:** 0 (nigdy nie testowane, brak ekspozycji) | **Last tested:** never
+**Score:** 1.5/5 | **Last tested:** 2026-04-18 | **Next review:** 2026-04-19 (interval: 1d)
+**L3 anchor:** unknown
 
-Status: **score 0 — wymaga theory preview/task briefing przed pierwszym quizem**
+Historia:
+
+- 2026-04-18 (task briefing): 1.5/5 — pierwsza ekspozycja, signposting bez deep dive
+
+Do domknięcia:
+
+- Bez scaffoldingu: dlaczego middleware NIE może czytać `@Roles()` metadata (order vs routing)
+- `ExecutionContext` jako kluczowa różnica — `context.getHandler()` + `Reflector`
+- Kiedy middleware wygrywa nad guardem (request ID, body parsing, CORS — cross-cutting)
+- Kiedy guard wygrywa (rola, ownership, metadata-driven auth decisions)
 
 ### bcrypt vs SHA256 — salt, cost factor, dlaczego do haseł (M4)
 

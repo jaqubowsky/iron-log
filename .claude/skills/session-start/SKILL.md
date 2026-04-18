@@ -311,21 +311,56 @@ Plus opcjonalnie jeśli briefing był pominięty/overflow:
 - `- briefing skipped (user override): [topics]`
 - `- briefing overflow: [topics które nie zmieściły się]`
 
-## Prezentacja w konwersacji — krok po kroku
+## Prezentacja w konwersacji — krok po kroku (ITERACYJNIE, jedna rzecz naraz)
 
-Pełny plan zapisz do session logu. W konwersacji **podawaj TYLKO aktualny krok**. Gdy Jakub skończy → podaj następny.
+Pełny plan zapisz do session logu. W konwersacji **każdy krok = osobna wiadomość z twardym stopem**. Czekasz na Jakuba zanim wyślesz następny krok.
 
-**Flow w konwersacji:**
-1. Po task decision + briefing (jeśli był) → podaj rozgrzewkę (jeśli jest) lub od razu main task
-2. Jakub skończy planowanie → koduje
-3. Po kodowaniu → sugeruj `/code-review`
-4. Po review → sugeruj `/session-end`
+### Dlaczego iteracyjnie (nie rzucaj wszystkiego naraz)
 
-**Format prezentacji taska:**
+Jakub wprost zgłaszał: "ściana tekstu — muszę się przez to przebijać". Wysłanie w jednej wiadomości: briefingu + warunku wstępnego + rozgrzewki + main taska = niszczy flow. Jakub musi wtedy scrollować, wypisywać po kolei, traci kontekst konceptu briefingu zanim dotrze do kodowania. CLAUDE.md: *"Ściany tekstu w trybie coaching — zakaz"*.
+
+### Flow w konwersacji — każdy krok osobnym message'em
+
+**Krok B (briefing) — TYLKO jeśli są relevant score-0 topics.** Jedna wiadomość per topic (lub wszystkie topics razem, jeśli 2-3 krótkie). Kończ checkpointem: *"Jasne? Masz pytanie zanim pójdziemy dalej — czy idziemy?"* **STOP. Czekaj.** Jakub potwierdza → następny krok.
+
+**Krok W (warunek wstępny) — TYLKO jeśli jest decyzja blokująca rozpoczęcie kodowania** (np. wybór techdebt path, decyzja architektoniczna przed implementacją). Osobna wiadomość. Jedno pytanie binarne/zamknięte (wariant a/b), prośba o jedno zdanie uzasadnienia. **STOP. Czekaj na decyzję Jakuba.** Jeśli brak takiej decyzji → pomiń ten krok całkowicie.
+
+**Krok R (rozgrzewka) — TYLKO jeśli są poprawki z review poprzedniej sesji.** Osobna wiadomość. Lista fixów + "leć, daj znać gdy skończone". **STOP.** Jakub koduje → potwierdza → następny krok. Jeśli brak rozgrzewki → pomiń.
+
+**Krok M (main task) — zawsze.** Osobna wiadomość. Wymagania prozą, bez bullet-listy implementacji. Następnie przechodzisz do kroku 5 (planowanie architektoniczne — hypothesis-first twardy stop z otwartym pytaniem).
+
+**Kolejność obowiązkowa:** B → W → R → M. Pomijasz te których nie ma. **Każdy krok osobny message.**
+
+### Red flags — STOP gdy to widzisz w swojej wiadomości
+
+- Briefing + warunek wstępny w jednym message'u
+- Briefing + rozgrzewka w jednym message'u
+- Warunek wstępny + rozgrzewka w jednym message'u
+- Rozgrzewka + main task w jednym message'u
+- Brak jawnego checkpointu/STOP na końcu kroku B lub W
+- Wiadomość dłuższa niż ~200 słów zawierająca więcej niż jeden krok
+
+**Wszystkie powyższe = ściana tekstu. Rozbij na osobne message'e.**
+
+### Rationalization table
+
+| Myśl | Rzeczywistość |
+|---|---|
+| "Krótkie więc mogę połączyć" | Nie. Nawet krótki briefing + warunek wstępny = dwa różne konteksty, Jakub traci jeden |
+| "Jakub i tak to zrozumie" | Nie o zrozumienie chodzi — o retrieval. Briefing ma siedzieć w głowie zanim przejdziesz dalej |
+| "To już oczywiste skoro to samo M4" | Oczywiste dla ciebie ≠ oczywiste dla Jakuba 30 sekund później gdy scrolluje |
+| "Mogę zapytać jeden raz na końcu" | Checkpoint po każdym bloku, nie jeden megacheckpoint na końcu ściany |
+| "Time-saver — sesja 1h" | Ściana tekstu = 5 min scrollowania + utrata kontekstu = nie time-saver |
+
+### Flow po rozpoczęciu kodowania
+
+Po kroku M planowanie architektoniczne → kodowanie → `/code-review` → `/session-end`. Te kroki są jasne, nie wymagają osobnej enforcement.
+
+### Format prezentacji taska (krok M)
 
 ```
-**Task:** [opis — wymagania, nie implementacja]
+**Task:** [opis — wymagania prozą, nie implementacja]
 **Docs do przeczytania:** [jeśli relevant]
 ```
 
-Bez podpowiedzi jak zacząć — Jakub przedstawia plan sam.
+Bez podpowiedzi jak zacząć — Jakub przedstawia plan sam (hypothesis-first z kroku 5).

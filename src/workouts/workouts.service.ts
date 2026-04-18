@@ -30,6 +30,7 @@ export class WorkoutsService {
 
   async createWorkoutTemplate(
     createWorkoutTemplateDTO: CreateWorkoutTemplateDTO,
+    userId: string,
   ) {
     const exerciseIds = createWorkoutTemplateDTO.exercises.map(
       (exercise) => exercise.exerciseId,
@@ -45,6 +46,7 @@ export class WorkoutsService {
 
     const workoutTemplate = await this.workoutRepository.create(
       createWorkoutTemplateDTO,
+      userId,
     );
 
     return workoutTemplate;

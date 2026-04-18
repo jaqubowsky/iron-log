@@ -13,7 +13,10 @@ export abstract class WorkoutRepository {
 
   abstract findUnique(id: string): Promise<WorkoutTemplate>;
 
-  abstract create(data: CreateWorkoutTemplateDTO): Promise<WorkoutTemplate>;
+  abstract create(
+    data: CreateWorkoutTemplateDTO,
+    userId: string,
+  ): Promise<WorkoutTemplate>;
 
   abstract update({
     id,

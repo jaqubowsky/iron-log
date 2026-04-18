@@ -31,7 +31,7 @@ export class WorkoutsLogsService {
     return data;
   }
 
-  async create(data: CreateWorkoutLogDTO) {
+  async create(data: CreateWorkoutLogDTO, userId: string) {
     const exerciseIds = data.exercises.map((exercise) => exercise.exerciseId);
     const { exercises, nonExistingIds } =
       await this.exerciseService.resolveExerciseIds(exerciseIds);
@@ -52,7 +52,10 @@ export class WorkoutsLogsService {
         workoutTemplateId: id,
       });
 
-      const workoutLog = await this.workoutLogRepository.create(payload);
+      const workoutLog = await this.workoutLogRepository.create(
+        payload,
+        userId,
+      );
       return workoutLog;
     }
 
@@ -61,7 +64,7 @@ export class WorkoutsLogsService {
       description: data.description ?? null,
     });
 
-    const workoutLog = await this.workoutLogRepository.create(payload);
+    const workoutLog = await this.workoutLogRepository.create(payload, userId);
     return workoutLog;
   }
 

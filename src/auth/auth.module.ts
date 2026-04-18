@@ -7,10 +7,20 @@ import { LocalStrategy } from './strategies/local.strategy';
 import { PassportModule } from '@nestjs/passport';
 import { JwtModule } from '@nestjs/jwt';
 import { ConfigModule, ConfigService } from '@nestjs/config';
+import { AuhtRepository } from './repositories/auth-repository';
+import { PrismaAuthRepository } from './repositories/prisma-auth-repository';
 
 @Module({
   controllers: [AuthController],
-  providers: [AuthService, JwtStrategy, LocalStrategy],
+  providers: [
+    AuthService,
+    JwtStrategy,
+    LocalStrategy,
+    {
+      provide: AuhtRepository,
+      useClass: PrismaAuthRepository,
+    },
+  ],
   imports: [
     UsersModule,
     PassportModule,

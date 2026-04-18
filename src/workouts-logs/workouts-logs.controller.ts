@@ -17,6 +17,8 @@ import {
   WorkoutLogResponseDTO,
   WorkoutLogSimpleResponseDTO,
 } from './dtos/workout-log-response-dto';
+import { JWTUser } from 'src/auth/decorators/jwt-user.decorator';
+import { JWTUserResponse } from 'src/auth/interfaces/jwt-user-response';
 
 @Controller('workout-logs')
 export class WorkoutsLogsController {
@@ -44,8 +46,11 @@ export class WorkoutsLogsController {
   }
 
   @Post()
-  async create(@Body() data: CreateWorkoutLogDTO) {
-    const response = await this.workoutsLogsService.create(data);
+  async create(
+    @Body() data: CreateWorkoutLogDTO,
+    @JWTUser('id') userId: JWTUserResponse['id'],
+  ) {
+    const response = await this.workoutsLogsService.create(data, userId);
     return WorkoutLogResponseDTO.from(response);
   }
 
