@@ -159,10 +159,12 @@ Articulation-check skill zapisuje nowe wpisy z tagiem `(articulation-check)`.
 
 ### Controller/Service split — dlaczego logika w Service, 3 powody (M1)
 
-**Score:** 4.0/5 | **Last tested:** 2026-03-21 | **Next review:** 2026-03-31 (interval: 10d)
+**Score:** 4.0/5 | **Last tested:** 2026-04-18 | **Next review:** 2026-06-13 (interval: 56d)
+**L3 anchor:** src/exercises/exercises.controller.ts:19
 
 Historia:
 
+- 2026-04-18 (articulation-check): 4/5 — 3 powody + IRONLOG przykłady (hashowanie, repo calls) po dopytaniu. (10d → 56d)
 - 2026-03-21 (mock): 4/5 — solidna odpowiedź od pierwszego razu
 
 Do domknięcia:
@@ -255,32 +257,34 @@ Do domknięcia:
 
 ### Composite PK vs auto-increment ID w tabeli łączącej — trade-offy (M2)
 
-**Score:** 3.5/5 | **Last tested:** 2026-03-24 | **Next review:** 2026-03-29 (interval: 5d)
+**Score:** 3.0/5 | **Last tested:** 2026-04-18 | **Next review:** 2026-05-18 (interval: 30d)
 
 Historia:
 
+- 2026-04-18 (articulation-check): 3/5 — uniqueness w junction table trafne. Koszt (indeks złożony cięższy + JOIN 2 kolumny) padł dopiero w re-recall po dopytaniu. (5d → 30d)
 - 2026-03-24 (mock): 3.5/5 — indeksy po hincie, pominął prostsze JOINy
 
 Do domknięcia:
 
-- Indeksy jako argument bez scaffoldingu
-- JOINy prostsze z auto-increment (tylko jedna kolumna w ON)
+- JOINy prostsze z auto-increment (tylko jedna kolumna w ON) — samodzielnie bez re-recall
+- Indeks złożony: oba pola muszą być w FK każdej tabeli referencującej → storage overhead
 
 ### EXPLAIN ANALYZE — jak czytać, kiedy dodać indeks, Seq Scan vs Index Scan (M2)
 
-**Score:** 3.5/5 | **Last tested:** 2026-03-27 | **Next review:** 2026-04-01 (interval: 5d)
+**Score:** 3.0/5 | **Last tested:** 2026-04-18 | **Next review:** 2026-05-14 (interval: 26d)
+**L3 anchor:** none
 
 Historia:
 
+- 2026-04-18 (articulation-check): 3/5 — N+1, memory, indeks samodzielnie. Cache + connection pooling po podpowiedzi. (5d → 26d)
 - 2026-03-27 (mock 2x tego samego dnia):
   - "orders 1M rekordów 5 sek": 3.5/5 — EXPLAIN + indeks + paginacja trafne, pominął cache, N+1, connection pooling
   - "GET /workout-logs/:id 200ms": 3.5/5 — trafne, pominął connection pooling, middleware overhead
 
 Do domknięcia:
 
-- Connection pooling jako fundamentalna warstwa performance
-- N+1 problem jako "to samo query 100 razy zamiast jednego z JOINem"
-- Cache (HTTP lub Redis) jako pierwsza warstwa przed DB optimization
+- Cache (HTTP lub Redis) jako pierwsza warstwa przed DB optimization — nadal nie pojawia się samodzielnie
+- Connection pooling — pojawia się po podpowiedzi, nie bez
 
 ### Prisma → SQL mapping (migracje, JOINy, relacje) (M2)
 
@@ -536,9 +540,17 @@ Do domknięcia:
 
 ### OWASP top 3 (XSS, SQL injection, CSRF) — mechanizm i obrona (M4)
 
-**Score:** 0 (nigdy nie testowane, brak ekspozycji) | **Last tested:** never
+**Score:** 1.5/5 | **Last tested:** 2026-04-18 | **Next review:** 2026-04-19 (interval: 1d)
+**L3 anchor:** unknown
 
-Status: **score 0 — wymaga theory preview/task briefing przed pierwszym quizem**
+Historia:
+- 2026-04-18 (task briefing): 1.5/5 — pierwsza ekspozycja, signposting bez deep dive
+
+Do domknięcia:
+- XSS: jak htmlEntities/CSP blokują; różnica stored vs reflected
+- SQL injection: parameterized queries vs ORM jako mechanizm ochrony
+- CSRF: dlaczego httpOnly cookie + SameSite=Strict blokuje (vs CSRF token jako alternatywa)
+- OWASP A01-A10 lista z głowy — przynajmniej top 5
 
 ### Passport strategy lifecycle — jak `validate()` jest wywoływana, co zwraca, skąd AuthGuard bierze user (M4)
 
@@ -558,10 +570,17 @@ Do domknięcia:
 
 ### CORS — dlaczego istnieje, kiedy browser blokuje request, konfig w NestJS (M4)
 
-**Score:** 0 (nigdy nie testowane, brak ekspozycji) | **Last tested:** never
-**L3 anchor:** unknown
+**Score:** 1.5/5 | **Last tested:** 2026-04-18 | **Next review:** 2026-04-19 (interval: 1d)
+**L3 anchor:** src/main.ts:11
 
-Status: **score 0 — wymaga theory preview/task briefing przed pierwszym quizem**
+Historia:
+- 2026-04-18 (task briefing): 1.5/5 — pierwsza ekspozycja, signposting bez deep dive
+
+Do domknięcia:
+- Same-Origin Policy — definicja (protokół + domena + port)
+- Preflight OPTIONS — kiedy browser go wysyła, co serwer odpowiada
+- `Access-Control-Allow-Origin: *` vs konkretna domena — security trade-off
+- NestJS `app.enableCors({origin, credentials: true})` + dlaczego `credentials: true` wyklucza `*`
 
 ### Config management — env vars, secrets, ConfigModule między środowiskami (M4)
 

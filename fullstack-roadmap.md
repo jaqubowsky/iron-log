@@ -144,8 +144,8 @@ JWT auth od zera z Passport.js (standard w NestJS). Największy build milestone 
 - [x] `POST /auth/register` — email + password, bcrypt hash, unique email constraint, 409 na duplikat
 - [x] `POST /auth/login` — LocalStrategy validates, wystawia access token + opaque refresh token w httpOnly cookie, runtime verified — anchor `src/auth/auth.controller.ts:23`
 - [ ] `POST /auth/refresh` — JwtRefreshStrategy validates, rotuje refresh token, wystawia nowy access
-- [ ] `POST /auth/logout` — unieważnia refresh token (usuwa z DB lub dodaje do blacklist)
-- [ ] `GET /auth/me` — zwraca aktualnego usera (protected przez JwtStrategy)
+- [x] `POST /auth/logout` — unieważnia refresh token (usuwa z DB lub dodaje do blacklist)
+- [x] `GET /auth/me` — zwraca aktualnego usera (protected przez JwtStrategy)
 
 ### Checkpointy L3 — Ownership + Security
 

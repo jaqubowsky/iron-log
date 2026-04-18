@@ -9,9 +9,9 @@ import { CreateUserInput } from '../interfaces/create-user-input';
 export class PrismaUsersRepository implements UsersRepository {
   constructor(private prismaService: PrismaService) {}
 
-  async findByEmail(email: string): Promise<User | null> {
+  async findById(id: string): Promise<User | null> {
     const user = await this.prismaService.user.findUnique({
-      where: { email },
+      where: { id },
       omit: { passwordHash: true },
     });
     if (!user) return null;

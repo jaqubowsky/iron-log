@@ -8,7 +8,7 @@ import { JwtService } from '@nestjs/jwt';
 import { LoginUserInput } from './interfaces/login-user-input';
 import { ConfigService } from '@nestjs/config';
 import { JwtResponse } from './interfaces/jwt-response';
-import { AuhtRepository } from './repositories/auth-repository';
+import { AuthRepository } from './repositories/auth-repository';
 import { createHash, randomUUID } from 'node:crypto';
 
 @Injectable()
@@ -17,8 +17,16 @@ export class AuthService {
     private usersService: UsersService,
     private configService: ConfigService,
     private jwtService: JwtService,
-    private authRepository: AuhtRepository,
+    private authRepository: AuthRepository,
   ) {}
+
+  private hashRefreshToken(rawRefreshToken: string): string {
+    const refreshTokenHash = createHash('sha256')
+      .update(rawRefreshToken)
+      .digest('hex');
+
+    return refreshTokenHash;
+  }
 
   async register(data: RegisterUserDTO): Promise<User> {
     const passwordHash = await bcrypt.hash(data.password, 10);
@@ -29,6 +37,15 @@ export class AuthService {
     });
   }
 
+  async logout(userId: string, rawRefreshToken: string): Promise<void> {
+    const refreshTokenHash = this.hashRefreshToken(rawRefreshToken);
+    await this.authRepository.revokeRefreshToken(userId, refreshTokenHash);
+  }
+
+  async getMe(userId: string): Promise<User | null> {
+    return this.usersService.findById(userId);
+  }
+
   async createAuthTokens(data: LoginUserInput): Promise<JwtResponse> {
     const accessToken = await this.jwtService.signAsync({
       sub: data.id,
@@ -36,9 +53,7 @@ export class AuthService {
     });
 
     const refreshToken = randomUUID();
-    const refreshTokenHash = createHash('sha256')
-      .update(refreshToken)
-      .digest('hex');
+    const refreshTokenHash = this.hashRefreshToken(refreshToken);
 
     const refreshExpiresAt = new Date(
       Date.now() +

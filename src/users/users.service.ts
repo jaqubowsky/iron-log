@@ -7,8 +7,8 @@ import { User, UserWithPassword } from './interfaces/user';
 export class UsersService {
   constructor(private userRepository: UsersRepository) {}
 
-  async findByEmail(email: string): Promise<User | null> {
-    const user = await this.userRepository.findByEmail(email);
+  async findById(id: string): Promise<User | null> {
+    const user = await this.userRepository.findById(id);
     return user;
   }
 

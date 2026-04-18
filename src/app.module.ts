@@ -19,6 +19,7 @@ const validationSchema = z.object({
   JWT_EXPIRES_IN: z.string().default('15m'),
   REFRESH_EXPIRES_IN_MS: z.coerce.number().default(604800000),
   BCRYPT_COST: z.coerce.number().default(10),
+  CORS_ORIGIN: z.url(),
 });
 
 @Module({

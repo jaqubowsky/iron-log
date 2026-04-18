@@ -1,3 +1,3 @@
-export class LoginUserResponseDTO {
+export interface LoginUserResponseDTO {
   accessToken: string;
 }

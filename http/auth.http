@@ -143,7 +143,7 @@ Content-Type: application/json
 ### PROTECTED ENDPOINTS (paste accessToken from login response)
 ### ============================================================
 
-@accessToken = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI4MWU1ZTQyYy1kNDY1LTQwMDUtYTZhNC05ZWYxYzRjMWExYTYiLCJlbWFpbCI6ImFubmFAdGVzdC5wbCIsImlhdCI6MTc3NjUwOTMzOSwiZXhwIjoxNzc2NTEwMjM5fQ.KpjQSht2bO7NSOdsm_77IgOneYT8d19X--ubHL2j-Is
+@accessToken = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI4MWU1ZTQyYy1kNDY1LTQwMDUtYTZhNC05ZWYxYzRjMWExYTYiLCJlbWFpbCI6ImFubmFAdGVzdC5wbCIsImlhdCI6MTc3NjU0NDg5NSwiZXhwIjoxNzc2NTQ1Nzk1fQ.SH-J0n7vh-9OClihit9znZfVwzK9PY2Dr2Iw95wcaOM
 
 ### GET /auth/me — should 401 without token (not yet implemented, placeholder)
 # GET http://localhost:3000/auth/me
@@ -159,3 +159,25 @@ GET http://localhost:3000/workout-templates
 ### GET /workout-templates — should 401 with garbage token
 GET http://localhost:3000/workout-templates
 Authorization: Bearer garbage.token.here
+
+### ============================================================
+### LOGOUT FLOW
+### ============================================================
+
+### Logout - happy path (login first, copy cookie manually or use cookie jar)
+POST http://localhost:3000/auth/logout
+Authorization: Bearer {{accessToken}}
+Cookie: refreshToken=<paste-raw-uuid-from-login>
+
+### Logout - idempotent (same token second time, should still 204)
+POST http://localhost:3000/auth/logout
+Authorization: Bearer {{accessToken}}
+Cookie: refreshToken=<paste-raw-uuid-from-login>
+
+### Logout - no refresh cookie (should 204 — guard returns early)
+POST http://localhost:3000/auth/logout
+Authorization: Bearer {{accessToken}}
+
+### Logout - no JWT (should 401 — JwtAuthGuard blocks before handler)
+POST http://localhost:3000/auth/logout
+Cookie: refreshToken=some-uuid
