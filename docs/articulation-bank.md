@@ -288,10 +288,12 @@ Do domknięcia:
 
 ### Prisma → SQL mapping (migracje, JOINy, relacje) (M2)
 
-**Score:** 4.0/5 | **Last tested:** 2026-03-22 | **Next review:** 2026-04-01 (interval: 10d)
+**Score:** 4.5/5 | **Last tested:** 2026-04-19 | **Next review:** 2026-06-28 (interval: 70d)
+**L3 anchor:** src/auth/repositories/prisma-auth-repository.ts:24
 
 Historia:
 
+- 2026-04-19 (articulation-check): 4.5/5 — 2 osobne queries (SELECT + SELECT IN), merge w pamięci, wyjaśnił DLACZEGO nie JOIN (duplikacja danych). (10d → 70d)
 - 2026-03-22 (explain): 4/5 — rozumie schema → SQL, używał przy composite key
 
 Do domknięcia:
@@ -375,16 +377,17 @@ Do domknięcia:
 
 ### REST sparse fields — mobile vs web, field filtering, DTO per client (M3)
 
-**Score:** 3.5/5 | **Last tested:** 2026-03-28 | **Next review:** 2026-04-02 (interval: 5d)
+**Score:** 3.0/5 | **Last tested:** 2026-04-19 | **Next review:** 2026-05-15 (interval: 26d)
+**L3 anchor:** unknown
 
 Historia:
 
+- 2026-04-19 (articulation-check): 3.0/5 — 3 warstwy + trade-offy trafne, nie wiedział o `?fields=` query param + @Expose groups. Explain-concept przeprowadzony, quiz zaliczony. (5d → 26d)
 - 2026-03-28 (mock): 3.5/5 — sparse fields `?fields=` + osobne endpointy z trade-offami. Pominął GraphQL jako alternatywa, DTO/serializacja jako mechanizm
 
 Do domknięcia:
 
 - GraphQL jako alternatywa z trade-offami (over-fetching rozwiązany natywnie)
-- DTO/serializacja jako konkretny mechanizm (class-transformer @Expose groups)
 
 ### Idempotentność HTTP + idempotency key pattern (M3)
 

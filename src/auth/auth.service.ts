@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { UsersService } from 'src/users/users.service';
 import { RegisterUserDTO } from './dto/register-user-dto';
 import * as bcrypt from 'bcrypt';
@@ -10,6 +10,9 @@ import { ConfigService } from '@nestjs/config';
 import { JwtResponse } from './interfaces/jwt-response';
 import { AuthRepository } from './repositories/auth-repository';
 import { createHash, randomUUID } from 'node:crypto';
+import { ValidateRefreshTokenInput } from './interfaces/validate-refresh-token-input';
+import { RefreshTokensInput } from './interfaces/refresh-tokens-input';
+import { ValidateRefreshTokenOutput } from './interfaces/validate-refresh-token-output';
 
 @Injectable()
 export class AuthService {
@@ -79,5 +82,31 @@ export class AuthService {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const { passwordHash: _, ...userWithoutPassword } = user;
     return userWithoutPassword;
+  }
+
+  async validateRefreshToken(
+    data: ValidateRefreshTokenInput,
+  ): Promise<ValidateRefreshTokenOutput> {
+    if (!data.refreshToken) return { valid: false };
+
+    const refreshTokenHash = this.hashRefreshToken(data.refreshToken);
+    const response =
+      await this.authRepository.validateRefreshToken(refreshTokenHash);
+
+    return response;
+  }
+
+  async refreshAuthTokens(data: RefreshTokensInput): Promise<JwtResponse> {
+    const user = await this.usersService.findById(data.userId);
+    if (!user) throw new UnauthorizedException('User not found');
+
+    const tokenHash = this.hashRefreshToken(data.refreshToken);
+    const revoked = await this.authRepository.revokeRefreshToken(
+      data.userId,
+      tokenHash,
+    );
+    if (!revoked) throw new UnauthorizedException('Invalid refresh token');
+
+    return this.createAuthTokens({ id: user.id, email: user.email });
   }
 }

@@ -134,16 +134,16 @@ JWT auth od zera z Passport.js (standard w NestJS). Największy build milestone 
 
 - [x] `LocalStrategy` implementowana — `AuthService.validateUser()` sprawdza email+password, strategy zwraca user object
 - [x] `JwtStrategy` implementowana — wyciąga token z Authorization header, weryfikuje signature, zwraca user z payload
-- [ ] `JwtRefreshStrategy` implementowana — osobna strategy dla refresh tokenów, weryfikuje refresh token z httpOnly cookie
+- [x] `RefreshTokenGuard` implementowana — custom guard (zamiast passport strategy — refresh token opaque UUID), weryfikuje refresh token z httpOnly cookie, ustawia `request.user` — anchor `src/auth/guards/refresh-token-guard.ts:1`
 - [x] `AuthGuard('local')` chroni `POST /auth/login`, wywołuje LocalStrategy — anchor `src/auth/auth.controller.ts:21`
 - [x] `AuthGuard('jwt')` chroni protected endpoints — APP_GUARD globalny, anchor `src/app.module.ts:40`
-- [ ] `AuthGuard('jwt-refresh')` chroni `POST /auth/refresh`, używa refresh strategy
+- [x] `RefreshTokenGuard` chroni `POST /auth/refresh/token` — anchor `src/auth/auth.controller.ts:83`
 
 ### Checkpointy L3 — Auth endpoints
 
 - [x] `POST /auth/register` — email + password, bcrypt hash, unique email constraint, 409 na duplikat
 - [x] `POST /auth/login` — LocalStrategy validates, wystawia access token + opaque refresh token w httpOnly cookie, runtime verified — anchor `src/auth/auth.controller.ts:23`
-- [ ] `POST /auth/refresh` — JwtRefreshStrategy validates, rotuje refresh token, wystawia nowy access
+- [x] `POST /auth/refresh/token` — RefreshTokenGuard validates, rotuje refresh token, wystawia nowy access — anchor `src/auth/auth.controller.ts:83`
 - [x] `POST /auth/logout` — unieważnia refresh token (usuwa z DB lub dodaje do blacklist)
 - [x] `GET /auth/me` — zwraca aktualnego usera (protected przez JwtStrategy)
 

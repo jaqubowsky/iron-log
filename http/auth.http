@@ -143,7 +143,7 @@ Content-Type: application/json
 ### PROTECTED ENDPOINTS (paste accessToken from login response)
 ### ============================================================
 
-@accessToken = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI4MWU1ZTQyYy1kNDY1LTQwMDUtYTZhNC05ZWYxYzRjMWExYTYiLCJlbWFpbCI6ImFubmFAdGVzdC5wbCIsImlhdCI6MTc3NjU0NDg5NSwiZXhwIjoxNzc2NTQ1Nzk1fQ.SH-J0n7vh-9OClihit9znZfVwzK9PY2Dr2Iw95wcaOM
+@accessToken = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI4MWU1ZTQyYy1kNDY1LTQwMDUtYTZhNC05ZWYxYzRjMWExYTYiLCJlbWFpbCI6ImFubmFAdGVzdC5wbCIsImlhdCI6MTc3NjYyMjUwNSwiZXhwIjoxNzc2NjIzNDA1fQ.aKbnrllJfMkW2Wz_a9vbGfgLs3h9zzGvHY1FDs0qOhs
 
 ### GET /auth/me — should 401 without token (not yet implemented, placeholder)
 # GET http://localhost:3000/auth/me
@@ -181,3 +181,22 @@ Authorization: Bearer {{accessToken}}
 ### Logout - no JWT (should 401 — JwtAuthGuard blocks before handler)
 POST http://localhost:3000/auth/logout
 Cookie: refreshToken=some-uuid
+
+### ============================================================
+### REFRESH TOKEN FLOW
+### ============================================================
+
+### Refresh - happy path (login first, paste refreshToken cookie)
+POST http://localhost:3000/auth/refresh/token
+Cookie: refreshToken=<paste-raw-uuid-from-login>
+
+### Refresh - no cookie (should 401)
+POST http://localhost:3000/auth/refresh/token
+
+### Refresh - invalid token (should 401)
+POST http://localhost:3000/auth/refresh/token
+Cookie: refreshToken=00000000-0000-0000-0000-000000000000
+
+### Refresh - reuse detection (same token second time — should 401, token rotated)
+POST http://localhost:3000/auth/refresh/token
+Cookie: refreshToken=<same-uuid-as-happy-path>

@@ -18,10 +18,25 @@ import { LoginUserResponseDTO } from './dto/login-user-response-dto';
 import { JWTUser } from './decorators/jwt-user.decorator';
 import { type JWTUserResponse } from './interfaces/jwt-user-response';
 import { Cookie } from './decorators/cookie.decorator';
+import { RefreshTokenGuard } from './guards/refresh-token-guard';
+import { RefreshTokensResponseDTO } from './dto/refresh-tokens-response-dto';
 
 @Controller('auth')
 export class AuthController {
   constructor(private authService: AuthService) {}
+
+  private setRefreshTokenCookie(
+    response: Response,
+    refreshToken: string,
+    expiresAt: Date,
+  ) {
+    response.cookie('refreshToken', refreshToken, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === 'production',
+      sameSite: 'lax',
+      expires: expiresAt,
+    });
+  }
 
   @Public()
   @Post('/register')
@@ -56,12 +71,34 @@ export class AuthController {
   ): Promise<LoginUserResponseDTO> {
     const jwtResponse = await this.authService.createAuthTokens(user);
 
-    response.cookie('refreshToken', jwtResponse.refreshToken, {
-      httpOnly: true,
-      secure: process.env.NODE_ENV === 'production',
-      sameSite: 'lax',
-      expires: jwtResponse.refreshExpiresAt,
+    this.setRefreshTokenCookie(
+      response,
+      jwtResponse.refreshToken,
+      jwtResponse.refreshExpiresAt,
+    );
+
+    return { accessToken: jwtResponse.accessToken };
+  }
+
+  @Public()
+  @HttpCode(200)
+  @UseGuards(RefreshTokenGuard)
+  @Post('/refresh/token')
+  async refreshToken(
+    @JWTUser('id') userId: JWTUserResponse['id'],
+    @Cookie('refreshToken') refreshToken: string,
+    @Res({ passthrough: true }) response: Response,
+  ): Promise<RefreshTokensResponseDTO> {
+    const jwtResponse = await this.authService.refreshAuthTokens({
+      userId,
+      refreshToken,
     });
+
+    this.setRefreshTokenCookie(
+      response,
+      jwtResponse.refreshToken,
+      jwtResponse.refreshExpiresAt,
+    );
 
     return { accessToken: jwtResponse.accessToken };
   }
