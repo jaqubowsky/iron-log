@@ -19,17 +19,18 @@ export interface WorkoutLogExercise {
   originalExerciseId: string | null;
 }
 
-export interface WorkoutLog {
+export class WorkoutLog {
   id: string;
   name: string;
   description: string | null;
   templateId: string | null;
+  userId: string;
   exercises: WorkoutLogExercise[];
   createdAt: Date;
   updatedAt: Date;
 }
 
-export interface WorkoutLogSimple {
+export class WorkoutLogSimple {
   id: string;
   name: string;
   description: string | null;

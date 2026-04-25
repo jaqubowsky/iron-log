@@ -43,13 +43,19 @@ export class WorkoutsLogsService {
     }
 
     if (data.workoutTemplateId) {
-      const { name, description, id } =
-        await this.workoutTemplateService.getById(data.workoutTemplateId);
+      const workoutTemplate = await this.workoutTemplateService.getById(
+        data.workoutTemplateId,
+      );
+      if (!workoutTemplate) {
+        throw new BadRequestException(
+          `Workout template with id: ${data.workoutTemplateId} not found.`,
+        );
+      }
 
       const payload = WorkoutLogMapper.toCreatePayload(data, exercises, {
-        name,
-        description,
-        workoutTemplateId: id,
+        name: workoutTemplate.name,
+        description: workoutTemplate.description,
+        workoutTemplateId: workoutTemplate.id,
       });
 
       const workoutLog = await this.workoutLogRepository.create(
@@ -81,6 +87,13 @@ export class WorkoutsLogsService {
 
     const payload = WorkoutLogMapper.toUpdatePayload(data, exercises);
     return this.workoutLogRepository.update({ id, data: payload });
+  }
+
+  async isOwnedByUser(workoutLogId: string, userId: string) {
+    const workoutLog = await this.workoutLogRepository.findUnique(workoutLogId);
+    if (!workoutLog) return false;
+
+    return workoutLog.userId === userId;
   }
 
   async delete(id: string) {

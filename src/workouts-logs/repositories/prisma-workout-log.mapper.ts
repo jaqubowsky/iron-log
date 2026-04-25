@@ -6,6 +6,11 @@ type PrismaWorkoutLogWithExercises = Prisma.WorkoutLogGetPayload<{
     workoutLogExercises: {
       include: { sets: true };
     };
+    user: {
+      select: {
+        id: true;
+      };
+    };
   };
 }>;
 
@@ -34,6 +39,7 @@ export class PrismaWorkoutLogMapper {
       createdAt: raw.createdAt,
       updatedAt: raw.updatedAt,
       templateId: raw.workoutTemplateId,
+      userId: raw.user.id,
       exercises: raw.workoutLogExercises.map((ex) => ({
         id: ex.id,
         name: ex.name,

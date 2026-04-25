@@ -4,31 +4,41 @@ import { WorkoutRepository } from './workout.repository';
 import { WorkoutTemplate } from '../interfaces/workout-template';
 import { CreateWorkoutTemplateDTO } from '../dtos/create-workout-template-dto';
 import { UpdateWorkoutTemplateDTO } from '../dtos/update-workout-template-dto';
+import { PrismaWorkoutTemplateMapper } from './prisma-workout.mapper';
 
 @Injectable()
 export class PrismaWorkoutRepository implements WorkoutRepository {
   constructor(private prismaService: PrismaService) {}
 
-  findMany({
+  async findMany({
     cursor,
     take,
   }: {
     cursor?: string;
     take: number;
   }): Promise<WorkoutTemplate[]> {
-    return this.prismaService.workoutTemplate.findMany({
+    const result = await this.prismaService.workoutTemplate.findMany({
       cursor: cursor ? { id: cursor } : undefined,
       take,
       include: {
         exercises: {
           include: { exercise: true },
         },
+        user: {
+          select: {
+            id: true,
+          },
+        },
       },
     });
+
+    return result.map((item) =>
+      PrismaWorkoutTemplateMapper.toWorkoutTemplate(item),
+    );
   }
 
-  findUnique(id: string): Promise<WorkoutTemplate> {
-    return this.prismaService.workoutTemplate.findUniqueOrThrow({
+  async findUnique(id: string): Promise<WorkoutTemplate | null> {
+    const result = await this.prismaService.workoutTemplate.findUnique({
       where: {
         id,
       },
@@ -38,17 +48,27 @@ export class PrismaWorkoutRepository implements WorkoutRepository {
             exercise: true,
           },
         },
+        user: {
+          select: {
+            id: true,
+          },
+        },
       },
     });
+    if (!result) {
+      return null;
+    }
+
+    return PrismaWorkoutTemplateMapper.toWorkoutTemplate(result);
   }
 
-  create(
+  async create(
     data: CreateWorkoutTemplateDTO,
     userId: string,
   ): Promise<WorkoutTemplate> {
     const { exercises, ...rest } = data;
 
-    return this.prismaService.workoutTemplate.create({
+    const result = await this.prismaService.workoutTemplate.create({
       data: {
         ...rest,
         userId,
@@ -62,8 +82,15 @@ export class PrismaWorkoutRepository implements WorkoutRepository {
             exercise: true,
           },
         },
+        user: {
+          select: {
+            id: true,
+          },
+        },
       },
     });
+
+    return PrismaWorkoutTemplateMapper.toWorkoutTemplate(result);
   }
 
   async update({
@@ -85,10 +112,15 @@ export class PrismaWorkoutRepository implements WorkoutRepository {
               exercise: true,
             },
           },
+          user: {
+            select: {
+              id: true,
+            },
+          },
         },
       });
 
-      return result;
+      return PrismaWorkoutTemplateMapper.toWorkoutTemplate(result);
     }
 
     const deleteExistingExercisesPromise =
@@ -118,6 +150,11 @@ export class PrismaWorkoutRepository implements WorkoutRepository {
           exercises: {
             include: { exercise: true },
           },
+          user: {
+            select: {
+              id: true,
+            },
+          },
         },
       });
 
@@ -126,19 +163,29 @@ export class PrismaWorkoutRepository implements WorkoutRepository {
       updateWorkoutTemplateWithNewDataPromise,
     ]);
 
-    return updateResult[1];
+    return PrismaWorkoutTemplateMapper.toWorkoutTemplate(updateResult[1]);
   }
 
-  delete(id: string): Promise<WorkoutTemplate> {
-    return this.prismaService.workoutTemplate.delete({
-      where: { id },
-      include: {
-        exercises: {
-          include: {
-            exercise: true,
+  async delete(id: string): Promise<WorkoutTemplate> {
+    const deletedWorkoutTemplate =
+      await this.prismaService.workoutTemplate.delete({
+        where: { id },
+        include: {
+          exercises: {
+            include: {
+              exercise: true,
+            },
+          },
+          user: {
+            select: {
+              id: true,
+            },
           },
         },
-      },
-    });
+      });
+
+    return PrismaWorkoutTemplateMapper.toWorkoutTemplate(
+      deletedWorkoutTemplate,
+    );
   }
 }

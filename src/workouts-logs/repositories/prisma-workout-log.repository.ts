@@ -43,8 +43,8 @@ export class PrismaWorkoutLogRepository implements WorkoutLogRepository {
     );
   }
 
-  async findUnique(id: string): Promise<WorkoutLog> {
-    const workoutLog = await this.prismaService.workoutLog.findUniqueOrThrow({
+  async findUnique(id: string): Promise<WorkoutLog | null> {
+    const workoutLog = await this.prismaService.workoutLog.findUnique({
       where: {
         id,
       },
@@ -61,8 +61,16 @@ export class PrismaWorkoutLogRepository implements WorkoutLogRepository {
             },
           },
         },
+        user: {
+          select: {
+            id: true,
+          },
+        },
       },
     });
+    if (!workoutLog) {
+      return null;
+    }
 
     return PrismaWorkoutLogMapper.toWorkoutLog(workoutLog);
   }
@@ -90,6 +98,11 @@ export class PrismaWorkoutLogRepository implements WorkoutLogRepository {
         workoutLogExercises: {
           include: {
             sets: true,
+          },
+        },
+        user: {
+          select: {
+            id: true,
           },
         },
       },
@@ -139,6 +152,11 @@ export class PrismaWorkoutLogRepository implements WorkoutLogRepository {
               sets: true,
             },
           },
+          user: {
+            select: {
+              id: true,
+            },
+          },
         },
       });
 
@@ -158,6 +176,11 @@ export class PrismaWorkoutLogRepository implements WorkoutLogRepository {
         workoutLogExercises: {
           include: {
             sets: true,
+          },
+        },
+        user: {
+          select: {
+            id: true,
           },
         },
       },

@@ -78,6 +78,17 @@ export class WorkoutsService {
     return result;
   }
 
+  async isOwnedByUser(workoutTemplateId: string, userId: string) {
+    const workoutTemplate =
+      await this.workoutRepository.findUnique(workoutTemplateId);
+
+    if (!workoutTemplate) {
+      return false;
+    }
+
+    return workoutTemplate.userId === userId;
+  }
+
   async deleteWorkoutTemplate(id: string) {
     const result = await this.workoutRepository.delete(id);
     return result;

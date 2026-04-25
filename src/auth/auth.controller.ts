@@ -20,6 +20,7 @@ import { type JWTUserResponse } from './interfaces/jwt-user-response';
 import { Cookie } from './decorators/cookie.decorator';
 import { RefreshTokenGuard } from './guards/refresh-token-guard';
 import { RefreshTokensResponseDTO } from './dto/refresh-tokens-response-dto';
+import { RefreshUser } from './decorators/refresh-user.decorator';
 
 @Controller('auth')
 export class AuthController {
@@ -83,9 +84,9 @@ export class AuthController {
   @Public()
   @HttpCode(200)
   @UseGuards(RefreshTokenGuard)
-  @Post('/refresh/token')
+  @Post('/refresh')
   async refreshToken(
-    @JWTUser('id') userId: JWTUserResponse['id'],
+    @RefreshUser('id') userId: JWTUserResponse['id'],
     @Cookie('refreshToken') refreshToken: string,
     @Res({ passthrough: true }) response: Response,
   ): Promise<RefreshTokensResponseDTO> {

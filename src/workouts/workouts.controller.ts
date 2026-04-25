@@ -8,6 +8,7 @@ import {
   Patch,
   Post,
   Query,
+  UseGuards,
 } from '@nestjs/common';
 import { WorkoutsService } from './workouts.service';
 import { UpdateWorkoutTemplateDTO } from './dtos/update-workout-template-dto';
@@ -16,6 +17,7 @@ import { CursorPaginationDTO } from 'src/common/cursor-pagination/cursor-paginat
 import { WorkoutTemplateResponseDTO } from './dtos/workout-template-response-dto';
 import { JWTUser } from 'src/auth/decorators/jwt-user.decorator';
 import { type JWTUserResponse } from 'src/auth/interfaces/jwt-user-response';
+import { WorkoutTemplateOwnershipGuard } from './guards/workout-template-ownership.guard';
 
 @Controller('workout-templates')
 export class WorkoutsController {
@@ -39,15 +41,19 @@ export class WorkoutsController {
   @Get(':id')
   async findOne(@Param('id', new ParseUUIDPipe()) id: string) {
     const response = await this.workoutsService.getById(id);
+    if (!response) return null;
+
     return WorkoutTemplateResponseDTO.from(response);
   }
 
+  @UseGuards(WorkoutTemplateOwnershipGuard)
   @Delete(':id')
   async removeOne(@Param('id', new ParseUUIDPipe()) id: string) {
     await this.workoutsService.deleteWorkoutTemplate(id);
     return { message: 'Workout template successfully deleted.' };
   }
 
+  @UseGuards(WorkoutTemplateOwnershipGuard)
   @Patch(':id')
   async updateOne(
     @Param('id', new ParseUUIDPipe()) id: string,

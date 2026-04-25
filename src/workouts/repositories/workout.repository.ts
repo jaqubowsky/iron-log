@@ -11,7 +11,7 @@ export abstract class WorkoutRepository {
     take: number;
   }): Promise<WorkoutTemplate[]>;
 
-  abstract findUnique(id: string): Promise<WorkoutTemplate>;
+  abstract findUnique(id: string): Promise<WorkoutTemplate | null>;
 
   abstract create(
     data: CreateWorkoutTemplateDTO,

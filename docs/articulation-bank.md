@@ -353,27 +353,34 @@ Do domknięcia:
 
 ### External API service — retry, circuit breaker, error handling (M3)
 
-**Score:** 4.0/5 | **Last tested:** 2026-03-25 | **Next review:** 2026-04-04 (interval: 10d)
+**Score:** 3.0/5 | **Last tested:** 2026-04-25 | **Next review:** 2026-06-01 (interval: 37d)
+**L3 anchor:** none
 
 Historia:
 
+- 2026-04-25 (articulation-check): 3.0/5 — timeout+retry+fallback cache samodzielnie, circuit breaker po bezpośrednim hincie, exponential backoff nigdy (10d → 37d)
 - 2026-03-25 (mock): 4/5 — dobre pokrycie architektury
 
 Do domknięcia:
 
-- Error handling detale: retry strategy, circuit breaker, exponential backoff
+- Exponential backoff w retry: 1s → 2s → 4s → 8s — nigdy nie pojawiło się samodzielnie
+- Circuit breaker: znany po hincie, nie samodzielnie — potrzeba więcej powtórzeń
 - Mapowanie danych z zewnętrznego kształtu (ACL layer)
 
 ### Response transformation — SQL-level vs app-level trade-offy (M3)
 
-**Score:** 4.0/5 | **Last tested:** 2026-03-23 | **Next review:** 2026-04-02 (interval: 10d)
+**Score:** 3.0/5 | **Last tested:** 2026-04-24 | **Next review:** 2026-06-01 (interval: 38d)
+**L3 anchor:** src/workouts-logs/repositories/prisma-workout-log.mapper.ts:1
 
 Historia:
 
+- 2026-04-24 (articulation-check): 3.0/5 — initial "zdecydowanie SQL" bez świadomości że Prisma include = 2 queries + in-memory merge; JOIN vs include konfuzja w re-recall (10d → 38d)
 - 2026-03-23 (mock): 2.5/5 — nie wymienił performance bez naprowadzenia
 - Po sesjach kodowania progres do 4/5
 
 Do domknięcia:
+
+- Prisma `include` = 2 osobne SELECT + in-memory merge (NIE JOIN) — samodzielnie bez re-recall
 
 ### REST sparse fields — mobile vs web, field filtering, DTO per client (M3)
 

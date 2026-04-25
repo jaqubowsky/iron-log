@@ -87,8 +87,6 @@ export class AuthService {
   async validateRefreshToken(
     data: ValidateRefreshTokenInput,
   ): Promise<ValidateRefreshTokenOutput> {
-    if (!data.refreshToken) return { valid: false };
-
     const refreshTokenHash = this.hashRefreshToken(data.refreshToken);
     const response =
       await this.authRepository.validateRefreshToken(refreshTokenHash);

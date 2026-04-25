@@ -1,0 +1,134 @@
+### ============================================================
+### OWNERSHIP GUARD — requires seed.py to be run first
+###
+### Flow:
+###   1. Login as Anna → paste accessToken into @annaToken
+###   2. Login as Bob  → paste accessToken into @bobToken
+###   3. Run the ownership tests below
+### ============================================================
+
+### Login as Anna (anna@seed.pl / AnnaTest123!)
+POST http://localhost:3000/auth/login
+Content-Type: application/json
+
+{
+  "email": "anna@seed.pl",
+  "password": "AnnaTest123!"
+}
+
+### Login as Bob (bob@seed.pl / BobTest456!)
+POST http://localhost:3000/auth/login
+Content-Type: application/json
+
+{
+  "email": "bob@seed.pl",
+  "password": "BobTest456!"
+}
+
+###
+
+# Paste access tokens from login responses:
+@annaToken = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI1ZWVkMDAwMC0wMDAwLTQwMDAtODAwMC0wMDAwMDAwMDAwMDEiLCJlbWFpbCI6ImFubmFAc2VlZC5wbCIsImlhdCI6MTc3NzA2Njk2NiwiZXhwIjoxNzc3MDY3ODY2fQ.vMMYw92Ng6dPueTAe8UWNN8TOhRzXFWonJp7wpjT5i4
+@bobToken  = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI1ZWVkMDAwMC0wMDAwLTAwMDAtMDAwMC0wMDAwMDAwMDAwMDIiLCJlbWFpbCI6ImJvYkBzZWVkLnBsIiwiaWF0IjoxNzc3MDY2NzQ0LCJleHAiOjE3NzcwNjc2NDR9.evJEnUYTn_8btNyipOZQWg0dHHJIUB2Suy85AfqvMbM
+# Fixed IDs from seed.py:
+@annaTemplateId = 5eed0000-0000-4002-8002-000000000001
+@bobTemplateId  = 5eed0000-0000-4002-8002-000000000004
+@annaLogId      = 5eed0000-0000-4003-8003-000000000001
+@bobLogId       = 5eed0000-0000-4003-8003-000000000003
+
+### ============================================================
+### WORKOUT TEMPLATES — ownership
+### ============================================================
+
+### PATCH own template (Anna → Anna's) — should 200
+PATCH http://localhost:3000/workout-templates/{{annaTemplateId}}
+Authorization: Bearer {{annaToken}}
+Content-Type: application/json
+
+{
+  "name": "Anna Push Day v2"
+}
+
+### PATCH foreign template (Anna → Bob's) — should 403
+PATCH http://localhost:3000/workout-templates/{{bobTemplateId}}
+Authorization: Bearer {{annaToken}}
+Content-Type: application/json
+
+{
+  "name": "Hacked by Anna"
+}
+
+### DELETE own template (Bob → Bob's) — should 200
+DELETE http://localhost:3000/workout-templates/{{bobTemplateId}}
+Authorization: Bearer {{bobToken}}
+
+### DELETE foreign template (Bob → Anna's) — should 403
+DELETE http://localhost:3000/workout-templates/{{annaTemplateId}}
+Authorization: Bearer {{bobToken}}
+
+### GET foreign template — should still 200 (guard doesn't block reads)
+GET http://localhost:3000/workout-templates/{{bobTemplateId}}
+Authorization: Bearer {{annaToken}}
+
+### ============================================================
+### WORKOUT LOGS — ownership
+### ============================================================
+
+### PATCH own log (Anna → Anna's) — should 200
+PATCH http://localhost:3000/workout-logs/{{annaLogId}}
+Authorization: Bearer {{annaToken}}
+Content-Type: application/json
+
+{
+  "exercises": [
+    {
+      "exerciseId": "5eed0000-0000-4001-8001-000000000001",
+      "order": 1,
+      "sets": [{ "weight": 75, "reps": 8, "rpe": 7, "order": 1 }]
+    }
+  ]
+}
+
+### PATCH foreign log (Anna → Bob's) — should 403
+PATCH http://localhost:3000/workout-logs/{{bobLogId}}
+Authorization: Bearer {{annaToken}}
+Content-Type: application/json
+
+{
+  "exercises": [
+    {
+      "exerciseId": "5eed0000-0000-4001-8001-000000000001",
+      "order": 1,
+      "sets": [{ "weight": 75, "reps": 8, "rpe": 7, "order": 1 }]
+    }
+  ]
+}
+
+### DELETE own log (Bob → Bob's) — should 200
+DELETE http://localhost:3000/workout-logs/{{bobLogId}}
+Authorization: Bearer {{bobToken}}
+
+### DELETE foreign log (Bob → Anna's) — should 403
+DELETE http://localhost:3000/workout-logs/{{annaLogId}}
+Authorization: Bearer {{bobToken}}
+
+### ============================================================
+### EDGE CASES
+### ============================================================
+
+### PATCH nonexistent template — should 403 (guard returns false on not found)
+PATCH http://localhost:3000/workout-templates/00000000-0000-0000-0000-000000000000
+Authorization: Bearer {{annaToken}}
+Content-Type: application/json
+
+{
+  "name": "Ghost"
+}
+
+### PATCH without auth — should 401 (JwtGuard fires before OwnershipGuard)
+PATCH http://localhost:3000/workout-templates/{{annaTemplateId}}
+Content-Type: application/json
+
+{
+  "name": "No auth"
+}

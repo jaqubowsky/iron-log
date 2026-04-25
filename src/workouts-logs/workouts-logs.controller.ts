@@ -8,6 +8,7 @@ import {
   Patch,
   Post,
   Query,
+  UseGuards,
 } from '@nestjs/common';
 import { WorkoutsLogsService } from './workouts-logs.service';
 import { CreateWorkoutLogDTO } from './dtos/create-workout-log-dto';
@@ -19,6 +20,7 @@ import {
 } from './dtos/workout-log-response-dto';
 import { JWTUser } from 'src/auth/decorators/jwt-user.decorator';
 import { JWTUserResponse } from 'src/auth/interfaces/jwt-user-response';
+import { WorkoutLogsOwnershipGuard } from './guards/workout-logs-ownership.guard';
 
 @Controller('workout-logs')
 export class WorkoutsLogsController {
@@ -42,6 +44,8 @@ export class WorkoutsLogsController {
   @Get(':id')
   async findOne(@Param('id', new ParseUUIDPipe()) id: string) {
     const response = await this.workoutsLogsService.getById(id);
+    if (!response) return null;
+
     return WorkoutLogResponseDTO.from(response);
   }
 
@@ -54,6 +58,7 @@ export class WorkoutsLogsController {
     return WorkoutLogResponseDTO.from(response);
   }
 
+  @UseGuards(WorkoutLogsOwnershipGuard)
   @Patch(':id')
   async updateOne(
     @Param('id', new ParseUUIDPipe()) id: string,
@@ -63,6 +68,7 @@ export class WorkoutsLogsController {
     return WorkoutLogResponseDTO.from(response);
   }
 
+  @UseGuards(WorkoutLogsOwnershipGuard)
   @Delete(':id')
   async delete(@Param('id', new ParseUUIDPipe()) id: string) {
     const response = await this.workoutsLogsService.delete(id);

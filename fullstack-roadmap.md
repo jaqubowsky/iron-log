@@ -149,7 +149,7 @@ JWT auth od zera z Passport.js (standard w NestJS). Największy build milestone 
 
 ### Checkpointy L3 — Ownership + Security
 
-- [ ] Ownership guard — custom guard sprawdzający że user widzi tylko swoje zasoby (workout logs, templates)
+- [x] Ownership guard — custom guard sprawdzający że user widzi tylko swoje zasoby (workout logs, templates)
 - [x] `@CurrentUser()` custom decorator — `createStrategyUserDecorator<T>()` factory, type-safe — anchor `src/auth/decorators/strategy-user.decorator.ts:1`
 - [x] ConfigModule skonfigurowany — Zod schema z fail-fast, `configService.getOrThrow`, `.passthrough()` — anchor `src/app.module.ts:16`
 - [ ] Security basics: CORS (konfig per env), helmet, rate limiting (global + per-route)
