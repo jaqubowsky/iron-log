@@ -98,16 +98,24 @@ Patrz "Do domknięcia" w banku. Zadaj pytania pogłębiające:
 - Co trafne
 - Co nadal brakuje
 - Grade X/5 (skala 1-5 z 0.5 krokami)
+- **Jeśli gap wynika z braku wiedzy** (Jakub nigdy tego nie widział, nie "zapomniał"): daj analogię + 3-5 linii przykładu PRZED przejściem do re-recall. Bez tego re-recall pyta o coś czego nie ma czym wypełnić.
 
 ### 5.5 Re-recall (obowiązkowy przy grade <3.5)
 
+**🔴 TWARDY STOP — nie przechodzisz do następnego pytania dopóki re-recall nie zostanie wykonany.**
+
 Próg to **ściśle <3.5**. Grade = 3.5 → BEZ re-recall. Grade = 3.4 → re-recall.
 
-```
-"OK, powiedz mi to jeszcze raz uwzględniając to co pominąłeś."
-```
+**Dwa warianty** (wybierz zależnie od rodzaju gapa):
+
+- **Gap był znany ale pominięty** (Jakub umiał odpowiedzieć po pytaniu): `"OK, powiedz mi to jeszcze raz uwzględniając to co pominąłeś."`
+- **Gap był nieznany** (Jakub nie miał skąd to wiedzieć — podałeś mu to w feedback/analogii): `"Teraz powiedz mi to jeszcze raz — włącznie z tym co właśnie powiedziałem o [X]."`
 
 Czekaj na pełną odpowiedź. **Grade zostaje** — re-recall wbudowuje feedback w encoding, nie zmienia oceny pierwszej produkcji (Roediger & Karpicke, 2006).
+
+**❌ Red flag — NIE rób tego:**
+- Grade 3.0 → feedback → od razu następne pytanie (baseline z 2026-04-27: coach pominął re-recall, Jakub słusznie zaprotestował)
+- Re-recall bez poprzedzenia go wyjaśnieniem gdy gap był nieznany = pytasz o coś czego Jakub nie ma skąd wiedzieć
 
 ### 5.6 Oblicz nowy interval (formuła SRS)
 

@@ -21,6 +21,12 @@ import { Cookie } from './decorators/cookie.decorator';
 import { RefreshTokenGuard } from './guards/refresh-token-guard';
 import { RefreshTokensResponseDTO } from './dto/refresh-tokens-response-dto';
 import { RefreshUser } from './decorators/refresh-user.decorator';
+import { Throttle } from '@nestjs/throttler';
+
+const THROTTLE_AUTH_TIME_MS = 60_000; // 1 minute
+
+const THROTTLE_AUTH_LIMIT = 5; // requests per minute
+const THROTTLE_REFRESH_TOKEN_LIMIT = 20; // requests per minute
 
 @Controller('auth')
 export class AuthController {
@@ -39,6 +45,9 @@ export class AuthController {
     });
   }
 
+  @Throttle({
+    default: { ttl: THROTTLE_AUTH_TIME_MS, limit: THROTTLE_AUTH_LIMIT },
+  })
   @Public()
   @Post('/register')
   register(@Body() data: RegisterUserDTO): Promise<User> {
@@ -63,6 +72,9 @@ export class AuthController {
     return this.authService.getMe(userId);
   }
 
+  @Throttle({
+    default: { ttl: THROTTLE_AUTH_TIME_MS, limit: THROTTLE_AUTH_LIMIT },
+  })
   @Public()
   @UseGuards(LocalAuthGuard)
   @Post('/login')
@@ -81,6 +93,12 @@ export class AuthController {
     return { accessToken: jwtResponse.accessToken };
   }
 
+  @Throttle({
+    default: {
+      ttl: THROTTLE_AUTH_TIME_MS,
+      limit: THROTTLE_REFRESH_TOKEN_LIMIT,
+    },
+  })
   @Public()
   @HttpCode(200)
   @UseGuards(RefreshTokenGuard)

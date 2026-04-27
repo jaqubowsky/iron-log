@@ -51,6 +51,22 @@ Każde NestJS-specific ćwiczenie jest też ćwiczeniem z tych zasad. W `articul
 
 AI używasz jako: rubber duck, reference, code reviewer — nigdy jako ghostwriter.
 
+## Nawyk: Code Reading (M5–M7)
+
+**Cel:** Pattern recognition przez czytanie kodu produkcyjnego — widzisz jak senior dev używa tych samych narzędzi które budujesz w IRONLOG.
+
+**Repo:** [Immich backend](https://github.com/immich-app/immich/tree/main/server/src) — NestJS + TypeScript, produkcja, duże repo.
+
+**Rytm:** 30 min raz w tygodniu w blokach M5–M7. Nie analiza, nie ćwiczenia — samo czytanie.
+
+| Milestone | Fokus | Gdzie szukać |
+|---|---|---|
+| M5 | Jak Immich przetwarza pliki bez blokowania event loop | `src/workers/` — streams, async queue handling |
+| M6 | Interceptory, dekoratory, custom providers w realnym projekcie | `src/` — szukaj `@Injectable`, `intercept()`, `createParamDecorator` |
+| M7 | Production-ready setup: Docker, CI, graceful shutdown | `Dockerfile`, `.github/workflows/`, `src/main.ts` |
+
+**Po czytaniu (5 min):** jedno zdanie w session logu — *"W Immich widziałem X, zaskoczył mnie Y."* Jeśli nic nie zaskoczyło — następnym razem idź głębiej w ten sam plik.
+
 ## Reguły przechodzenia między milestones
 
 Każdy checkpoint w roadmap to **L3 (praktyczny)**. Dwie kategorie tasków w jednej liście:
@@ -152,7 +168,7 @@ JWT auth od zera z Passport.js (standard w NestJS). Największy build milestone 
 - [x] Ownership guard — custom guard sprawdzający że user widzi tylko swoje zasoby (workout logs, templates)
 - [x] `@CurrentUser()` custom decorator — `createStrategyUserDecorator<T>()` factory, type-safe — anchor `src/auth/decorators/strategy-user.decorator.ts:1`
 - [x] ConfigModule skonfigurowany — Zod schema z fail-fast, `configService.getOrThrow`, `.passthrough()` — anchor `src/app.module.ts:16`
-- [ ] Security basics: CORS (konfig per env), helmet, rate limiting (global + per-route)
+- [x] Security basics: CORS (konfig per env), helmet, rate limiting (global + per-route) — anchor `src/main.ts:10` + `src/app.module.ts:35` + `src/auth/auth.controller.ts:48`
 - [ ] Min. 2 unit testy dla AuthService (validateUser, hashPassword) napisane samodzielnie
 - [ ] (bridge, originally M2) **Optimistic locking + `version` field** — dodać `version Int @default(1)` do `WorkoutTemplate` (lub innego modelu który ma realne ryzyko concurrent update). `PATCH /workout-templates/:id` wymaga `If-Match: <version>` lub `version` w body, inkrementuje atomowo w jednym UPDATE, 409 Conflict przy mismatch. Test integration: dwa requesty z tym samym version → drugi dostaje 409. **Tematyczne matching z M4:** refresh token rotation (`valid` flag + reuse detection) to aplikacja tego samego patternu "detect conflict after the fact" — idealnie pasuje jako warmup przy login flow.
 

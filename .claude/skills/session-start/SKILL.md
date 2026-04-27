@@ -90,6 +90,21 @@ Gdy aktualny milestone ma zero `[ ]` **core** L3 checkpointów (wszystko core od
 - Bank L2 nie generuje tasków bezpośrednio — robi to bridge writer w session-end (kroku 3a). Jeśli widzisz w banku temat ze score ≥3.5 i `L3 anchor: unknown` ale nie ma odpowiadającego `(bridge)` taska w roadmap → znaczy że poprzednia sesja-end nie zdążyła go napisać. Możesz to zaadresować w bieżącej sesji: zaproponuj "Widzę że [topic] ma score 4/5 ale brak kotwicy w kodzie. Wpiszmy to dziś jako bridge task w M<X>?" i jeśli Jakub zgodzi się, dopisz `(bridge)` do roadmap.
 - Jakub może zaproponować inny task niż rekomendowany — respektuj jego wybór jeśli jest to L3 z roadmap (core lub bridge). Jeśli chce coś spoza roadmap (np. "zróbmy X ale X nie ma w roadmap") → powiedz "X nie jest w roadmap, dodaj je do M[number] jako checkpoint albo wróćmy do [recommended task]"
 
+### Weryfikacja kodu przed prezentacją (obowiązkowa)
+
+**Zaraz po wybraniu taska — zanim napiszesz session log i zanim cokolwiek powiesz Jakubowi** — zweryfikuj co z checkpointu już istnieje w kodzie.
+
+**Kiedy:** gdy checkpoint wymienia więcej niż jeden komponent (np. "CORS + helmet + rate limiting", "DTO + guard + endpoint").
+
+**Jak:** Grep po kluczowych symbolach z opisu checkpointu. Dla "CORS + helmet + rate limiting" → `grep -rn "helmet\|throttl\|enableCors" src/`. Dla "unit testy AuthService" → `grep -rn "describe.*AuthService" src/`.
+
+**Co zrobić z wynikiem:**
+- Wszystko brakuje → task zgodny z roadmapem, idź dalej
+- Część jest → zawęź task do brakujących komponentów, zanotuj co już jest w session logu
+- Wszystko jest → roadmap nie był zaktualizowany. Odhacz `[x]` w roadmapie, wybierz kolejny task
+
+**Cel:** nie prezentuj Jakubowi pracy którą już wykonał. Błąd z dziś (2026-04-27): session-start zaprezentował CORS + helmet jako nowy task mimo że były już zaimplementowane w `src/main.ts`.
+
 ## 4. Task briefing — ekspozycja dla score-0 topics (jeśli potrzebny)
 
 Jakub nie może kodować bez bazowej wiedzy teoretycznej (nie użyje `bcrypt.hash()` nie wiedząc co to salt). Task briefing daje tę bazę PRZED kodowaniem.

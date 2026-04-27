@@ -12,6 +12,7 @@ import { UsersModule } from './users/users.module';
 import { APP_FILTER, APP_GUARD } from '@nestjs/core';
 import * as z from 'zod';
 import { JwtAuthGuard } from './auth/guards/jwt-auth-guard';
+import { ThrottlerGuard, ThrottlerModule } from '@nestjs/throttler';
 
 const validationSchema = z.object({
   DATABASE_URL: z.string().min(1),
@@ -22,11 +23,23 @@ const validationSchema = z.object({
   CORS_ORIGIN: z.url(),
 });
 
+const THROTTLE_TIME_MS = 60_000; // 1 minute
+const THROTTLE_LIMIT = 50; // requests per minute
+
 @Module({
   imports: [
     ConfigModule.forRoot({
       isGlobal: true,
       validate: (config) => validationSchema.parse(config),
+    }),
+    ThrottlerModule.forRoot({
+      throttlers: [
+        {
+          name: 'default',
+          ttl: THROTTLE_TIME_MS,
+          limit: THROTTLE_LIMIT,
+        },
+      ],
     }),
     ExercisesModule,
     PrismaModule,
@@ -39,6 +52,7 @@ const validationSchema = z.object({
   providers: [
     AppService,
     { provide: APP_FILTER, useClass: PrismaExceptionFilter },
+    { provide: APP_GUARD, useClass: ThrottlerGuard },
     { provide: APP_GUARD, useClass: JwtAuthGuard },
   ],
 })

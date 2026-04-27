@@ -614,31 +614,33 @@ Do domknięcia:
 
 ### Event loop — fazy, microtasks/macrotasks, single-threaded non-blocking (M5)
 
-**Score:** 3.0/5 | **Last tested:** 2026-04-04 | **Next review:** 2026-04-07 (interval: 3d)
+**Score:** 3.0/5 | **Last tested:** 2026-04-27 | **Next review:** 2026-05-25 (interval: 28d)
+**L3 anchor:** unknown
 
 Historia:
 
+- 2026-04-27 (articulation-check): 3.0/5 — szkielet sync→micro→macro poprawny, nextTick>Promise.then po pytaniu, libuv bez nazwy (3d → 28d)
 - 2026-04-04 (explain): 3/5 — koncept single-threaded trafny, brakuje precyzji faz
 
 Do domknięcia:
 
-- Phases by name: timers → pending callbacks → idle/prepare → poll → check → close callbacks
-- Microtask queue ordering (process.nextTick > Promise.then) między fazami
+- process.nextTick > Promise.then — pojawia się po pytaniu, nie samodzielnie
 - Dlaczego "non-blocking" mimo single-thread (I/O delegowane do kernel/libuv thread pool)
 
 ### Streams + backpressure — kiedy użyć, CSV 50MB scenario (M5)
 
-**Score:** 3.0/5 | **Last tested:** 2026-04-04 | **Next review:** 2026-04-07 (interval: 3d)
+**Score:** 3.5/5 | **Last tested:** 2026-04-27 | **Next review:** 2026-06-12 (interval: 46d)
+**L3 anchor:** unknown
 
 Historia:
 
+- 2026-04-27 (articulation-check): 3.5/5 — memory pressure (po korekcie) + backpressure mechanizm samodzielnie. Brakuje BullMQ + 202 Accepted. (3d → 46d)
 - 2026-04-04 (mock): 3/5 — streams + chunking + single-threaded event loop trafne po prompcie. Brakowało: queue (BullMQ) jako async offloading, 202 Accepted pattern
 
 Do domknięcia:
 
-- Queue (BullMQ) jako alternatywa dla long-running tasks
+- Queue (BullMQ) jako alternatywa dla long-running tasks — nigdy nie pojawia się samodzielnie
 - 202 Accepted pattern dla async processing
-- Backpressure mechanism: pause upstream gdy downstream buffer pełny
 
 ### Node 1000 concurrent requests — co się dzieje (M5)
 
