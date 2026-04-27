@@ -1,7 +1,7 @@
 # Fullstack Mid+ — Roadmap (milestone-based)
 
 ## Status (aktualizuj po każdej sesji)
-- **Aktywny milestone:** M4 — Auth + Security 🔴 BLOKUJE
+- **Aktywny milestone:** M5 — Node.js runtime 🔴 BLOKUJE
 - **Następny checkpoint:** Passport LocalStrategy + POST /auth/register
 - **Articulation bank:** tematy narracyjne L2 w `docs/articulation-bank.md`
 
@@ -138,7 +138,7 @@ Budujesz WorkoutTemplates, WorkoutLogs — cross-module communication. Widzisz j
 
 ---
 
-## Milestone 4 — Auth + Security (NestJS + Passport) 🔴 BLOKUJE
+## Milestone 4 — Auth + Security (NestJS + Passport) ✅
 
 ### Co robisz
 
@@ -169,7 +169,7 @@ JWT auth od zera z Passport.js (standard w NestJS). Największy build milestone 
 - [x] `@CurrentUser()` custom decorator — `createStrategyUserDecorator<T>()` factory, type-safe — anchor `src/auth/decorators/strategy-user.decorator.ts:1`
 - [x] ConfigModule skonfigurowany — Zod schema z fail-fast, `configService.getOrThrow`, `.passthrough()` — anchor `src/app.module.ts:16`
 - [x] Security basics: CORS (konfig per env), helmet, rate limiting (global + per-route) — anchor `src/main.ts:10` + `src/app.module.ts:35` + `src/auth/auth.controller.ts:48`
-- [ ] Min. 2 unit testy dla AuthService (validateUser, hashPassword) napisane samodzielnie
+- [x] Min. 2 unit testy dla AuthService (validateUser, hashPassword) napisane samodzielnie — anchor `src/auth/auth.service.spec.ts`
 - [ ] (bridge, originally M2) **Optimistic locking + `version` field** — dodać `version Int @default(1)` do `WorkoutTemplate` (lub innego modelu który ma realne ryzyko concurrent update). `PATCH /workout-templates/:id` wymaga `If-Match: <version>` lub `version` w body, inkrementuje atomowo w jednym UPDATE, 409 Conflict przy mismatch. Test integration: dwa requesty z tym samym version → drugi dostaje 409. **Tematyczne matching z M4:** refresh token rotation (`valid` flag + reuse detection) to aplikacja tego samego patternu "detect conflict after the fact" — idealnie pasuje jako warmup przy login flow.
 
 ### Przykładowe pytania rekrutacyjne

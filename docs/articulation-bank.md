@@ -192,15 +192,17 @@ Do domknięcia:
 
 ### INNER vs LEFT JOIN — kiedy który, co zwraca gdy brak dopasowania (M2)
 
-**Score:** 3.5/5 | **Last tested:** 2026-04-10 | **Next review:** 2026-04-15 (interval: 5d)
+**Score:** 3.5/5 | **Last tested:** 2026-04-27 | **Next review:** 2026-05-31 (interval: 34d)
+**L3 anchor:** none
 
 Historia:
 
+- 2026-04-27 (articulation-check): 3.5/5 — mechanizm poprawny, NULL po jednym dopytaniu (2. raz z rzędu) (5d → 34d)
 - 2026-04-10 (recall): 3.5/5 — mechanizm poprawny, "NULL w prawej tabeli" po prompcie
 
 Do domknięcia:
 
-- "NULL w kolumnach prawej tabeli" bez scaffoldingu
+- "NULL w kolumnach prawej tabeli" bez scaffoldingu — pojawia się po prompcie 2. sesję z rzędu
 - Trick question: "czy INNER może zwrócić więcej rekordów niż LEFT?" (nie — LEFT ≥ INNER zawsze)
 
 ### ACID — wytłumacz każdą literę z przykładem z IRONLOG (M2)
@@ -534,18 +536,18 @@ Do domknięcia:
 
 ### bcrypt vs SHA256 — salt, cost factor, dlaczego do haseł (M4)
 
-**Score:** 1.5/5 | **Last tested:** 2026-04-14 | **Next review:** 2026-04-15 (interval: 1d)
+**Score:** 3.5/5 | **Last tested:** 2026-04-27 | **Next review:** 2026-05-23 (interval: 26d)
 **L3 anchor:** src/auth/auth.service.ts:11
 
 Historia:
 
+- 2026-04-27 (articulation-check): 3.5/5 — SHA256 za szybkie + brak salta + cost factor samodzielnie. Salt embedded + compare() po jednym dopytaniu. (1d → 26d)
 - 2026-04-14 (task briefing): 1.5/5 — pierwsza ekspozycja, signposting bez deep dive
 
 Do domknięcia:
 
-- Bez scaffoldingu: "dlaczego SHA256 NIE do haseł" (odpowiedź: za szybkie, GPU-friendly)
-- Cost factor = 2^n iteracji — umieć wymienić liczbowo dla cost=10, 12
-- Salt wbudowany w output bcrypt — dlaczego `compare()` zamiast `===`
+- Cost factor liczbowo: cost=10 → 2^10=1024 iteracji, cost=12 → 4096 — bez scaffoldingu
+- Salt wbudowany w output — compare() mechanizm pojawia się po jednym pytaniu, nie samodzielnie
 - Argon2 jako następca — znać istnienie i dlaczego bcrypt dalej standard
 
 ### OWASP top 3 (XSS, SQL injection, CSRF) — mechanizm i obrona (M4)

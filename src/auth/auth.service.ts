@@ -1,5 +1,4 @@
 import { Injectable, UnauthorizedException } from '@nestjs/common';
-import { UsersService } from 'src/users/users.service';
 import { RegisterUserDTO } from './dto/register-user-dto';
 import * as bcrypt from 'bcrypt';
 import { User } from 'src/users/interfaces/user';
@@ -13,6 +12,7 @@ import { createHash, randomUUID } from 'node:crypto';
 import { ValidateRefreshTokenInput } from './interfaces/validate-refresh-token-input';
 import { RefreshTokensInput } from './interfaces/refresh-tokens-input';
 import { ValidateRefreshTokenOutput } from './interfaces/validate-refresh-token-output';
+import { UsersService } from 'src/users/users.service';
 
 @Injectable()
 export class AuthService {
