@@ -1,6 +1,6 @@
 import { CreateExerciseDTO } from '../dtos/create-exercise-dto';
 import { UpdateExerciseByIdDTO } from '../dtos/update-exercise-by-id-dto';
-import { ExerciseDTO } from '../dtos/exercise-dto';
+import { Exercise } from '../interfaces/exercise';
 
 export abstract class ExerciseRepository {
   abstract findMany({
@@ -9,17 +9,17 @@ export abstract class ExerciseRepository {
   }: {
     skip?: number;
     limit?: number;
-  }): Promise<{ items: ExerciseDTO[]; total: number }>;
+  }): Promise<{ items: Exercise[]; total: number }>;
 
-  abstract findManyByIds(ids: string[]): Promise<ExerciseDTO[]>;
+  abstract findManyByIds(ids: string[]): Promise<Exercise[]>;
 
-  abstract findUnique(id: string): Promise<ExerciseDTO>;
+  abstract findUnique(id: string): Promise<Exercise>;
 
-  abstract create(data: CreateExerciseDTO): Promise<ExerciseDTO>;
+  abstract create(data: CreateExerciseDTO): Promise<Exercise>;
 
   abstract resolveExerciseIds(
     ids: string[],
-  ): Promise<{ exercises: ExerciseDTO[]; nonExistingIds: string[] }>;
+  ): Promise<{ exercises: Exercise[]; nonExistingIds: string[] }>;
 
   abstract update({
     id,
@@ -27,7 +27,7 @@ export abstract class ExerciseRepository {
   }: {
     id: string;
     data: UpdateExerciseByIdDTO;
-  }): Promise<ExerciseDTO>;
+  }): Promise<Exercise>;
 
-  abstract delete(id: string): Promise<ExerciseDTO>;
+  abstract delete(id: string): Promise<Exercise>;
 }

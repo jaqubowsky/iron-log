@@ -1,4 +1,4 @@
-import { ExerciseCategory } from 'src/exercises/dtos/exercise-dto';
+import { ExerciseCategory } from 'src/exercises';
 
 interface WorkoutLogExerciseSet {
   reps: number;

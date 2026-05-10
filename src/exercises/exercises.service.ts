@@ -4,7 +4,7 @@ import { UpdateExerciseByIdDTO } from './dtos/update-exercise-by-id-dto';
 import { OffsetPaginationDTO } from 'src/common/offset-pagination/offset-pagination-dto';
 import { ExerciseRepository } from './repositories/exercise.repository';
 import { getOffsetPagination } from 'src/common/offset-pagination/lib';
-import { ExerciseDTO } from './dtos/exercise-dto';
+import { Exercise } from './interfaces/exercise';
 
 @Injectable()
 export class ExercisesService {
@@ -26,13 +26,13 @@ export class ExercisesService {
     });
   }
 
-  async findManyByIds(ids: string[]): Promise<ExerciseDTO[]> {
+  async findManyByIds(ids: string[]): Promise<Exercise[]> {
     return await this.exerciseRepository.findManyByIds(ids);
   }
 
   async resolveExerciseIds(
     ids: string[],
-  ): Promise<{ exercises: ExerciseDTO[]; nonExistingIds: string[] }> {
+  ): Promise<{ exercises: Exercise[]; nonExistingIds: string[] }> {
     return this.exerciseRepository.resolveExerciseIds(ids);
   }
 

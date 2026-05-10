@@ -3,7 +3,7 @@ import { UpdateExerciseByIdDTO } from '../dtos/update-exercise-by-id-dto';
 import { ExerciseRepository } from './exercise.repository';
 import { PrismaService } from 'src/db/prisma.service';
 import { Injectable } from '@nestjs/common';
-import { ExerciseDTO } from '../dtos/exercise-dto';
+import { Exercise } from '../interfaces/exercise';
 
 @Injectable()
 export class PrismaExerciseRepository implements ExerciseRepository {
@@ -15,7 +15,7 @@ export class PrismaExerciseRepository implements ExerciseRepository {
   }: {
     skip?: number;
     limit?: number;
-  }): Promise<{ items: ExerciseDTO[]; total: number }> {
+  }): Promise<{ items: Exercise[]; total: number }> {
     const [items, total] = await Promise.all([
       this.prismaService.exercise.findMany({
         skip,
@@ -27,7 +27,7 @@ export class PrismaExerciseRepository implements ExerciseRepository {
     return { items, total };
   }
 
-  async findManyByIds(ids: string[]): Promise<ExerciseDTO[]> {
+  async findManyByIds(ids: string[]): Promise<Exercise[]> {
     return await this.prismaService.exercise.findMany({
       where: { id: { in: ids } },
     });
@@ -35,7 +35,7 @@ export class PrismaExerciseRepository implements ExerciseRepository {
 
   async resolveExerciseIds(
     ids: string[],
-  ): Promise<{ exercises: ExerciseDTO[]; nonExistingIds: string[] }> {
+  ): Promise<{ exercises: Exercise[]; nonExistingIds: string[] }> {
     const exercises = await this.prismaService.exercise.findMany({
       where: {
         id: {
@@ -51,11 +51,11 @@ export class PrismaExerciseRepository implements ExerciseRepository {
     return { exercises, nonExistingIds };
   }
 
-  findUnique(id: string): Promise<ExerciseDTO> {
+  findUnique(id: string): Promise<Exercise> {
     return this.prismaService.exercise.findUniqueOrThrow({ where: { id } });
   }
 
-  create(data: CreateExerciseDTO): Promise<ExerciseDTO> {
+  create(data: CreateExerciseDTO): Promise<Exercise> {
     return this.prismaService.exercise.create({ data });
   }
 
@@ -65,11 +65,11 @@ export class PrismaExerciseRepository implements ExerciseRepository {
   }: {
     id: string;
     data: UpdateExerciseByIdDTO;
-  }): Promise<ExerciseDTO> {
+  }): Promise<Exercise> {
     return this.prismaService.exercise.update({ where: { id }, data });
   }
 
-  delete(id: string): Promise<ExerciseDTO> {
+  delete(id: string): Promise<Exercise> {
     return this.prismaService.exercise.delete({ where: { id } });
   }
 }

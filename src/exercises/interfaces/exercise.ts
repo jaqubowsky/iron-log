@@ -7,7 +7,7 @@ export type ExerciseCategory =
   | 'CORE'
   | 'LEGS';
 
-export class ExerciseDTO {
+export interface Exercise {
   id: string;
   name: string;
   description: string | null;
